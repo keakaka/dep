@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xml문서의 유효성 체크를 위해 필요한 부분 -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--  xml문서의 유효성 체크를 위해 필요한 부분  -->
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.kh.dep.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.dep.member.model.vo.MemberSelect" alias="MemberSelect"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
+	</mappers>
+	
+	
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
