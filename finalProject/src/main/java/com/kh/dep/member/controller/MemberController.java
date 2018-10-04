@@ -56,8 +56,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="myInfo.me")
-	public String showMyInfo(){
+	public String selectMyInfoDetail(){
 		return "eb/myInfo";
+	}
+	
+	@RequestMapping(value="updateMyInfo.me")
+	public String updateMyInfoDetail(MemberSelect m, Model model){
+		System.out.println("내정보수정 컨트롤러 이동완료!");
+		int result = ms.updateMyInfo(m);
+		if(result > 0){
+			System.out.println("내 정보 수정 완료");
+		}
+		return "eb/myInfo";
+	}
+	
+	@RequestMapping(value="salary.me")
+	public String insertEmpSalary(){
+		return "eb/allEmployeeSalary";
 	}
 	
 	@RequestMapping(value="mySalary.me")

@@ -80,24 +80,59 @@
 								<div class="dashboard_graph">
 
 									<div class="row x_title">
-										
+
+
 										<div class="col-md-6" style="width: 100%;">
 
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>
-															급여이력조회 <small>${loginUser.empName }</small>
+															급여이력조회 <small>인사담당자</small>
 														</h2>
 
 														<div class="clearfix"></div>
 													</div>
+
+
+													<div id="search-select">
+														<select id="departmentType">
+															<option id="web-font">부서명</option>
+															<option id="web-font">인사부</option>
+															<option id="web-font">영업부</option>
+															<option id="web-font">회계부</option>
+														</select> <select id="jobType">
+															<option id="web-font">직급</option>
+															<option id="web-font">대리</option>
+															<option id="web-font">과장</option>
+															<option id="web-font">대표</option>
+														</select> <select id="nameType">
+															<option id="web-font">사원이름</option>
+															<option id="web-font">뚜비</option>
+															<option id="web-font">나나</option>
+															<option id="web-font">뽀</option>
+														</select> <select id="dateType">
+															<option id="web-font">날짜</option>
+															<option id="web-font">2018</option>
+															<option id="web-font">2017</option>
+															<option id="web-font">2016</option>
+														</select>
+
+														<button onclick="#">검색</button>
+
+													</div>
+
+
 													<div class="x_content">
 
 														<table id="datatable"
 															class="table table-striped table-bordered">
 															<thead>
 																<tr>
+																	<th>부서명</th>
+																	<th>직급</th>
+																	<th>사원명</th>
+																	<th>기본급<br>불러오기</th>
 																	<th>입금월</th>
 																	<th>기본급</th>
 																	<th>정기상여금</th>
@@ -116,8 +151,12 @@
 
 															<tbody>
 																<tr>
+																	<td>영업부</td>
+																	<td>대리</td>
+																	<td>폴킴</td>
+																	<td><input type="button" value="불러오기"/></td>
 																	<td>날짜</td>
-																	<td>${loginUser.salary }</td>
+																	<td>Tiger Nixon</td>
 																	<td>System Architect</td>
 																	<td>Edinburgh</td>
 																	<td>61</td>
@@ -130,6 +169,10 @@
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
 																</tr>
 																<tr>
+																	<td>영업부</td>
+																	<td>대리</td>
+																	<td>폴킴</td>
+																	<td><input type="button" value="불러오기"/></td>
 																	<td>날짜</td>
 																	<td>Garrett Winters</td>
 																	<td>Accountant</td>
@@ -144,6 +187,10 @@
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
 																</tr>
 																<tr>
+																	<td>영업부</td>
+																	<td>대리</td>
+																	<td>폴킴</td>
+																	<td><input type="button" value="불러오기"/></td>
 																	<td>날짜</td>
 																	<td>Ashton Cox</td>
 																	<td>Junior Technical Author</td>
@@ -158,6 +205,10 @@
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
 																</tr>
 																<tr>
+																	<td>영업부</td>
+																	<td>대리</td>
+																	<td>폴킴</td>
+																	<td><input type="button" value="불러오기"/></td>
 																	<td>날짜</td>
 																	<td>Cedric Kelly</td>
 																	<td>Senior Javascript Developer</td>
@@ -172,6 +223,10 @@
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
 																</tr>
 																<tr>
+																	<td>영업부</td>
+																	<td>대리</td>
+																	<td>폴킴</td>
+																	<td><input type="button" value="불러오기"/></td>
 																	<td>날짜</td>
 																	<td>Airi Satou</td>
 																	<td>Accountant</td>
@@ -190,6 +245,66 @@
 														</table>
 													</div>
 												</div>
+
+												<form id="excelUploadForm" name="excelUploadForm"
+													enctype="multipart/form-data" method="post"
+													action="<c:url value="/excelUploadAjax"/>" >
+
+													<div class="contents">
+														<div>첨부파일은 한개만 등록 가능합니다.</div>
+
+														<dl class="vm_name">
+															<dt class="down w90">첨부 파일</dt>
+															<dd>
+																<input type="file" id="excelFile" name="excelFile" />
+															</dd>
+														</dl>
+													</div>
+
+													<div class="bottom">
+														<button type="button" id="addExcelImportBtn" class="btn"
+															onclick="check()">
+															<span>추가</span>
+														</button>
+														<!-- <input type="submit" value="업로드"/> -->
+													</div>
+												</form>
+												<script>
+												function checkFileType(filePath) {
+									                var fileFormat = filePath.split(".");
+									                if (fileFormat.indexOf("xlsx") > -1) {
+									                    return true;
+									                } else {
+									                    return false;
+									                }
+									 
+									            }
+
+												function check() {
+									                var file = $("#excelFile").val();
+									                if (file == "" || file == null) {
+									                    alert("파일을 선택해주세요.");
+									                    return false;
+									                } else if (!checkFileType(file)) {
+									                    alert("엑셀 파일만 업로드 가능합니다.");
+									                    return false;
+									                }
+									 
+									                if (confirm("업로드 하시겠습니까?")) {
+									                    var options = {
+									                        success : function(data) {
+									                            alert("모든 데이터가 업로드 되었습니다.");
+									 
+									                        },
+									                        type : "POST"
+									                    };
+									                    $("#excelUploadForm").ajaxSubmit(options);
+									    
+									                }
+									            }
+												</script>
+
+
 											</div>
 
 
@@ -203,6 +318,7 @@
 									<div class="clearfix"></div>
 								</div>
 							</div>
+
 
 						</div>
 						<br />
@@ -258,6 +374,7 @@
 				src="${contextPath }/resources/js/datepicker/daterangepicker.js"></script>
 
 			<script src="${contextPath }/resources/js/custom.js"></script>
+
 
 			<!-- <!-- Datatables
 			<script src="js/datatables/jquery.dataTables.min.js"></script>

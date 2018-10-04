@@ -24,6 +24,13 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("MemberSelect.selectPwd", m.getEmpId());
 	}
 
+	@Override
+	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		
+		return sqlSession.update("MemberSelect.updateMyInfo", m);
+	}
+
 	
 
 }

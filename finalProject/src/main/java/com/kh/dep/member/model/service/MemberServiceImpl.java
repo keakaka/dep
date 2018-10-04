@@ -42,4 +42,10 @@ public class MemberServiceImpl implements MemberService{
 		return loginUser;
 	}
 
+	@Override
+	public int updateMyInfo(MemberSelect m) {
+		
+		return md.updateMyInfo(sqlSession, m);
+	}
+
 }

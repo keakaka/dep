@@ -11,6 +11,8 @@ public interface MemberDao {
 
 	String selectEncpassword(SqlSessionTemplate sqlSession, MemberSelect m);
 
+	int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m);
+
 	
 
 }

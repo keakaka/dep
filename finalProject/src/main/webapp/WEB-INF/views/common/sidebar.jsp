@@ -25,7 +25,7 @@
       <!-- sidebar menu -->
       <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
          <div class="menu_section">
-            <h3>부서명</h3>
+            <h3>${loginUser.depName }</h3>
             <ul class="nav side-menu">
                <li>
                   <a><i class="fa fa-user"></i> 마이페이지 <span
@@ -70,7 +70,7 @@
                <li><a><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
                <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
-               
+               <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
            		<c:if test="">
                <li><a><i class="fa fa-users"></i> 인사관리 </a></li>
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
