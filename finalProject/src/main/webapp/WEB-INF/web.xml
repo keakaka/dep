@@ -116,7 +116,7 @@
 	
 	
 	<!-- 쪽지 -->
-	<!-- <servlet>
+ <servlet>
 		<servlet-name>facing</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -129,12 +129,12 @@
 		<servlet-name>facing</servlet-name>
 		<url-pattern>*.ms</url-pattern>
 	</servlet-mapping>
-	 -->
+
 	
 	
 
 	<!-- 근태현황-->
-	<!-- <servlet>
+<!-- 	 <servlet>
 		<servlet-name>person</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -180,6 +180,7 @@
 		<servlet-name>addressBook</servlet-name>
 		<url-pattern>*.ad</url-pattern>
 	</servlet-mapping>
+
 
 
 

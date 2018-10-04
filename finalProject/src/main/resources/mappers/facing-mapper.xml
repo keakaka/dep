@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FacingSelect">
+	<resultMap type="FacingSelect" id="FacingResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="empId" column="EMP_ID" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="facingNo" column="FACING_NO" />
+		<result property="facingTitle" column="FACING_TITLE" />
+		<result property="facingContents" column="FACING_CONTENTS" />
+		<result property="writeDate" column="WRITE_DATE" />
+		<result property="receiver" column="RECEIVER" />
+		<result property="status" column="STATUS" />
+		<result property="receiverDate" column="RECEIVER_DATE" />
+		<result property="depId" column="DEP_ID" />
+		<result property="depName" column="DEP_NAME" />
+		
+	</resultMap>
+
+	<!-- 로그인 정보 조회용 쿼리문 -->
+	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
+		SELECT * FROM EMPLOYEE WHERE EMP_ID = #{empId} AND EMP_PWD = #{empPwd} AND 
+		STATUS = 'Y' </select> -->
+
+	<!-- 회원가입용 메소드 -->
+	<!-- <insert id="insertMember" parameterType="Member"> INSERT INTO MEMBER 
+		VALUES(SEQ_MID.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{email}, #{birthDay}, 
+		#{gender}, #{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT) </insert> -->
+
+
+
+	<!-- 받은 쪽지 리스트
+	 -->
+	
+	<!-- 쪽지 보내기 
+	 -->
+	<!-- 쪽지 상태값 업데이트
+	 -->
+	 <!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
+	<select id="selectLoginUser" resultMap="memberResultSet"
+		parameterType="MemberSelect">
+		SELECT ROWNUM, EMP_NO, EMP_ID, EMP_PWD, EMP_NAME,
+		DEP_NAME, JOB_NAME, BIRTH_DATE, EMAIL, PHONE, EMERGENCY_PHONE,
+		ADDRESS,
+		SALARY, HIRE_DATE, LEAVE_DATE, PHONE_REVEAL, STATUS, JOB_CODE, DEP_ID
+		FROM (SELECT E.EMP_NO, E.EMP_ID, E.EMP_PWD, E.EMP_NAME,D.DEP_NAME,
+		J.JOB_NAME, E.BIRTH_DATE, E.EMAIL, E.PHONE, E.EMERGENCY_PHONE,
+		E.ADDRESS,
+		E.SALARY, E.HIRE_DATE, E.LEAVE_DATE, E.PHONE_REVEAL, E.STATUS, J.JOB_CODE,
+		D.DEP_ID
+		FROM EMPLOYEE E
+		JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+		JOIN DEPARTMENT D ON(D.DEP_ID = DR.DEP_ID)
+		JOIN JOB_RECORD JR ON(E.EMP_NO = JR.EMP_NO)
+		JOIN JOB J ON (J.JOB_CODE = JR.JOB_CODE)
+		WHERE E.EMP_ID = #{empId}
+		AND E.STATUS = 'Y'
+		ORDER BY DR.DEP_RECORD_DATE DESC, JR.JOB_RECORD_DATE DESC)
+		WHERE ROWNUM = 1
+	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO BOARD(BID, BTITLE)
+		VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다')
+	</insert>
+
+
+
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
