@@ -1,5 +1,7 @@
 package com.kh.dep.member.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.service.MemberService;
+import com.kh.dep.member.model.vo.MemberDepartment;
+import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 
 @Controller
@@ -53,6 +57,31 @@ public class MemberController {
 		
 
 		
+	}
+	
+	
+	@RequestMapping("moveMemberInsert.me")
+	public String moveMemberInsert(Model model){
+		
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+		
+		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		model.addAttribute("deplist", deplist);
+		model.addAttribute("joblist", joblist);
+		
+		return "personManagement/memberInsert";
+	}
+	
+	@RequestMapping("memberInsert.me")
+	public String memberInsert(MemberSelect m, Model model){
+		
+		System.out.println("컨트롤러 입력");
+		
+		System.out.println(m);
+		
+		
+		return "personManagement/memberInsert";
 	}
 	
 	@RequestMapping(value="myInfo.me")

@@ -11,7 +11,7 @@
 <body>
 	<h1 align="center">인덱스 페이지</h1>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application" />
-	<jsp:forward page="WEB-INF/views/sign/signWright.jsp" />
+	<%-- <jsp:forward page="WEB-INF/views/sign/signWright.jsp" /> --%>
 	<%-- <jsp:forward page="WEB-INF/views/sign/signApprovalList.jsp"/>
 	<jsp:forward page="WEB-INF/views/sign/signReceive.jsp"/>
 	<jsp:forward page="WEB-INF/views/sign/empty.jsp"/> --%>
@@ -19,7 +19,7 @@
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 	<a href="login.me">로그인페이지</a>
 	<a href="boardList.bo">게시판으로 이동</a> -->
-
+	<jsp:forward page="WEB-INF/views/member/memberLogin.jsp" />
 	<!-- <button onclick="location.href='test.te'">가니</button> -->
 	<!--
 		<jsp:forward page="WEB-INF/views/facing/facing.jsp"/>
