@@ -63,7 +63,7 @@
                      <span class="fa fa-chevron-down"></span>
                   </a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="empty.html">화상회의 하기</a></li>
+                     <li><a href="rtcMain.rtc">화상회의 하기</a></li>
                      <li><a href="empty.html">회의록 보기</a></li>
                   </ul>
                </li>

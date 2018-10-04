@@ -468,8 +468,6 @@
               </div>
             </div>
 
-          </div>
-        </div>
 				<!-- footer content -->
 
 				<footer>
