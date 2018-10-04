@@ -56,17 +56,15 @@
 	padding-bottom: 10px; -->
 	background: #ccc;
 } */
-
-#image{
-    margin-left: 150px;
-    margin-top: 50px;
+#image {
+	margin-left: 150px;
+	margin-top: 50px;
 }
 
-#updateImg{
+#updateImg {
 	text-align: center;
-    width: 273px;
+	width: 273px;
 }
-
 </style>
 <body class="nav-md">
 	<div class="container body">
@@ -85,7 +83,7 @@
 								<div class="dashboard_graph">
 
 									<div class="row x_title">
-										<div class="col-md-6" style="width:30%;">
+										<div class="col-md-6" style="width: 30%;">
 											<h3>
 												마이페이지 <small>내 정보</small>
 											</h3>
@@ -94,7 +92,9 @@
 											<!-- 이미지 변경 -->
 											<div id="image">
 												<img src="${contextPath }/resources/images/userImage.png">
-												<div id="updateImg"><a href="#">이미지 변경</a></div>
+												<div id="updateImg">
+													<a href="#">이미지 변경</a>
+												</div>
 											</div>
 
 										</div>
@@ -104,33 +104,70 @@
 											<div id="normalInfo">
 
 
-												<form class="form-horizontal form-label-left">
+												<!-- <form class="form-horizontal form-label-left"
+													action="updateMyInfo.me" method="get"
+													enctype="multipart/form-data"> -->
+													
+													<form class="form-horizontal form-label-left"
+													action="updateMyInfo.me" method="post">
 													<div id="info1">
-														<h4 style="color: #34495E;"></h4>
+														<h4 style="color:#34495E;"></h4>
+														
+														<div>
+															<label for="empNo">사원번호</label>
+															<input type="text" id="empNo" name="empNo"
+																   value="${loginUser.empNo }" readonly>
+														</div>
+														
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																for="userId">아이디</label>
+																for="empId">아이디</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="text" id="userId" value="1004" readonly
+																<input type="text" id="empId" name="empId"
+																	value="${loginUser.empId }" readonly
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
+														
+														
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																for="userPw">비밀번호 </label>
+																for="empPwd">비밀번호 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="password" id="userPw" name="userPw"
-																	value="*******" readonly
+																<input type="password" id="empPwd" name="empPwd"
+																	value="${loginUser.empPwd }"
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
 
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																for="userName">이름</label>
+																for="empName">이름</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="text" id="userName" required="required"
+																<input type="text" id="empName" name="empName"
+																	value="${loginUser.empName }"
 																	class="form-control col-md-7 col-xs-12">
+															</div>
+														</div>
+														
+														<div class="form-group">
+															<label for="depName"
+																class="control-label col-md-3 col-sm-3 col-xs-12">
+																부서 </label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input id="depName"
+																	class="form-control col-md-7 col-xs-12" type="text"
+																	value="${loginUser.depName }" name="depName">
+															</div>
+														</div>
+														
+														<div class="form-group">
+															<label for="jobName"
+																class="control-label col-md-3 col-sm-3 col-xs-12">직급</label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input id="jobName"
+																	class="form-control col-md-7 col-xs-12" type="text"
+																	name="jobName" value="${loginUser.jobName }" readonly>
 															</div>
 														</div>
 
@@ -139,10 +176,10 @@
 																for="phone">연락처(휴대폰) </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
 																<input type="text" id="phone" name="phone"
-																	required="required"
+																	value="${loginUser.phone }"
 																	class="form-control col-md-7 col-xs-12">
 																<!-- 핸드폰 번호 공개여부 설정 -->
-																공개<input type="checkbox" size="5"></input>
+																공개<input type="checkbox" size="5">
 															</div>
 														</div>
 
@@ -150,10 +187,11 @@
 
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																for="phone2">비상연락처 </label>
+																for="emergencyPhone">비상연락처 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="text" id="phone2" name="phone2"
-																	required="required"
+																<input type="text" id="emergencyPhone"
+																	name="emergencyPhone"
+																	value="${loginUser.emergencyPhone }"
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
@@ -163,18 +201,23 @@
 																for="address">주소 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
 																<input type="text" id="address" name="address"
-																	required="required"
+																	value="${loginUser.address }"
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
 
+														<div>
+															<label for="salary">기본급</label>
+															<input type="text" id="salary" name="salary"
+																   value="${loginUser.salary }" readonly>
+														</div>
 														<div class="form-group">
 															<label for="hireDate"
 																class="control-label col-md-3 col-sm-3 col-xs-12">입사일</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
 																<input id="hireDate"
 																	class="form-control col-md-7 col-xs-12" type="text"
-																	value="2018-09-20" readonly name="hireDate">
+																	value="${loginUser.hireDate }" readonly name="hireDate">
 															</div>
 														</div>
 
@@ -185,33 +228,19 @@
 															<div class="col-md-6 col-sm-6 col-xs-12">
 																<input id="email"
 																	class="form-control col-md-7 col-xs-12" type="email"
-																	name="email">
+																	value="${loginUser.email }" name="email">
 															</div>
 														</div>
 
-														<div class="form-group">
-															<label for="position"
-																class="control-label col-md-3 col-sm-3 col-xs-12">직급</label>
-															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="position"
-																	class="form-control col-md-7 col-xs-12" type="text"
-																	name="position" value="대리" readonly>
-															</div>
-														</div>
 
-														<div class="form-group">
-															<label for="department"
-																class="control-label col-md-3 col-sm-3 col-xs-12">
-																부서 </label>
-															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="department"
-																	class="form-control col-md-7 col-xs-12" type="text"
-																	name="department">
-															</div>
-														</div>
 													</div>
 
 													<button type="submit">수정하기</button>
+													<!-- <input type="submit" value="수정"> -->
+												</form>
+												<form class="form-horizontal form-label-left"
+													action="updateMyInfo.me" method="post">
+												<button type="submit">test</button>
 												</form>
 											</div>
 										</div>
@@ -245,43 +274,43 @@
 				</div>
 
 			</div>
+		</div>
+	</div>
+	<div id="custom_notifications" class="custom-notifications dsp_none">
+		<ul class="list-unstyled notifications clearfix"
+			data-tabbed_notifications="notif-group">
+		</ul>
+		<div class="clearfix"></div>
+		<div id="notif-group" class="tabbed_notifications"></div>
+	</div>
 
-			<div id="custom_notifications" class="custom-notifications dsp_none">
-				<ul class="list-unstyled notifications clearfix"
-					data-tabbed_notifications="notif-group">
-				</ul>
-				<div class="clearfix"></div>
-				<div id="notif-group" class="tabbed_notifications"></div>
-			</div>
+	<script src="${contextPath }/resources/js/bootstrap.min.js"></script>
+	<script src="${contextPath }/resources/js/moment/moment.min.js"></script>
+	<script src="${contextPath }/resources/js/calendar/fullcalendar.min.js"></script>
+	<!-- gauge js -->
+	<script type="text/javascript"
+		src="${contextPath }/resources/js/gauge/gauge.min.js"></script>
+	<script type="text/javascript"
+		src="${contextPath }/resources/js/gauge/gauge_demo.js"></script>
+	<!-- chart js -->
+	<script src="${contextPath }/resources/js/chartjs/chart.min.js"></script>
+	<!-- bootstrap progress js -->
+	<script
+		src="${contextPath }/resources/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script
+		src="${contextPath }/resources/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<!-- icheck -->
+	<script src="${contextPath }/resources/js/icheck/icheck.min.js"></script>
+	<!-- daterangepicker -->
+	<script type="text/javascript"
+		src="${contextPath }/resources/js/moment/moment.min.js"></script>
+	<script type="text/javascript"
+		src="${contextPath }/resources/js/datepicker/daterangepicker.js"></script>
 
-			<script src="${contextPath }/resources/js/bootstrap.min.js"></script>
-			<script src="${contextPath }/resources/js/moment/moment.min.js"></script>
-			<script
-				src="${contextPath }/resources/js/calendar/fullcalendar.min.js"></script>
-			<!-- gauge js -->
-			<script type="text/javascript"
-				src="${contextPath }/resources/js/gauge/gauge.min.js"></script>
-			<script type="text/javascript"
-				src="${contextPath }/resources/js/gauge/gauge_demo.js"></script>
-			<!-- chart js -->
-			<script src="${contextPath }/resources/js/chartjs/chart.min.js"></script>
-			<!-- bootstrap progress js -->
-			<script
-				src="${contextPath }/resources/js/progressbar/bootstrap-progressbar.min.js"></script>
-			<script
-				src="${contextPath }/resources/js/nicescroll/jquery.nicescroll.min.js"></script>
-			<!-- icheck -->
-			<script src="${contextPath }/resources/js/icheck/icheck.min.js"></script>
-			<!-- daterangepicker -->
-			<script type="text/javascript"
-				src="${contextPath }/resources/js/moment/moment.min.js"></script>
-			<script type="text/javascript"
-				src="${contextPath }/resources/js/datepicker/daterangepicker.js"></script>
-
-			<script src="${contextPath }/resources/js/custom.js"></script>
+	<script src="${contextPath }/resources/js/custom.js"></script>
 
 
-			<!-- /footer content -->
+	<!-- /footer content -->
 </body>
 
 </html>

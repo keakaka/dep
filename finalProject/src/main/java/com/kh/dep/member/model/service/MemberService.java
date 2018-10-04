@@ -12,10 +12,11 @@ public interface MemberService {
 
 	MemberSelect selectLoginMember(MemberSelect m) throws LoginException;
 
+
+	int updateMyInfo(MemberSelect m);
+
 	ArrayList<MemberDepartment> selectDepList();
 
 	ArrayList<MemberJob> selectJobList();
-
-
 
 }

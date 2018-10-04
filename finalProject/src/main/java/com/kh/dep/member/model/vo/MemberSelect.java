@@ -61,9 +61,22 @@ public class MemberSelect implements java.io.Serializable {
 	}
 
 
-
-
-
+	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
+			String email, String phone, String emergencyPhone, String address, int salary, Date hireDate) {
+		super();
+		this.empNo = empNo;
+		this.empId = empId;
+		this.empPwd = empPwd;
+		this.empName = empName;
+		this.depName = depName;
+		this.jobName = jobName;
+		this.phone = phone;
+		this.emergencyPhone = emergencyPhone;
+		this.address = address;
+		this.salary = salary;
+		this.hireDate = hireDate;
+		this.email = email;
+	}
 
 
 

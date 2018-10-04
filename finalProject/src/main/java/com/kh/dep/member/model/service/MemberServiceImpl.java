@@ -47,6 +47,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public int updateMyInfo(MemberSelect m) {
+		
+		return md.updateMyInfo(sqlSession, m);
+	}
+
+  
 	public ArrayList<MemberDepartment> selectDepList() {
 		
 		ArrayList<MemberDepartment> deplist = md.selectdepList(sqlSession);
@@ -64,5 +70,4 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
-
 }

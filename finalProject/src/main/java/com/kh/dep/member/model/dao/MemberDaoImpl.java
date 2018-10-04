@@ -37,11 +37,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		
+		return sqlSession.update("MemberSelect.updateMyInfo", m);
+	}
+
+
 	public ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession) {
 		
 		return (ArrayList)sqlSession.selectList("Member.selectJob");
 	}
-
 
 
 	

@@ -15,10 +15,12 @@ public interface MemberDao {
 
 	String selectEncpassword(SqlSessionTemplate sqlSession, MemberSelect m);
 
+
+	int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m);
+
 	ArrayList<MemberDepartment> selectdepList(SqlSessionTemplate sqlSession);
 
 	ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession);
-
 
 
 	
