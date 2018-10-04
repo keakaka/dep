@@ -1,9 +1,13 @@
 package com.kh.dep.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dep.member.model.vo.Member;
+import com.kh.dep.member.model.vo.MemberDepartment;
+import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 
 @Repository
@@ -13,7 +17,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public MemberSelect selectLoginMember(SqlSessionTemplate sqlSession, MemberSelect m) {
 			
-			return sqlSession.selectOne("MemberSelect.selectLoginUser", m);
+			return sqlSession.selectOne("Member.selectLoginUser", m);
 	
 	}	
 
@@ -21,8 +25,24 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public String selectEncpassword(SqlSessionTemplate sqlSession, MemberSelect m) {
 		
-		return sqlSession.selectOne("MemberSelect.selectPwd", m.getEmpId());
+		return sqlSession.selectOne("Member.selectPwd", m.getEmpId());
 	}
+
+	@Override
+	public ArrayList<MemberDepartment> selectdepList(SqlSessionTemplate sqlSession) {
+		
+		
+		
+		return (ArrayList)sqlSession.selectList("Member.selectDep");
+	}
+
+	@Override
+	public ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Member.selectJob");
+	}
+
+
 
 	
 
