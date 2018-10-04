@@ -1,5 +1,7 @@
 package com.kh.dep.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.dao.MemberDao;
 import com.kh.dep.member.model.vo.Member;
+import com.kh.dep.member.model.vo.MemberDepartment;
+import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 
 @Service
@@ -42,4 +46,28 @@ public class MemberServiceImpl implements MemberService{
 		return loginUser;
 	}
 
+	@Override
+	public int updateMyInfo(MemberSelect m) {
+		
+		return md.updateMyInfo(sqlSession, m);
+	}
+
+  
+	public ArrayList<MemberDepartment> selectDepList() {
+		
+		ArrayList<MemberDepartment> deplist = md.selectdepList(sqlSession);
+		
+		
+		return deplist;
+	}
+
+	@Override
+	public ArrayList<MemberJob> selectJobList() {
+		
+		ArrayList<MemberJob> joblist = md.selectJobList(sqlSession);
+		
+		return joblist;
+	}
+
+	
 }

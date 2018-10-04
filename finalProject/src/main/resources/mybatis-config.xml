@@ -8,6 +8,10 @@
 	<typeAliases>
 		<typeAlias type="com.kh.dep.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.dep.member.model.vo.MemberSelect" alias="MemberSelect"/>
+		<typeAlias type="com.kh.dep.member.model.vo.Department" alias="Department"/>
+		<typeAlias type="com.kh.dep.member.model.vo.MemberDepartment" alias="MemberDepartment"/>
+		<typeAlias type="com.kh.dep.member.model.vo.MemberJob" alias="MemberJob"/>
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>

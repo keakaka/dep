@@ -25,14 +25,18 @@ public class MemberSelect implements java.io.Serializable {
 	private String status;
 	private String jobCode;
 	private String depId;
+	private String oriFileName;
+	private String empType;
 	
 	public MemberSelect(){}
 
 	
 
+
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
 			String birthDate, String email, String phone, String emergencyPhone, String address, int salary,
-			Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId) {
+			Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
+			String oriFileName, String empType) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -52,13 +56,28 @@ public class MemberSelect implements java.io.Serializable {
 		this.status = status;
 		this.jobCode = jobCode;
 		this.depId = depId;
+		this.oriFileName = oriFileName;
+		this.empType = empType;
 	}
 
 
+	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
+			String email, String phone, String emergencyPhone, String address, int salary, Date hireDate) {
+		super();
+		this.empNo = empNo;
+		this.empId = empId;
+		this.empPwd = empPwd;
+		this.empName = empName;
+		this.depName = depName;
+		this.jobName = jobName;
+		this.phone = phone;
+		this.emergencyPhone = emergencyPhone;
+		this.address = address;
+		this.salary = salary;
+		this.hireDate = hireDate;
+		this.email = email;
+	}
 
-	
-
-	
 
 
 
@@ -68,8 +87,10 @@ public class MemberSelect implements java.io.Serializable {
 				+ ", depName=" + depName + ", jobName=" + jobName + ", birthDate=" + birthDate + ", email=" + email
 				+ ", phone=" + phone + ", emergencyPhone=" + emergencyPhone + ", address=" + address + ", salary="
 				+ salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate + ", phoneReveal=" + phoneReveal
-				+ ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId + "]";
+				+ ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId + ", oriFileName=" + oriFileName
+				+ ", empType=" + empType + "]";
 	}
+
 
 
 
@@ -222,6 +243,32 @@ public class MemberSelect implements java.io.Serializable {
 	public void setDepId(String depId) {
 		this.depId = depId;
 	}
+
+
+
+
+	public String getOriFileName() {
+		return oriFileName;
+	}
+
+
+
+
+	public void setOriFileName(String oriFileName) {
+		this.oriFileName = oriFileName;
+	}
+
+
+	public String getEmpType() {
+		return empType;
+	}
+
+
+	public void setEmpType(String empType) {
+		this.empType = empType;
+	}
+	
+	
 	
 	
 }
