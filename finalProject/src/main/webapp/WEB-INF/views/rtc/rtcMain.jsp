@@ -58,7 +58,6 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
-
 				</div>
 				<br />
 				<!-- footer content -->
@@ -99,12 +98,16 @@
 	
 	<script>
 		function rtcOpen(){
-			var url= "https://localhost:55555?id=22332";    //팝업창 페이지 URL
+			var url= "https://localhost:55555?id=22332333";    //팝업창 페이지 URL
 		    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(optoin)
 			window.open(url,"",popupOption);
 		}
 		function openTest(){
-			window.prompt('ㄴㅇㄹㄴㅇㄹ');
+			var roomName = window.prompt('ㄴㅇㄹㄴㅇㄹ');
+			console.log(roomName);
+			var url="https://192.168.20.218:55555?id="+roomName+"#/room/"+roomName;
+			var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(optoin)
+			window.open(url,"",popupOption);
 		}
 	</script>
 </body>

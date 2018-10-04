@@ -8,6 +8,10 @@ public class RTCController {
 	
 	@RequestMapping(value="rtcMain.rtc")
 	public String showRTCMain(){
+		
+		
+		
+		
 		return "rtc/rtcMain";
 	}
 }
