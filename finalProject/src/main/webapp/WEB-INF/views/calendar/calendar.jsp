@@ -31,15 +31,7 @@
 	rel="stylesheet" media="print">
 
 <script src="${contextPath }/resources/js/jquery.min.js"></script>
-<!--[if lt IE 9]>
-   <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-   <![endif]-->
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-   <![endif]-->
 
 </head>
 <style>
@@ -84,38 +76,9 @@
 									</div>
 									<div class="" role="tabpanel" data-example-id="togglable-tabs">
 										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="" role="tabpanel"
-												data-example-id="togglable-tabs">
-												<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-													<li role="presentation" class="active"><a
-														href="#tab_content1" id="home-tab" role="tab"
-														data-toggle="tab" aria-expanded="true">내 일정</a></li>
-													<li role="presentation" class=""><a
-														href="#tab_content2" role="tab" id="profile-tab"
-														data-toggle="tab" aria-expanded="false">내 부서 일정</a></li>
-													
-												</ul>
-
-
-												<div id="myTabContent" class="tab-content">
-													<div role="tabpanel" class="tab-pane fade active in"
-														id="tab_content1" aria-labelledby="home-tab">
-														내 일정탭으로 들어왔당
-														<div id='calendar'></div>
-													</div>
-													<div role="tabpanel" class="tab-pane fade"
-														id="tab_content2" aria-labelledby="profile-tab">
-														내 부서 일정탭으로 들어왔당
-														<div id='calendar'></div>
-													</div>
-													
-												</div>
-											</div>
-											<!-- <div class="btn-group" role="group"
+											<div class="btn-group" role="group"
 											aria-label="Button group with nested dropdown">
 											<a href="#tab_content1" type="button" class="btn btn-default">내 일정</a>
-											<a href="#tab_content2"type="button" class="btn btn-default">내 부서
-												일정</a>
 											<div class="btn-group" role="group">
 												<div class="dropdown">
 													<button class="btn btn-default dropdown-toggle"
@@ -128,15 +91,12 @@
 													</ul>
 												</div>
 											</div>
-										</div> -->
-											<!-- <div id="myTabContent"  class="tab-content">
-											<div id="tab_conten1"style="padding: 10px;"></div>
-											내 일정탭으로 들어왔당
-											<div id='calendar'></div>
-											<div id="tab_content2" style="padding: 10px;"></div>
-											내 부서 일정탭으로 들어왔당
-											<div id='calendar'></div>
-										</div> -->
+										</div>
+											<div id="myTabContent" class="tab-content">
+												<div id="tab_conten1" style="padding: 10px;"></div>
+												<div id='calendar'></div>
+
+											</div>
 										</div>
 
 										<div class="clearfix"></div>
@@ -182,10 +142,17 @@
 						<div id="modal-header" class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
-							<h4 class="modal-title" id="myModalLabel">
+							<!-- <h4 class="modal-title" id="myModalLabel">
 								<input type="text" style="width: 100%; border-style: none;"
 									placeholder="일정 제목을 입력하세요.">
-							</h4>
+							</h4> -->
+								<div class="form-group">
+									<div class="col-sm-9" style="padding:5px;">
+										<input type="text" class="form-control" id="title"style="border:none; font-size:13pt; font-weight:bold;"
+											name="title" placeholder="일정 제목을 입력하세요.">
+									</div>
+								</div>
+								
 						</div>
 						<div class="modal-body">
 							<div id="testmodal" style="padding: 5px 20px;">
@@ -194,105 +161,42 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label">날짜 </label>
 										<div class="col-sm-9"
-											style="height: 30px; display: flex; align-items: center; justify-content: left;">
-											ex)208년 09월 20일</div>
+											style="height: 30px; padding-top:7px; align-items: center; justify-content: left;">
+											<p class="date" id="nows"></p></div>
+											
 									</div>
+									<script>
+										//날짜교체 - 클릭시 해당 메소드 호출
+										function onchangeDay(yy, mm, dd, e) {
+											$("#nows").html(yy + "년 " + mm + "월 "+ dd + "일");
+										}
+									</script>
 
 									<div class="form-group">
 										<label class="col-sm-3 control-label">게시자 </label>
 										<div class="col-sm-9"
-											style="height: 30px; display: flex; align-items: center; justify-content: left;">
-											ex)지은경</div>
+											style="height: 30px; padding-top:7px;">
+											${ sessionScope.loginUser.empName } </div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-sm-3 control-label">참석자 </label>
 										<div class="col-sm-9"
 											style="height: 33px; display: flex; align-items: center; justify-content: left;">
-											<button id="attBtn" type="button"
+											<form action="/searchMemberByName.ca"
+															method="post" name="name_search_form"
+															onsubmit="return nameSearchFormCheck()">
+															<div class="input-group" style="width: 200px;">
+																<input type="text" name="name" class="form-control btn-round">
+																<span class="input-group-btn">
+																	<a href="searchAtt.ca" class="btn btn-success btn-xs"> 참석자 검색 </a>
+																</span>
+															</div>
+											</form>
+											<!-- <button id="attBtn" type="button"
 												class="btn btn-success btn-xs"
 												style="margin-top: auto; margin-bottom: auto;"
-												data-toggle="modal" data-target="#myModal">참석자 검색</button>
-										</div>
-
-										<div class="modal fade" id="myModal" role="dialog"
-											data-backdrop="static">
-											<div class="modal-dialog" id="modal-dialog">
-
-												<!-- Modal content-->
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-														<h4 class="modal-title">검색</h4>
-
-													</div>
-													<div class="modal-body">
-														<div class="row">
-															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div class="x_content">
-																	<br />
-																	<div class="col-md-12 col-sm-12 col-xs-12">
-																		<div class="x_content">
-																			<div class="input-group" style="width: 200px;">
-																				<input type="text" class="form-control btn-round">
-																				<span class="input-group-btn">
-																					<button type="button"
-																						class="btn btn-round btn-info" data-toggle="modal"
-																						data-target="#myModal">검색</button>
-																				</span>
-																			</div>
-																			<table
-																				class="table table-striped responsive-utilities jambo_table bulk_action">
-																				<thead>
-																					<tr class="headings">
-																						<th class="column-title">추가</th>
-																						<th class="column-title">부서명</th>
-																						<th class="column-title">이름</th>
-																						<th class="column-title">직위</th>
-																						<th class="column-title">직책</th>
-																						<th class="column-title">전화번호</th>
-																						<th class="column-title">메일 주소</th>
-
-																						<th class="bulk-actions" colspan="7"><a
-																							class="antoo"
-																							style="color: #fff; font-weight: 500;">Bulk
-																								Actions ( <span class="action-cnt"> </span> ) <i
-																								class="fa fa-chevron-down"></i>
-																						</a></th>
-																					</tr>
-																				</thead>
-
-																				<tbody>
-																					<tr class="odd pointer">
-																						<td class="a-center "><input type="checkbox"
-																							class="flat" name="table_records"></td>
-																						<td class=" ">개발1팀</td>
-																						<td class=" ">채은비</td>
-																						<td class=" ">대리</td>
-																						<td class=" "></td>
-																						<td class=" ">010-1234-1234</td>
-																						<td class="a-right a-right ">eb0916@kh.com</td>
-																					</tr>
-																				</tbody>
-
-																			</table>
-																		</div>
-																	</div>
-																</div>
-
-															</div>
-														</div>
-													</div>
-													<div align="right">
-														<button type="button" class="btn btn-primary">참석자에
-															추가하기</button>
-														<button type="button" class="btn btn-default"
-															data-toggle="modal" data-target="#myModal">취소</button>
-													</div>
-												</div>
-
-											</div>
-
+												data-toggle="modal" data-target="#myModal">참석자 검색</button> -->
 										</div>
 
 
@@ -314,13 +218,16 @@
 								</form>
 							</div>
 						</div>
-						<hr />
-						<div align="right">
-							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">일정 추가</button>
-							<button type="button" class="btn btn-default"
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary antosubmit">일정 추가</button>
+							<button type="button" class="btn btn-default antoclose"
 								data-dismiss="modal">취소</button>
 						</div>
+
+						<div id="fc_create" data-toggle="modal"
+							data-target="#CalenderModalNew"></div>
+						<div id="fc_edit" data-toggle="modal"
+							data-target="#CalenderModalEdit"></div>
 					</div>
 				</div>
 			</div>
@@ -485,6 +392,16 @@
 					center : 'title',
 					right : 'month,agendaWeek,agendaDay'
 				},
+				
+				dayClick: function(date, allDay, jsEvent, view) {
+					   var yy=date.format("YYYY");
+					   var mm=date.format("MM");
+					   var dd=date.format("DD");
+					   var e=date.format("e");
+					   onchangeDay(yy,mm,dd,e);
+				},
+
+				
 				selectable : true,
 				selectHelper : true,
 				select : function(start, end, allDay) {
@@ -534,7 +451,8 @@
 				editable : true,
 				events : [ {
 					title : 'All Day Event',
-					start : new Date(y, m, 1)
+					start : new Date(y, m, 1),
+				 	
 				}, /*{
 													   title: 'Long Event',
 													   start: new Date(y, m, d - 5),
@@ -563,5 +481,6 @@
 		});
 	</script>
 </body>
+
 
 </html>
