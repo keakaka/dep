@@ -78,7 +78,7 @@
 		</div>
 
 	</div>
-
+	<input type="hidden" value="${loginUser.empName }" id="empName"/>
 	<div id="custom_notifications" class="custom-notifications dsp_none">
 		<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
 		</ul>
@@ -116,6 +116,7 @@
 			window.open(url,"",popupOption);
 		}
 	</script>
+
 </body>
 
 </html>

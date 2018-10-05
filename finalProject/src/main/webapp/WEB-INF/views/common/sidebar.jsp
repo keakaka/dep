@@ -15,7 +15,10 @@
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
-            <h2> 회원 이름 님 </h2>
+
+            <h2>${loginUser.empName } 님</h2>
+            
+
          </div>
       </div>
       <!-- /menu prile quick info -->
@@ -31,11 +34,15 @@
                   <ul class="nav child_menu" style="display: none">
                      <li><a href="myInfo.me">개인 정보 수정</a></li>
                      <li><a href="mySalary.me">급여 내역 조회</a></li>
-                     <li><a href="myJobPosition.me">직급 변경 이력 조회</a></li>
-                     <li><a href="myDepartment.me">부서이동 이력 조회</a></li>
-                     <li><a href="myJobDuty.me">직책 변경 이력 조회</a></li>
+                     <li><a href="myJobRank.me?var=${loginUser.empNo }">직급 변경 이력 조회</a></li>
+                     <li><a href="myDepartment.me?var=${loginUser.empId }">부서이동 이력 조회</a></li>
+                     <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me">근태 이력 조회</a></li>
                      <li><a href="myVacation.me">휴가 내역 조회</a></li>
+                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >넘어가자</a>
+                     <script type="text/javascript">
+                     
+                     </script>
                   </ul>
                </li>
                <li>
@@ -48,6 +55,7 @@
                      <li><a href="empty.html">휴지통</a></li>
                   </ul>
                </li>
+               
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
@@ -56,6 +64,7 @@
                      <li><a href="empty.html">수신함</a></li>
                   </ul>
                </li>
+               
                <li>
                   <a><i class="fa fa-video-camera"></i> 화상회의 
                      <span class="fa fa-chevron-down"></span>
@@ -70,20 +79,20 @@
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
-         		
+
               <c:if test="${sessionScope.loginUser.depId eq 'D1' }">
                <li>
                <a><i class="fa fa-users"></i> 인사관리 <span
                      class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="moveMemberInsert.me">사원 추가</a></li>
-                 
-                  </ul>
+                     <li><a href="moveMemberInsert.me">사원 추가</a></li>               
+                  </ul>          
                </li>
-
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
+
                </c:if>
             </ul>
+
          </div>
       </div>
       <!-- /sidebar menu -->

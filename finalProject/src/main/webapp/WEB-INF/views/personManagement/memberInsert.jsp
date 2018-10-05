@@ -134,9 +134,9 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="checkPhoneAg"  type="checkbox" value="true" name="phoneReveal" onclick="oneCheck(this);" checked>
+                        <input id="checkPhoneAg"  type="checkbox" value="Y" name="phoneReveal" onclick="oneCheck(this);" checked>
                         <label for="checkPhoneAg">공개</label>&nbsp;
-                         <input id="checkPhoneNAg"  type="checkbox" value="false" name="phoneReveal" onclick="oneCheck(this);">
+                         <input id="checkPhoneNAg"  type="checkbox" value="N" name="phoneReveal" onclick="oneCheck(this);">
                         <label for="checkPhoneNAg">비공개</label>
                       </div>
                     </div>
