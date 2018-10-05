@@ -54,6 +54,8 @@
 								<button onclick="rtcOpen();">방 만들기</button>
 								<button onclick="openTest();">방 참여하기</button>
 							</div>
+							<input type="hidden" value="${loginUser.empName }" id="empName"/>
+							<input type="hidden" value="${loginUser.empNo }" id="empNo"/>
 
 							<div class="clearfix"></div>
 						</div>
@@ -97,23 +99,24 @@
 	<!-- /footer content -->
 	
 	<script>
-      function rtcOpen(){
-         var empName = $("#empName").val();
-         var empNo = $("#empNo").val();
-         var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
-         var url = encodeURI(url1);
-          var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
-         window.open(url,"",popupOption);
-      }
-      function openTest(){
-         var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
-         var empName = $("#empName").val();
-         var empNo = $("#empNo").val();
-         var url="https://192.168.20.218:55555?id="+empName+"#/room/"+roomName;
-         var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
-         window.open(url,"",popupOption);
-      }
-   </script>
+		function rtcOpen(){
+			var empName = $("#empName").val();
+			var empNo = $("#empNo").val();
+			var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
+			var url = encodeURI(url1);
+		    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+			window.open(url,"",popupOption);
+		}
+		function openTest(){
+			var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
+			var empName = $("#empName").val();
+			var empNo = $("#empNo").val();
+			var url="https://192.168.43.84:55555?id="+empName+"#/room/"+roomName;
+			var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+			window.open(url,"",popupOption);
+		}
+	</script>
+
 </body>
 
 </html>
