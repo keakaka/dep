@@ -60,6 +60,13 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
+	public int insertMember(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.insert("Member.insertMember", m);
+	}
+
+
+
 	@Override
 	public List<Job> selectMyJobRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception {
 		List<Job> list = sqlSession.selectList("Member.selectMyJobRecord", empNo);

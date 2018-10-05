@@ -26,6 +26,12 @@ public interface MemberDao {
 
 	ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession);
 
+	int insertMember(SqlSessionTemplate sqlSession, MemberSelect m);
+
+
+
+
+
 
 	List<Department> selectMyDepRecordInfo(SqlSessionTemplate sqlSession, String empId) throws Exception;
 

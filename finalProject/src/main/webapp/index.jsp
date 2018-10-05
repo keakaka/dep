@@ -12,15 +12,15 @@
 	<h1 align="center">인덱스 페이지</h1>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application" />
 	
-	<jsp:forward page="WEB-INF/views/member/memberLogin.jsp" />
+<jsp:forward page="WEB-INF/views/member/memberLogin.jsp" />
 	
 	<%-- <jsp:forward page="WEB-INF/views/sign/signWright.jsp" /> --%>
 
 	<%-- <jsp:forward page="WEB-INF/views/sign/signApprovalList.jsp"/>
 	<jsp:forward page="WEB-INF/views/sign/signReceive.jsp"/>
 	<jsp:forward page="WEB-INF/views/sign/empty.jsp"/> --%>
-	 <jsp:forward page="WEB-INF/views/facing/facing.jsp"/>
-	 
+	 <%-- <jsp:forward page="WEB-INF/views/facing/facingList.jsp"/>
+	  --%>
 	<%--  <jsp:forward page="WEB-INF/views/board/insertBoard.jsp"/>
 	 --%> <!-- <h1 align="center">인덱스 페이지</h1>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>

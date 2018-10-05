@@ -1,7 +1,11 @@
 package com.kh.dep.member.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,7 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.dep.attachment.model.service.AttachService;
+import com.kh.dep.attachment.model.service.AttachServiceImpl;
+import com.kh.dep.attachment.model.vo.Attachment;
+import com.kh.dep.common.CommonUtils;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Department;
@@ -46,9 +55,7 @@ public class MemberController {
 
 		try {
 			MemberSelect loginUser = ms.selectLoginMember(m);
-
-			System.out.println("controller member : " + loginUser);
-
+			
 			model.addAttribute("loginUser", loginUser);
 
 			return "board/boardList";
@@ -79,13 +86,81 @@ public class MemberController {
 	}
 
 	@RequestMapping("memberInsert.me")
-	public String memberInsert(MemberSelect m, Model model){
-
-		System.out.println("컨트롤러 입력");
-
-		System.out.println(m);
-
-
+	public String memberInsert(MemberSelect m, Model model,HttpServletRequest request,
+					@RequestParam(name="photo", required=false)MultipartFile photo,
+					@RequestParam(name="signature", required=false)MultipartFile signature){
+		
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String filePath = root + "\\uploadFiles";
+		String sigPath = root + "\\signature";
+		
+		
+		String originFileName = photo.getOriginalFilename();
+		String orisigFileName = signature.getOriginalFilename();
+		
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String ext2 = orisigFileName.substring(orisigFileName.lastIndexOf("."));
+		
+		String changeName = CommonUtils.getRandomString();
+		String changeName2 = CommonUtils.getRandomString();
+		
+		
+		try {
+			photo.transferTo(new File(filePath + "\\" + changeName + ext) );
+			signature.transferTo(new File(sigPath + "\\" + changeName2 + ext2));
+			
+			
+			int result = ms.insertMember(m);
+			
+		
+			
+			if(result > 0){
+				
+				
+				
+				Attachment file = new Attachment();
+				Attachment sig = new Attachment();
+				
+				file.setOriFileName(originFileName);
+				file.setModiFileName(changeName);
+				file.setEmpType("ET1");
+				
+				sig.setOriFileName(orisigFileName);
+				sig.setModiFileName(changeName2);
+				sig.setEmpType("ET2");
+				
+				System.out.println(file);
+				System.out.println(sig);
+				
+				AttachService as = new AttachServiceImpl();
+				
+				
+				int result1 = as.insertAttachment(file);
+				
+				System.out.println("사진 저장 성공 " + result1);
+				
+				
+				if(result1 > 0 ){
+					System.out.println("사진 저장 성공 후 서명사진 실행");
+					as.insertAttachment(sig);
+				}
+				
+			
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("실패");
+			new File(filePath + "\\" + changeName + ext).delete();
+			new File(sigPath + "\\" + changeName2 + ext2).delete();
+			
+		}
+		
 		return "personManagement/memberInsert";
 	}
 

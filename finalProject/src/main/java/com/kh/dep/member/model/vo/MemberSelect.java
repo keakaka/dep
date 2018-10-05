@@ -264,6 +264,10 @@ public class MemberSelect implements java.io.Serializable {
 	public void setEmpType(String empType) {
 		this.empType = empType;
 	}
+
+
+
+
 	
 	
 	

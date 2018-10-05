@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AddressBook">
+	<resultMap type="MemberSelect" id="memberResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="empId" column="EMP_ID" />
+		<result property="empPwd" column="EMP_PWD" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="jobName" column="JOB_NAME" />
+		<result property="birthDate" column="BIRTH_DATE" />
+		<result property="email" column="EMAIL" />
+		<result property="phone" column="PHONE" />
+		<result property="emergencyPhone" column="EMERGENCY_PHONE" />
+		<result property="address" column="ADDRESS" />
+		<result property="salary" column="SALARY" />
+		<result property="hireDate" column="HIRE_DATE" />
+		<result property="leaveDate" column="LEAVE_DATE" />
+		<result property="phoneReveal" column="PHONE_REVEAL" />
+		<result property="status" column="STATUS" />
+		<result property="jobCode" column="JOB_CODE" />
+		<result property="depId" column="DEP_ID" />
+		<result property="oriFileName" column="ORI_FILENAME" />
+		<result property="empType" column="EMP_TYPE" />
+	</resultMap>
+	
+	<resultMap type="MemberDepartment" id="memberDepResultSet">
+		<id property="depId" column="DEP_ID" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="depPhone" column="DEP_PHONE" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+	
+	<resultMap type="MemberJob" id="memberJobResultSet">
+		<id property="jobCode" column="JOB_CODE" />
+		<result property="jobName" column="JOB_NAME" />
+	</resultMap>
+	
+	<resultMap type="AddressBook" id="AddressBook">
+		<id property="empNo" column="EMP_NO" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="jobName" column="JOB_NAME" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="phone" column="PHONE" />
+		<result property="email" column="EMAIL" />
+	</resultMap>
+	
+	
+	<select id="searchAddressBook" parameterType="java.lang.String" resultMap="AddressBook">
+		SELECT E.EMP_NO, D.DEP_NAME, E.EMP_NAME, J.JOB_NAME, P.POSITION_NAME, E.PHONE, E.EMAIL
+		FROM EMPLOYEE E
+		LEFT JOIN DEPT_RECORD DR ON (E.EMP_NO = DR.EMP_NO)
+		LEFT JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+		LEFT JOIN JOB_RECORD JE ON (E.EMP_NO = JE.EMP_NO)
+		LEFT JOIN JOB J ON (JE.JOB_CODE = J.JOB_CODE)
+		LEFT JOIN POSITION_RECORD PR ON (PR.EMP_NO = E.EMP_NO)
+		LEFT JOIN POSITION P ON (PR.POSITION_NO = P.POSITION_NO)
+		WHERE EMP_NAME = #{name}
+	</select>
+	
+	<select id="selectAdd" parameterType="int" resultMap="AddressBook">
+		SELECT E.EMP_NO, D.DEP_NAME, E.EMP_NAME, J.JOB_NAME, P.POSITION_NAME, E.PHONE, E.EMAIL
+		FROM EMPLOYEE E
+		LEFT JOIN DEPT_RECORD DR ON (E.EMP_NO = DR.EMP_NO)
+		LEFT JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+		LEFT JOIN JOB_RECORD JE ON (E.EMP_NO = JE.EMP_NO)
+		LEFT JOIN JOB J ON (JE.JOB_CODE = J.JOB_CODE)
+		LEFT JOIN POSITION_RECORD PR ON (PR.EMP_NO = E.EMP_NO)
+		LEFT JOIN POSITION P ON (PR.POSITION_NO = P.POSITION_NO)
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<insert id="insertAdd" parameterType="AddressBook">
+		INSERT INTO ADDRESSBOOK VALUES(ADDRESSBOOK_ID.NEXTVAL, #{empName}, #{jobName}, #{positionName}, #{phone}, #{email}, #{empNo})
+	</insert>
+	
+
+	
+	
+
+
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -131,13 +131,4 @@ public class Facing implements java.io.Serializable {
 				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + ", depId=" + depId + "]";
 	}
 	
-	
-	
-	
-	
-
-	
-	
-	
-	
 }

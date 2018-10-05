@@ -116,9 +116,12 @@ public class MemberServiceImpl implements MemberService{
 		}else{
 			result = true;
 		}
+
+	public int insertMember(MemberSelect m) {
+		
+		int result = md.insertMember(sqlSession, m);
+
 		
 		return result;
 	}
-
-
 }

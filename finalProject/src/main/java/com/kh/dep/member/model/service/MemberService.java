@@ -37,4 +37,9 @@ public interface MemberService {
 
 	boolean checkPw(MemberSelect m);
 
+
+	int insertMember(MemberSelect m);
+
+
+
 }

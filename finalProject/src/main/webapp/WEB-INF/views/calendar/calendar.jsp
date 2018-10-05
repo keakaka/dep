@@ -183,31 +183,19 @@
 										<label class="col-sm-3 control-label">참석자 </label>
 										<div class="col-sm-9"
 											style="height: 33px; display: flex; align-items: center; justify-content: left;">
-											<form action="/searchMemberByName.ca"
+											<form action="/${initParam.context_root} }/searchMemberByName.ca"
 															method="post" name="name_search_form"
 															onsubmit="return nameSearchFormCheck()">
-															<div class="input-group" style="width: 200px;">
-																<input type="text" name="name" class="form-control btn-round">
+															<div class="input-group" style="width: 200px; margin-top:9px;">
+																<input type="text" name="name" style="border:none; margin-top:7px;" placeholder="참석자를 검색하세요.">
 																<span class="input-group-btn">
-																	<a href="searchAtt.ca" class="btn btn-success btn-xs"> 참석자 검색 </a>
+																	<input type="submit" class="btn btn-success btn-xs" style="margin-top:7px;" value="참석자 검색"/>
 																</span>
 															</div>
 											</form>
-											<!-- <button id="attBtn" type="button"
-												class="btn btn-success btn-xs"
-												style="margin-top: auto; margin-bottom: auto;"
-												data-toggle="modal" data-target="#myModal">참석자 검색</button> -->
 										</div>
-
-
 									</div>
-									<div class="form-group" id="attSearch">
-										<div id="attSearchDiv" class="col-sm-9"
-											style="width: 300px; height: 120px;"></div>
-									</div>
-
-
-									<div class="form-group">
+									<div class="form-group" style="height:150px; width:400px; border:1px solid red;">
 										<label class="col-sm-3 control-label">메모</label>
 										<div class="col-sm-9">
 											<textarea id="content" name="content"
@@ -218,6 +206,7 @@
 								</form>
 							</div>
 						</div>
+						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary antosubmit">일정 추가</button>
 							<button type="button" class="btn btn-default antoclose"
