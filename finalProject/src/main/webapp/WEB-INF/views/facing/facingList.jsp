@@ -105,8 +105,12 @@
                     <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
                       <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content22" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">Profile</a>
+                      <li role="presentation" class=""><a href="${ contextPath }/facinglist.ms?loginUser='${sessionScope.login
+                      User.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">넘어가자</a>
                       </li>
+                    
+                     
+                      </script>
                       <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">Profile</a>
                       </li>
                     </ul>
@@ -145,6 +149,8 @@
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
+                            
+                              <th>날짜</th>
                               <th>보낸사람</th>
                               <th>제목</th>
                               <th>받은날짜</th>
@@ -154,15 +160,18 @@
 
 					
                           <tbody>
+                          <c:forEach var="f" items="${list}">
+                            
                             <tr>
-                              <td>$</td>
-                              <td>Integration Specialist</td>
-                              <td>New York</td>
+                              <td>${f.writeDate}</td> 
+                              <td>${f.empName}</td>
+                              <td>${f.facingTitle}</td>
+                              <td>${f.facingContens }</td>
                               <td><button class="btn btn-round btn-default">삭제하기</button></td>
-                           
                             </tr>
                           
-                           
+  							</c:forEach>
+                                                     
                           </tbody>
                         </table>
                       </div>

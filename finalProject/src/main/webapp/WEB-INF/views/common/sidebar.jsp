@@ -15,7 +15,7 @@
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
-            <h2> 회원 이름 님 </h2>
+            <h2>하이하이</h2>
          </div>
       </div>
       <!-- /menu prile quick info -->
@@ -36,6 +36,10 @@
                      <li><a href="myJobDuty.me">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me">근태 이력 조회</a></li>
                      <li><a href="myVacation.me">휴가 내역 조회</a></li>
+                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >넘어가자</a>
+                     <script type="text/javascript">
+                     
+                     </script>
                   </ul>
                </li>
                <li>
@@ -48,6 +52,7 @@
                      <li><a href="empty.html">휴지통</a></li>
                   </ul>
                </li>
+               
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
@@ -56,6 +61,7 @@
                      <li><a href="empty.html">수신함</a></li>
                   </ul>
                </li>
+               
                <li>
                   <a><i class="fa fa-video-camera"></i> 화상회의 
                      <span class="fa fa-chevron-down"></span>
@@ -70,7 +76,7 @@
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
-           		<c:if test="">
+           	<c:if test="">
          		
               <c:if test="${sessionScope.loginUser.depId eq 'D1' }">
                <li>
@@ -81,9 +87,9 @@
                  
                   </ul>
                </li>
-               <li><a><i class="fa fa-users"></i> 인사관리 </a></li>
-
-               <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
+               </c:if>
+               </c:if>
+           
             </ul>
          </div>
       </div>
