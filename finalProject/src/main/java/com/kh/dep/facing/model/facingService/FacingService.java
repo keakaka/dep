@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.vo.Facing;
 
 public interface FacingService {
 
+	ArrayList<Facing> selectFacingList(int userNo) throws FacingSelectListException;
+
 	
 
-	ArrayList<Facing> selectFacingList(SqlSessionTemplate sqlSession ,Facing f); 
-	
+/*	ArrayList<Facing> selectFacingList(int userNo);
+*/
+
 	
 }
