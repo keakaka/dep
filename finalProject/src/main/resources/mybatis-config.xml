@@ -11,14 +11,18 @@
 		<typeAlias type="com.kh.dep.member.model.vo.Department" alias="Department"/>
 		<typeAlias type="com.kh.dep.member.model.vo.MemberDepartment" alias="MemberDepartment"/>
 		<typeAlias type="com.kh.dep.member.model.vo.MemberJob" alias="MemberJob"/>
+		<typeAlias type="com.kh.dep.addressBook.model.vo.AddressBook" alias="AddressBook"/>
 
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/addressBook-mapper.xml"/>
 	</mappers>
 	
 	
 </configuration>
+
+            
 
 
 
