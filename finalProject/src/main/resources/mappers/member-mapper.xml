@@ -37,9 +37,18 @@
 		<id property="jobCode" column="JOB_CODE" />
 		<result property="jobName" column="JOB_NAME" />
 	</resultMap>
-
-
 	
+	<resultMap type="Attachment" id="AttachResultSet">
+		<id property="fileNo" column="FILE_NO" />
+		<result property="oriFileName" column="ORI_FILENAME" />
+		<result property="modiFileName" column="MODI_FILENAME" />
+		<result property="uploadDate" column="UPLOAD_DATE" />
+		<result property="boardNo" column="BOARD_NO" />
+		<result property="docNo" column="DOC_NO" />
+		<result property="emailNo" column="EMAIL_NO" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="empType" column="EMP_TYPE" />
+	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
 	<select id="selectPwd" resultType="java.lang.String"
@@ -50,6 +59,9 @@
 		AND
 		STATUS = 'Y'
 	</select>
+	
+	
+	
 
 	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
 	<select id="selectLoginUser" resultMap="memberResultSet"
@@ -91,13 +103,17 @@
 	
 
 	<!-- 회원가입용 메소드 -->
-	<!-- <insert id="insertMember" parameterType="Member"> INSERT INTO MEMBER 
-		VALUES(SEQ_MID.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{email}, #{birthDay}, 
-		#{gender}, #{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT) </insert> -->
+	<insert id="insertMember" parameterType="MemberSelect">	 
+	INSERT INTO EMPLOYEE
+	(EMP_NO, EMP_NAME, BIRTH_DATE, EMAIL, PHONE, EMERGENCY_PHONE, ADDRESS, SALARY, HIRE_DATE, PHONE_REVEAL, STATUS)
+	VALUES(EMP_NO.NEXTVAL, #{empName}, #{birthDate}, #{email}, #{phone}, #{emergencyPhone}, #{address}, #{salary}, SYSDATE, #{phoneReveal}, DEFAULT)
+		
+	</insert>
 
-	<insert id="insertBoard">
-		INSERT INTO BOARD(BID, BTITLE)
-		VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다')
+	<insert id="insertAttach" parameterType="Attachment">
+		INSERT INTO ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE, EMP_NO, EMP_TYPE) 
+	VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName}, SYSDATE, EMP_NO.CURRVAL+1, #{empType})
+
 	</insert>
 
 	<!-- 내 정보 수정처리 -->

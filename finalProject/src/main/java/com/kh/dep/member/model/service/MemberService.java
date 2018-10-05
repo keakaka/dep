@@ -19,4 +19,9 @@ public interface MemberService {
 
 	ArrayList<MemberJob> selectJobList();
 
+
+	int insertMember(MemberSelect m);
+
+
+
 }

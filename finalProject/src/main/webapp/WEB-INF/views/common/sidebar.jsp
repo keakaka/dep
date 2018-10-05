@@ -15,7 +15,9 @@
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
+            <h2> ${ sessionScope.loginUser.empName } 님 </h2>
             <h2>하이하이</h2>
+
          </div>
       </div>
       <!-- /menu prile quick info -->
@@ -76,18 +78,18 @@
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
-
-			<c:if test="${sessionScope.loginUser.depId eq 'D1' }">
-				<li><a><i class="fa fa-users"></i> 인사관리 <span
-						class="fa fa-chevron-down"></span></a>
-					<ul class="nav child_menu" style="display: none">
-						<li><a href="moveMemberInsert.me">사원 추가</a></li>
-
-					</ul></li>
-
-				<li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
-			</c:if>
-		</ul>
+           		        		
+              <c:if test="${sessionScope.loginUser.depId eq 'D1' }">
+               <li>
+               <a><i class="fa fa-users"></i> 인사관리 <span
+                     class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                     <li><a href="moveMemberInsert.me">사원 추가</a></li>               
+                  </ul>          
+               </li>
+               <li><a href="salary.me"><i class="fa fa-won"></i> 출근관리 </a></li>
+               </c:if>
+            </ul>
 
          </div>
       </div>
