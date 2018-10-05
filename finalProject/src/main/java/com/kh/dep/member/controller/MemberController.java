@@ -28,6 +28,7 @@ public class MemberController {
 	@RequestMapping(value="login.me")
 	public String loginCheck(MemberSelect m, Model model){
 		
+		System.out.println("오니");
 		
 		//임시 비밀번호 생성용
 		// 계정 암호화 된 패스워드 DB에 저장 후 
