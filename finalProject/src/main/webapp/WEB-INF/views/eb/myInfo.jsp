@@ -113,11 +113,11 @@
 													<div id="info1">
 														<h4 style="color:#34495E;"></h4>
 														
-														<div>
+														<%-- <div>
 															<label for="empNo">사원번호</label>
 															<input type="text" id="empNo" name="empNo"
 																   value="${loginUser.empNo }" readonly>
-														</div>
+														</div> --%>
 														
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -155,9 +155,9 @@
 																class="control-label col-md-3 col-sm-3 col-xs-12">
 																부서 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="depName"
-																	class="form-control col-md-7 col-xs-12" type="text"
-																	value="${loginUser.depName }" name="depName">
+																<input type="text" id="depName" name="depName"
+																	class="form-control col-md-7 col-xs-12" readonly
+																	value="${loginUser.depName }">
 															</div>
 														</div>
 														
@@ -165,9 +165,9 @@
 															<label for="jobName"
 																class="control-label col-md-3 col-sm-3 col-xs-12">직급</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="jobName"
-																	class="form-control col-md-7 col-xs-12" type="text"
-																	name="jobName" value="${loginUser.jobName }" readonly>
+																<input type="text" id="jobName" name="jobName"
+																	class="form-control col-md-7 col-xs-12"
+																	value="${loginUser.jobName }" readonly>
 															</div>
 														</div>
 
@@ -189,10 +189,20 @@
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
 																for="emergencyPhone">비상연락처 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="text" id="emergencyPhone"
-																	name="emergencyPhone"
+																<input type="text" id="emergencyPhone" name="emergencyPhone"
 																	value="${loginUser.emergencyPhone }"
 																	class="form-control col-md-7 col-xs-12">
+															</div>
+														</div>
+														
+														<div class="form-group">
+															<label for="email"
+																class="control-label col-md-3 col-sm-3 col-xs-12">
+																이메일 </label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input id="email"
+																	class="form-control col-md-7 col-xs-12" type="email"
+																	value="${loginUser.email }" name="email">
 															</div>
 														</div>
 
@@ -206,42 +216,38 @@
 															</div>
 														</div>
 
-														<div>
+														<%-- <div>
 															<label for="salary">기본급</label>
 															<input type="text" id="salary" name="salary"
 																   value="${loginUser.salary }" readonly>
-														</div>
+														</div> --%>
 														<div class="form-group">
 															<label for="hireDate"
 																class="control-label col-md-3 col-sm-3 col-xs-12">입사일</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="hireDate"
-																	class="form-control col-md-7 col-xs-12" type="text"
-																	value="${loginUser.hireDate }" readonly name="hireDate">
+																<%-- <input id="hireDate" name="hireDate"
+																	class="form-control col-md-7 col-xs-12" type="date"
+																	value="${loginUser.hireDate }" readonly> --%>
+																<label>${loginUser.hireDate }</label>
 															</div>
-														</div>
-
-														<div class="form-group">
-															<label for="email"
-																class="control-label col-md-3 col-sm-3 col-xs-12">
-																이메일 </label>
-															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input id="email"
-																	class="form-control col-md-7 col-xs-12" type="email"
-																	value="${loginUser.email }" name="email">
-															</div>
-														</div>
-
-
+														</div> 
+														
 													</div>
 
 													<button type="submit">수정하기</button>
+													<!-- <button type="button" id="updateBtn" onclick="check()">수정확인</button> -->
 													<!-- <input type="submit" value="수정"> -->
 												</form>
-												<form class="form-horizontal form-label-left"
-													action="updateMyInfo.me" method="post">
-												<button type="submit">test</button>
-												</form>
+												
+												<!-- <script>
+													function check(){
+														var	result = ${result};
+														if(result == false){
+															alert("비밀번호가 일치하지 않습니다.");
+														}
+													}												
+												</script> -->
+												
 											</div>
 										</div>
 									</div>
