@@ -68,14 +68,14 @@
 								<div class="dashboard_graph">
 
 									<div class="row x_title">
-										
+
 										<div class="col-md-6" style="width: 100%;">
 
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>
-															직급이력조회 <small>채은비</small>
+															직책이력조회 <small>${loginUser.empName }</small>
 														</h2>
 
 														<div class="clearfix"></div>
@@ -86,7 +86,8 @@
 															class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th>직급명</th>
+																	<th>순번</th>
+																	<th>직책명</th>
 																	<th>변경일자</th>
 																	<th>변경사유</th>
 																</tr>
@@ -94,31 +95,44 @@
 
 
 															<tbody>
-																<tr>
+																<c:forEach items="${myJobPositionList }" var="myJobPosition">
+																	<tr>
+																		<td>${myJobPosition.seqNum}</td>
+																		<td>${myJobPosition.positionName }</td>
+																		<td>${myJobPosition.positionRecordDate }</td>
+																		<td>${myJobPosition.positionReason }</td>
+																	</tr>
+																</c:forEach>
+																<!-- <tr>
+																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Tiger Nixon</td>
 																	<td>System Architect</td>
 																</tr>
 																<tr>
+																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Garrett Winters</td>
 																	<td>Accountant</td>
 																</tr>
 																<tr>
+																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Ashton Cox</td>
 																	<td>Junior Technical Author</td>
 																</tr>
 																<tr>
+																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Cedric Kelly</td>
 																	<td>Senior Javascript Developer</td>
 																</tr>
 																<tr>
+																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Airi Satou</td>
 																	<td>Accountant</td>
-																</tr>
+																</tr> -->
 
 															</tbody>
 														</table>

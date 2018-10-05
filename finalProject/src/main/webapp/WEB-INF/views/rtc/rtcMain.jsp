@@ -76,7 +76,7 @@
 		</div>
 
 	</div>
-
+	<input type="hidden" value="${loginUser.empName }" id="empName"/>
 	<div id="custom_notifications" class="custom-notifications dsp_none">
 		<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
 		</ul>
@@ -97,19 +97,23 @@
 	<!-- /footer content -->
 	
 	<script>
-		function rtcOpen(){
-			var url= "https://localhost:55555?id=22332333";    //팝업창 페이지 URL
-		    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(optoin)
-			window.open(url,"",popupOption);
-		}
-		function openTest(){
-			var roomName = window.prompt('ㄴㅇㄹㄴㅇㄹ');
-			console.log(roomName);
-			var url="https://192.168.20.218:55555?id="+roomName+"#/room/"+roomName;
-			var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(optoin)
-			window.open(url,"",popupOption);
-		}
-	</script>
+      function rtcOpen(){
+         var empName = $("#empName").val();
+         var empNo = $("#empNo").val();
+         var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
+         var url = encodeURI(url1);
+          var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+         window.open(url,"",popupOption);
+      }
+      function openTest(){
+         var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
+         var empName = $("#empName").val();
+         var empNo = $("#empNo").val();
+         var url="https://192.168.20.218:55555?id="+empName+"#/room/"+roomName;
+         var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+         window.open(url,"",popupOption);
+      }
+   </script>
 </body>
 
 </html>

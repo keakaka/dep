@@ -30,9 +30,6 @@ public class MemberSelect implements java.io.Serializable {
 	
 	public MemberSelect(){}
 
-	
-
-
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
 			String birthDate, String email, String phone, String emergencyPhone, String address, int salary,
 			Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
@@ -61,8 +58,8 @@ public class MemberSelect implements java.io.Serializable {
 	}
 
 
-	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
-			String email, String phone, String emergencyPhone, String address, int salary, Date hireDate) {
+	/*public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
+			 String phone, String emergencyPhone, String email, String address, int salary, Date hireDate) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -72,12 +69,12 @@ public class MemberSelect implements java.io.Serializable {
 		this.jobName = jobName;
 		this.phone = phone;
 		this.emergencyPhone = emergencyPhone;
+		this.email = email;
 		this.address = address;
 		this.salary = salary;
 		this.hireDate = hireDate;
-		this.email = email;
 	}
-
+*/
 
 
 

@@ -75,7 +75,7 @@
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>
-															부서이력조회 <small>채은비</small>
+															부서이력조회 <small>${loginUser.empName }</small>
 														</h2>
 
 														<div class="clearfix"></div>
@@ -86,6 +86,7 @@
 															class="table table-striped table-bordered">
 															<thead>
 																<tr>
+																	<th>순번</th>
 																	<th>부서명</th>
 																	<th>변경일자</th>
 																	<th>변경사유</th>
@@ -94,31 +95,14 @@
 
 
 															<tbody>
-																<tr>
-																	<td>날짜</td>
-																	<td>Tiger Nixon</td>
-																	<td>System Architect</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Garrett Winters</td>
-																	<td>Accountant</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Ashton Cox</td>
-																	<td>Junior Technical Author</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Cedric Kelly</td>
-																	<td>Senior Javascript Developer</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Airi Satou</td>
-																	<td>Accountant</td>
-																</tr>
+																<c:forEach items="${myDepRecordList}" var="myDepRecord">
+																	<tr>
+																		<td>${myDepRecord.seqNum }</td>
+																		<td>${myDepRecord.depName }</td>
+																		<td>${myDepRecord.depRecordDate }</td>
+																		<td>${myDepRecord.depReason}</td>
+																	</tr>
+																</c:forEach>
 
 															</tbody>
 														</table>

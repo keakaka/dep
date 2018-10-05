@@ -1,14 +1,18 @@
 package com.kh.dep.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dep.member.model.vo.Department;
+import com.kh.dep.member.model.vo.Job;
 import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
+import com.kh.dep.member.model.vo.Position;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -37,10 +41,10 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m) {
+	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m) throws Exception {
 		
 		
-		return sqlSession.update("MemberSelect.updateMyInfo", m);
+		return sqlSession.update("Member.updateMyInfo", m);
 	}
 
 
@@ -49,7 +53,25 @@ public class MemberDaoImpl implements MemberDao {
 		return (ArrayList)sqlSession.selectList("Member.selectJob");
 	}
 
+	@Override
+	public List<Department> selectMyDepRecordInfo(SqlSessionTemplate sqlSession, String empId) throws Exception {
+		List<Department> list = sqlSession.selectList("Member.selectMyDepRecord", empId);
+		/*System.out.println(list);*/
+		return list;
+	}
 
+	@Override
+	public List<Job> selectMyJobRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception {
+		List<Job> list = sqlSession.selectList("Member.selectMyJobRecord", empNo);
+		/*System.out.println(list);*/
+		return list;
+	}
+
+	@Override
+	public List<Position> selectMyJobPositionRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception {
+		List<Position> list = sqlSession.selectList("Member.selectMyJobPositionRecord", empNo);
+		return list;
+	}
 	
 
 }

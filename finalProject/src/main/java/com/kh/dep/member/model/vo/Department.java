@@ -1,19 +1,25 @@
 package com.kh.dep.member.model.vo;
 
+import java.sql.Date;
+
+import org.springframework.stereotype.Repository;
+
 public class Department implements java.io.Serializable {
-	private String depId;
+	private String seqNum;
+	private String depRecordNo;
 	private String depName;
 	private String depPhone;
-	private String depRecordDate;
+	private Date depRecordDate;
 	private String depReason;
 	private String empName;
 	
 	public Department(){}
-	
-	public Department(String depId, String depName, String depPhone, String depRecordDate, String depReason,
-			String empName) {
+
+	public Department(String seqNum, String depRecordNo, String depName, String depPhone, Date depRecordDate,
+			String depReason, String empName) {
 		super();
-		this.depId = depId;
+		this.seqNum = seqNum;
+		this.depRecordNo = depRecordNo;
 		this.depName = depName;
 		this.depPhone = depPhone;
 		this.depRecordDate = depRecordDate;
@@ -21,12 +27,20 @@ public class Department implements java.io.Serializable {
 		this.empName = empName;
 	}
 
-	public String getDepId() {
-		return depId;
+	public String getSeqNum() {
+		return seqNum;
 	}
 
-	public void setDepId(String depId) {
-		this.depId = depId;
+	public void setSeqNum(String seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public String getDepRecordNo() {
+		return depRecordNo;
+	}
+
+	public void setDepRecordNo(String depRecordNo) {
+		this.depRecordNo = depRecordNo;
 	}
 
 	public String getDepName() {
@@ -45,11 +59,11 @@ public class Department implements java.io.Serializable {
 		this.depPhone = depPhone;
 	}
 
-	public String getDepRecordDate() {
+	public Date getDepRecordDate() {
 		return depRecordDate;
 	}
 
-	public void setDepRecordDate(String depRecordDate) {
+	public void setDepRecordDate(Date depRecordDate) {
 		this.depRecordDate = depRecordDate;
 	}
 
@@ -71,8 +85,10 @@ public class Department implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Department [depId=" + depId + ", depName=" + depName + ", depPhone=" + depPhone + ", depRecordDate="
-				+ depRecordDate + ", depReason=" + depReason + ", empName=" + empName + "]";
+		return "Department [seqNum=" + seqNum + ", depRecordNo=" + depRecordNo + ", depName=" + depName + ", depPhone="
+				+ depPhone + ", depRecordDate=" + depRecordDate + ", depReason=" + depReason + ", empName=" + empName
+				+ "]";
 	}
+
 	
 }
