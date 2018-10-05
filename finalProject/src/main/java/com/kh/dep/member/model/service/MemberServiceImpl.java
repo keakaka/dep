@@ -69,5 +69,19 @@ public class MemberServiceImpl implements MemberService{
 		return joblist;
 	}
 
+	@Override
+	public int insertMember(MemberSelect m) {
+		
+		int result = md.insertMember(sqlSession, m);
+		
+		
+		
+		return result;
+	}
+
+
+
+
+
 	
 }

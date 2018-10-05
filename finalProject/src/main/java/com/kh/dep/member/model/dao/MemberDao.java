@@ -22,6 +22,12 @@ public interface MemberDao {
 
 	ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession);
 
+	int insertMember(SqlSessionTemplate sqlSession, MemberSelect m);
+
+
+
+
+
 
 	
 
