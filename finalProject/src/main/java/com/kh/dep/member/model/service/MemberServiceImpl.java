@@ -116,6 +116,8 @@ public class MemberServiceImpl implements MemberService{
 		}else{
 			result = true;
 		}
+		return result;
+	}
 
 	public int insertMember(MemberSelect m) {
 		
