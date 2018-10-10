@@ -5,29 +5,37 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AddressBook implements  java.io.Serializable{
 	private int empNo;
+	private String addressBookId;
 	private String depName;
 	private String empName;
 	private String jobName;
 	private String positionName;
 	private String phone;
 	private String email;
+	private int loginNo;
 	
 	public AddressBook() {}
 
-	public AddressBook(int empNo, String depName, String empName, String jobName, String positionName, String phone,
-			String email) {
+	public AddressBook(int empNo, String addressBookId, String depName, String empName, String jobName,
+			String positionName, String phone, String email, int loginNo) {
 		super();
 		this.empNo = empNo;
+		this.addressBookId = addressBookId;
 		this.depName = depName;
 		this.empName = empName;
 		this.jobName = jobName;
 		this.positionName = positionName;
 		this.phone = phone;
 		this.email = email;
+		this.loginNo = loginNo;
 	}
 
 	public int getEmpNo() {
 		return empNo;
+	}
+
+	public String getAddressBookId() {
+		return addressBookId;
 	}
 
 	public String getDepName() {
@@ -54,8 +62,16 @@ public class AddressBook implements  java.io.Serializable{
 		return email;
 	}
 
+	public int getLoginNo() {
+		return loginNo;
+	}
+
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
+	}
+
+	public void setAddressBookId(String addressBookId) {
+		this.addressBookId = addressBookId;
 	}
 
 	public void setDepName(String depName) {
@@ -82,10 +98,15 @@ public class AddressBook implements  java.io.Serializable{
 		this.email = email;
 	}
 
+	public void setLoginNo(int loginNo) {
+		this.loginNo = loginNo;
+	}
+
 	@Override
 	public String toString() {
-		return "AddressBook [empNo=" + empNo + ", depName=" + depName + ", empName=" + empName + ", jobName=" + jobName
-				+ ", positionName=" + positionName + ", phone=" + phone + ", email=" + email + "]";
+		return "AddressBook [empNo=" + empNo + ", addressBookId=" + addressBookId + ", depName=" + depName
+				+ ", empName=" + empName + ", jobName=" + jobName + ", positionName=" + positionName + ", phone="
+				+ phone + ", email=" + email + ", loginNo=" + loginNo + "]";
 	}
 
 	

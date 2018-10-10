@@ -94,7 +94,15 @@
 
 
 															<tbody>
-																<tr>
+																<c:forEach items="${myWorkingHoursRecordList }" var="myWorkingHoursRecord">
+																	<tr>
+																		<td>${myWorkingHoursRecord.workingDate}</td>
+																		<td>${myWorkingHoursRecord.attendTime}</td>
+																		<td>${myWorkingHoursRecord.leaveTime }</td>
+																	</tr>
+																
+																</c:forEach>
+																<!-- <tr>
 																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Tiger Nixon</td>
@@ -118,7 +126,7 @@
 																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Airi Satou</td>
-																</tr>
+																</tr> -->
 
 															</tbody>
 														</table>

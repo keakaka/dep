@@ -16,19 +16,35 @@ public class AddressBookServiceImpl implements AddressBookService{
 	@Autowired
 	private AddressBookDao abd;
 
+	//주소록 회원 검색
 	@Override
-	public List<Member> listAll(String name) {
+	public List<Member> searchAdd(String name) {
 		System.out.println(name + "주소록 서비스impl");
-		return abd.listAll(name);
+		return abd.searchAdd(name);
 	}
 
 	@Override
-	public AddressBook selectAdd(int empNo) {
+	public AddressBook insertAdd(int empNo, int loginNo) {
 		AddressBook ab = abd.selectAdd(empNo);
+		ab.setLoginNo(loginNo);
 		int result = abd.insertAdd(ab);
 		
 		return ab;
 	}
+
+	@Override
+	public List<AddressBook> selectAddList() {
+		return abd.selectAddList();
+	}
+
+	@Override
+	public AddressBook deleteAddressBook(int empNo) {
+		AddressBook ab = abd.selectAdd(empNo);
+		int result = abd.deleteAdd(ab);
+		
+		return ab;
+	}
+
 	
 
 

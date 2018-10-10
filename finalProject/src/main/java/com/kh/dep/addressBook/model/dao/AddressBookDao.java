@@ -9,13 +9,15 @@ import com.kh.dep.member.model.vo.Member;
 
 public interface AddressBookDao {
 
-	List<Member> listAll(String name);
+	List<Member> searchAdd(String name);
 
 	AddressBook selectAdd(int empNo);
 
 	int insertAdd(AddressBook ab);
 
+	List<AddressBook> selectAddList();
 
-	
+	int deleteAdd(AddressBook ab);
+
 
 }

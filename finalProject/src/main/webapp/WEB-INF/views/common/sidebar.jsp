@@ -11,7 +11,7 @@
       <!-- menu prile quick info -->
       <div class="profile">
          <div class="profile_pic">
-            <img src="${contextPath }/resources/images/${ sessionScope.loginUser.oriFileName}.jpg" alt="..." class="img-circle profile_img">
+            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName}" alt="..." class="img-circle profile_img">
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
@@ -37,13 +37,13 @@
                      <li><a href="myJobRank.me?var=${loginUser.empNo }">직급 변경 이력 조회</a></li>
                      <li><a href="myDepartment.me?var=${loginUser.empId }">부서이동 이력 조회</a></li>
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
-                     <li><a href="myWorkingHours.me">근태 이력 조회</a></li>
-                     <li><a href="myVacation.me">휴가 내역 조회</a></li>
+                     <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
+                     <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
                      <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
                      <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
                      <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
-                      <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-                     
+                     <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
+
                      <script type="text/javascript">
                      
                      </script>
@@ -63,9 +63,9 @@
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="empty.html">기안하기</a></li>
-                     <li><a href="empty.html">결재함</a></li>
-                     <li><a href="empty.html">수신함</a></li>
+                     <li><a href="signWright.sg">기안하기</a></li>
+                     <li><a href="signApprovalList.sg">결재함</a></li>
+                     <li><a href="signReceive.sg">수신함</a></li>
                   </ul>
                </li>
                

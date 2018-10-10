@@ -11,10 +11,9 @@ public class AttachDaoImpl implements AttachDao {
 	@Override
 	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment file) {
 		
-		System.out.println("attach DAo 입력 확인");
 		
 		return sqlSession.insert("Member.insertAttach", file);
-		
 	}
 
+	
 }

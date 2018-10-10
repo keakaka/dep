@@ -100,10 +100,12 @@ function SmartWizard(target, options) {
                         return false;
                     }
                 }else{
+                	var form = document.getElementById('signForm');
+                	alert('click!');
                     var frm = $this.target.parents('form');
-                    frm.attr("action", "test.te");
-                    if(frm && frm.length){
-                        frm.submit();
+                    frm.attr("action", "insertSign.sg");
+                    if(form && form.length){
+                        form.submit();
                     }
                 }
             }

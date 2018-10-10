@@ -165,6 +165,10 @@ public class FacingController {
 
 		
 	}
-	
-	
+
+	@RequestMapping("facing.ms")
+	public String facing() {
+		return "facing/facing";
+	}
+
 }

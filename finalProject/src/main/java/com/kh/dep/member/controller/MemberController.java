@@ -1,10 +1,15 @@
 package com.kh.dep.member.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +33,10 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -35,26 +44,20 @@ public class MemberController {
 
 	@Autowired
 	private MemberService ms;
-
+	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private AttachService as;
 
 	@RequestMapping(value="login.me")
 	public String loginCheck(MemberSelect m, Model model){
 
 
-		//임시 비밀번호 생성용
-		// 계정 암호화 된 패스워드 DB에 저장 후 
-		// 주석 처리하고 사용하면 됨
-		/*String encPassword = passwordEncoder.encode(m.getEmpPwd());
-		m.setEmpPwd(encPassword);
-
-		System.out.println("로그인 시 암호화 패스워드 : " + m.getEmpPwd());*/
-
 
 
 		try {
 			MemberSelect loginUser = ms.selectLoginMember(m);
+			
+			System.out.println(loginUser);
 			
 			model.addAttribute("loginUser", loginUser);
 
@@ -78,9 +81,12 @@ public class MemberController {
 		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<Position> polist = ms.selectpositList();
 
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
+		model.addAttribute("polist", polist);
 
 		return "personManagement/memberInsert";
 	}
@@ -107,6 +113,7 @@ public class MemberController {
 		String changeName = CommonUtils.getRandomString();
 		String changeName2 = CommonUtils.getRandomString();
 		
+
 		
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeName + ext) );
@@ -119,25 +126,25 @@ public class MemberController {
 			
 			if(result > 0){
 				
-				
+				int empNo = ms.selectempNumber();
 				
 				Attachment file = new Attachment();
 				Attachment sig = new Attachment();
 				
 				file.setOriFileName(originFileName);
-				file.setModiFileName(changeName);
+				file.setModiFileName(changeName + ext);
+				file.setEmpNo(empNo);
 				file.setEmpType("ET1");
 				
 				sig.setOriFileName(orisigFileName);
-				sig.setModiFileName(changeName2);
+				sig.setModiFileName(changeName2 + ext2);
+				sig.setEmpNo(empNo);
 				sig.setEmpType("ET2");
 				
 				System.out.println(file);
 				System.out.println(sig);
 				
-				AttachService as = new AttachServiceImpl();
-				
-				
+			
 				int result1 = as.insertAttachment(file);
 				
 				System.out.println("사진 저장 성공 " + result1);
@@ -171,33 +178,58 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="updateMyInfo.me")
-	public String updateMyInfoDetail(MemberSelect m, Model model){
-		try {
-			System.out.println("내정보수정 컨트롤러");
-			boolean result = ms.checkPw(m);
-			/*System.out.println(result);*/
-			if(result){
-				int result2 = ms.updateMyInfo(m);
-				/*System.out.println(result2);*/
-				if(result2 > 0){
-					MemberSelect loginUser = ms.selectUpdateMember(m);
-					System.out.println("controller member : " + loginUser);
-
-					model.addAttribute("loginUser", loginUser);
-					System.out.println("내 정보 수정 완료");
-
-				}
-			}else{
-				model.addAttribute("result", result);
+	public void updateMyInfoDetail(String empId, String empPwd, String empName, String phone, String check, String emergencyPhone, String email, String address, Model model, HttpServletResponse response){
+		System.out.println(empId + ", " + empPwd + ", " + empName + ", " + phone + ", " + emergencyPhone + ", " + email + ", " + address);
+		
+		boolean result = ms.checkPw(empId, empPwd);
+		System.out.println("비밀번호 일치? " + result);
+		
+		if(result){
+			MemberSelect m = new MemberSelect();
+			m.setEmpId(empId);
+			m.setEmpPwd(empPwd);
+			m.setEmpName(empName);
+			m.setPhone(phone);
+			
+			if(check.equals("1")){
+				check="Y";
 			}
-			return "eb/myInfo";
-		} catch (Exception e) {
-			model.addAttribute("msg", e.getMessage());
+			else{
+				check="N";
+			}
+			
+			m.setPhoneReveal(check);
+			m.setEmergencyPhone(emergencyPhone);
+			m.setEmail(email);
+			m.setAddress(address);
+			
+			int result2 = ms.updateMyInfo(m);
+			System.out.println("정보 수정 완료시 1 : " + result2);
+			if(result2 > 0){
+				MemberSelect loginUser = null;
+				try {
+					loginUser = ms.selectUpdateMember(m);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				System.out.println("수정된 회원정보 : " + loginUser);
 
-			return "common/errorPage";
+				model.addAttribute("loginUser", loginUser);
+				System.out.println("내 정보 수정 완료");
+			}
 		}
-
-
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(result);
+			
+			JSONObject json = new JSONObject();
+			json.put("data", result);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@RequestMapping(value="salary.me")
@@ -269,13 +301,67 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="myWorkingHours.me")
-	public String showMyWorkingHours(){
+	public String showMyWorkingHours(@RequestParam("var") int empNo, Model model){
+		System.out.println("내 출퇴근 이력 조회 컨트롤러");
+		System.out.println("사원번호 : " + empNo);
+		List<WorkingHours> myWorkingHoursRecordList = ms.selectMyWorkingHoursRecord(empNo);
+		System.out.println("나의 출근이력 : " + myWorkingHoursRecordList);
+		
+		/*String[] workingDate = new String[myWorkingHoursRecordList.size()];
+		String[] attendTime = new String[myWorkingHoursRecordList.size()];
+		
+		for(int i=0;i<myWorkingHoursRecordList.size();i++){
+			WorkingHours w=myWorkingHoursRecordList.get(i);
+			
+			String[] tempHours=w.getWorkingDate().split(" ");
+			workingDate[i]=tempHours[0];
+			attendTime[i]=tempHours[1];
+			
+			System.out.println("workingDate[" + i + "] : " + workingDate[i]);
+			
+			myWorkingHoursRecordList.get(i).setWorkingDate(workingDate[i]);
+			myWorkingHoursRecordList.get(i).setAttendTime(attendTime[i]);
+		}*/
+		
+		model.addAttribute("myWorkingHoursRecordList", myWorkingHoursRecordList);
+		
 		return "eb/detailOfWorkingHours";
 	}
 
 	@RequestMapping(value="myVacation.me")
-	public String showMyVacation(){
+	public String showMyVacationRecord(@RequestParam("var") int empNo, Model model){
+		
+		System.out.println("내 휴가이력 조회 컨트롤러");
+		System.out.println("사원번호 : " + empNo);
+		List<Vacation> myVacationRecordList = ms.selectMyVacationRecord(empNo);
+		
+		System.out.println("나의 휴가이력 : " + myVacationRecordList);
+		model.addAttribute("myVacationRecordList", myVacationRecordList);
+		
 		return "eb/detailOfVacation";
 	}
 
+	
+	@RequestMapping(value="updateMyVacation.me")
+	public String applyVacation(int empNo, String vacKind, String vacReason, String vacStartdate, String vacEnddate, Model model){
+		System.out.println("사원번호 : " + empNo + ", 휴가종류 : " + vacKind + ", 사유 : " + vacReason + ", 시작일 : " + vacStartdate + ", 종료일 : " + vacEnddate);
+		
+		Vacation myVac = new Vacation();
+		myVac.setEmpNo(empNo);
+		
+		
+		
+		myVac.setVacType(vacKind);
+		myVac.setVacReason(vacReason);
+		/*myVac.setVacStartdate(new SimpleDateFormat("yyyy-MM-dd").format(vacStartdate));*/
+		myVac.setVacStartdate(vacStartdate);
+		System.out.println("시작일 : " + myVac.getVacStartdate());
+		myVac.setVacEnddate(vacEnddate);
+		System.out.println("종료일 : " + myVac.getVacEnddate());
+		
+		int result = ms.insertMyVacation(myVac);
+		System.out.println("휴가 신청 완료시 1 : " + result);
+		
+		return "eb/detailOfVacation";
+	}
 }

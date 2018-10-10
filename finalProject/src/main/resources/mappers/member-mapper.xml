@@ -10,6 +10,7 @@
 		<result property="empName" column="EMP_NAME" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="jobName" column="JOB_NAME" />
+		<result property="positionName" column="POSITION_NAME" />
 		<result property="birthDate" column="BIRTH_DATE" />
 		<result property="email" column="EMAIL" />
 		<result property="phone" column="PHONE" />
@@ -22,7 +23,8 @@
 		<result property="status" column="STATUS" />
 		<result property="jobCode" column="JOB_CODE" />
 		<result property="depId" column="DEP_ID" />
-		<result property="oriFileName" column="ORI_FILENAME" />
+		<result property="positionNo" column="POSITION_NO" />
+		<result property="modiFileName" column="MODI_FILENAME" />
 		<result property="empType" column="EMP_TYPE" />
 	</resultMap>
 
@@ -37,10 +39,16 @@
 		<id property="jobCode" column="JOB_CODE" />
 		<result property="jobName" column="JOB_NAME" />
 	</resultMap>
-  
+	
+	<resultMap type="MemberPosition" id="memberPositResultSet">
+		<id property="positionNo" column="POSITION_NO" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+
 	<resultMap type="Department" id="myDepRecordResultSet">
 		<id property="depRecordNo" column="DEP_RECORD_NO" />
-		<result property="seqNum" column="ROWNUM"/>
+		<result property="seqNum" column="ROWNUM" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="depPhone" column="DEP_PHONE" />
 		<result property="depRecordDate" column="DEP_RECORD_DATE" />
@@ -50,22 +58,22 @@
 
 	<resultMap type="Job" id="myJobRecordResultSet">
 		<id property="jobRecordNo" column="JOB_RECORD_NO" />
-		<result property="seqNum" column="ROWNUM"/>
+		<result property="seqNum" column="ROWNUM" />
 		<result property="jobName" column="JOB_NAME" />
 		<result property="jobRecordDate" column="JOB_RECORD_DATE" />
 		<result property="jobReason" column="JOB_REASON" />
 		<result property="empNo" column="EMP_NO" />
 	</resultMap>
-	
+
 	<resultMap type="Position" id="myJobPositionRecordResultSet">
-		<id property="positionRecordNo" column="POSITION_RECORD_NO"/>
-		<result property="seqNum" column="ROWNUM"/>
-		<result property="positionName" column="POSITION_NAME"/>
-		<result property="positionReason" column="POSITION_REASON"/>
-		<result property="positionRecordDate" column="POSITION_RECORD_DATE"/>
-		<result property="empName" column="EMP_NAME"/>
+		<id property="positionRecordNo" column="POSITION_RECORD_NO" />
+		<result property="seqNum" column="ROWNUM" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="positionReason" column="POSITION_REASON" />
+		<result property="positionRecordDate" column="POSITION_RECORD_DATE" />
+		<result property="empName" column="EMP_NAME" />
 	</resultMap>
-	
+
 	<resultMap type="Attachment" id="AttachResultSet">
 		<id property="fileNo" column="FILE_NO" />
 		<result property="oriFileName" column="ORI_FILENAME" />
@@ -76,6 +84,23 @@
 		<result property="emailNo" column="EMAIL_NO" />
 		<result property="empNo" column="EMP_NO" />
 		<result property="empType" column="EMP_TYPE" />
+	</resultMap>
+	
+	<resultMap type="Vacation" id="myVacationRecordResultSet">
+		<id property="vacNo" column="VAC_NO" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="vacReason" column="VAC_REASON" />
+		<result property="vacType" column="VAC_TYPE" />
+		<result property="vacStartdate" column="VAC_STARTDATE" />
+		<result property="vacEnddate" column="VAC_ENDDATE" />
+	</resultMap>
+	
+	<resultMap type="WorkingHours" id="myWorkingHoursRecordResultSet">
+		<id property="workingRecordNo" column="WORK_RECORD_NO" />
+		<result property="workingDate" column="WORKINGDATE" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="attendTime" column="ATTENDTIME" />
+		<result property="leaveTime" column="LEAVETIME" />
 	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
@@ -88,8 +113,13 @@
 		STATUS = 'Y'
 	</select>
 	
-	
-	
+	<!-- 내정보 수정시 암호화된 비밀번호 조회용 쿼리문 -->
+	<select id="selectPwd2" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT EMP_PWD
+		FROM EMPLOYEE
+		WHERE EMP_ID = #{empId} 
+		AND STATUS='Y'
+	</select>
 
 	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
 	<select id="selectLoginUser" resultMap="memberResultSet"
@@ -98,30 +128,35 @@
 		DEP_NAME, JOB_NAME,
 		BIRTH_DATE, EMAIL, PHONE, EMERGENCY_PHONE, ADDRESS,
 		SALARY, HIRE_DATE, LEAVE_DATE, PHONE_REVEAL, STATUS, JOB_CODE, DEP_ID,
-		ORI_FILENAME, EMP_TYPE
-		FROM (SELECT E.EMP_NO, E.EMP_ID, E.EMP_PWD,
+		MODI_FILENAME, EMP_TYPE, POSITION_NO, POSITION_NAME
+		FROM (SELECT
+		E.EMP_NO, E.EMP_ID, E.EMP_PWD,
 		E.EMP_NAME,D.DEP_NAME,
-		J.JOB_NAME, E.BIRTH_DATE, E.EMAIL, E.PHONE,
+		J.JOB_NAME,
+		E.BIRTH_DATE, E.EMAIL, E.PHONE,
 		E.EMERGENCY_PHONE,
 		E.ADDRESS,
-		E.SALARY, E.HIRE_DATE, E.LEAVE_DATE,
+		E.SALARY,
+		E.HIRE_DATE, E.LEAVE_DATE,
 		E.PHONE_REVEAL, E.STATUS, J.JOB_CODE,
-		D.DEP_ID, A.ORI_FILENAME,
-		A.EMP_TYPE
+		D.DEP_ID, A.MODI_FILENAME, A.EMP_TYPE, PR.POSITION_NO, P.POSITION_NAME
 		FROM EMPLOYEE E
 		JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
-		JOIN DEPARTMENT D ON(D.DEP_ID = DR.DEP_ID)
-		JOIN JOB_RECORD JR
-		ON(E.EMP_NO = JR.EMP_NO)
-		JOIN JOB J ON (J.JOB_CODE = JR.JOB_CODE)
 		JOIN
-		ATTACHMENT A ON(A.EMP_NO = E.EMP_NO)
+		DEPARTMENT D ON(D.DEP_ID = DR.DEP_ID)
+		JOIN JOB_RECORD JR ON(E.EMP_NO =
+		JR.EMP_NO)
+		JOIN JOB J ON (J.JOB_CODE = JR.JOB_CODE)
+		JOIN ATTACHMENT A
+		ON(A.EMP_NO = E.EMP_NO)
+		JOIN POSITION_RECORD PR ON(PR.EMP_NO = E.EMP_NO)
+		JOIN POSITION P ON(P.POSITION_NO = PR.POSITION_NO)
 		WHERE E.EMP_ID= #{empId}
 		AND
 		E.STATUS='Y'
 		AND A.EMP_TYPE='ET1'
 		ORDER BY DR.DEP_RECORD_DATE DESC,
-		JR.JOB_RECORD_DATE DESC)
+		JR.JOB_RECORD_DATE DESC, PR.POSITION_RECORD_DATE DESC)
 		WHERE ROWNUM = 1
 	</select>
 
@@ -139,66 +174,126 @@
 		FROM JOB
 	</select>
 
+	<!-- 직책 목록 조회용 쿼리문 -->
+	
+	<select id="selectPosition" resultMap="memberPositResultSet">
+		SELECT *
+		FROM POSITION
+		WHERE
+		STATUS = 'Y'
+	</select>
 
 	<!-- 회원가입용 메소드 -->
-	<insert id="insertMember" parameterType="MemberSelect">	 
-	INSERT INTO EMPLOYEE
-	(EMP_NO, EMP_NAME, BIRTH_DATE, EMAIL, PHONE, EMERGENCY_PHONE, ADDRESS, SALARY, HIRE_DATE, PHONE_REVEAL, STATUS)
-	VALUES(EMP_NO.NEXTVAL, #{empName}, #{birthDate}, #{email}, #{phone}, #{emergencyPhone}, #{address}, #{salary}, SYSDATE, #{phoneReveal}, DEFAULT)
-		
+	<insert id="insertMember" parameterType="MemberSelect">
+		INSERT INTO EMPLOYEE
+		(EMP_NO, EMP_NAME, BIRTH_DATE, EMAIL, PHONE, EMERGENCY_PHONE, ADDRESS,
+		SALARY,
+		HIRE_DATE, PHONE_REVEAL, STATUS)
+		VALUES(EMP_NO.NEXTVAL,
+		#{empName}, #{birthDate}, #{email}, #{phone}, #{emergencyPhone},
+		#{address}, #{salary}, SYSDATE, #{phoneReveal}, DEFAULT)
+
 	</insert>
 
+	<!-- 사진입력시 멤버 번호 조회 -->
+	<select id="selectempNumber" resultType="_int">
+		SELECT EMP_NO
+		FROM
+		(SELECT ROWNUM, EMP_NO
+		FROM EMPLOYEE
+		ORDER BY EMP_NO DESC)
+		WHERE ROWNUM =
+		1
+	</select>
+
+	<!-- 회원 사진 및 서명 파일 입력 -->
 	<insert id="insertAttach" parameterType="Attachment">
-		INSERT INTO ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE, EMP_NO, EMP_TYPE) 
-	VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName}, SYSDATE, EMP_NO.CURRVAL+1, #{empType})
+		INSERT INTO
+		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE, EMP_NO,
+		EMP_TYPE)
+		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
+		SYSDATE, #{empNo},
+		#{empType})
 
 	</insert>
 
 	<!-- 내 정보 수정처리 -->
 	<update id="updateMyInfo">
 		UPDATE EMPLOYEE
-		SET EMP_ID=#{empId}, EMP_NAME=#{empName}, PHONE=#{phone}, EMERGENCY_PHONE=#{emergencyPhone}, ADDRESS=#{address}, EMAIL=#{email}
+		SET EMP_NAME=#{empName}, PHONE=#{phone}, PHONE_REVEAL=#{phoneReveal}, EMERGENCY_PHONE=#{emergencyPhone}, EMAIL=#{email}, ADDRESS=#{address}
 		WHERE EMP_ID=#{empId}
 	</update>
 
+	<!-- 내 부서 이동 이력 조회 -->
 	<select id="selectMyDepRecord" resultMap="myDepRecordResultSet"
 		parameterType="String">
-		SELECT ROWNUM, DEP_RECORD_NO, DEP_NAME, DEP_PHONE, DEP_RECORD_DATE, DEP_REASON, EMP_NAME
-		FROM(SELECT ROWNUM RNUM, DR.DEP_RECORD_NO, D.DEP_NAME, D.DEP_PHONE, DR.DEP_RECORD_DATE, DR.DEP_REASON, E.EMP_NAME
+		SELECT ROWNUM, DEP_RECORD_NO, DEP_NAME, DEP_PHONE,
+		DEP_RECORD_DATE, DEP_REASON, EMP_NAME
+		FROM(SELECT ROWNUM RNUM,
+		DR.DEP_RECORD_NO, D.DEP_NAME, D.DEP_PHONE, DR.DEP_RECORD_DATE,
+		DR.DEP_REASON, E.EMP_NAME
 		FROM DEPT_RECORD DR
-		JOIN DEPARTMENT D ON(D.DEP_ID = DR.DEP_ID)
+		JOIN DEPARTMENT D
+		ON(D.DEP_ID = DR.DEP_ID)
 		JOIN EMPLOYEE E ON(E.EMP_NO = DR.EMP_NO)
-		WHERE D.STATUS = 'Y' AND E.EMP_ID = #{empId}
-		ORDER BY DR.DEP_RECORD_DATE DESC)
+		WHERE
+		D.STATUS = 'Y' AND E.EMP_ID = #{empId}
+		ORDER BY DR.DEP_RECORD_DATE
+		DESC)
 	</select>
 
+	<!-- 내 직급 이력 조회 -->
 	<select id="selectMyJobRecord" resultMap="myJobRecordResultSet"
-		parameterType="int">
+
+		parameterType="_int">
 		SELECT ROWNUM, JOB_RECORD_NO, JOB_NAME, JOB_RECORD_DATE, JOB_REASON, EMP_NO
 		FROM(SELECT ROWNUM RNUM, JR.JOB_RECORD_NO, J.JOB_NAME, JR.JOB_RECORD_DATE, JR.JOB_REASON, E.EMP_NO
 		FROM JOB_RECORD JR
 		JOIN JOB J ON(J.JOB_CODE = JR.JOB_CODE)
-		JOIN EMPLOYEE E ON(E.EMP_NO = JR.EMP_NO)
+		JOIN EMPLOYEE E ON(E.EMP_NO =
+		JR.EMP_NO)
 		WHERE E.EMP_NO = #{empNo}
 		ORDER BY JR.JOB_RECORD_DATE DESC)
 	</select>
 
-	<select id="selectMyJobPositionRecord" resultMap="myJobPositionRecordResultSet" parameterType="int">
+
+	<!-- 내 직책 이력 조회 -->
+	<select id="selectMyJobPositionRecord" resultMap="myJobPositionRecordResultSet" parameterType="_int">
 		SELECT ROWNUM, POSITION_RECORD_NO, POSITION_NAME, POSITION_REASON, POSITION_RECORD_DATE, EMP_NAME
 		FROM(SELECT ROWNUM RNUM, PR.POSITION_RECORD_NO, P.POSITION_NAME, PR.POSITION_REASON, PR.POSITION_RECORD_DATE, E.EMP_NAME
 		FROM POSITION_RECORD PR
-		JOIN POSITION P ON(P.POSITION_NO = PR.POSITION_NO)
-		JOIN EMPLOYEE E ON(E.EMP_NO = PR.EMP_NO)
+		JOIN
+		POSITION P ON(P.POSITION_NO = PR.POSITION_NO)
+		JOIN EMPLOYEE E
+		ON(E.EMP_NO = PR.EMP_NO)
 		WHERE P.STATUS = 'Y' AND E.EMP_NO = #{empNo}
 		ORDER BY POSITION_RECORD_DATE DESC)
 	</select>
 	
+	<insert id="insertMyVaction" parameterType="Vacation">
+		INSERT INTO VACATION
+		VALUES(VAC_NO.NEXTVAL, #{empNo}, #{vacReason}, #{vacType}, #{vacStartdate}, #{vacEnddate}, DEFAULT)
+	</insert>
+	
+	<select id="selectMyVacationRecord" resultMap="myVacationRecordResultSet" parameterType="_int">
+		SELECT VAC_NO, EMP_NO, VAC_REASON, VAC_TYPE, TO_CHAR(VAC_STARTDATE, 'YYYY-MM-DD') VAC_STARTDATE, TO_CHAR(VAC_ENDDATE, 'YYYY-MM-DD') VAC_ENDDATE
+		FROM VACATION
+		WHERE EMP_NO=#{empNo} AND STATUS = 'Y'
+	</select>
+	
+	<!-- 내 휴가 이력 조회 -->
+	<select id="selectMyWorkingHoursRecord" resultMap="myWorkingHoursRecordResultSet" parameterType="_int">
+		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MAX(TO_CHAR(HOURS, 'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH:mm:ss')) ATTENDTIME, EMP_NO
+		FROM WORKING_RECORD
+		WHERE TO_CHAR(HOURS, 'YYYY-MM-DD') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND EMP_NO=#{empNo}
+		GROUP BY EMP_NO, TO_CHAR(HOURS, 'YYYY-MM-DD')
+	</select>	
+
 	<select id="checkPw" resultType="int">
 		SELECT COUNT(*)
 		FROM EMPLOYEE
 		WHERE EMP_ID=#{empId} AND EMP_PWD=#{empPwd}
 	</select>
-		
 </mapper>
 
 
