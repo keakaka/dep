@@ -85,6 +85,23 @@
 		<result property="empNo" column="EMP_NO" />
 		<result property="empType" column="EMP_TYPE" />
 	</resultMap>
+	
+	<resultMap type="Vacation" id="myVacationRecordResultSet">
+		<id property="vacNo" column="VAC_NO" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="vacReason" column="VAC_REASON" />
+		<result property="vacType" column="VAC_TYPE" />
+		<result property="vacStartdate" column="VAC_STARTDATE" />
+		<result property="vacEnddate" column="VAC_ENDDATE" />
+	</resultMap>
+	
+	<resultMap type="WorkingHours" id="myWorkingHoursRecordResultSet">
+		<id property="workingRecordNo" column="WORK_RECORD_NO" />
+		<result property="workingDate" column="WORKINGDATE" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="attendTime" column="ATTENDTIME" />
+		<result property="leaveTime" column="LEAVETIME" />
+	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
 	<select id="selectPwd" resultType="java.lang.String"
@@ -94,6 +111,14 @@
 		WHERE EMP_ID = #{empId}
 		AND
 		STATUS = 'Y'
+	</select>
+	
+	<!-- 내정보 수정시 암호화된 비밀번호 조회용 쿼리문 -->
+	<select id="selectPwd2" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT EMP_PWD
+		FROM EMPLOYEE
+		WHERE EMP_ID = #{empId} 
+		AND STATUS='Y'
 	</select>
 
 	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
@@ -195,12 +220,11 @@
 	<!-- 내 정보 수정처리 -->
 	<update id="updateMyInfo">
 		UPDATE EMPLOYEE
-		SET EMP_ID=#{empId},
-		EMP_NAME=#{empName}, PHONE=#{phone},
-		EMERGENCY_PHONE=#{emergencyPhone}, ADDRESS=#{address}, EMAIL=#{email}
+		SET EMP_NAME=#{empName}, PHONE=#{phone}, PHONE_REVEAL=#{phoneReveal}, EMERGENCY_PHONE=#{emergencyPhone}, EMAIL=#{email}, ADDRESS=#{address}
 		WHERE EMP_ID=#{empId}
 	</update>
 
+	<!-- 내 부서 이동 이력 조회 -->
 	<select id="selectMyDepRecord" resultMap="myDepRecordResultSet"
 		parameterType="String">
 		SELECT ROWNUM, DEP_RECORD_NO, DEP_NAME, DEP_PHONE,
@@ -218,14 +242,13 @@
 		DESC)
 	</select>
 
+	<!-- 내 직급 이력 조회 -->
 	<select id="selectMyJobRecord" resultMap="myJobRecordResultSet"
-		parameterType="int">
-		SELECT ROWNUM, JOB_RECORD_NO, JOB_NAME, JOB_RECORD_DATE,
-		JOB_REASON, EMP_NO
-		FROM(SELECT ROWNUM RNUM, JR.JOB_RECORD_NO,
-		J.JOB_NAME, JR.JOB_RECORD_DATE, JR.JOB_REASON, E.EMP_NO
-		FROM JOB_RECORD
-		JR
+
+		parameterType="_int">
+		SELECT ROWNUM, JOB_RECORD_NO, JOB_NAME, JOB_RECORD_DATE, JOB_REASON, EMP_NO
+		FROM(SELECT ROWNUM RNUM, JR.JOB_RECORD_NO, J.JOB_NAME, JR.JOB_RECORD_DATE, JR.JOB_REASON, E.EMP_NO
+		FROM JOB_RECORD JR
 		JOIN JOB J ON(J.JOB_CODE = JR.JOB_CODE)
 		JOIN EMPLOYEE E ON(E.EMP_NO =
 		JR.EMP_NO)
@@ -233,13 +256,11 @@
 		ORDER BY JR.JOB_RECORD_DATE DESC)
 	</select>
 
-	<select id="selectMyJobPositionRecord" resultMap="myJobPositionRecordResultSet"
-		parameterType="int">
-		SELECT ROWNUM, POSITION_RECORD_NO, POSITION_NAME,
-		POSITION_REASON, POSITION_RECORD_DATE, EMP_NAME
-		FROM(SELECT ROWNUM
-		RNUM, PR.POSITION_RECORD_NO, P.POSITION_NAME, PR.POSITION_REASON,
-		PR.POSITION_RECORD_DATE, E.EMP_NAME
+
+	<!-- 내 직책 이력 조회 -->
+	<select id="selectMyJobPositionRecord" resultMap="myJobPositionRecordResultSet" parameterType="_int">
+		SELECT ROWNUM, POSITION_RECORD_NO, POSITION_NAME, POSITION_REASON, POSITION_RECORD_DATE, EMP_NAME
+		FROM(SELECT ROWNUM RNUM, PR.POSITION_RECORD_NO, P.POSITION_NAME, PR.POSITION_REASON, PR.POSITION_RECORD_DATE, E.EMP_NAME
 		FROM POSITION_RECORD PR
 		JOIN
 		POSITION P ON(P.POSITION_NO = PR.POSITION_NO)
@@ -248,17 +269,31 @@
 		WHERE P.STATUS = 'Y' AND E.EMP_NO = #{empNo}
 		ORDER BY POSITION_RECORD_DATE DESC)
 	</select>
+	
+	<insert id="insertMyVaction" parameterType="Vacation">
+		INSERT INTO VACATION
+		VALUES(VAC_NO.NEXTVAL, #{empNo}, #{vacReason}, #{vacType}, #{vacStartdate}, #{vacEnddate}, DEFAULT)
+	</insert>
+	
+	<select id="selectMyVacationRecord" resultMap="myVacationRecordResultSet" parameterType="_int">
+		SELECT VAC_NO, EMP_NO, VAC_REASON, VAC_TYPE, TO_CHAR(VAC_STARTDATE, 'YYYY-MM-DD') VAC_STARTDATE, TO_CHAR(VAC_ENDDATE, 'YYYY-MM-DD') VAC_ENDDATE
+		FROM VACATION
+		WHERE EMP_NO=#{empNo} AND STATUS = 'Y'
+	</select>
+	
+	<!-- 내 휴가 이력 조회 -->
+	<select id="selectMyWorkingHoursRecord" resultMap="myWorkingHoursRecordResultSet" parameterType="_int">
+		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MAX(TO_CHAR(HOURS, 'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH:mm:ss')) ATTENDTIME, EMP_NO
+		FROM WORKING_RECORD
+		WHERE TO_CHAR(HOURS, 'YYYY-MM-DD') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND EMP_NO=#{empNo}
+		GROUP BY EMP_NO, TO_CHAR(HOURS, 'YYYY-MM-DD')
+	</select>	
 
 	<select id="checkPw" resultType="int">
 		SELECT COUNT(*)
 		FROM EMPLOYEE
 		WHERE EMP_ID=#{empId} AND EMP_PWD=#{empPwd}
 	</select>
-
-
-
-
-
 </mapper>
 
 

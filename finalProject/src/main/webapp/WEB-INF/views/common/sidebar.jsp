@@ -37,8 +37,8 @@
                      <li><a href="myJobRank.me?var=${loginUser.empNo }">직급 변경 이력 조회</a></li>
                      <li><a href="myDepartment.me?var=${loginUser.empId }">부서이동 이력 조회</a></li>
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
-                     <li><a href="myWorkingHours.me">근태 이력 조회</a></li>
-                     <li><a href="myVacation.me">휴가 내역 조회</a></li>
+                     <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
+                     <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
                      <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >넘어가자</a>
                      <script type="text/javascript">
                      

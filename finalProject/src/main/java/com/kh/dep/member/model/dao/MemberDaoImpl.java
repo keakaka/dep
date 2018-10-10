@@ -13,6 +13,8 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -42,7 +44,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m) throws Exception {
+	public int updateMyInfo(SqlSessionTemplate sqlSession, MemberSelect m){
 		
 		
 		return sqlSession.update("Member.updateMyInfo", m);
@@ -82,6 +84,35 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
+
+	@Override
+	public String selectEncpassword(SqlSessionTemplate sqlSession, String empId) {
+		
+		return sqlSession.selectOne("Member.selectPwd2", empId);
+	}
+
+	@Override
+	public int insertMyVacation(SqlSessionTemplate sqlSession, Vacation myVac) {
+		
+		
+		return sqlSession.insert("Member.insertMyVaction", myVac);
+	}
+
+	@Override
+	public List<Vacation> selectMyVacationRecrod(SqlSessionTemplate sqlSession, int empNo) {
+		List<Vacation> list = sqlSession.selectList("Member.selectMyVacationRecord", empNo);
+		System.out.println("나의 휴가이력(dao) : " + list);
+		return list;
+	}
+
+	@Override
+	public List<WorkingHours> selectMyWorkingHoursRecord(SqlSessionTemplate sqlSession, int empNo) {
+		System.out.println(empNo);
+		List<WorkingHours> list = sqlSession.selectList("Member.selectMyWorkingHoursRecord", empNo);
+		System.out.println("나의 출퇴근이력(dao) : " + list);
+		return list;
+	}
+
 	// 사원정보 입력 시 사원 번호 조회
 	@Override
 	public int selectempNumber(SqlSessionTemplate sqlSession) {
@@ -95,6 +126,7 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return (ArrayList)sqlSession.selectList("Member.selectPosition");
 	}
+
 	
 
 }
