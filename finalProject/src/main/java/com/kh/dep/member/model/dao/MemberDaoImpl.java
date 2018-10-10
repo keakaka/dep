@@ -29,14 +29,15 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public String selectEncpassword(SqlSessionTemplate sqlSession, MemberSelect m) {
 		
+		
 		return sqlSession.selectOne("Member.selectPwd", m.getEmpId());
 	}
 
+	// 부서 목록 조회
 	@Override
 	public ArrayList<MemberDepartment> selectdepList(SqlSessionTemplate sqlSession) {
 		
-		
-		
+	
 		return (ArrayList)sqlSession.selectList("Member.selectDep");
 	}
 
@@ -47,7 +48,7 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.update("Member.updateMyInfo", m);
 	}
 
-
+	// 직급 목록 조회
 	public ArrayList<MemberJob> selectJobList(SqlSessionTemplate sqlSession) {
 		
 		return (ArrayList)sqlSession.selectList("Member.selectJob");
@@ -60,6 +61,7 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
+	// 사원 정보 입력
 	public int insertMember(SqlSessionTemplate sqlSession, MemberSelect m) {
 		
 		return sqlSession.insert("Member.insertMember", m);
@@ -78,6 +80,20 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Position> selectMyJobPositionRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception {
 		List<Position> list = sqlSession.selectList("Member.selectMyJobPositionRecord", empNo);
 		return list;
+	}
+
+	// 사원정보 입력 시 사원 번호 조회
+	@Override
+	public int selectempNumber(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("Member.selectempNumber");
+	}
+
+	// 직책 목록 조회
+	@Override
+	public ArrayList<Position> selectposiList(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Member.selectPosition");
 	}
 	
 

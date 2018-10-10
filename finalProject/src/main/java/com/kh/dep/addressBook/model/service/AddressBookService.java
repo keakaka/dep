@@ -7,9 +7,13 @@ import com.kh.dep.member.model.vo.Member;
 
 public interface AddressBookService {
 
-	List<Member> listAll(String name);
+	List<Member> searchAdd(String name);
 
-	AddressBook selectAdd(int empNo);
+	AddressBook insertAdd(int empNo, int loginNo);
+
+	List<AddressBook> selectAddList();
+
+	AddressBook deleteAddressBook(int empNo);
 
 
 }

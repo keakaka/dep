@@ -51,7 +51,7 @@
       <div id="login" class="animate form">
         <section class="login_content">
           <form name="loginCheck" action="login.me" method="post">
-            <h1>DIP Login</h1>
+            <h1>DEP Login</h1>
             <div>
               <input type="text" class="form-control" placeholder="사원 ID를 입력하세요" name="empId" />
             </div>
@@ -73,7 +73,7 @@
               <div class="clearfix"></div>
               <br />
               <div>
-                <h1>DIP GroupWare</h1>
+                <h1>DEP GroupWare</h1>
 
                 <p>©2018 All Rights Reserved. DBDBDIP final project!</p>
               </div>
@@ -108,9 +108,9 @@
               <div class="clearfix"></div>
               <br />
               <div>
-                <h1>DIP GroupWare</h1>
+                <h1>DEP GroupWare</h1>
 
-                <p>©2018 All Rights Reserved. DBDBDIP final project!</p>
+                <p>©2018 All Rights Reserved. DBDBDEP final project!</p>
               </div>
             </div>
           </form>

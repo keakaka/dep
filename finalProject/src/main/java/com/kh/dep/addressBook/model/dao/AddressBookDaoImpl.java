@@ -19,8 +19,7 @@ public class AddressBookDaoImpl implements AddressBookDao{
 	SqlSession sqlSession;
 	
 	@Override
-	public List<Member> listAll(String name) {
-		
+	public List<Member> searchAdd(String name) {
 		List<Member> list = sqlSession.selectList("AddressBook.searchAddressBook", name);
 		
 		return list;
@@ -28,6 +27,7 @@ public class AddressBookDaoImpl implements AddressBookDao{
 
 	@Override
 	public AddressBook selectAdd(int empNo) {
+		System.out.println("addressBookDaoImpl empNo : " + empNo);
 		return sqlSession.selectOne("AddressBook.selectAdd", empNo);
 	}
 
@@ -35,6 +35,18 @@ public class AddressBookDaoImpl implements AddressBookDao{
 	public int insertAdd(AddressBook ab) {
 		return sqlSession.insert("AddressBook.insertAdd", ab);
 	}
+	
+	
+	@Override
+	public List<AddressBook> selectAddList() {
+		return sqlSession.selectList("AddressBook.selectAddList");
+	}
+
+	@Override
+	public int deleteAdd(AddressBook ab) {
+		return sqlSession.delete("AddressBook.deleteAdd", ab);
+	}
+
 
 
 }
