@@ -303,6 +303,7 @@ function updateFacing(num , num2){
 			var $table = $("#datatable-keytable tbody");
 			if(data.length > 0){
 				
+
 		for(var i = 0; i < data.length; i++){
 				fcNo = data[i].num;
 				console.log(fcNo);
