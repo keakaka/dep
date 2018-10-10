@@ -41,5 +41,11 @@ public interface MemberService {
 	int insertMember(MemberSelect m);
 
 
+	int selectempNumber();
+
+
+	ArrayList<Position> selectpositList();
+
+
 
 }
