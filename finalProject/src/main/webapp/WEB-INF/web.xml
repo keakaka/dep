@@ -114,9 +114,24 @@
 		<url-pattern>*.rtc</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 전자결재 서블릿 -->
+	<servlet>
+		<servlet-name>sign</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/sign-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>sign</servlet-name>
+		<url-pattern>*.sg</url-pattern>
+	</servlet-mapping>	
 	
 	<!-- 쪽지 -->
- <servlet>
+ 	<servlet>
 		<servlet-name>facing</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -181,7 +196,7 @@
 		<url-pattern>*.ad</url-pattern>
 	</servlet-mapping>
 
-
+	
 
 
 

@@ -82,8 +82,8 @@
                         <a href="#step-1">
                           <span class="step_no">1</span>
                           <span class="step_descr">
-                                            	1. 양식 선택 <br />
-                                            <small>양식을 선택하세요</small>
+                                            	1. 작성 <br />
+                                            <small>문서를 작성하세요</small>
                                         </span>
                         </a>
                       </li>
@@ -91,8 +91,8 @@
                         <a href="#step-2">
                           <span class="step_no">2</span>
                           <span class="step_descr">
-                                            2. 작성<br />
-                                            <small>문서를 작성하세요</small>
+                                            2. 결재선 관리<br />
+                                            <small>결재선 및 수신참조자를 설정하세요</small>
                                         </span>
                         </a>
                       </li>
@@ -100,353 +100,158 @@
                         <a href="#step-3">
                           <span class="step_no">3</span>
                           <span class="step_descr">
-                                            3. 수신 참조<br />
-                                            <small>수신 참조자 추가</small>
-                                        </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#step-4">
-                          <span class="step_no">4</span>
-                          <span class="step_descr">
-                                            4. 확인<br />
-                                            <small>상신 전 확인</small>
+                                            3. 상신 전 확인<br />
+                                            <small>작성한 문서를 확인하세요</small>
                                         </span>
                         </a>
                       </li>
                     </ul>
-                    <div id="step-1" align="center">
-						<div class="col-md-12 col-sm-12 col-xs-18" align="center">
-		              <div class="x_panel" align="center">
-		                <div class="x_title" align="center">
-		                  <h2>양식 선택 <small>양식을 선택하세요</small></h2>
-		                  <div class="clearfix" align="center"></div>
-		                </div>
-		                <button onclick="rtcOpen();">테스트</button>
-		                <div class="x_content" align="center">
-		                  <table class="table table-hover" align="center">
-		                    <thead>
-		                      <tr>
-		                        <th>#</th>
-		                        <th>First Name</th>
-		                        <th>Last Name</th>
-		                        <th>Username</th>
-		                      </tr>
-		                    </thead>
-		                    <tbody>
-		                      <tr>
-		                        <th scope="row">1</th>
-		                        <td>Mark</td>
-		                        <td>Otto</td>
-		                        <td>@mdo</td>
-		                      </tr>
-		                      <tr>
-		                        <th scope="row">2</th>
-		                        <td>Jacob</td>
-		                        <td>Thornton</td>
-		                        <td>@fat</td>
-		                      </tr>
-		                      <tr>
-		                        <th scope="row">3</th>
-		                        <td>Larry</td>
-		                        <td>the Bird</td>
-		                        <td>@twitter</td>
-		                      </tr>
-		                    </tbody>
-		                  </table>
-
-                </div>
-              </div>
-            </div>
-                    </div>
-                    <div id="step-2">
-                      <h2 class="StepTitle">문서 작성</h2>
-						<textarea id="summernote" name="proContent" required>
+                   <form class="form-horizontal form-label-left" id="signForm" action="insertSign.sg" method="post">
+                    <div id="step-1">
+						<h2 class="StepTitle">문서 작성</h2>
+						<textarea id="summernote" name="signContent" required>
 							
 						</textarea>
 						<input type="file" name="eSignFile"/>
                     </div>
-                    <div id="step-3">
-                      <h2 class="StepTitle">수신참조자 설정</h2>
+                    <div id="step-2">
+                    <h2 class="StepTitle">결재선 지정</h2>
                        <div class="clearfix"></div>
 
             <div class="col-md-12 col-sm-12 col-xs-16">
               <div class="x_panel">
                 <div class="x_content">
-
-                  <div class="col-xs-1">
                     <!-- required for floating -->
                     <!-- Nav tabs -->
                     <br><br>
-                    <ul class="nav nav-tabs tabs-left">
-                      <li class="active"><a href="#home" data-toggle="tab">인사관리부</a>
-                      </li>
-                      <li><a href="#profile" data-toggle="tab">회계부</a>
-                      </li>
-                      <li><a href="#messages" data-toggle="tab">영업부</a>
-                      </li>
-                      <li><a href="#settings" data-toggle="tab">비서실</a>
-                      </li>
-                    </ul>
-                  </div>
+				<script>
+					$(function(){
+						$("#depList").change(function(){
+							var dep = $("#depList option:selected").val();
+							console.log(dep);
+							$.ajax({
+								url : "depEmpSelect.sg",
+								data : {dep : dep},
+								success : function(data){
+									var $tbody = $('.depMemberList');
+									var $tr = $("<tr>");
+									var $td = $("<td>");
+									$.each(data, function(index, val){
+										var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
+										var $empName = $('<td>').text(decodeURIComponent(val.empName));
+										var $depName = $('<td>').text(decodeURIComponent(val.depName));
+										var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
+										var $positionName = $('<td>').text(decodeURIComponent(val.positionName));
+										
+										$tbody.append($tr);
+										$tr.append($td);
+										$td.append($empNo);
+										$td.append($empName);
+										$td.append($depName);
+										$td.append($positionName);
+										
+									})
+								},
+								error : function(){
+									
+								}
+							});
+						});
+					});
+					
+					
+					<%-- $(function(){
+						$(".facingUl").empty();
+						$.ajax({
+							url : "<%=request.getContextPath()%>/selectFacing",
+							data : {member_no:<%=loginUser.getMember_No()%>},
+							success : function(data){
+								var $ul = $('.facingUl');
+								var $top = $('<span>수신 확인은 쪽지를 클릭하세요</span>');
+								$ul.append($top);
+								$.each(data, function(index, val){
+									$(".checkAlert").text(val.listSize);
+									var $ul = $('.facingUl');
+									var $li = $('<li>');
+									var $a = $('<a class="reception">');
+									var $span = $('<span>');
+									var $nameSpan = $('<span>').text(decodeURIComponent(val.writer));
+									var $later = $('<span class="time">').text(decodeURIComponent(val.write_date));
+									var $title = $('<span class="message">').text(decodeURIComponent(val.facing_title));
+									var $hidden = $('<input type="hidden" value="+val.facing_no+" class="facing_no">');
+									
+									$li.append($a);
+					            	$a.append($span);
+					            	$li.append($hidden);
+					            	$span.append($nameSpan);
+					            	$span.append($later);
+					            	$a.append($title);
+					            	$ul.append($li);
+								})
+							}
+						});
+					}); --%>
+				</script>
 
-                  <div class="col-xs-11">
+                  <div class="col-xs-14">
                     <!-- Tab panes -->
                     <div class="tab-content">
                       <div class="tab-pane active" id="home">
                 <div class="x_title">
-                  <h2>부서명 <small>수신참조자 선택</small></h2>
+                  <h2>결재선 지정</h2><br><br>
+                  <select id="depList">
+                  	<option>====</option>
+					<option>인사부</option>
+					<option>회계부</option>
+					<option>총무부</option>
+					<option>영업부</option>
+				  </select>
                   <div class="clearfix"></div>
                 </div>
+				
+                <div class="clearfix"></div>
 
+          <div class="row">
+			
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
                 <div class="x_content">
-                  <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                  
+                  <table id="datatable" class="table table-striped table-bordered">
                     <thead>
-                      <tr class="headings">
-                        <th>
-                          <input type="checkbox" id="check-all" class="flat">
-                        </th>
-                        <th class="column-title"> 부서 </th>
-                        <th class="column-title"> 이름 </th>
-                        <th class="column-title no-link last"><span class="nobr"> 직급</span>
-                        </th>
-                        <th class="bulk-actions" colspan="7">
-                          <a class="antoo" style="color:#fff; font-weight:500;">전원 선택 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                        </th>
+                      <tr>
+                        <th>이름</th>
+                        <th>부서명</th>
+                        <th>직급</th>
+                        <th>직책</th>
+                        <th>결재선에 추가</th>
+                        <th>수신 참조자에 추가</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$432.26</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$333.21</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$432.26</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">name</td>
-                        <td class="a-right a-right ">$333.21</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
+                    <tbody class="depMemberList">
+                      <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
                       </tr>
                     </tbody>
-
                   </table>
-                </div>
-            </div>
-            
-                      <div class="tab-pane" id="profile">
-                      <div class="x_title">
-                  <h2>부서명 <small>수신참조자 선택</small></h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="x_content">
-                  <table class="table table-striped responsive-utilities jambo_table bulk_action">
-                    <thead>
-                      <tr class="headings">
-                        <th>
-                          <input type="checkbox" id="check-all" class="flat">
-                        </th>
-                        <th class="column-title"> 부서 </th>
-                        <th class="column-title"> 이름 </th>
-                        <th class="column-title no-link last"><span class="nobr"> 직급</span>
-                        </th>
-                        <th class="bulk-actions" colspan="7">
-                          <a class="antoo" style="color:#fff; font-weight:500;">전원 선택 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$432.26</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$333.21</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$432.26</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$333.21</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-
-                      <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$7.45</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                      <tr class="odd pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                        </td>
-                        <td class=" ">Paid</td>
-                        <td class="a-right a-right ">$741.20</td>
-                        <td class=" last"><a href="#">View</a>
-                        </td>
-                      </tr>
-                    </tbody>
-
-                  </table>
-                </div>
-                	
-                </div>
-                      <div class="tab-pane" id="messages">Messages Tab.</div>
-                      <div class="tab-pane" id="settings">Settings Tab.</div>
-                    </div>
-                  </div>
-
-                  <div class="clearfix"></div>
-
                 </div>
               </div>
+            </div>            
             </div>
-
-                </div>
-              
-                    <div id="step-4">
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+                      
+                    </div>
+                    <div id="step-3">
                       <h2 class="StepTitle">Step 4 Content</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -459,7 +264,9 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
                         in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                       </p>
-                    </div>
+            </div>
+            
+                    </form>
 					</div>
             		</div>
                   </div>
@@ -467,7 +274,6 @@
                 </div>
               </div>
             </div>
-
 				<!-- footer content -->
 
 				<footer>
@@ -495,7 +301,7 @@
              $(document).ready(function() {
          	  	 var fileExtension = ['.jpg', '.png', '.jpeg', '.gif',];
                 $('#summernote').summernote({ // summernote를 사용하기 위한 선언
-                    height: 800,
+                    height: 500,
                     lang: 'ko-KR',
                     toolbar: [
                         // [groupName, [list of button]]
@@ -557,8 +363,76 @@
 	<script src="${contextPath }/resources/js/custom.js"></script>
 	<!-- form wizard -->
   	<script type="text/javascript" src="${contextPath }/resources/js/wizard/jquery.smartWizard.js"></script>
-
-	
+	<!-- Datatables-->
+    <script src="${contextPath }/resources/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/buttons.bootstrap.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/jszip.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/pdfmake.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/vfs_fonts.js"></script>
+    <script src="${contextPath }/resources/js/datatables/buttons.html5.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/buttons.print.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.keyTable.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.responsive.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/responsive.bootstrap.min.js"></script>
+    <script src="${contextPath }/resources/js/datatables/dataTables.scroller.min.js"></script>
+	<!-- pace -->
+        <script src="js/pace/pace.min.js"></script>
+        <script>
+          var handleDataTableButtons = function() {
+              "use strict";
+              0 !== $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
+                dom: "Bfrtip",
+                buttons: [{
+                  extend: "copy",
+                  className: "btn-sm"
+                }, {
+                  extend: "csv",
+                  className: "btn-sm"
+                }, {
+                  extend: "excel",
+                  className: "btn-sm"
+                }, {
+                  extend: "pdf",
+                  className: "btn-sm"
+                }, {
+                  extend: "print",
+                  className: "btn-sm"
+                }],
+                responsive: !0
+              })
+            },
+            TableManageButtons = function() {
+              "use strict";
+              return {
+                init: function() {
+                  handleDataTableButtons()
+                }
+              }
+            }();
+        </script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#datatable').dataTable();
+            $('#datatable-keytable').DataTable({
+              keys: true
+            });
+            $('#datatable-responsive').DataTable();
+            $('#datatable-scroller').DataTable({
+              ajax: "js/datatables/json/scroller-demo.json",
+              deferRender: true,
+              scrollY: 380,
+              scrollCollapse: true,
+              scroller: true
+            });
+            var table = $('#datatable-fixed-header').DataTable({
+              fixedHeader: true
+            });
+          });
+          TableManageButtons.init();
+        </script>
 	<!-- /footer content -->
 </body>
 <script type="text/javascript">
@@ -568,7 +442,7 @@
 
       function onFinishCallback() {
         $('#wizard').smartWizard('showMessage', 'Finish Clicked');
-        //alert('Finish Clicked');
+        alert('Finish Clicked');
         console.log('클릭');
       }
     });

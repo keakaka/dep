@@ -16,12 +16,15 @@
 		<typeAlias type="com.kh.dep.member.model.vo.Position" alias="Position"/>
 		<typeAlias type="com.kh.dep.attachment.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.dep.addressBook.model.vo.AddressBook" alias="AddressBook"/>
+		<typeAlias type="com.kh.dep.sign.model.vo.MemberDep" alias="MemberDep"/>
 
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/addressBook-mapper.xml"/>
+		<mapper resource="mappers/sign-mapper.xml"/>
 		<mapper resource="mappers/calendar-mapper.xml"/>
+
 	</mappers>
 	
 	

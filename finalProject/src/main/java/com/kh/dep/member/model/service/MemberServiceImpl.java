@@ -120,6 +120,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return result;
 		}
+		return result;
+	}
 
 	// 사원 정보 입력
 	public int insertMember(MemberSelect m) {
