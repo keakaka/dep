@@ -5,7 +5,6 @@
 <mapper namespace="Facing">
 	<resultMap type="Facing" id="FacingResultSet">
 		<id property="empNo" column="EMP_NO" />
-		<result property="empId" column="EMP_ID" />
 		<result property="empName" column="EMP_NAME" />
 		<result property="facingNo" column="FACING_NO" />
 		<result property="facingTitle" column="FACING_TITLE" />
@@ -21,15 +20,43 @@
 
 
 	<!--  보낸 쪽지 리스트-->
-	<select id="selectFacing" resultMap="FacingResultSet" parameterType="Facing">
+	<select id="selectFacing" resultMap="FacingResultSet" parameterType="int">
+	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO 
+	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
+	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'	
+	</select>
+	
+	<select id="reciveFacing" resultMap="FacingResultSet" parameterType="int">
 	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS 
 	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
 	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'	
 	</select>
-
 	
+	<select id ="selectOneFacing" resultMap="FacingResultSet" parameterType="int">
+	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS 
+	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
+    WHERE F.FACING_NO = #{facingNo}
+	</select>
+	
+	<update id="updateFacing" parameterType="int">
+	UPDATE FACING SET STATUS = 'N' WHERE FACING_NO = #{facingNo} 
+	</update>
+	
+<!-- 	   쪽지보내기 쿼리문 
+   <insert id="insertFacing"  parameterType="Facing">
+      INSERT INTO FACING
+      VALUES(FACING_NO.NEXTVAL, #{facingTitle}, #{facingContens}, SYSDATE, 
+            #{empNo}, 'Y')
+      
+   </insert>
+   
+      <insert id="insertFacing"  parameterType="Facing">
+      INSERT INTO FACING_RECEIVE
+      VALUES(FACING_NO.NEXTVAL, #{RECEIVER}, SYSDATE)
+   	  </insert>
+   
+  -->
 </mapper>
-
 
 
 

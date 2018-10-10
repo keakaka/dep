@@ -76,6 +76,7 @@
 		WHERE E.EMP_NO = #{empNo}
 	</select>
 	
+	
 	<insert id="insertAdd" parameterType="AddressBook">
 		INSERT INTO ADDRESSBOOK VALUES(ADDRESSBOOK_ID.NEXTVAL, #{empName}, #{jobName}, NULL,  #{phone}, #{email}, #{empNo}, #{depName}, #{loginNo})
 	</insert>

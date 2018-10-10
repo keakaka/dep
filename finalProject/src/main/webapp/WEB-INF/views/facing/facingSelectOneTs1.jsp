@@ -78,11 +78,9 @@
 							   
             <!-- ====================================== -->	
 							
-							
-							 <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
+							  <div class="x_panel">
                 <div class="x_title">
-                  <h2><i class="fa fa-bars"></i> Tabs <small>Float right</small></h2>
+                  <h2>Registration Form <small>Click to validate</small></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -102,97 +100,33 @@
                 </div>
                 <div class="x_content">
 
-                  <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                    <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
-                      </li>
-                      <li role="presentation" class=""><a href="${ contextPath }/facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">넘어가자</a>
-                      </li> 
-                    
-                     
-                      </script>
-                      <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">Profile</a>
-                      </li>
-                    </ul>
-                    
-                    <div id="myTabContent2" class="tab-content">
-                    
-                      <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
-                     <div class="col-md-18 col-sm-18 col-xs-18">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>보낸쪽지함 <small>Users</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="card-box table-responsive">
-                        <p class="text-muted font-13 m-b-30">
-                        </p>
-
-                        <table id="datatable-keytable" class="table table-striped table-bordered">
-                          <thead>
-                            <tr>
-                            
-                              <th>날짜</th>
-                              <th>보낸사람</th>
-                              <th>제목</th>
-                              <th>받은날짜</th>
-                              <th>삭제</th>
-                            </tr>
-                          </thead>
-
+                  <!-- start form for validation -->
+                  <form id="demo-form" data-parsley-validate>
+                    <label for="fullname">보낸사람  : </label>
+                    <input type="text" id="fullname" class="form-control" name="fullname" value="${f.empName }"required readonly >
 					
-                          <tbody>
-                          <c:forEach var="f" items="${facinglist}">
-                            <tr>
-                              <td>${f.writeDate}</td> 
-                              <td>${f.empName}</td>
-                              <td>${f.facingTitle}</td>
-                              <td>${f.facingContents }</td>
-                              <td><button class="btn btn-round btn-default">삭제하기</button></td>
-                            </tr>
-                          
-  							</c:forEach>
-                                                     
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+					
+                    <label for="email">제목  :</label>
+                    <input type="email" id="email" class="form-control" name="email" data-parsley-trigger="change" value="${f.facingTitle}" required readonly />
 
-                </div>
-                </div>
-                </div>
-                
-            <!--     ======================================================== -->
-                      </div>
-                    
-                    </div>
-                  </div>
+                    <label for="email">내용  :</label>                  
+                        <label for="message">Message  :</label>
+                        <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup"  data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                          data-parsley-validation-threshold="10" readonly>${f.facingContents} </textarea>
+
+                        <br/>
+                        <span class="btn btn-primary">validate form</span>
+
+                  </form>
+                  <!-- end form for validations -->
 
                 </div>
               </div>
+	
+		   <!-- ====================================== -->	
             </div>
             
-            <!-- ====================================== -->	
+         
 							
 							
 							

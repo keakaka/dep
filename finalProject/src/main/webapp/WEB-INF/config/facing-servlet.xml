@@ -32,9 +32,8 @@
 	<!-- autoproxy 설정 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
-	<!-- 파일업로드  -->
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-		<beans:property name="maxUploadSize" value="100000000"/>
+		<beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
 	
 	<!-- ajax 사용시 jsonView 설정 -->
@@ -46,6 +45,11 @@
 		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
+	<!-- 기본 설정 -->
+
+
+	
+	
 	<!-- 메세지 컨버터 추가 -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -56,6 +60,8 @@
 		</beans:property>
 	</beans:bean>
 	
+	
 	<annotation-driven/>
+	
 	
 </beans:beans>
