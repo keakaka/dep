@@ -135,8 +135,10 @@
 
 			<!-- Start Calender modal -->
 			<div id="CalenderModalNew" class="modal fade" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
+				role="dialog" aria-hidden="true"
+				aria-labelledby="myFullsizeModalLabel">
+
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 
 						<div id="modal-header" class="modal-header">
@@ -183,35 +185,89 @@
 										<label class="col-sm-3 control-label">참석자 </label>
 										<div class="col-sm-9"
 											style="height: 33px; display: flex; align-items: center; justify-content: left;">
-											<form action="/${initParam.context_root} }/searchMemberByName.ca"
-															method="post" name="name_search_form"
-															onsubmit="return nameSearchFormCheck()">
-															<div class="input-group" style="width: 200px; margin-top:9px;">
-																<input type="text" name="name" style="border:none; margin-top:7px;" placeholder="참석자를 검색하세요.">
-																<span class="input-group-btn">
-																	<input type="submit" class="btn btn-success btn-xs" style="margin-top:7px;" value="참석자 검색"/>
-																</span>
-															</div>
-											</form>
+											<div class="input-group" style="width: 200px; margin-top:9px;">
+													<span class="input-group-btn">
+														<input type="text" name="name" id="attName" class="form-control"
+															   style="border:none;" placeholder="참석자를 검색하세요.">
+														<button type="button" class="btn btn-info btn-xs" style="margin-top:5px; margin-left:5px;" onclick="searchAtt();">참석자 검색하기</button>
+													</span>
+											</div>
+											<script>
+												function searchAtt(){
+													var attName = $('#attName').val();
+													console.log(attName);
+													
+													$.ajax({
+														url:"searchAttName.ca",
+														type:'post',
+														data:{attName:attName},
+														success:function(data){
+															
+														},
+														error:function(data){
+															console.log("error");
+														},
+														
+													});
+												}
+											</script>
 										</div>
-									</div>
-									<div class="form-group" style="height:150px; width:400px; border:1px solid red;">
+										<div id="dataArea" style="width:100px; height:100px; border:1px solid red;">
+											
+										</div>
+										<div class="form-group" style="width:60%; float:right; margin-right:170px; margin-top:10px;">
+											<table class="table table-striped responsive-utilities jambo_table bulk_action">
+												<thead>
+													<tr class="headings">
+														<th></th>
+														<th class="column-title">부서명</th>
+														<th class="column-title">이름</th>
+														<th class="column-title">직위</th>
+														<th class="column-title">직책</th>
+														<th></th>
+													</tr>
+												</thead>
+												
+												<tbody>
+													<%-- <c:forEach var="list" items="${addressBookList}" varStatus = 'status'>
+														<tr class="even pointer">
+															<td class="a-center" style="width:85px;"><input type="checkbox" 
+																name="check" class="flat" value="${list.empNo}"></td>
+															<input type="hidden" name="loginNo"
+																value="${ sessionScope.loginUser.empNo }">
+															<td width="254">${list.depName}</td>
+															<td width="200">${list.empName}</td>
+															<td width="190">${list.jobName}</td>
+															<td width="200">${list.positionName}</td>
+															<td><a href="#/comments-o"><i class="fa fa-comments-o fa-lg"></i></a></td>
+														</tr>
+													</c:forEach> --%>
+												</tbody>
+
+											</table>
+											<div>
+												 <button type="button"  class="btn btn-dark btn-xs" onclick="checkboxArr();">참석자에 추가하기</button>
+											</div>
+										</div>
+										<div class="form-group">
 										<label class="col-sm-3 control-label">메모</label>
 										<div class="col-sm-9">
 											<textarea id="content" name="content"
 												style="min-height: 120px; width: 300px;"></textarea>
 										</div>
 									</div>
-
+									</div>
+									
 								</form>
+								<div align="right">
+									<button type="button" class="btn btn-primary antosubmit">일정
+										추가</button>
+									<button type="button" class="btn btn-default antoclose"
+										data-dismiss="modal">취소</button>
+								</div>
 							</div>
 						</div>
 						
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary antosubmit">일정 추가</button>
-							<button type="button" class="btn btn-default antoclose"
-								data-dismiss="modal">취소</button>
-						</div>
 
 						<div id="fc_create" data-toggle="modal"
 							data-target="#CalenderModalNew"></div>
@@ -306,12 +362,7 @@
 								</form>
 							</div> -->
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default antoclose2"
-					data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary antosubmit2">Save
-					changes</button>
-			</div>
+			
 		</div>
 	</div>
 	</div>
@@ -383,6 +434,7 @@
 				},
 				
 				dayClick: function(date, allDay, jsEvent, view) {
+					
 					   var yy=date.format("YYYY");
 					   var mm=date.format("MM");
 					   var dd=date.format("DD");

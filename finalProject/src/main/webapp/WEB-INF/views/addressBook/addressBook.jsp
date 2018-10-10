@@ -63,32 +63,38 @@
 
 
 
-
+										
 										<div class="x_content">
 											<table
 												class="table table-striped responsive-utilities jambo_table bulk_action">
 												<thead>
 													<tr class="headings">
-														<th style="width:50px;"></th>
+														<th></th>
 														<th class="column-title">부서명</th>
 														<th class="column-title">이름</th>
 														<th class="column-title">직위</th>
 														<th class="column-title">직책</th>
 														<th class="column-title">전화번호</th>
 														<th class="column-title">메일 주소</th>
+														<th></th>
 													</tr>
 												</thead>
 												
 												<tbody>
 													<c:forEach var="list" items="${addressBookList}" varStatus = 'status'>
-														<td class="a-center" style="width:50px;">
-														<input type="checkbox" name="check" class="flat" value="${list.empNo}"></td>
-														<td>${list.depName}</td>
-														<td>${list.empName}</td>
-														<td>${list.jobName}</td>
-														<td>${list.positionName}</td>
-														<td>${list.phone}</td>
-														<td>${list.email}</td>
+														<tr class="even pointer">
+															<td class="a-center" style="width:85px;"><input type="checkbox" 
+																name="check" class="flat" value="${list.empNo}"></td>
+															<input type="hidden" name="loginNo"
+																value="${ sessionScope.loginUser.empNo }">
+															<td width="254">${list.depName}</td>
+															<td width="200">${list.empName}</td>
+															<td width="190">${list.jobName}</td>
+															<td width="200">${list.positionName}</td>
+															<td width="320">${list.phone}</td>
+															<td>${list.email}</td>
+															<td><a href="#/comments-o"><i class="fa fa-comments-o fa-lg"></i></a></td>
+														</tr>
 													</c:forEach>
 												</tbody>
 
@@ -106,18 +112,24 @@
 								
 								$("input[name='check']:checked").each(function(i){
 									empNo = $("input[name='check']:checked").val();
+									loginNo = $("input[name='loginNo']").val();
 									
+									console.log(empNo);
+									console.log(loginNo);
 								});
 								
 								$.ajax({
 									url:"insertAddressBook.ad",
 									type:'post',
-									data:{empNo:empNo},
+									data:{empNo:empNo,
+										  loginNo:loginNo},
 									success:function(data){
+										
+										window.location = "selectAdd.ad";
 										
 									},
 									error:function(data){
-										
+										console.log("error");
 									},
 									
 								});
@@ -143,18 +155,61 @@
 														<th class="column-title">직책</th>
 														<th class="column-title">전화번호</th>
 														<th class="column-title">메일 주소</th>
+														<th></th>
 													</tr>
 												</thead>
-												
 												<tbody>
 													
+													<c:forEach var="list" items="${list}" varStatus = 'status'>
+													<c:if test="${list.loginNo == sessionScope.loginUser.empNo }">
+														<tr class="even pointer">
+															<td class="a-center" style="width:85px;"><input type="checkbox"
+																name="check" class="flat" value="${list.empNo}"></td>
+															<td width="254">${list.depName}</td>
+															<td width="200">${list.empName}</td>
+															<td width="190">${list.jobName}</td>
+															<td width="200">${list.positionName}</td>
+															<td width="320">${list.phone}</td>
+															<td>${list.email}</td>
+															<td><a href="facing.ms"><i class="fa fa-comments-o fa-lg"></i></a></td>
+														</tr>
+														</c:if>
+													</c:forEach>
+													
 												</tbody>
-
 											</table>
-											
+											<div align="left">
+												 <button type="button" class="btn btn-dark btn-sm" onclick="deleteAdd();">삭제하기</button>
+											</div>
 										</div>
 									</div>
 								</div>
+								<script>
+							function deleteAdd(){
+								console.log("주소록에서 삭제 버튼");
+								
+								$("input[name='check']:checked").each(function(i){
+									empNo = $("input[name='check']:checked").val();
+									
+									console.log(empNo);
+								});
+								
+								$.ajax({
+									url:"deleteAddressBook.ad",
+									type:'post',
+									data:{empNo:empNo},
+									success:function(data){
+										window.location = "selectAdd.ad";
+										
+									},
+									error:function(data){
+										console.log("error");
+									},
+									
+								});
+								
+							}
+							</script>
 							</div>
 							<br />
 						</div>

@@ -22,37 +22,70 @@ public class AddressBookController {
 	private AddressBookService abs;
 	
 	@RequestMapping("addressBook.ad")
-	public String showAddressBookView(){
-		System.out.println("주소록 들어옴");
+	public String showAddressBookView(Model model){
+		
+		List<AddressBook> list = abs.selectAddList();
+		System.out.println("selectAdd list : " + list);
+		
+		model.addAttribute("list", list);
+		
 		return "addressBook/addressBook";
 	}
 	
-	
+	//주소록 회원 검색
 	@RequestMapping("searchAddressBookName.ad")
 	public String searchAddressBook(HttpServletRequest request, Model model){
 		System.out.println("주소록 controller");
 		
+		List<AddressBook> list = abs.selectAddList();
+		System.out.println("selectAdd list : " + list);
+		
+		model.addAttribute("list", list);
+		
+		
 		String param = request.getParameter("name");
 		System.out.println(param);
 		
-		List<Member> list = abs.listAll(param);
+		List<Member> list2 = abs.searchAdd(param);
 		
-		model.addAttribute("addressBookList", list);
+		model.addAttribute("addressBookList", list2);
 		System.out.println("주소록 : " + list);
+		
 		
 		return "addressBook/addressBook";
 	}
 	
+	//주소록 테이블에 추가
 	@RequestMapping("insertAddressBook.ad")
-	public void insertAddressBook(int empNo, HttpServletResponse response) {
-		
+	public void insertAddressBook(int empNo, int loginNo, HttpServletResponse response) {
+		System.out.println("loginNo : " + loginNo);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		
-		AddressBook ab = abs.selectAdd(empNo);
-		System.out.println("insert " + ab);
-		
+		AddressBook ab = abs.insertAdd(empNo, loginNo);
 	}
+	
+	//주소록 테이블에 출력
+	@RequestMapping("selectAdd.ad")
+	public String selectAddressBook(HttpServletRequest request, Model model) {
+		System.out.println("selectAddressBook controller");
+		
+		List<AddressBook> list = abs.selectAddList();
+		System.out.println("selectAdd list : " + list);
+		
+		model.addAttribute("list", list);
+		
+		return "addressBook/addressBook";
+	}
+	
+	//주소록에서 삭제
+	@RequestMapping("deleteAddressBook.ad")
+	public void deleteAddressBook(int empNo, HttpServletResponse response) {
+		System.out.println("deleteAddressBook empNo : " + empNo);
+		
+		AddressBook ab = abs.deleteAddressBook(empNo);
+	}
+	
+	
 	
 }
 
