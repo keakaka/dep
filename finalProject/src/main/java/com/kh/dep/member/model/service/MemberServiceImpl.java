@@ -17,8 +17,6 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
-import com.kh.dep.member.model.vo.Vacation;
-import com.kh.dep.member.model.vo.WorkingHours;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -53,12 +51,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateMyInfo(MemberSelect m){
+	public int updateMyInfo(MemberSelect m) throws Exception{
 
 		return md.updateMyInfo(sqlSession, m);
 	}
 
-
+	// 부서목록 조회
 	public ArrayList<MemberDepartment> selectDepList() {
 
 		ArrayList<MemberDepartment> deplist = md.selectdepList(sqlSession);
@@ -67,6 +65,7 @@ public class MemberServiceImpl implements MemberService{
 		return deplist;
 	}
 
+	// 직급 목록 조회
 	@Override
 	public ArrayList<MemberJob> selectJobList() {
 
@@ -98,19 +97,9 @@ public class MemberServiceImpl implements MemberService{
 		loginUser = md.selectLoginMember(sqlSession, m);
 
 		return loginUser;
-	}
-
-	
-
-	public int insertMember(MemberSelect m) {
-		
-		int result = md.insertMember(sqlSession, m);
-
-		
-		return result;
-	}
-
-	@Override
+  }
+  
+  @Override
 	public boolean checkPw(String empId, String empPwd) {
 		boolean result = false;
 		
@@ -126,7 +115,43 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
+	// 사원 정보 입력
+	public int insertMember(MemberSelect m) {
+		
+		int result = 0;
+		
+		int login = md.insertMember(sqlSession, m);
+		
+		if(login > 0){
+			
+		
+		}
+
+		
+		return md.insertMember(sqlSession, m);
+	}
+
+	// 사원정보 입력 시 사원번호 조회
 	@Override
+	public int selectempNumber() {
+		
+		
+		
+		return md.selectempNumber(sqlSession);
+	}
+
+	// 직책 목록 조회
+	@Override
+	public ArrayList<Position> selectpositList() {
+		
+		ArrayList<Position> polist = null;
+		
+		polist = md.selectposiList(sqlSession);
+		
+		return polist;
+	}
+  
+  @Override
 	public int insertMyVacation(Vacation myVac) {
 		int result = md.insertMyVacation(sqlSession, myVac);
 		
@@ -146,4 +171,5 @@ public class MemberServiceImpl implements MemberService{
 		
 		return md.selectMyWorkingHoursRecord(sqlSession, empNo);
 	}
+  
 }

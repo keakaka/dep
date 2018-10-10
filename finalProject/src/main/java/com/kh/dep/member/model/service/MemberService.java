@@ -48,7 +48,11 @@ public interface MemberService {
 
 	List<Vacation> selectMyVacationRecord(int empNo);
 
-
 	List<WorkingHours> selectMyWorkingHoursRecord(int empNo);
+
+	int selectempNumber();
+
+	ArrayList<Position> selectpositList();
+
 
 }

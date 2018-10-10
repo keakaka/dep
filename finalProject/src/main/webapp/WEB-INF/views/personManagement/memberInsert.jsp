@@ -202,6 +202,17 @@
                       </div>
                     </div>
                     <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">직책</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="positionNo">
+                          <option>직책을 선택하세요</option>
+                          <c:forEach var='p' items="${polist }">
+                          <option value="${p.positionNo }">${ p.positionName }</option>
+                          </c:forEach>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">서명</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="file" id="signature" name="signature" style="margin-top:5px;">

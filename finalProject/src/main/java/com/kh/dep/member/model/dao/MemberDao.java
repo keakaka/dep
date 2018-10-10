@@ -31,15 +31,12 @@ public interface MemberDao {
 	int insertMember(SqlSessionTemplate sqlSession, MemberSelect m);
 
 
-
-
-
-
 	List<Department> selectMyDepRecordInfo(SqlSessionTemplate sqlSession, String empId) throws Exception;
 
 	List<Job> selectMyJobRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception;
 
 	List<Position> selectMyJobPositionRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception;
+
 
 	String selectEncpassword(SqlSessionTemplate sqlSession, String empId);
 
@@ -49,6 +46,9 @@ public interface MemberDao {
 
 	List<WorkingHours> selectMyWorkingHoursRecord(SqlSessionTemplate sqlSession, int empNo);
 
+	int selectempNumber(SqlSessionTemplate sqlSession);
+
+	ArrayList<Position> selectposiList(SqlSessionTemplate sqlSession);
 
 
 }
