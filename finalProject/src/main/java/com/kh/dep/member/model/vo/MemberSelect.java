@@ -13,6 +13,7 @@ public class MemberSelect implements java.io.Serializable {
 	private String empName;
 	private String depName;
 	private String jobName;
+	private String positionName;
 	private String birthDate;
 	private String email;
 	private String phone;
@@ -25,15 +26,16 @@ public class MemberSelect implements java.io.Serializable {
 	private String status;
 	private String jobCode;
 	private String depId;
-	private String oriFileName;
+	private String positionNo;
+	private String modiFileName;
 	private String empType;
 	
 	public MemberSelect(){}
 
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
-			String birthDate, String email, String phone, String emergencyPhone, String address, int salary,
-			Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
-			String oriFileName, String empType) {
+			String positionName, String birthDate, String email, String phone, String emergencyPhone, String address,
+			int salary, Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
+			String positionNo, String modiFileName, String empType) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -41,6 +43,7 @@ public class MemberSelect implements java.io.Serializable {
 		this.empName = empName;
 		this.depName = depName;
 		this.jobName = jobName;
+		this.positionName = positionName;
 		this.birthDate = birthDate;
 		this.email = email;
 		this.phone = phone;
@@ -53,43 +56,20 @@ public class MemberSelect implements java.io.Serializable {
 		this.status = status;
 		this.jobCode = jobCode;
 		this.depId = depId;
-		this.oriFileName = oriFileName;
+		this.positionNo = positionNo;
+		this.modiFileName = modiFileName;
 		this.empType = empType;
 	}
-
-
-	/*public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
-			 String phone, String emergencyPhone, String email, String address, int salary, Date hireDate) {
-		super();
-		this.empNo = empNo;
-		this.empId = empId;
-		this.empPwd = empPwd;
-		this.empName = empName;
-		this.depName = depName;
-		this.jobName = jobName;
-		this.phone = phone;
-		this.emergencyPhone = emergencyPhone;
-		this.email = email;
-		this.address = address;
-		this.salary = salary;
-		this.hireDate = hireDate;
-	}
-*/
-
-
 
 	@Override
 	public String toString() {
 		return "MemberSelect [empNo=" + empNo + ", empId=" + empId + ", empPwd=" + empPwd + ", empName=" + empName
-				+ ", depName=" + depName + ", jobName=" + jobName + ", birthDate=" + birthDate + ", email=" + email
-				+ ", phone=" + phone + ", emergencyPhone=" + emergencyPhone + ", address=" + address + ", salary="
-				+ salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate + ", phoneReveal=" + phoneReveal
-				+ ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId + ", oriFileName=" + oriFileName
-				+ ", empType=" + empType + "]";
+				+ ", depName=" + depName + ", jobName=" + jobName + ", positionName=" + positionName + ", birthDate="
+				+ birthDate + ", email=" + email + ", phone=" + phone + ", emergencyPhone=" + emergencyPhone
+				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
+				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
+				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType + "]";
 	}
-
-
-
 
 	public int getEmpNo() {
 		return empNo;
@@ -137,6 +117,14 @@ public class MemberSelect implements java.io.Serializable {
 
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
+
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
 	}
 
 	public String getBirthDate() {
@@ -218,53 +206,57 @@ public class MemberSelect implements java.io.Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public String getJobCode() {
 		return jobCode;
 	}
-
-
 
 	public void setJobCode(String jobCode) {
 		this.jobCode = jobCode;
 	}
 
-
-
 	public String getDepId() {
 		return depId;
 	}
-
-
 
 	public void setDepId(String depId) {
 		this.depId = depId;
 	}
 
-
-
-
-	public String getOriFileName() {
-		return oriFileName;
+	public String getPositionNo() {
+		return positionNo;
 	}
 
-
-
-
-	public void setOriFileName(String oriFileName) {
-		this.oriFileName = oriFileName;
+	public void setPositionNo(String positionNo) {
+		this.positionNo = positionNo;
 	}
 
+	public String getModiFileName() {
+		return modiFileName;
+	}
+
+	public void setModiFileName(String modiFileName) {
+		this.modiFileName = modiFileName;
+	}
 
 	public String getEmpType() {
 		return empType;
 	}
 
-
 	public void setEmpType(String empType) {
 		this.empType = empType;
 	}
 
+	
+	
+
+
+	
+
+
+
+
+	
 
 
 
