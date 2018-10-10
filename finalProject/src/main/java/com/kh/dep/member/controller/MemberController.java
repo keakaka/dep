@@ -35,26 +35,20 @@ public class MemberController {
 
 	@Autowired
 	private MemberService ms;
-
+	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private AttachService as;
 
 	@RequestMapping(value="login.me")
 	public String loginCheck(MemberSelect m, Model model){
 
 
-		//임시 비밀번호 생성용
-		// 계정 암호화 된 패스워드 DB에 저장 후 
-		// 주석 처리하고 사용하면 됨
-		/*String encPassword = passwordEncoder.encode(m.getEmpPwd());
-		m.setEmpPwd(encPassword);
-
-		System.out.println("로그인 시 암호화 패스워드 : " + m.getEmpPwd());*/
-
 
 
 		try {
 			MemberSelect loginUser = ms.selectLoginMember(m);
+			
+			System.out.println(loginUser);
 			
 			model.addAttribute("loginUser", loginUser);
 
@@ -78,9 +72,12 @@ public class MemberController {
 		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<Position> polist = ms.selectpositList();
 
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
+		model.addAttribute("polist", polist);
 
 		return "personManagement/memberInsert";
 	}
@@ -106,6 +103,7 @@ public class MemberController {
 		String changeName = CommonUtils.getRandomString();
 		String changeName2 = CommonUtils.getRandomString();
 		
+
 		
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeName + ext) );
@@ -118,25 +116,25 @@ public class MemberController {
 			
 			if(result > 0){
 				
-				
+				int empNo = ms.selectempNumber();
 				
 				Attachment file = new Attachment();
 				Attachment sig = new Attachment();
 				
 				file.setOriFileName(originFileName);
-				file.setModiFileName(changeName);
+				file.setModiFileName(changeName + ext);
+				file.setEmpNo(empNo);
 				file.setEmpType("ET1");
 				
 				sig.setOriFileName(orisigFileName);
-				sig.setModiFileName(changeName2);
+				sig.setModiFileName(changeName2 + ext2);
+				sig.setEmpNo(empNo);
 				sig.setEmpType("ET2");
 				
 				System.out.println(file);
 				System.out.println(sig);
 				
-				AttachService as = new AttachServiceImpl();
-				
-				
+			
 				int result1 = as.insertAttachment(file);
 				
 				System.out.println("사진 저장 성공 " + result1);

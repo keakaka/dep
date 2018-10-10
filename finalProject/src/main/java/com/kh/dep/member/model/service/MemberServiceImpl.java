@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
 		return md.updateMyInfo(sqlSession, m);
 	}
 
-
+	// 부서목록 조회
 	public ArrayList<MemberDepartment> selectDepList() {
 
 		ArrayList<MemberDepartment> deplist = md.selectdepList(sqlSession);
@@ -65,6 +65,7 @@ public class MemberServiceImpl implements MemberService{
 		return deplist;
 	}
 
+	// 직급 목록 조회
 	@Override
 	public ArrayList<MemberJob> selectJobList() {
 
@@ -115,13 +116,44 @@ public class MemberServiceImpl implements MemberService{
 			System.out.println("비밀번호 불일치");
 		}else{
 			result = true;
+			
+		}
+		return result;
 		}
 
+	// 사원 정보 입력
 	public int insertMember(MemberSelect m) {
 		
-		int result = md.insertMember(sqlSession, m);
+		int result = 0;
+		
+		int login = md.insertMember(sqlSession, m);
+		
+		if(login > 0){
+			
+		
+		}
 
 		
-		return result;
+		return md.insertMember(sqlSession, m);
+	}
+
+	// 사원정보 입력 시 사원번호 조회
+	@Override
+	public int selectempNumber() {
+		
+		
+		
+		return md.selectempNumber(sqlSession);
+	}
+
+	// 직책 목록 조회
+	@Override
+	public ArrayList<Position> selectpositList() {
+		
+		ArrayList<Position> polist = null;
+		
+		polist = md.selectposiList(sqlSession);
+		
+		return polist;
 	}
 }

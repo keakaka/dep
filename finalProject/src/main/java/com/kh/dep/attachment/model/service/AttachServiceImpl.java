@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dep.attachment.model.dao.AttachDao;
+import com.kh.dep.attachment.model.dao.AttachDaoImpl;
 import com.kh.dep.attachment.model.vo.Attachment;
+
 
 @Service
 public class AttachServiceImpl implements AttachService {
@@ -16,7 +18,7 @@ public class AttachServiceImpl implements AttachService {
 	
 	@Autowired
 	private AttachDao ad;
-	
+
 	@Override
 	public int insertAttachment(Attachment file) {
 		
@@ -24,5 +26,7 @@ public class AttachServiceImpl implements AttachService {
 		
 		return result;
 	}
+	
+	
 
 }
