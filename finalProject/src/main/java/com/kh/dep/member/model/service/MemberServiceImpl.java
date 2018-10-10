@@ -17,6 +17,8 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -51,7 +53,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateMyInfo(MemberSelect m) throws Exception{
+	public int updateMyInfo(MemberSelect m){
 
 		return md.updateMyInfo(sqlSession, m);
 	}
@@ -93,29 +95,12 @@ public class MemberServiceImpl implements MemberService{
 	public MemberSelect selectUpdateMember(MemberSelect m) throws Exception {
 		MemberSelect loginUser = null;
 
-		String encPassword = md.selectEncpassword(sqlSession, m);
-
-		if(!passwordEncoder.matches(m.getEmpPwd(), encPassword)){
-			throw new LoginException("비밀번호가 일치하지 않습니다.");
-		}else{
-			loginUser = md.selectLoginMember(sqlSession, m);
-		}
+		loginUser = md.selectLoginMember(sqlSession, m);
 
 		return loginUser;
 	}
 
-	@Override
-	public boolean checkPw(MemberSelect m) {
-		boolean result = false;
-		
-		String encPwd = md.selectEncpassword(sqlSession, m);
-		
-		if(!passwordEncoder.matches(m.getEmpPwd(), encPwd)){
-			/*throw new LoginException("비밀번호가 일치하지 않습니다.");*/
-			System.out.println("비밀번호 불일치");
-		}else{
-			result = true;
-		}
+	
 
 	public int insertMember(MemberSelect m) {
 		
@@ -123,5 +108,42 @@ public class MemberServiceImpl implements MemberService{
 
 		
 		return result;
+	}
+
+	@Override
+	public boolean checkPw(String empId, String empPwd) {
+		boolean result = false;
+		
+		/*암호화된 비밀번호*/
+		String encPwd = md.selectEncpassword(sqlSession, empId);
+		
+		if(!passwordEncoder.matches(empPwd, encPwd)){
+			System.out.println("비밀번호 불일치!!");
+		}else{
+			result = true;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int insertMyVacation(Vacation myVac) {
+		int result = md.insertMyVacation(sqlSession, myVac);
+		
+		return result;
+	}
+
+	@Override
+	public List<Vacation> selectMyVacationRecord(int empNo) {
+		
+		
+		return md.selectMyVacationRecrod(sqlSession, empNo);
+	}
+
+	@Override
+	public List<WorkingHours> selectMyWorkingHoursRecord(int empNo) {
+		
+		
+		return md.selectMyWorkingHoursRecord(sqlSession, empNo);
 	}
 }

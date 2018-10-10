@@ -75,12 +75,87 @@
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>
-															휴가내용조회 <small>채은비</small>
+															휴가내용조회 <small>${loginUser.empName }</small>
 														</h2>
 
 														<div class="clearfix"></div>
 													</div>
 													<div class="x_content">
+
+														<!-- modals -->
+														<!-- Large modal -->
+														<button type="button" class="btn btn-primary"
+															data-toggle="modal" data-target=".bs-example-modal-lg">휴가신청</button>
+
+														<div class="modal fade bs-example-modal-lg" tabindex="-1"
+															role="dialog" aria-hidden="true">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+
+																	<div class="modal-header">
+																		<button type="button" class="close"
+																			data-dismiss="modal">
+																			<span aria-hidden="true">×</span>
+																		</button>
+																		<h4 class="modal-title" id="myModalLabel">휴가신청</h4>
+																	</div>
+																	<div class="modal-body">
+																		<table>
+																			<tr>
+																				<th>휴가종류</th>
+																				<th>사유</th>
+																				<th>시작일시</th>
+																				<th>종료일시</th>
+																			</tr>
+																			<tr>
+																				<td>
+																					<select id="vacationKind">
+																					<option id="VT">---</option>
+																					<option id="VT1" value="VT1">연가</option>
+																					<option id="VT2" value="VT2">공가</option>
+																					<option id="VT3" value="VT3">병가</option>
+																					<option id="VT4" value="VT4">특별휴가</option>
+																					<option id="VT5" value="VT5">반가</option>
+																					</select>
+																				</td>
+																				<td><input type="text" id="vacReason" name="vacReason"></td>
+																				<td><input type="date" id="vacStartdate" name="vacStartdate"></td>
+																				<td><input type="date" id="vacEnddate" name="vacEnddate"></td>
+																			</tr>
+																		</table>
+																	</div>
+																	
+																	
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-default"
+																			data-dismiss="modal">닫기</button>
+																		<button type="button" class="btn btn-primary" onclick="apply()">신청하기</button>
+																	</div>
+
+																</div>
+															</div>
+														</div>
+														
+																	<script>
+																		function apply(){
+																			/* $("#vacationKind").on("change", function(){
+																				console.log($(this).val());
+																				var vacKind = $(this).val();
+																			}); */
+																			var empNo = ${loginUser.empNo};
+																			console.log(empNo);
+																			var vacKind = $("#vacationKind option:selected").val();
+																			console.log(vacKind);
+																			var vacReason = $("#vacReason").val();
+																			console.log(vacReason);
+																			var vacStartdate = $("#vacStartdate").val();
+																			console.log(vacStartdate);
+																			var vacEnddate = $("#vacEnddate").val();
+																			console.log(vacEnddate);
+																			location.href="updateMyVacation.me?empNo=" + empNo + "&vacKind=" + vacKind + "&vacReason=" + vacReason + "&vacStartdate=" + vacStartdate + "&vacEnddate=" + vacEnddate;
+																			
+																		}
+																	</script>
 
 														<table id="datatable"
 															class="table table-striped table-bordered">
@@ -96,7 +171,16 @@
 
 
 															<tbody>
-																<tr>
+																<c:forEach items="${myVacationRecordList }" var="myVacationRecord">
+																	<tr>
+																		<td>${myVacationRecord.vacNo }</td>
+																		<td>${myVacationRecord.vacType }</td>
+																		<td>${myVacationRecord.vacReason }</td>
+																		<td>${myVacationRecord.vacStartdate }</td>
+																		<td>${myVacationRecord.vacEnddate }</td>
+																	</tr>
+																</c:forEach>
+																<!-- <tr>
 																	<td>번호</td>
 																	<td>날짜</td>
 																	<td>Tiger Nixon</td>
@@ -130,7 +214,7 @@
 																	<td>Airi Satou</td>
 																	<td>Accountant</td>
 																	<td>종료일시</td>
-																</tr>
+																</tr> -->
 
 															</tbody>
 														</table>

@@ -35,6 +35,18 @@
 <link
 	href="${contextPath }/resources/css/calendar/fullcalendar.print.css"
 	rel="stylesheet" media="print">
+
+<!-- <link href="js/datatables/jquery.dataTables.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="js/datatables/buttons.bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="js/datatables/fixedHeader.bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="js/datatables/responsive.bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="js/datatables/scroller.bootstrap.min.css" rel="stylesheet"
+	type="text/css" /> -->
+
 <script src="${contextPath }/resources/js/jquery.min.js"></script>
 <script src="${contextPath }/resources/js/nprogress.js"></script>
 
@@ -68,69 +80,19 @@
 								<div class="dashboard_graph">
 
 									<div class="row x_title">
-
+										
 										<div class="col-md-6" style="width: 100%;">
 
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>
-															출퇴근시간조회 <small>채은비</small>
+															휴가신청 <small>${loginUser.empName }</small>
 														</h2>
 
 														<div class="clearfix"></div>
 													</div>
-													<div class="x_content">
-
-														<table id="datatable"
-															class="table table-striped table-bordered">
-															<thead>
-																<tr>
-																	<th>날짜</th>
-																	<th>출근시간</th>
-																	<th>퇴근시간</th>
-																</tr>
-															</thead>
-
-
-															<tbody>
-																<c:forEach items="${myWorkingHoursRecordList }" var="myWorkingHoursRecord">
-																	<tr>
-																		<td>${myWorkingHoursRecord.workingDate}</td>
-																		<td>${myWorkingHoursRecord.attendTime}</td>
-																		<td>${myWorkingHoursRecord.leaveTime }</td>
-																	</tr>
-																
-																</c:forEach>
-																<!-- <tr>
-																	<td>번호</td>
-																	<td>날짜</td>
-																	<td>Tiger Nixon</td>
-																</tr>
-																<tr>
-																	<td>번호</td>
-																	<td>날짜</td>
-																	<td>Garrett Winters</td>
-																</tr>
-																<tr>
-																	<td>번호</td>
-																	<td>날짜</td>
-																	<td>Ashton Cox</td>
-																</tr>
-																<tr>
-																	<td>번호</td>
-																	<td>날짜</td>
-																	<td>Cedric Kelly</td>
-																</tr>
-																<tr>
-																	<td>번호</td>
-																	<td>날짜</td>
-																	<td>Airi Satou</td>
-																</tr> -->
-
-															</tbody>
-														</table>
-													</div>
+													
 												</div>
 											</div>
 
@@ -199,6 +161,78 @@
 				src="${contextPath }/resources/js/datepicker/daterangepicker.js"></script>
 
 			<script src="${contextPath }/resources/js/custom.js"></script>
+
+			<!-- <!-- Datatables
+			<script src="js/datatables/jquery.dataTables.min.js"></script>
+			<script src="js/datatables/dataTables.bootstrap.js"></script>
+			<script src="js/datatables/dataTables.buttons.min.js"></script>
+			<script src="js/datatables/buttons.bootstrap.min.js"></script>
+			<script src="js/datatables/jszip.min.js"></script>
+			<script src="js/datatables/pdfmake.min.js"></script>
+			<script src="js/datatables/vfs_fonts.js"></script>
+			<script src="js/datatables/buttons.html5.min.js"></script>
+			<script src="js/datatables/buttons.print.min.js"></script>
+			<script src="js/datatables/dataTables.fixedHeader.min.js"></script>
+			<script src="js/datatables/dataTables.keyTable.min.js"></script>
+			<script src="js/datatables/dataTables.responsive.min.js"></script>
+			<script src="js/datatables/responsive.bootstrap.min.js"></script>
+			<script src="js/datatables/dataTables.scroller.min.js"></script>
+
+			pace
+			<script src="js/pace/pace.min.js"></script>
+			<script>
+				var handleDataTableButtons = function() {
+					"use strict";
+					0 !== $("#datatable-buttons").length
+							&& $("#datatable-buttons").DataTable({
+								dom : "Bfrtip",
+								buttons : [ {
+									extend : "copy",
+									className : "btn-sm"
+								}, {
+									extend : "csv",
+									className : "btn-sm"
+								}, {
+									extend : "excel",
+									className : "btn-sm"
+								}, {
+									extend : "pdf",
+									className : "btn-sm"
+								}, {
+									extend : "print",
+									className : "btn-sm"
+								} ],
+								responsive : !0
+							})
+				}, TableManageButtons = function() {
+					"use strict";
+					return {
+						init : function() {
+							handleDataTableButtons()
+						}
+					}
+				}();
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#datatable').dataTable();
+					$('#datatable-keytable').DataTable({
+						keys : true
+					});
+					$('#datatable-responsive').DataTable();
+					$('#datatable-scroller').DataTable({
+						ajax : "js/datatables/json/scroller-demo.json",
+						deferRender : true,
+						scrollY : 380,
+						scrollCollapse : true,
+						scroller : true
+					});
+					var table = $('#datatable-fixed-header').DataTable({
+						fixedHeader : true
+					});
+				});
+				TableManageButtons.init();
+			</script> -->
 </body>
 
 </html>

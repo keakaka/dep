@@ -107,18 +107,18 @@
 												<!-- <form class="form-horizontal form-label-left"
 													action="updateMyInfo.me" method="get"
 													enctype="multipart/form-data"> -->
-													
-													<form class="form-horizontal form-label-left"
-													action="updateMyInfo.me" method="post">
+
+												<form id="myInfo" class="form-horizontal form-label-left"
+													method="post">
 													<div id="info1">
-														<h4 style="color:#34495E;"></h4>
-														
+														<h4 style="color: #34495E;"></h4>
+
 														<%-- <div>
 															<label for="empNo">사원번호</label>
 															<input type="text" id="empNo" name="empNo"
 																   value="${loginUser.empNo }" readonly>
 														</div> --%>
-														
+
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
 																for="empId">아이디</label>
@@ -128,14 +128,13 @@
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
-														
-														
+
+
 														<div class="form-group">
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
 																for="empPwd">비밀번호 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
 																<input type="password" id="empPwd" name="empPwd"
-																	value="${loginUser.empPwd }"
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
@@ -149,7 +148,7 @@
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
-														
+
 														<div class="form-group">
 															<label for="depName"
 																class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -160,7 +159,7 @@
 																	value="${loginUser.depName }">
 															</div>
 														</div>
-														
+
 														<div class="form-group">
 															<label for="jobName"
 																class="control-label col-md-3 col-sm-3 col-xs-12">직급</label>
@@ -179,7 +178,14 @@
 																	value="${loginUser.phone }"
 																	class="form-control col-md-7 col-xs-12">
 																<!-- 핸드폰 번호 공개여부 설정 -->
-																공개<input type="checkbox" size="5">
+																<c:if test="${loginUser.phoneReveal  == 'Y' }">
+																공개<input type="checkbox" id="phoneReveal"
+																	name="phoneReveal" size="5" checked="checked">
+																</c:if>
+																<c:if test="${loginUser.phoneReveal  == 'N' }">
+																공개<input type="checkbox" id="phoneReveal"
+																	name="phoneReveal" size="5">
+																</c:if>
 															</div>
 														</div>
 
@@ -189,12 +195,13 @@
 															<label class="control-label col-md-3 col-sm-3 col-xs-12"
 																for="emergencyPhone">비상연락처 </label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<input type="text" id="emergencyPhone" name="emergencyPhone"
+																<input type="text" id="emergencyPhone"
+																	name="emergencyPhone"
 																	value="${loginUser.emergencyPhone }"
 																	class="form-control col-md-7 col-xs-12">
 															</div>
 														</div>
-														
+
 														<div class="form-group">
 															<label for="email"
 																class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -225,29 +232,69 @@
 															<label for="hireDate"
 																class="control-label col-md-3 col-sm-3 col-xs-12">입사일</label>
 															<div class="col-md-6 col-sm-6 col-xs-12">
-																<%-- <input id="hireDate" name="hireDate"
-																	class="form-control col-md-7 col-xs-12" type="date"
-																	value="${loginUser.hireDate }" readonly> --%>
-																<label>${loginUser.hireDate }</label>
+																<input id="hireDate" name="hireDate"
+																	class="form-control col-md-7 col-xs-12" type="text"
+																	value="${loginUser.hireDate }" readonly>
 															</div>
-														</div> 
-														
+														</div>
+
 													</div>
 
-													<button type="submit">수정하기</button>
-													<!-- <button type="button" id="updateBtn" onclick="check()">수정확인</button> -->
+													<!-- <button type="submit">수정하기</button> -->
+													<button type="button" id="updateBtn" onclick="check()">수정확인</button>
 													<!-- <input type="submit" value="수정"> -->
 												</form>
+
+												<script>
 												
-												<!-- <script>
 													function check(){
-														var	result = ${result};
-														if(result == false){
-															alert("비밀번호가 일치하지 않습니다.");
+														var empId=$("#empId").val();
+														var empPwd=$("#empPwd").val();
+														var empName=$("#empName").val();
+														var phone=$("#phone").val();
+														
+														var check;
+														if($("#phoneReveal").is(":checked")){
+															check = 1;
 														}
-													}												
-												</script> -->
-												
+														else{
+															check = 0;
+														}
+														
+														
+														var emergencyPhone=$("#emergencyPhone").val();
+														var email=$("#email").val();
+														var address=$("#address").val();
+														
+														if(empPwd == ""){
+															alert("비밀번호를 입력해주세요.");
+														}
+														else{
+															$.ajax({
+																type : "post",
+																url : "updateMyInfo.me",
+																data : {empId:empId, empPwd:empPwd, empName:empName, phone:phone,
+																	check:check, emergencyPhone:emergencyPhone, email:email, address:address},
+																dataType : "json",
+																success : function(data) {
+																	console.log(data);
+																	console.log(typeof data);
+																	if(!data){
+																		alert("비밀번호가 올바르지 않습니다.");
+																	}
+																	else{
+																		alert("수정이 완료되었습니다.");
+																	}
+																},
+																error : function(data) {
+																	console.log(data);
+																}
+															});
+														}
+													}
+													
+												</script>
+
 											</div>
 										</div>
 									</div>

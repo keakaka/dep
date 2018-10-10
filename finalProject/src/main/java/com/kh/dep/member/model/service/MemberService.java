@@ -11,13 +11,15 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
 
 public interface MemberService {
 
 	MemberSelect selectLoginMember(MemberSelect m) throws LoginException;
 
 
-	int updateMyInfo(MemberSelect m) throws Exception;
+	int updateMyInfo(MemberSelect m);
 
 	ArrayList<MemberDepartment> selectDepList();
 
@@ -35,11 +37,18 @@ public interface MemberService {
 	MemberSelect selectUpdateMember(MemberSelect m) throws Exception;
 
 
-	boolean checkPw(MemberSelect m);
-
-
 	int insertMember(MemberSelect m);
 
 
+	boolean checkPw(String empId, String empPwd);
+
+
+	int insertMyVacation(Vacation myVac);
+
+
+	List<Vacation> selectMyVacationRecord(int empNo);
+
+
+	List<WorkingHours> selectMyWorkingHoursRecord(int empNo);
 
 }
