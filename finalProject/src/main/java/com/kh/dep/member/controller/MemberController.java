@@ -103,6 +103,7 @@ public class MemberController {
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String ext2 = orisigFileName.substring(orisigFileName.lastIndexOf("."));
 		
+		
 		String changeName = CommonUtils.getRandomString();
 		String changeName2 = CommonUtils.getRandomString();
 		

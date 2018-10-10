@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class Facing implements java.io.Serializable {
+public class FacingInsert implements java.io.Serializable {
 
 	private int empNo;
 	private String empName;
@@ -16,16 +16,14 @@ public class Facing implements java.io.Serializable {
 	private int receiver;
 	private String status;
 	private Date reciverDate;
-	private int depId;
-	private String depName;
 	
-	public Facing()
+	public FacingInsert()
 	{
 		
 	}
-	
-	public Facing(int empNo, String empName, int facingNo, String facingTitle, String facingContents, Date writeDate,
-			int receiver, String status, Date reciverDate, int depId , String depName) {
+
+	public FacingInsert(int empNo, String empName, int facingNo, String facingTitle, String facingContents,
+			Date writeDate, int receiver, String status, Date reciverDate) {
 		super();
 		this.empNo = empNo;
 		this.empName = empName;
@@ -36,22 +34,8 @@ public class Facing implements java.io.Serializable {
 		this.receiver = receiver;
 		this.status = status;
 		this.reciverDate = reciverDate;
-		this.depId = depId;
-		this.depName = depName;
 	}
 
-	
-	public String getdepName()
-	{
-		return depName;
-		
-	}
-	
-	public void setdepName(String depName)
-	{
-		this.depName = depName;
-	}
-	
 	public int getEmpNo() {
 		return empNo;
 	}
@@ -124,19 +108,14 @@ public class Facing implements java.io.Serializable {
 		this.reciverDate = reciverDate;
 	}
 
-	public int getDepId() {
-		return depId;
-	}
-
-	public void setDepId(int depId) {
-		this.depId = depId;
-	}
-
 	@Override
 	public String toString() {
-		return "Facing [empNo=" + empNo + ", empName=" + empName + ", facingNo=" + facingNo + ", facingTitle="
+		return "FacingInsert [empNo=" + empNo + ", empName=" + empName + ", facingNo=" + facingNo + ", facingTitle="
 				+ facingTitle + ", facingContents=" + facingContents + ", writeDate=" + writeDate + ", receiver="
-				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + ", depId=" + depId + "]";
+				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + "]";
 	}
+	
+
+
 	
 }

@@ -46,10 +46,13 @@ public class AddressBookController {
 	@RequestMapping("insertAddressBook.ad")
 	public void insertAddressBook(int empNo, HttpServletResponse response) {
 		
+
 		ObjectMapper mapper = new ObjectMapper();
 		
 		
 		AddressBook ab = abs.selectAdd(empNo);
+		
+		
 		System.out.println("insert " + ab);
 		
 	}

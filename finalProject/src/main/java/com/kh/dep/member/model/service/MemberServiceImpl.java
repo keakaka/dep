@@ -115,8 +115,11 @@ public class MemberServiceImpl implements MemberService{
 			System.out.println("비밀번호 불일치");
 		}else{
 			result = true;
+			
 		}
-
+		return result;
+		
+	}
 	public int insertMember(MemberSelect m) {
 		
 		int result = md.insertMember(sqlSession, m);

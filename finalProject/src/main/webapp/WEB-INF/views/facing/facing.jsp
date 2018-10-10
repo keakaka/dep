@@ -120,7 +120,9 @@
                       <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">쪽지보내기</a>
                       </li>
                     </ul>
-                    
+                 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+						
+                  <!--   <form action="facinginsert.ms" method="post" encType="multipart/form-data"> -->
                     <div id="myTabContent2" class="tab-content">
                             <div id="myTabContent" class="tab-content">
                       <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -130,7 +132,8 @@
                 
                         <p>
 						
-						<!-- 부서 -->
+					<!-- 	
+					<!-- 부서 
 						<label for="heard">부서</label>
                         <select id="heard" class="form-control" required>
                           <option value="">인사과</option>
@@ -139,16 +142,33 @@
                      
                         </select>
 						<br>
-						<!-- 사원명 -->
+						사원명
                         <label for="heard">사원</label>
                         <select id="heard" class="form-control" required>
                           <option value="">Choose..</option>
                           <option value="press">Press</option>
                           <option value="net">Internet</option>
                           <option value="mouth">Word of mouth</option>
-                        </select>
+                        </select> -->
 						
-						<br><br>
+						  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">보내는 사람 <span class="required">*</span>
+                      </label>
+                      <br>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <br><br>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">받는사람 <span class="required">*</span>
+                      </label>
+                      <br>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+					<br><br><br>
 						
              <!--            <label for="message">Message (20 chars min, 100 max) :</label>
                         <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
@@ -175,7 +195,10 @@
 					  </div>
                       </div>
                       
-              
+              			</div>
+              			</div>
+              			
+              			</form>
                 
             <!--     ======================================================== -->
                       </div>

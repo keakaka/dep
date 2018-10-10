@@ -39,7 +39,11 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me">근태 이력 조회</a></li>
                      <li><a href="myVacation.me">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >넘어가자</a>
+                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
+                     <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
+                     <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
+                      <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
+                     
                      <script type="text/javascript">
                      
                      </script>
