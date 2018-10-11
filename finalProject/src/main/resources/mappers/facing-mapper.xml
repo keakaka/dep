@@ -17,19 +17,31 @@
 		<result property="depName" column="DEP_NAME" />
 		
 	</resultMap>
+	
+	<!-- <resultMap type="WorkginRecord" id="WorkingResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="hours" column="HOURS" />
+		<result property="workRecordNo" column="WORK_RECORD_NO" />	
+	</resultMap> -->
 
+	<insert id="insertWorking" parameterType="WorkingRecord">
+	
+    INSERT INTO "FINAL"."WORKING_RECORD"(WORK_RECORD_NO,HOURS,EMP_NO)
+    VALUES (WORK_RECORD_NO.NEXTVAL,SYSDATE,#{empNo})
 
+	</insert>
+	
 	<!--  보낸 쪽지 리스트-->
 	<select id="selectFacing" resultMap="FacingResultSet" parameterType="int">
-	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO 
-	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
-	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'	
+ 	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO , RECEIVER 
+	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) JOIN FACING_RECEIVE FR ON (F.FACING_NO = FR.FACING_NO)
+	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'
 	</select>
 	
 	<select id="reciveFacing" resultMap="FacingResultSet" parameterType="int">
-	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS 
-	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
-	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'	
+	SELECT WRITE_DATE,FACING_TITLE , FACING_CONTENTS, EMP_NAME ,F.FACING_NO , F.EMP_NO
+	FROM FACING F JOIN FACING_RECEIVE FR ON (F.FACING_NO = FR.FACING_NO) 
+	JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) WHERE RECEIVER = #{receiver} AND F.STATUS = 'Y'
 	</select>
 	
 	<select id ="selectOneFacing" resultMap="FacingResultSet" parameterType="int">

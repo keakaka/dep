@@ -43,7 +43,7 @@
                      <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
                      <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
                      <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-
+					 <li><a href="${ contextPath }/qrInsert.ms"></a>><li>
                      <script type="text/javascript">
                      
                      </script>
