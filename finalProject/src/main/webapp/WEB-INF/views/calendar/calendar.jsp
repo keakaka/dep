@@ -200,9 +200,18 @@
 													$.ajax({
 														url:"searchAttName.ca",
 														type:'post',
+														dataType:"text",
 														data:{attName:attName},
 														success:function(data){
+															values = data.data;
+															$.each(values, function(index, value){
+																console.log(index + " :" + value.empName);
+															});
 															
+															
+															/* console.log(data.empName);
+															var e = $(data).find('empName');
+															$("#dataArea").html(e); */
 														},
 														error:function(data){
 															console.log("error");

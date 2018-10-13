@@ -12,11 +12,12 @@ import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.dao.MemberDao;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
-import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -51,7 +52,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateMyInfo(MemberSelect m) throws Exception{
+	public int updateMyInfo(MemberSelect m){
 
 		return md.updateMyInfo(sqlSession, m);
 	}
