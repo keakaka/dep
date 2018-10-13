@@ -23,7 +23,8 @@
 		<result property="hours" column="HOURS" />
 		<result property="workRecordNo" column="WORK_RECORD_NO" />	
 	</resultMap> -->
-
+	
+	<!-- 출석 -->
 	<insert id="insertWorking" parameterType="WorkingRecord">
 	
     INSERT INTO "FINAL"."WORKING_RECORD"(WORK_RECORD_NO,HOURS,EMP_NO)
