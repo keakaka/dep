@@ -32,6 +32,8 @@
 
 	</insert>
 	
+	
+	
 	<!--  보낸 쪽지 리스트-->
 	<select id="selectFacing" resultMap="FacingResultSet" parameterType="int">
  	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO , RECEIVER 

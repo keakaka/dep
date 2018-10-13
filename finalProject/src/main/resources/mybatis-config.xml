@@ -21,7 +21,8 @@
 		<typeAlias type="com.kh.dep.member.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.kh.dep.member.model.vo.WorkingHours" alias="WorkingHours"/>
 		<typeAlias type="com.kh.dep.sign.model.vo.MemberDep" alias="MemberDep"/>
-		
+		<typeAlias type="com.kh.dep.depEmergency.model.vo.DepE" alias="DepE"/>
+				
 
 	</typeAliases>
 	<mappers>
@@ -30,6 +31,8 @@
 		<mapper resource="mappers/facing-mapper.xml"/>		
 		<mapper resource="mappers/sign-mapper.xml"/>
 		<mapper resource="mappers/calendar-mapper.xml"/>
+		<mapper resource="mappers/depE-mapper.xml"/>
+		
 	</mappers>
 	
 	

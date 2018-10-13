@@ -79,6 +79,8 @@
                   </ul>
                </li>
                <li><a href="boardList.bo"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
+               
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
                <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 
