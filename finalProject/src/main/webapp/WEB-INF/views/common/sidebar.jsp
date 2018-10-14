@@ -11,7 +11,7 @@
       <!-- menu prile quick info -->
       <div class="profile">
          <div class="profile_pic">
-            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName}" alt="..." class="img-circle profile_img">
+            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName }" alt="..." class="img-circle profile_img">
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
