@@ -75,7 +75,7 @@
               <div>
                 <h1>DEP GroupWare</h1>
 
-                <p>©2018 All Rights Reserved. DBDBDIP final project!</p>
+                <p>©2018 All Rights Reserved. DBDBDEP final project!</p>
               </div>
             </div>
           </form>

@@ -50,5 +50,12 @@ public interface MemberDao {
 
 	ArrayList<Position> selectposiList(SqlSessionTemplate sqlSession);
 
+	int insertDepRecord(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	int insertPositRecord(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	int insertJobRecord(SqlSessionTemplate sqlSession, MemberSelect m);
+
+
 
 }

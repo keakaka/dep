@@ -145,6 +145,21 @@
 		<url-pattern>*.ms</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- 인사 -->
+ 	<servlet>
+		<servlet-name>personMgt</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/personmgt-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>personMgt</servlet-name>
+		<url-pattern>*.pm</url-pattern>
+	</servlet-mapping>
 	
 	
 

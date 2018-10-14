@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.dep.attachment.model.service.AttachService;
@@ -72,6 +73,16 @@ public class MemberController {
 
 
 
+	}
+	
+	@RequestMapping("logout.me")
+	public String  logout(SessionStatus status){
+		
+		status.setComplete();
+		
+		
+		return "member/memberLogin";
+		
 	}
 
 
@@ -128,6 +139,10 @@ public class MemberController {
 				
 				int empNo = ms.selectempNumber();
 				
+				m.setEmpNo(empNo);
+				
+				int record = ms.insertRecord(m);
+				
 				Attachment file = new Attachment();
 				Attachment sig = new Attachment();
 				
@@ -163,7 +178,7 @@ public class MemberController {
 			
 		} catch (Exception e) {
 			
-			System.out.println("실패");
+			System.out.println("사원정보입력 실패 사유 : " + e.getMessage());
 			new File(filePath + "\\" + changeName + ext).delete();
 			new File(sigPath + "\\" + changeName2 + ext2).delete();
 			

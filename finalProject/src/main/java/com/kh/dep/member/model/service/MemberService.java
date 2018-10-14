@@ -3,6 +3,7 @@ package com.kh.dep.member.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
@@ -53,6 +54,8 @@ public interface MemberService {
 	int selectempNumber();
 
 	ArrayList<Position> selectpositList();
+
+	int insertRecord(MemberSelect m) throws InsertRecordException;
 
 
 }
