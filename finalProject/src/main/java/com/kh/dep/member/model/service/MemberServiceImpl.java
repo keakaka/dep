@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.dao.MemberDao;
 import com.kh.dep.member.model.vo.Department;
@@ -120,17 +121,9 @@ public class MemberServiceImpl implements MemberService{
 	// 사원 정보 입력
 	public int insertMember(MemberSelect m) {
 		
-		int result = 0;
-		
-		int login = md.insertMember(sqlSession, m);
-		
-		if(login > 0){
+		int result = md.insertMember(sqlSession, m);
 			
-		
-		}
-
-		
-		return md.insertMember(sqlSession, m);
+		return result;
 	}
 
 	// 사원정보 입력 시 사원번호 조회
@@ -175,10 +168,35 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public int insertRecord(MemberSelect m) throws InsertRecordException {
+		
+		int result = 0;
+		
+		int depRc = md.insertDepRecord(sqlSession, m);
+		
+		int positRc = md.insertPositRecord(sqlSession, m);
+		
+		int jobRc = md.insertJobRecord(sqlSession, m);
+		
+		if(depRc == 0){
+			throw new InsertRecordException("부서이력 입력 실패");
+		}else if(positRc == 0){
+			throw new InsertRecordException("직책이력 입력 실패");
+		}else if(jobRc == 0){
+			throw new InsertRecordException("직책이력 입력 실패");
+		}else{
+			result++;
+		}
+			
+		return result;
+    
+  }
+
 	public int updateMyImage(int empNo, String newFileName, String originFileName) {
 		
 		
 		return md.updateMyImage(sqlSession, empNo, newFileName, originFileName);
+
 	}
   
 }
