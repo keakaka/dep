@@ -4,14 +4,14 @@
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       
       <div class="navbar nav_title" style="border: 0;">
-         <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>DBDBDep</span></a>
+         <a href="logout.me" class="site_title"><i class="fa fa-paw"></i> <span>DBDBDep</span></a>
       </div>
       <div class="clearfix"></div>
       
       <!-- menu prile quick info -->
       <div class="profile">
          <div class="profile_pic">
-            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName}" alt="..." class="img-circle profile_img">
+            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName }" alt="..." class="img-circle profile_img">
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
@@ -43,7 +43,7 @@
                      <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
                      <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
                      <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-
+					 <li><a href="${ contextPath }/qrInsert.ms"></a>><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -79,18 +79,22 @@
                   </ul>
                </li>
                <li><a href="boardList.bo"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
+               
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
                <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
 
-              <c:if test="${sessionScope.loginUser.depId eq 'D1' }">
+              <c:if test="${sessionScope.loginUser.depId eq 'D2' }">
                <li>
                <a><i class="fa fa-users"></i> 인사관리 <span
                      class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="moveMemberInsert.me">사원 추가</a></li>               
-                  </ul>          
+                     <li><a href="moveMemberInsert.me">사원 추가</a></li>
+                     <li><a href="depMgt.pm">부서근태현황</a></li>                                                  
+                     <li><a href="promotion.pm">문서승인</a></li>               
+                  </ul>             
                </li>
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
 

@@ -56,15 +56,17 @@
 	padding-bottom: 10px; -->
 	background: #ccc;
 } */
-#image {
-	margin-left: 150px;
-	margin-top: 50px;
-}
+
 
 #updateImg {
 	text-align: center;
 	width: 273px;
 }
+
+/* #userPhoto {
+	width : 250px;
+	height : 320px;
+} */
 </style>
 <body class="nav-md">
 	<div class="container body">
@@ -83,31 +85,29 @@
 								<div class="dashboard_graph">
 
 									<div class="row x_title">
-										<div class="col-md-6" style="width: 30%;">
+										<div class="col-md-6">
 											<h3>
 												마이페이지 <small>내 정보</small>
 											</h3>
 
 											<!-- <div id="content"> -->
 											<!-- 이미지 변경 -->
-											<div id="image">
-												<img src="${contextPath }/resources/images/userImage.png">
+											<div id="myImage">
+											<form id="fileForm" action="updateMyImage.me" method="post" enctype="multipart/form-data">
+												<img src="${contextPath }/resources/uploadFiles/${sessionScope.loginUser.modiFileName}" alt="..." class="img-circle profile_img" id="userPhoto">
 												<div id="updateImg">
-													<a href="#">이미지 변경</a>
+													<br>
+													<input type="file" name="findFile" id="findFile">
+													<button type="button" onclick="imageUpdate()">업로드</button>
+													<!-- <button type="submit">업로드</button>  -->
+													<%-- <a href="updateMyImage.me?empNo=" + ${loginUser.empNo }>이미지 변경</a> --%>
 												</div>
+											</form>
 											</div>
 
 										</div>
 										<div class="col-md-6">
-
-
 											<div id="normalInfo">
-
-
-												<!-- <form class="form-horizontal form-label-left"
-													action="updateMyInfo.me" method="get"
-													enctype="multipart/form-data"> -->
-
 												<form id="myInfo" class="form-horizontal form-label-left"
 													method="post">
 													<div id="info1">
@@ -291,6 +291,30 @@
 																}
 															});
 														}
+													}
+													
+													function imageUpdate(){
+														
+														var formData = new FormData($("#fileForm")[0]);
+														
+														$.ajax({
+															type : "post",
+															url : "updateMyImage.me",
+															data : formData,
+															processData: false,
+															contentType: false,
+															dataType : "text",
+															success : function(data) {
+																alert("파일 업로드가 완료되었습니다.");
+																console.log(data);
+																$("#userPhoto").attr("src", "/dep/resources/uploadFiles/" + data);
+																
+															},
+															error : function(data) {
+																alert("파일 업로드에 실패하였습니다.");
+																console.log(data);
+															}
+														});
 													}
 													
 												</script>
