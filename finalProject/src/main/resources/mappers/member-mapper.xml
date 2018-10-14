@@ -216,6 +216,27 @@
 		#{empType})
 
 	</insert>
+	
+	<!-- 부서이동이력 입력 -->
+	<insert id="insertDepRecord" parameterType="MemberSelect">
+		INSERT INTO DEPT_RECORD(DEP_RECORD_NO, DEP_RECORD_DATE, DEP_REASON, EMP_NO, DEP_ID) 
+		VALUES (DEP_RECORD_NO.NEXTVAL, SYSDATE, '입사', #{empNo}, #{depId})
+
+	</insert>
+
+	<!-- 직책 변경이력 입력 -->
+	<insert id="insertPositRecord" parameterType="MemberSelect">
+		INSERT INTO POSITION_RECORD
+		VALUES(POSITION_RECORD_NO.NEXTVAL, #{positionNo}, '임시', #{empNo}, SYSDATE)
+
+	</insert>
+
+	<!-- 직책 변경이력 입력 -->
+	<insert id="insertJobRecord" parameterType="MemberSelect">
+		INSERT INTO JOB_RECORD(JOB_RECORD_NO, JOB_RECORD_DATE, JOB_REASON, JOB_CODE, EMP_NO) 
+		VALUES (JOB_RECORD_NO.NEXTVAL, SYSDATE, '입사', #{jobCode}, #{empNo})
+	</insert>
+
 
 	<!-- 내 정보 수정처리 -->
 	<update id="updateMyInfo">
@@ -294,6 +315,12 @@
 		FROM EMPLOYEE
 		WHERE EMP_ID=#{empId} AND EMP_PWD=#{empPwd}
 	</select>
+	
+	<update id="updateMyImageFile" parameterType="java.util.ArrayList">
+		UPDATE ATTACHMENT
+		SET MODI_FILENAME='${list.get(1)}', ORI_FILENAME='${list.get(2)}', UPLOAD_DATE=SYSDATE
+		WHERE EMP_NO=${list.get(0)}
+	</update>
 </mapper>
 
 

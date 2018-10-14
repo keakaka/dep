@@ -71,9 +71,8 @@ public class AddressBookController {
 		
 		List<AddressBook> list = abs.selectAddList();
 		System.out.println("selectAdd list : " + list);
-
+		
 		model.addAttribute("list", list);
-
 		
 		return "addressBook/addressBook";
 	}

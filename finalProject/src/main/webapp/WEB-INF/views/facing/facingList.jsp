@@ -161,7 +161,7 @@
 
 					
                           <tbody>
-                          <c:forEach var="f" items="${facinglist}">
+                          <c:forEach var="f" items="${FacingReciverList}">
                             <tr>
                               <td>${f.writeDate}</td> 
                               <td>${f.empName}</td>
@@ -169,7 +169,6 @@
                               <td>${f.facingContents }</td>
                               <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})">삭제하기</button></td>
                             </tr>
-                          
   							</c:forEach>
                                                      
                           </tbody>
@@ -278,14 +277,12 @@
         </script>
         <!-- 삭제하기 -->
 <script>
-var fcNo = 0;
-var fcUs = 0;
+
 function updateFacing(num , num2){
 	//var facingNo = $("#facingNo").val();
 	var facingNo = num;
 	var userNo = num2;
-	console.log("게시판번호"+facingNo);
-	console.log("사원번호"+userNo);
+	
 	
 	$.ajax({
 		url:"updateFacing.ms",
@@ -296,12 +293,18 @@ function updateFacing(num , num2){
 		},
 		
 		success:function(data){
+					
+			console.log("리스트값"+facingNo);
+			/* window.location = "facinglist.ms?loginUser=userNo"; */
+			alert("성공!" + userNo);
 			
-			console.log("리스트값"+data);
+			sibal(userNo);
 			
-			$("#datatable-keytable").html("");
-			var $table = $("#datatable-keytable tbody");
-			if(data.length > 0){
+			/* if(data.length > 0){
+			
+			/* $("#datatable-keytable").html(""); */
+			/* var $table = $("#datatable-keytable tbody");
+			 
 				
 
 		for(var i = 0; i < data.length; i++){
@@ -314,17 +317,11 @@ function updateFacing(num , num2){
 				$table += "<td>" + data[i].facingContents +"</td>";
 				$table += "<td><button class='btn btn-round btn-default' type='button' onclick='updateFacing("+num+","+num2+");'>삭제하기</td>";
 				$table += "</tr>";
-			/*
-			<td>${f.writeDate}</td> 
-                   <td>${f.empName}</td>
-                   <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td>
-                   <td>${f.facingContents }</td>
-                   <td><button class="btn btn-round btn-default" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})">삭제하기</button></td>
-                 */
+			
                  
 			}
 				$("#datatable-keytable").append($table);
-			}
+			} */
 			
 		},
 		error:function(){
@@ -335,10 +332,12 @@ function updateFacing(num , num2){
 	return false;
 }
 
-function detailFacing(fcNo)
+function sibal(userNo)
 {
-	loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+fcNo;
+	return loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+userNo;
+	
 }
+
 
 
 

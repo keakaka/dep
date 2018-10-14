@@ -50,6 +50,16 @@
 		<result property="loginNo" column="LOGIN_NO" />
 	</resultMap>
 	
+	<resultMap type="Calendar" id="Calendar">
+		<id property="scheduleNo" column="SCHEDULE_NO" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="scheduleTitle" column="SCHEDULE_TITLE" />
+		<result property="scheduleContent" column="SCHEDULE_CONTENT" />
+		<result property="scheStartDate" column="SCHE_STARTDATE" />
+		<result property="scheEndDate" column="SCHE_ENDDATE" />
+		<result property="scheType" column="SCHE_TYPE" />
+	</resultMap>
+	
 	<select id="selectAttList" parameterType="java.lang.String" resultMap = "AddressBook">
 		SELECT EMP_NAME, JOB_NAME, POSITION_NAME, PHONE, EMAIL, EMP_NO, DEP_NAME, LOGIN_NO
 		FROM ADDRESSBOOK
@@ -68,6 +78,14 @@
 		WHERE E.EMP_NAME = #{attName}
 	</select>
 	
+	<select id="selectCalendar" resultMap="Calendar">
+		SELECT SCHEDULE_TITLE, SCHEDULE_CONTENT
+		FROM SCHEDULE
+	</select>
+	
+	<insert id="insertCalendar" parameterType="Calendar">
+		INSERT INTO SCHEDULE VALUES(SCHEDULE_NO.NEXTVAL, EMP_NO, #{scheduleTitle}, #{scheduleContent}, NULL, NULL, NULL)
+	</insert>
 
 
 </mapper>

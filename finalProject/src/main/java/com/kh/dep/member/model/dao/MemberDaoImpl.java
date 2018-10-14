@@ -127,6 +127,40 @@ public class MemberDaoImpl implements MemberDao {
 		return (ArrayList)sqlSession.selectList("Member.selectPosition");
 	}
 
+	// 부서이동 이력 입력
+	@Override
+	public int insertDepRecord(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		
+		return sqlSession.insert("Member.insertDepRecord", m);
+	}
+
+	// 직책변경 이력 입력
+	@Override
+	public int insertPositRecord(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		
+		return sqlSession.insert("Member.insertPositRecord", m);
+	}
+
+	// 직급변경 이력 입력
+	@Override
+	public int insertJobRecord(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.insert("Member.insertJobRecord", m);
+	}
+
+
+
+	@Override
+	public int updateMyImage(SqlSessionTemplate sqlSession, int empNo, String newFileName, String originFileName) {
+		ArrayList<Object> list = new ArrayList<Object>();
+		list.add(empNo);
+		list.add(newFileName);
+		list.add(originFileName);
+		
+		return sqlSession.update("Member.updateMyImageFile", list);
+	}
 	
 
 }

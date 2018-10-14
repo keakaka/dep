@@ -27,6 +27,7 @@ public class AddressBookServiceImpl implements AddressBookService{
 	public AddressBook insertAdd(int empNo, int loginNo) {
 		AddressBook ab = abd.selectAdd(empNo);
 		ab.setLoginNo(loginNo);
+		System.out.println("insertAdd ab : " + ab);
 		int result = abd.insertAdd(ab);
 		
 		return ab;
