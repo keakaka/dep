@@ -42,12 +42,12 @@ public class SignController {
 	
 	
 	@RequestMapping(value="depEmpSelect.sg")
-	public @ResponseBody HashMap<String, Object> depEmpSelect(@RequestParam String dep){
+	public @ResponseBody ArrayList<MemberDep> depEmpSelect(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		
-		ArrayList<MemberDep> list = ss.selectMemberDep(dep);
+		System.out.println("dep : " + depName);
+		ArrayList<MemberDep> list = ss.selectMemberDep(depName);
+		System.out.println("리스트 : " + list);
 		hmap.put("list", list);
-		
-		return hmap;
+		return list;
 	}
 }

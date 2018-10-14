@@ -19,8 +19,8 @@ public class SignServiceImpl implements SignService{
 	private SignDao sd;
 
 	@Override
-	public ArrayList<MemberDep> selectMemberDep(String dep) {
+	public ArrayList<MemberDep> selectMemberDep(String depName) {
 		
-		return sd.selectMemberDep(sqlSession, dep);
+		return sd.selectMemberDep(sqlSession, depName);
 	}
 }

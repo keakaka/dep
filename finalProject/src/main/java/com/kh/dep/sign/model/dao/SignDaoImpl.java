@@ -12,9 +12,9 @@ public class SignDaoImpl implements SignDao{
 
 
 	@Override
-	public ArrayList<MemberDep> selectMemberDep(SqlSessionTemplate sqlSession, String dep) {
+	public ArrayList<MemberDep> selectMemberDep(SqlSessionTemplate sqlSession, String depName) {
 		
-		return (ArrayList)sqlSession.selectList("sign.selectMemberDep");
+		return (ArrayList)sqlSession.selectList("sign.selectMemberDep", depName);
 	}
 	
 }

@@ -8,6 +8,6 @@ import com.kh.dep.sign.model.vo.MemberDep;
 
 public interface SignDao {
 
-	ArrayList<MemberDep> selectMemberDep(SqlSessionTemplate sqlSession, String dep);
+	ArrayList<MemberDep> selectMemberDep(SqlSessionTemplate sqlSession, String depName);
 	
 }
