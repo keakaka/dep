@@ -146,7 +146,8 @@
                         <p class="text-muted font-13 m-b-30">
                         </p>
 
-                        <table id="datatable-keytable" class="table table-striped table-bordered">
+                        <!-- <table id="datatable-keytable" class="table table-striped table-bordered"> -->
+                        <table id="datatable-keytable" class="table table-striped">
                           <thead>
                             <tr>
                             
@@ -160,17 +161,18 @@
 
 					
                           <tbody>
-                          <c:forEach var="f" items="${facinglist}">
+                          
+                          <c:forEach var="f" items="${FacingReciverList}">
                             <tr>
                               <td>${f.writeDate}</td> 
                               <td>${f.empName}</td>
-                              <td>${f.facingTitle}</td>
+                              <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td>
                               <td>${f.facingContents }</td>
-                              <td><button class="btn btn-round btn-default">삭제하기</button></td>
+                              <td><button class="btn btn-round btn-default" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})">삭제하기</button></td>
                             </tr>
                           
   							</c:forEach>
-                                                     
+                                             
                           </tbody>
                         </table>
                       </div>
@@ -253,7 +255,6 @@
 
 			<script src="${contextPath }/resources/js/custom.js"></script>
 
-
 <script src="${contextPath }/resources/js/custom.js"></script>
 	   <script src="js/pace/pace.min.js"></script>
         <script type="text/javascript">
@@ -276,6 +277,73 @@
           });
           TableManageButtons.init();
         </script>
+        <!-- 삭제하기 -->
+<script>
+
+function updateFacing(num , num2){
+	//var facingNo = $("#facingNo").val();
+	var facingNo = num;
+	var userNo = num2;
+	
+	
+	$.ajax({
+		url:"updateFacing.ms",
+		type:"post",
+		data:
+		{facingNo:facingNo,
+		userNo:userNo	
+		},
+		
+		success:function(data){
+					
+			console.log("리스트값"+facingNo);
+			/* window.location = "facinglist.ms?loginUser=userNo"; */
+			alert("성공!" + userNo);
+			
+			sibal(userNo);
+			
+			/* if(data.length > 0){
+			
+			/* $("#datatable-keytable").html(""); */
+			/* var $table = $("#datatable-keytable tbody");
+			 
+				
+
+		for(var i = 0; i < data.length; i++){
+				fcNo = data[i].num;
+				console.log(fcNo);
+				$table += "<tr>";
+				$table += "<td>" + data[i].writeDate + "</td>";
+				$table += "<td>" + data[i].empName + "</td>";
+				$table += "<td onclick='detailFacing("+fcNo+");'>"+data[i].facingtitle+"</td>";
+				$table += "<td>" + data[i].facingContents +"</td>";
+				$table += "<td><button class='btn btn-round btn-default' type='button' onclick='updateFacing("+num+","+num2+");'>삭제하기</td>";
+				$table += "</tr>";
+			
+                 
+			}
+				$("#datatable-keytable").append($table);
+			} */
+			
+		},
+		error:function(){
+			console.log("에러!")
+		}
+	});
+	
+	return false;
+}
+
+function sibal(userNo)
+{
+	return loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+userNo;
+	
+}
+
+
+
+
+</script>
 	
 	<!-- /footer content -->
 </body>
