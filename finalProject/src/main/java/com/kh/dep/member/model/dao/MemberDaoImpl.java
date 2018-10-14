@@ -151,6 +151,16 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 
+
+	@Override
+	public int updateMyImage(SqlSessionTemplate sqlSession, int empNo, String newFileName, String originFileName) {
+		ArrayList<Object> list = new ArrayList<Object>();
+		list.add(empNo);
+		list.add(newFileName);
+		list.add(originFileName);
+		
+		return sqlSession.update("Member.updateMyImageFile", list);
+	}
 	
 
 }

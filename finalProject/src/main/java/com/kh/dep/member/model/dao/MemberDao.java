@@ -56,6 +56,8 @@ public interface MemberDao {
 
 	int insertJobRecord(SqlSessionTemplate sqlSession, MemberSelect m);
 
+	int updateMyImage(SqlSessionTemplate sqlSession, int empNo, String newFileName, String originFileName);
+
 
 
 }

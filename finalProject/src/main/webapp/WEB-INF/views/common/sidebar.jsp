@@ -11,7 +11,7 @@
       <!-- menu prile quick info -->
       <div class="profile">
          <div class="profile_pic">
-            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName}" alt="..." class="img-circle profile_img">
+            <img src="${contextPath }/resources/uploadFiles/${ sessionScope.loginUser.modiFileName }" alt="..." class="img-circle profile_img">
          </div>
          <div class="profile_info">
             <span> 환영합니다 </span>
@@ -43,7 +43,7 @@
                      <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
                      <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
                      <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-
+					 <li><a href="${ contextPath }/qrInsert.ms"></a>><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -79,6 +79,8 @@
                   </ul>
                </li>
                <li><a href="boardList.bo"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
+               
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
                <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 

@@ -6,11 +6,13 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.service.AttachServiceImpl;
@@ -45,21 +48,18 @@ public class MemberController {
 
 	@Autowired
 	private MemberService ms;
-	
+
 	@Autowired
 	private AttachService as;
 
 	@RequestMapping(value="login.me")
 	public String loginCheck(MemberSelect m, Model model){
 
-
-
-
 		try {
 			MemberSelect loginUser = ms.selectLoginMember(m);
-			
+
 			System.out.println(loginUser);
-			
+
 			model.addAttribute("loginUser", loginUser);
 
 			return "board/boardList";
@@ -70,8 +70,6 @@ public class MemberController {
 
 			return "common/errorPage";
 		}
-
-
 
 	}
 	
@@ -92,7 +90,7 @@ public class MemberController {
 		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
-		
+
 		ArrayList<Position> polist = ms.selectpositList();
 
 		model.addAttribute("deplist", deplist);
@@ -104,86 +102,87 @@ public class MemberController {
 
 	@RequestMapping("memberInsert.me")
 	public String memberInsert(MemberSelect m, Model model,HttpServletRequest request,
-					@RequestParam(name="photo", required=false)MultipartFile photo,
-					@RequestParam(name="signature", required=false)MultipartFile signature){
-		
-		
+			@RequestParam(name="photo", required=false)MultipartFile photo,
+			@RequestParam(name="signature", required=false)MultipartFile signature){
+
+
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		
+
 		String filePath = root + "\\uploadFiles";
 		String sigPath = root + "\\signature";
-		
-		
+
+
 		String originFileName = photo.getOriginalFilename();
 		String orisigFileName = signature.getOriginalFilename();
-		
+
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String ext2 = orisigFileName.substring(orisigFileName.lastIndexOf("."));
-		
-		
+
+
 		String changeName = CommonUtils.getRandomString();
 		String changeName2 = CommonUtils.getRandomString();
-		
 
-		
+
+
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeName + ext) );
 			signature.transferTo(new File(sigPath + "\\" + changeName2 + ext2));
-			
-			
+
+
 			int result = ms.insertMember(m);
-			
-		
-			
+
+
+
 			if(result > 0){
-				
+
 				int empNo = ms.selectempNumber();
 				
 				m.setEmpNo(empNo);
 				
 				int record = ms.insertRecord(m);
-				
+
 				Attachment file = new Attachment();
 				Attachment sig = new Attachment();
-				
+
 				file.setOriFileName(originFileName);
 				file.setModiFileName(changeName + ext);
 				file.setEmpNo(empNo);
 				file.setEmpType("ET1");
-				
+
 				sig.setOriFileName(orisigFileName);
 				sig.setModiFileName(changeName2 + ext2);
 				sig.setEmpNo(empNo);
 				sig.setEmpType("ET2");
-				
+
 				System.out.println(file);
 				System.out.println(sig);
-				
-			
+
+
 				int result1 = as.insertAttachment(file);
-				
+
 				System.out.println("사진 저장 성공 " + result1);
-				
-				
+
+
 				if(result1 > 0 ){
 					System.out.println("사진 저장 성공 후 서명사진 실행");
 					as.insertAttachment(sig);
 				}
-				
-			
-				
+
+
+
 			}
-			
-			
-			
+
+
+
 		} catch (Exception e) {
 			
 			System.out.println("사원정보입력 실패 사유 : " + e.getMessage());
+
 			new File(filePath + "\\" + changeName + ext).delete();
 			new File(sigPath + "\\" + changeName2 + ext2).delete();
-			
+
 		}
-		
+
 		return "personManagement/memberInsert";
 	}
 
@@ -195,29 +194,29 @@ public class MemberController {
 	@RequestMapping(value="updateMyInfo.me")
 	public void updateMyInfoDetail(String empId, String empPwd, String empName, String phone, String check, String emergencyPhone, String email, String address, Model model, HttpServletResponse response){
 		System.out.println(empId + ", " + empPwd + ", " + empName + ", " + phone + ", " + emergencyPhone + ", " + email + ", " + address);
-		
+
 		boolean result = ms.checkPw(empId, empPwd);
 		System.out.println("비밀번호 일치? " + result);
-		
+
 		if(result){
 			MemberSelect m = new MemberSelect();
 			m.setEmpId(empId);
 			m.setEmpPwd(empPwd);
 			m.setEmpName(empName);
 			m.setPhone(phone);
-			
+
 			if(check.equals("1")){
 				check="Y";
 			}
 			else{
 				check="N";
 			}
-			
+
 			m.setPhoneReveal(check);
 			m.setEmergencyPhone(emergencyPhone);
 			m.setEmail(email);
 			m.setAddress(address);
-			
+
 			int result2 = ms.updateMyInfo(m);
 			System.out.println("정보 수정 완료시 1 : " + result2);
 			if(result2 > 0){
@@ -233,18 +232,18 @@ public class MemberController {
 				System.out.println("내 정보 수정 완료");
 			}
 		}
-		
+
 		try {
 			PrintWriter out = response.getWriter();
 			out.println(result);
-			
+
 			JSONObject json = new JSONObject();
 			json.put("data", result);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@RequestMapping(value="salary.me")
@@ -321,51 +320,51 @@ public class MemberController {
 		System.out.println("사원번호 : " + empNo);
 		List<WorkingHours> myWorkingHoursRecordList = ms.selectMyWorkingHoursRecord(empNo);
 		System.out.println("나의 출근이력 : " + myWorkingHoursRecordList);
-		
+
 		/*String[] workingDate = new String[myWorkingHoursRecordList.size()];
 		String[] attendTime = new String[myWorkingHoursRecordList.size()];
-		
+
 		for(int i=0;i<myWorkingHoursRecordList.size();i++){
 			WorkingHours w=myWorkingHoursRecordList.get(i);
-			
+
 			String[] tempHours=w.getWorkingDate().split(" ");
 			workingDate[i]=tempHours[0];
 			attendTime[i]=tempHours[1];
-			
+
 			System.out.println("workingDate[" + i + "] : " + workingDate[i]);
-			
+
 			myWorkingHoursRecordList.get(i).setWorkingDate(workingDate[i]);
 			myWorkingHoursRecordList.get(i).setAttendTime(attendTime[i]);
 		}*/
-		
+
 		model.addAttribute("myWorkingHoursRecordList", myWorkingHoursRecordList);
-		
+
 		return "eb/detailOfWorkingHours";
 	}
 
 	@RequestMapping(value="myVacation.me")
 	public String showMyVacationRecord(@RequestParam("var") int empNo, Model model){
-		
+
 		System.out.println("내 휴가이력 조회 컨트롤러");
 		System.out.println("사원번호 : " + empNo);
 		List<Vacation> myVacationRecordList = ms.selectMyVacationRecord(empNo);
-		
+
 		System.out.println("나의 휴가이력 : " + myVacationRecordList);
 		model.addAttribute("myVacationRecordList", myVacationRecordList);
-		
+
 		return "eb/detailOfVacation";
 	}
 
-	
+
 	@RequestMapping(value="updateMyVacation.me")
 	public String applyVacation(int empNo, String vacKind, String vacReason, String vacStartdate, String vacEnddate, Model model){
 		System.out.println("사원번호 : " + empNo + ", 휴가종류 : " + vacKind + ", 사유 : " + vacReason + ", 시작일 : " + vacStartdate + ", 종료일 : " + vacEnddate);
-		
+
 		Vacation myVac = new Vacation();
 		myVac.setEmpNo(empNo);
-		
-		
-		
+
+
+
 		myVac.setVacType(vacKind);
 		myVac.setVacReason(vacReason);
 		/*myVac.setVacStartdate(new SimpleDateFormat("yyyy-MM-dd").format(vacStartdate));*/
@@ -373,10 +372,66 @@ public class MemberController {
 		System.out.println("시작일 : " + myVac.getVacStartdate());
 		myVac.setVacEnddate(vacEnddate);
 		System.out.println("종료일 : " + myVac.getVacEnddate());
-		
+
 		int result = ms.insertMyVacation(myVac);
 		System.out.println("휴가 신청 완료시 1 : " + result);
-		
+
 		return "eb/detailOfVacation";
+	}
+
+	@RequestMapping(value="updateMyImage.me")
+	public String updateMyImage(MultipartFile findFile, HttpServletRequest request, HttpServletResponse response){
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadFiles";
+
+		String originFileName = findFile.getOriginalFilename();
+		String newFileName = System.currentTimeMillis() + "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
+
+		System.out.println(originFileName);
+		System.out.println(newFileName);
+
+		try {
+
+			MemberSelect m=(MemberSelect) request.getSession().getAttribute("loginUser");
+
+			//DB내 회원 프로필 사진 파일명 변경해주는 구문
+			int empNo = m.getEmpNo();
+			int result = ms.updateMyImage(empNo, newFileName, originFileName);
+
+			if(result > 0){
+
+				findFile.transferTo(new File(filePath + "\\" + newFileName));
+
+				m.setModiFileName(newFileName);
+
+
+				/*response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");*/
+
+
+				PrintWriter out = response.getWriter();
+				out.println(newFileName);
+
+				out.flush();
+				out.close();
+
+				JSONObject json = new JSONObject();
+				json.put("data", newFileName);
+
+
+				System.out.println(json.toString());
+			}else{
+				System.out.println("디비에 파일이름 변경이 적용되지 않았습니다.");
+			}
+
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+		return "eb/myInfo";
 	}
 }

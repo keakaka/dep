@@ -18,6 +18,7 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.facingService.FacingService;
 import com.kh.dep.facing.model.vo.Facing;
+import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.MemberSelect;
 @Controller
@@ -41,13 +42,10 @@ public class FacingController {
 			try {
 				
 				Facinglist = fs.selectFacingList(Integer.parseInt(loginUser));
-				System.out.println("돌아온 리스트값"+Facinglist);
+				System.out.println("돌아온 리스트값 페이싱"+Facinglist);
 				model.addAttribute("facinglist" , Facinglist);
 				
-				for(int i=0; i<Facinglist.size(); i++){
-					System.out.println(Facinglist.get(i).toString());
-				}
-				
+			
 				return "facing/facingList";
 				
 			} catch (FacingSelectListException e) {
@@ -69,9 +67,20 @@ public class FacingController {
 		
 		int empNo = Integer.parseInt(loginUser);
 		
-		List<Facing> FacingList = fs.selectReciveList(empNo);
+		try {
+			ArrayList<Facing> FacingReciverList = fs.selectReciveList(empNo);
+			model.addAttribute("FacingReciverList" , FacingReciverList);
+			
+			return "facing/facingReceive";
+			
+		} catch (FacingSelectListException e) {
+			// TODO Auto-generated catch block
+			System.out.println("에러입니다.");
+			model.addAttribute("msg", e.getMessage());
+			
+			return "common/errorPage";
+		}
 		
-		return "facing/facingReceive";
 	
 	}
 	
@@ -107,6 +116,7 @@ public class FacingController {
 		*/
 /*		System.out.println("Insert : " + f);
 		*/
+		
 		return "facing/facingReceive";
 		
 	}
@@ -150,6 +160,7 @@ public class FacingController {
 		System.out.println("쪽지번호 : " + fNo);
 		System.out.println("사원번호 : " + fus);
 		
+		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			
@@ -165,10 +176,30 @@ public class FacingController {
 
 		
 	}
-
-	@RequestMapping("facing.ms")
-	public String facing() {
-		return "facing/facing";
+	@RequestMapping(value="qrInsert.ms")
+	public String qrInsert()
+	{
+		System.err.println("QR컨트롤 입장");
+		
+		return "qr/qrCode";
 	}
+
+	@RequestMapping(value="qrInsertdb.ms")
+	public String Insertqr(Model model,@RequestParam String loginUser )
+	{
+		System.err.println("출석완료 QR컨트롤 입장");
+		
+		
+		int empNo = Integer.parseInt(loginUser);
+		
+		System.out.println("출석된 empNo"+empNo);
+		
+		int result = fs.InsertWorking(empNo);
+		
+		System.out.println("돌아온 리설트 값 :" + result);
+		
+		return "qr/qr출석완료";
+	}
+
 
 }

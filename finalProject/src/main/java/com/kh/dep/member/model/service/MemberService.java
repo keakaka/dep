@@ -55,7 +55,10 @@ public interface MemberService {
 
 	ArrayList<Position> selectpositList();
 
+
 	int insertRecord(MemberSelect m) throws InsertRecordException;
+
+	int updateMyImage(int empNo, String newFileName, String originFileName);
 
 
 }

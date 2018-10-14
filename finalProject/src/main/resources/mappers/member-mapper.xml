@@ -315,6 +315,12 @@
 		FROM EMPLOYEE
 		WHERE EMP_ID=#{empId} AND EMP_PWD=#{empPwd}
 	</select>
+	
+	<update id="updateMyImageFile" parameterType="java.util.ArrayList">
+		UPDATE ATTACHMENT
+		SET MODI_FILENAME='${list.get(1)}', ORI_FILENAME='${list.get(2)}', UPLOAD_DATE=SYSDATE
+		WHERE EMP_NO=${list.get(0)}
+	</update>
 </mapper>
 
 

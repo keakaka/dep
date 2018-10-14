@@ -187,10 +187,16 @@ public class MemberServiceImpl implements MemberService{
 		}else{
 			result++;
 		}
-		
-		
-		
+			
 		return result;
+    
+  }
+
+	public int updateMyImage(int empNo, String newFileName, String originFileName) {
+		
+		
+		return md.updateMyImage(sqlSession, empNo, newFileName, originFileName);
+
 	}
   
 }
