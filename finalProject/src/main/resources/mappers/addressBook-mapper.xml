@@ -78,7 +78,7 @@
 	
 	
 	<insert id="insertAdd" parameterType="AddressBook">
-		INSERT INTO ADDRESSBOOK VALUES(ADDRESSBOOK_ID.NEXTVAL, #{empName}, #{jobName}, NULL,  #{phone}, #{email}, #{empNo}, #{depName}, #{loginNo})
+		INSERT INTO ADDRESSBOOK VALUES(ADDRESSBOOK_ID.NEXTVAL, #{loginNo}, #{empName}, #{jobName}, #{depName},  #{positionName}, #{phone}, #{email}, #{empNo})
 	</insert>
 	
 	<select id="selectAddList" parameterType="java.lang.String" resultMap="AddressBook">
