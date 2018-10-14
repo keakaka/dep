@@ -12,7 +12,9 @@ public interface CalendarService {
 
 	List<Member> searchAttName(String attName);
 
-	List<Calendar> insertCalendar(Calendar insertC);
+	Calendar insertCalendar(Calendar c);
+
+	List<Calendar> selectCalendar(int empNo);
 
 
 }

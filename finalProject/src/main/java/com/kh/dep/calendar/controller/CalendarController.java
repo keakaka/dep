@@ -1,13 +1,14 @@
 package com.kh.dep.calendar.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -16,6 +17,7 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.calendar.model.service.CalendarService;
 import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.member.model.vo.Member;
+import com.kh.dep.member.model.vo.MemberSelect;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -26,12 +28,20 @@ public class CalendarController {
 	
 	
 	@RequestMapping(value="calendar.ca")
-	public String showCalendarView(){
+	public String showCalendarView(HttpServletRequest request, Model model){
+		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int empNo = ms.getEmpNo();
+		
+		List<Calendar> list = cs.selectCalendar(empNo);
+		System.out.println("CalendarController list : " + list);
+		
+		model.addAttribute("list", list);
+		
 		return "calendar/calendar";
 	}
 	
-	@RequestMapping("insertAttenance.ca")
-	public String insertCalendar() {
+	@RequestMapping("insertAttendance.ca")
+	public String insertAttenance() {
 		return "calendar/insertAttendance";
 	}
 	
@@ -65,20 +75,23 @@ public class CalendarController {
 	}
 	
 	@RequestMapping("insertCalendar.ca")
-	public void insertCalendar(String title, String content, HttpServletResponse response) {
+	public void insertCalendar(String title, String content, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("insertCalendar title : " + title);
 		System.out.println("insertCalendar content : " + content);
 		
-		Calendar ca = new Calendar();
-		ca.setScheduleTitle(title);
-		ca.setScheduleContent(content);
-		/*ca.setScheStartDate(nows);*/
+		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int loginNo = ms.getEmpNo();
+		System.out.println("Calendar loginNo : " + loginNo);
+		Calendar c = new Calendar();
+		c.setEmpNo(loginNo);
+		c.setScheduleTitle(title);
+		c.setScheduleContent(content);
 		
-		System.out.println("insert ca : " + ca);
+		System.out.println("CalendarController c : " + c);
 		
-		List<Calendar> ca2 = cs.insertCalendar(ca);
+		
+		Calendar ca2 = cs.insertCalendar(c);
 		System.out.println("insert ca2 : " + ca2);
-	
 	
 	}
 }

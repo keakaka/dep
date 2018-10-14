@@ -12,9 +12,10 @@ public interface CalendarDao {
 
 	List<Member> searchAttName(String attName);
 	
-	List<Calendar> selectCalendar(Calendar ca);
 
-	int insertCalendar(List<Calendar> ca);
+	int insertCalendar(Calendar c);
+
+	List<Calendar> selectCalendar(int empNo);
 
 
 }

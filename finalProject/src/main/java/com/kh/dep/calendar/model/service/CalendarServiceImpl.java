@@ -27,11 +27,20 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
-	public List<Calendar> insertCalendar(Calendar ca) {
-		List<Calendar> insertC = cd.selectCalendar(ca);
-		int result = cd.insertCalendar(insertC);
+	public Calendar insertCalendar(Calendar c) {
+		System.out.println("CalendarServiceImple c : " + c);
+		/*int loginNo = c.getEmpNo();*/
+		/*Calendar ci = cd.selectCalendar(loginNo);*/
+		/*System.out.println("CalendarServiceImpl c : " + ci);*/
 		
-		return insertC;
+		int result = cd.insertCalendar(c);
+		
+		return c;
+	}
+
+	@Override
+	public List<Calendar> selectCalendar(int empNo) {
+		return cd.selectCalendar(empNo);
 	}
 
 
