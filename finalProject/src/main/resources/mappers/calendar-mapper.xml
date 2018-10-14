@@ -78,14 +78,15 @@
 		WHERE E.EMP_NAME = #{attName}
 	</select>
 	
-	<select id="selectCalendar" resultMap="Calendar">
+	<insert id="insertCalendar" parameterType="Calendar">
+		INSERT INTO SCHEDULE VALUES(SCHEDULE_NO.NEXTVAL, #{empNo}, #{scheduleTitle}, #{scheduleContent}, NULL, NULL, NULL)
+	</insert>
+	
+	<select id="selectCalendar" parameterType="int" resultMap="Calendar">
 		SELECT SCHEDULE_TITLE, SCHEDULE_CONTENT
 		FROM SCHEDULE
+		WHERE EMP_NO = #{empNo}
 	</select>
-	
-	<insert id="insertCalendar" parameterType="Calendar">
-		INSERT INTO SCHEDULE VALUES(SCHEDULE_NO.NEXTVAL, EMP_NO, #{scheduleTitle}, #{scheduleContent}, NULL, NULL, NULL)
-	</insert>
 
 
 </mapper>

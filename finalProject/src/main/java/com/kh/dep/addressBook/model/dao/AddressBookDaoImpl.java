@@ -27,7 +27,6 @@ public class AddressBookDaoImpl implements AddressBookDao{
 
 	@Override
 	public AddressBook selectAdd(int empNo) {
-		System.out.println("addressBookDaoImpl empNo : " + empNo);
 		return sqlSession.selectOne("AddressBook.selectAdd", empNo);
 	}
 

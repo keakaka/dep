@@ -466,26 +466,8 @@
 						var title = $("#title").val();
 						var content = $("#content").val();
 						/* var nows = $("#nows").val(); */
-						/* var loginName = $(sessionScope.loginUser.empName); */
 						
 						console.log(nows);
-						console.log(loginName);
-						
-						
-						if (end) {
-							ended = end
-						}
-						categoryClass = $("#event_type").val();
-
-						if (title) {
-							calendar.fullCalendar('renderEvent', {
-								title : title,
-								start : started,
-								end : end,
-								allDay : allDay
-							}, true // make the event "stick"
-							);
-						}
 						
 						$.ajax({
 							url:"insertCalendar.ca",
@@ -493,6 +475,22 @@
 							data:{title:title,
 								  content:content},
 							success:function(data){
+								
+								if (end) {
+									ended = end
+								}
+								categoryClass = $("#event_type").val();
+
+								if (title) {
+									calendar.fullCalendar('renderEvent', {
+										title : title,
+										start : started,
+										end : end,
+										allDay : allDay
+									}, true // make the event "stick"
+									);
+								}
+								
 								console.log("success");
 							},
 							error:function(data){
@@ -500,8 +498,6 @@
 							},
 							
 						});
-						
-						
 						
 						
 						$('#title').val('');
@@ -528,7 +524,7 @@
 				},
 				editable : true,
 				events : [ {
-					title : 'All Day Event',
+					title : title,
 					start : new Date(y, m, 1),
 				 	
 				},]

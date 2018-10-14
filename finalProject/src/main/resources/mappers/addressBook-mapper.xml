@@ -88,7 +88,7 @@
 	
 	<delete id="deleteAdd" parameterType="AddressBook">
 		DELETE FROM ADDRESSBOOK
-		WHERE EMP_NO = #{empNo}
+		WHERE EMP_NO = #{empNo} AND LOGIN_NO = #{loginNo}
 	</delete>
 	
 
