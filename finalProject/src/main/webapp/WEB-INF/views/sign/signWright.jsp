@@ -112,10 +112,10 @@
 						<textarea id="summernote" name="signContent" required>
 							
 						</textarea>
-						<input type="file" name="eSignFile"/>
+						<input type="file" name="signFile"/>
                     </div>
                     <div id="step-2">
-                    <h2 class="StepTitle">결재선 지정</h2>
+                    <h2 class="StepTitle">결재선 지정<small>(먼저 선택하신 분이 최종 결재자입니다.)</small></h2>
                        <div class="clearfix"></div>
 
             <div class="col-md-12 col-sm-12 col-xs-16">
@@ -124,81 +124,84 @@
                     <!-- required for floating -->
                     <!-- Nav tabs -->
                     <br><br>
+                    
 				<script>
 					$(function(){
 						$("#depList").change(function(){
-							var dep = $("#depList option:selected").val();
-							console.log(dep);
+							var depName = $("#depList option:selected").val();
+							console.log(depName);
 							$.ajax({
 								url : "depEmpSelect.sg",
-								data : {dep : dep},
+								data : {depName : depName},
 								success : function(data){
 									var $tbody = $('.depMemberList');
-									var $tr = $("<tr>");
-									var $td = $("<td>");
+									$tbody.html("");
+									var i = 0;
 									$.each(data, function(index, val){
+										var ename = decodeURIComponent(val.empName);
+										var $tr = $("<tr role='row' class='odd'>");
 										var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
-										var $empName = $('<td>').text(decodeURIComponent(val.empName));
+										var $empName = $('<td class="ename">').text(decodeURIComponent(val.empName));
 										var $depName = $('<td>').text(decodeURIComponent(val.depName));
 										var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
 										var $positionName = $('<td>').text(decodeURIComponent(val.positionName));
+										var $appButton = $('<td>').html('<button type="button" class="btn btn-default btn-xs appBtn">결재선에 추가</button>');
+										var $recButton = $('<td>').html('<button type="button" class="btn btn-default btn-xs recBtn">수신참조자에 추가</button>');
+										var $hidden = $('<input type="hidden" value="'+ename+'">'); 
 										
+										$tr.append($hidden);
+										$tr.append($empNo);
+										$tr.append($empName);
+										$tr.append($depName);
+										$tr.append($jobName);
+										$tr.append($positionName);
+										$tr.append($appButton);
+										$tr.append($recButton);
 										$tbody.append($tr);
-										$tr.append($td);
-										$td.append($empNo);
-										$td.append($empName);
-										$td.append($depName);
-										$td.append($positionName);
 										
 									})
+										$(function(){
+									        $(".appBtn").click(function(){
+									        	var $appBody = $('.appTable');
+									        	var $appTr = $('<tr role="row" class="odd">');
+									        	var appName = $(this).parent().parent().children('input').val();
+									        	var $appName = $('<td rowspan>').text(appName);
+									        	$appTr.append($appName);
+									        	$appBody.append($appTr);
+									        });
+								        });
+										$(function(){
+									        $(".recBtn").click(function(){
+									        	var $recBody = $('.recTable');
+									        	var $recTr = $('<tr role="row" class="odd">');
+									        	var recName = $(this).parent().parent().children('input').val();
+									        	var $recName = $('<td rowspan>').text(recName);
+									        	$recTr.append($recName);
+									        	$recBody.append($recTr);
+									        });
+								        });
+										
 								},
 								error : function(){
 									
 								}
 							});
+							
 						});
 					});
 					
-					
-					<%-- $(function(){
-						$(".facingUl").empty();
-						$.ajax({
-							url : "<%=request.getContextPath()%>/selectFacing",
-							data : {member_no:<%=loginUser.getMember_No()%>},
-							success : function(data){
-								var $ul = $('.facingUl');
-								var $top = $('<span>수신 확인은 쪽지를 클릭하세요</span>');
-								$ul.append($top);
-								$.each(data, function(index, val){
-									$(".checkAlert").text(val.listSize);
-									var $ul = $('.facingUl');
-									var $li = $('<li>');
-									var $a = $('<a class="reception">');
-									var $span = $('<span>');
-									var $nameSpan = $('<span>').text(decodeURIComponent(val.writer));
-									var $later = $('<span class="time">').text(decodeURIComponent(val.write_date));
-									var $title = $('<span class="message">').text(decodeURIComponent(val.facing_title));
-									var $hidden = $('<input type="hidden" value="+val.facing_no+" class="facing_no">');
-									
-									$li.append($a);
-					            	$a.append($span);
-					            	$li.append($hidden);
-					            	$span.append($nameSpan);
-					            	$span.append($later);
-					            	$a.append($title);
-					            	$ul.append($li);
-								})
-							}
-						});
-					}); --%>
+			        
+			        
+			        
+			        
+			        
 				</script>
 
-                  <div class="col-xs-14">
+                  <div class="col-xs-12">
                     <!-- Tab panes -->
                     <div class="tab-content">
                       <div class="tab-pane active" id="home">
                 <div class="x_title">
-                  <h2>결재선 지정</h2><br><br>
                   <select id="depList">
                   	<option>====</option>
 					<option>인사부</option>
@@ -206,6 +209,12 @@
 					<option>총무부</option>
 					<option>영업부</option>
 				  </select>
+				  <button type="button" onclick="resetApp();" class="btn btn-default btn-xs">결재선 및 수신 참조자 재설정</button>
+				  <script>
+				  	function resetApp(){
+				  		
+				  	}
+				  </script>
                   <div class="clearfix"></div>
                 </div>
 				
@@ -217,9 +226,10 @@
               <div class="x_panel">
                 <div class="x_content">
                   
-                  <table id="datatable" class="table table-striped table-bordered">
+                  <table class="table table-bordered">
                     <thead>
                       <tr>
+                      	<th>사원번호</th>
                         <th>이름</th>
                         <th>부서명</th>
                         <th>직급</th>
@@ -229,18 +239,34 @@
                       </tr>
                     </thead>
                     <tbody class="depMemberList">
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                      </tr>
                     </tbody>
                   </table>
+                  
                 </div>
-              </div>
+            <div class="col-xs-3">
+            <table class="table table-bordered">
+	      		<thead>
+	               <tr>
+	               	<th>결&nbsp;&nbsp;재&nbsp;&nbsp;자</th>
+	               </tr>
+	             </thead>
+	             <tbody class="appTable">
+	             </tbody>
+	        </table>
+	        </div>
+	        <div class="col-xs-3">
+	        <table class="table table-bordered">
+	      		<thead>
+	               <tr>
+	                <th>수신참조자</th>
+	               </tr>
+	             </thead>
+	             <tbody class="recTable">
+	             </tbody>
+	        </table>
+	        </div>
+            
+            </div>
             </div>            
             </div>
             </div>
@@ -252,7 +278,7 @@
                       
                     </div>
                     <div id="step-3">
-                      <h2 class="StepTitle">Step 4 Content</h2>
+                      <h2 class="StepTitle">확인</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                       </p>
@@ -413,26 +439,26 @@
               }
             }();
         </script>
-        <script type="text/javascript">
-          $(document).ready(function() {
-            $('#datatable').dataTable();
-            $('#datatable-keytable').DataTable({
-              keys: true
-            });
-            $('#datatable-responsive').DataTable();
-            $('#datatable-scroller').DataTable({
-              ajax: "js/datatables/json/scroller-demo.json",
-              deferRender: true,
-              scrollY: 380,
-              scrollCollapse: true,
-              scroller: true
-            });
-            var table = $('#datatable-fixed-header').DataTable({
-              fixedHeader: true
-            });
-          });
-          TableManageButtons.init();
-        </script>
+		<script>
+			$(document).ready(function() {
+			$('#datatable').dataTable();
+			$('#datatable-keytable').DataTable({
+			  keys: true
+			});
+			$('#datatable-responsive').DataTable();
+			$('#datatable-scroller').DataTable({
+			  ajax: "js/datatables/json/scroller-demo.json",
+			  deferRender: true,
+			  scrollY: 380,
+			  scrollCollapse: true,
+			  scroller: true
+			});
+			var table = $('#datatable-fixed-header').DataTable({
+			  fixedHeader: true
+			});
+			});
+			TableManageButtons.init();
+		</script>
 	<!-- /footer content -->
 </body>
 <script type="text/javascript">
