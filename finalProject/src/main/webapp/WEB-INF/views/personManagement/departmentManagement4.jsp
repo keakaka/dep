@@ -69,7 +69,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>근태현항</h3>
+									<h3>부서별 근태현항</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -109,15 +109,15 @@
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">부서 D1</a>
+                      <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">부서 D2</a>
+                      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">퇴사</a>
                       </li>
-                      <li role="presentation" class=""><a href="#vaction.pm" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">부서 D3</a>
+                      <li role="presentation" class=""><a href="#vaction.pm" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">휴가</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">부서 D4</a>
+                      <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">부서이동</a>
                       </li>
-                       <li role="presentation" class=""><a href="departmentManagement.pm" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false">부서 D5</a>
+                       <li role="presentation" class=""><a href="departmentManagement.pm" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false">근태관리</a>
                       </li>
                       
                     </ul>
@@ -157,11 +157,12 @@
                           <thead>
                             <tr>
                               <th>사원명</th>
-                              <th>직책</th>
                               <th>부서</th>
-                              <th>날짜</th>
-                              <th>출근시간</th>
-                              <th>퇴근시간</th>     
+                              <th>직책</th>
+                              <th>진급직책</th>
+                              <th>진급날짜</th>
+                              <th>수정</th>
+                              
                             </tr>
                           </thead>
 
@@ -173,7 +174,7 @@
                               <td>New York</td>
                               <td><text></text></td>
                               <td>2012/12/02</td>
-                              <!-- <td><button type="button" class="btn btn-round btn-default">입력</button></td> -->
+                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            

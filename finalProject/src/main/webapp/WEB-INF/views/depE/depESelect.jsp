@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.dep.depEmergency.model.vo.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -55,19 +56,19 @@
 			<div class="right_col" role="main">
 
 				<div class="row">
-					<div class="col-md-18 col-sm-18 col-xs-18">
+					<div class="col-md-20 col-sm-20 col-xs-20">
 						<div class="dashboard_graph">
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>Empty <small>no content</small></h3>
+									<h3>비상연락망</h3>
 								</div>
 								<div class="col-md-6">
-
+								
 								</div>
 							</div>
 
-							<div class="col-md-18 col-sm-18 col-xs-18">
+							<div class="col-md-18 col-sm-18 col-xs-20">
 								<div id='calendar'></div>
 							</div>
 
@@ -76,7 +77,23 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Hover rows <small>Try hovering over the rows</small></h2>
+                  <div id="test1"></small></div>
+<!--        <button id="testB">테스트</button>
+<script>
+	$(function(){
+		var test1 = $('#test1');
+		$('#testB').click(function(){
+			test1.html('추가');
+		});
+	});
+	$(function(){
+		var test1 = $('#test1');
+		test1.change(function(){
+			console.log('11111');
+		});
+	});
+</script>            -->
+                  
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -98,31 +115,23 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <!-- <th>#</th> -->
+                        <th>사원명</th>
+                        <th>직급</th>
+                        <th>부서명</th>
+                        <th>비상연락망</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="d" items="${DepEList}">
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <!-- <th scope="row"></th> -->
+                        <td>${d.empName}</td>
+                        <td>${d.jobName}</td>
+                        <td>${d.depName}</td>
+                        <td>${d.emergencyPhone}</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                   </c:forEach> 
                     </tbody>
                   </table>
 

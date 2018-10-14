@@ -4,6 +4,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DepE {
+	private int empNo;
+	private String jobCode;
+	private String depId;
 	private String empName;
 	private String jobName;
 	private String depName;
@@ -14,14 +17,41 @@ public DepE()
 	
 }
 
-public DepE(String empName, String jobName, String depName, String emergencyPhone) {
+public DepE(int empNo, String jobCode, String depId, String empName, String jobName, String depName,
+		String emergencyPhone) {
 	super();
+	this.empNo = empNo;
+	this.jobCode = jobCode;
+	this.depId = depId;
 	this.empName = empName;
 	this.jobName = jobName;
 	this.depName = depName;
 	this.emergencyPhone = emergencyPhone;
 }
 
+public int getEmpNo() {
+	return empNo;
+}
+
+public void setEmpNo(int empNo) {
+	this.empNo = empNo;
+}
+
+public String getJobCode() {
+	return jobCode;
+}
+
+public void setJobCode(String jobCode) {
+	this.jobCode = jobCode;
+}
+
+public String getDepId() {
+	return depId;
+}
+
+public void setDepId(String depId) {
+	this.depId = depId;
+}
 
 public String getEmpName() {
 	return empName;
@@ -55,12 +85,10 @@ public void setEmergencyPhone(String emergencyPhone) {
 	this.emergencyPhone = emergencyPhone;
 }
 
-
-
 @Override
 public String toString() {
-	return "depE [empName=" + empName + ", jobName=" + jobName + ", depName=" + depName + ", emergencyPhone="
-			+ emergencyPhone + "]";
+	return "DepE [empNo=" + empNo + ", jobCode=" + jobCode + ", depId=" + depId + ", empName=" + empName + ", jobName="
+			+ jobName + ", depName=" + depName + ", emergencyPhone=" + emergencyPhone + "]";
 }
 
 

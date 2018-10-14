@@ -140,14 +140,14 @@ li a{
 <div id="header">
 <div style="position:relative;top:+20px;left:0px;"><g:plusone size="medium"></g:plusone></div>
 <p id="mp1">
-QR Code scanner
+출석체크
 </p>
-<ul>
+<!-- <ul>
 <li><a href="index.html">Scan</a></li>
 <li><a href="create.html">Create</a></li>
 <li><a href="about.html">About</a></li>
 <li style="border: medium none;"><a href="contact.html">Contact</a></li>
-</ul>
+</ul> -->
 </div>
 <div id="mainbody">
 <table class="tsel" border="0" width="100%">
@@ -163,11 +163,27 @@ QR Code scanner
 </table>
 </td>
 </tr>
+
 <tr><td colspan="3" align="center">
 <img src="down.png"/>
 </td></tr>
 <tr><td colspan="3" align="center">
-<div id="result"></div>
+<div id="result" class="resultTest"></div>
+<script>
+	$(function(){
+		$('.resultTest').change(function(){
+			console.log('test');
+		});
+	});
+	$(function(){
+		$('.resultTest').click(function(){
+			console.log('click');
+		});
+	});
+	/* $("body").on('DOMSubtreeModified', "mydiv", function() {
+	    alert('changed');
+	}); */
+</script>
 </td></tr>
 </table>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
