@@ -303,6 +303,7 @@
 	</select>
 	
 	<!-- 내 휴가 이력 조회 -->
+	
 	<select id="selectMyWorkingHoursRecord" resultMap="myWorkingHoursRecordResultSet" parameterType="_int">
 		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MAX(TO_CHAR(HOURS, 'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH:mm:ss')) ATTENDTIME, EMP_NO
 		FROM WORKING_RECORD
