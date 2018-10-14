@@ -17,6 +17,8 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.Vacation;
+import com.kh.dep.member.model.vo.WorkingHours;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -51,7 +53,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateMyInfo(MemberSelect m) throws Exception{
+	public int updateMyInfo(MemberSelect m){
 
 		return md.updateMyInfo(sqlSession, m);
 	}
@@ -170,6 +172,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 		return md.selectMyWorkingHoursRecord(sqlSession, empNo);
+	}
+
+	@Override
+	public int updateMyImage(int empNo, String newFileName, String originFileName) {
+		
+		
+		return md.updateMyImage(sqlSession, empNo, newFileName, originFileName);
 	}
   
 }

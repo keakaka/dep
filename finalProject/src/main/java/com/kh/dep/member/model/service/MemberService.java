@@ -54,5 +54,7 @@ public interface MemberService {
 
 	ArrayList<Position> selectpositList();
 
+	int updateMyImage(int empNo, String newFileName, String originFileName);
+
 
 }

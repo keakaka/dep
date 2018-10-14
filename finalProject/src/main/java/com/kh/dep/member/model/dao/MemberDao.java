@@ -50,5 +50,7 @@ public interface MemberDao {
 
 	ArrayList<Position> selectposiList(SqlSessionTemplate sqlSession);
 
+	int updateMyImage(SqlSessionTemplate sqlSession, int empNo, String newFileName, String originFileName);
+
 
 }
