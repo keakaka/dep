@@ -96,19 +96,16 @@
                                         </span>
                         </a>
                       </li>
-                      <li>
-                        <a href="#step-3">
-                          <span class="step_no">3</span>
-                          <span class="step_descr">
-                                            3. 상신 전 확인<br />
-                                            <small>작성한 문서를 확인하세요</small>
-                                        </span>
-                        </a>
-                      </li>
                     </ul>
-                   <form class="form-horizontal form-label-left" id="signForm" action="insertSign.sg" method="post">
+                   <form class="form-horizontal form-label-left" id="signForm" action="insertSign.sg" method="post" enctype="multipart/form-data">
+                   <input type="hidden" value="${loginUser.empNo }" name="empNo"/>
                     <div id="step-1">
-						<h2 class="StepTitle">문서 작성</h2>
+						<h2 class="StepTitle">문서 작성</h2><br>
+						
+						<label align="center">문서 제목</label><br>
+						<input type="text" name="signTitle" required style="width:70%;">
+						<br><br>
+						<label align="center">문서 내용</label><br>
 						<textarea id="summernote" name="signContent" required>
 							
 						</textarea>
@@ -165,9 +162,22 @@
 									        	var $appBody = $('.appTable');
 									        	var $appTr = $('<tr role="row" class="odd">');
 									        	var appName = $(this).parent().parent().children('input').val();
-									        	var $appName = $('<td rowspan>').text(appName);
+									        	var $appName = $('<td name="appList">').text(appName);
+									        	var $appTd = $('<td align="center">');
+									        	var $resetApp = $('<button type="button" class="btn btn-default btn-xs resApp">X</button>');
+									        	var $empNo = $(this).parent().parent().children('td').eq(0).text();
+									        	var $appHidden = $('<input type="hidden" value="'+$empNo+'" name="appList">'); 
+									        	$appTd.append($resetApp);
 									        	$appTr.append($appName);
+									        	$appTr.append($appTd);
+									        	$appTr.append($appHidden);
 									        	$appBody.append($appTr);
+									        	$(function(){
+													$(".resApp").click(function(){
+														var $thisAppTr = $(this).parent().parent('tr');
+														$thisAppTr.remove();
+													});
+												});
 									        });
 								        });
 										$(function(){
@@ -175,11 +185,27 @@
 									        	var $recBody = $('.recTable');
 									        	var $recTr = $('<tr role="row" class="odd">');
 									        	var recName = $(this).parent().parent().children('input').val();
-									        	var $recName = $('<td rowspan>').text(recName);
+									        	var $recName = $('<td name="recList">').text(recName);
+									        	var $recTd = $('<td align="center">');
+									        	var $resetRec = $('<button type="button" class="btn btn-default btn-xs resRec">X</button>');
+									        	var $empNo = $(this).parent().parent().children('td').eq(0).text();
+									        	var $recHidden = $('<input type="hidden" value="'+$empNo+'" name="recList">'); 
+									        	$recTd.append($resetRec);
 									        	$recTr.append($recName);
+									        	$recTr.append($recTd);
+									        	$recTr.append($recHidden);
 									        	$recBody.append($recTr);
+									        	$(function(){
+													$(".resRec").click(function(){
+														var $thisRecTr = $(this).parent().parent('tr');
+														$thisRecTr.remove();
+													});
+												});
 									        });
+									        	
 								        });
+										
+										
 										
 								},
 								error : function(){
@@ -202,18 +228,33 @@
                     <div class="tab-content">
                       <div class="tab-pane active" id="home">
                 <div class="x_title">
+                
                   <select id="depList">
                   	<option>====</option>
-					<option>인사부</option>
-					<option>회계부</option>
-					<option>총무부</option>
-					<option>영업부</option>
+                  	<c:forEach var="d" items="${depList}">
+                        <option>${d.depName}</option>
+                   </c:forEach> 
 				  </select>
 				  <button type="button" onclick="resetApp();" class="btn btn-default btn-xs">결재선 및 수신 참조자 재설정</button>
+				  <button type="button" class="testTable">테스트</button>
 				  <script>
 				  	function resetApp(){
-				  		
+				  		var recTable = $('.recTable');
+				  		var appTable = $('.appTable');
+				  		var check = window.confirm('결재선과 수신 참조자를 초기화 하시겠습니까?');
+				  		if(check == true){
+					  		recTable.html("");
+					  		appTable.html("");
+				  		}else{
+				  			
+				  		}
 				  	}
+				  	$(function(){
+				  		$('.testTable').click(function(){
+				  			console.log($('.recTable'));
+				  		});
+				  	});
+				  	
 				  </script>
                   <div class="clearfix"></div>
                 </div>
@@ -247,9 +288,10 @@
             <table class="table table-bordered">
 	      		<thead>
 	               <tr>
-	               	<th>결&nbsp;&nbsp;재&nbsp;&nbsp;자</th>
+	               	<th colspan="2">결&nbsp;&nbsp;재&nbsp;&nbsp;자</th>
 	               </tr>
 	             </thead>
+	             <!-- <input type="hidden" name="appList" class="appList" value=""/> -->
 	             <tbody class="appTable">
 	             </tbody>
 	        </table>
@@ -258,9 +300,10 @@
 	        <table class="table table-bordered">
 	      		<thead>
 	               <tr>
-	                <th>수신참조자</th>
+	                <th colspan="2">수신참조자</th>
 	               </tr>
 	             </thead>
+	             <!-- <input type="hidden" name="recList" class="recList" value=""/> -->
 	             <tbody class="recTable">
 	             </tbody>
 	        </table>
@@ -277,21 +320,6 @@
             </div>
                       
                     </div>
-                    <div id="step-3">
-                      <h2 class="StepTitle">확인</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      </p>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      </p>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      </p>
-            </div>
-            
                     </form>
 					</div>
             		</div>
