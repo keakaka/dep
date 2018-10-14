@@ -11,6 +11,7 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.facingDao.FacingDao;
 import com.kh.dep.facing.model.vo.Facing;
+import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.vo.MemberJob;
 
 import oracle.net.aso.f;
@@ -39,12 +40,12 @@ public class FacingServiceImpl implements FacingService {
 		
 	}
 	@Override
-	public List<Facing> selectReciveList(int empNo) {
+	public ArrayList<Facing> selectReciveList(int empNo) throws FacingSelectListException {
 		// TODO Auto-generated method stub
 		
-		List<Facing> FacingList = fd.selectReciveList(sqlSession,empNo);
+		ArrayList<Facing> FacingReciverList = fd.selectReciveList(sqlSession,empNo);
 		
-		return FacingList;
+		return FacingReciverList;
 	}
 /*	@Override
 	public int insertFaicng(int empNo, Facing f) {
@@ -84,6 +85,15 @@ public class FacingServiceImpl implements FacingService {
 			list = fd.selectFacingList(sqlSession, fus);
 		}
 		return list;
+	}
+	
+	@Override
+	public int InsertWorking(int empNo) {
+		// TODO Auto-generated method stub
+		int result = fd.insertWorking(sqlSession,empNo);
+		
+		return result;
+		
 	}
 
 
