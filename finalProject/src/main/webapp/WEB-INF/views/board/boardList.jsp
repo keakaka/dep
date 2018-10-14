@@ -93,7 +93,7 @@
 								<div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>DIP부 <small>야근투나잇 대리</small></h2>
+                  <h2>${sessionScope.loginUser.depName}  <small>${sessionScope.loginUser.empName} ${sessionScope.loginUser.jobName}</small></h2>
                   <!-- <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -119,8 +119,10 @@
                           KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action etc) can be assigned to individual cells, columns, rows or all cells.
                         </p> -->
 
-                        <table id="datatable-keytable" class="table table-striped table-bordered" style="text-align:center;">
-                          <thead style="text-align:center;">
+                  
+                  <table id="datatable-fixed-header" class="table table-striped table-bordered table-hover"
+                   style="text-align:center;">
+                      <thead style="text-align:center;">
                             <tr>
                               <th style="width:80px; text-align:center;">게시글 번호</th>
                               <th style="text-align:center;">제목</th>
@@ -136,15 +138,15 @@
                        		<tr>
                        		  <td><%= i %></td>                    
                               <td>System Architect</td>
-                              <td>Edinburgh<%=i %></td>
+                              <td>Edinburgh <%= i %></td>
                               <td>2011/04/25</td>
-                              <td><%= i %></td>
+                              <td> 0 </td>
                             </tr>
                        		<% } %>
                        	
                           </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" style="float:right;"
+                  </table>
+                  		<button type="button" class="btn btn-primary" style="float:right;"
                         		onclick="location.href='insertBoard.bo'">
                         <i class="fa fa-pencil"></i>&nbsp;게시글작성
                         </button>
@@ -273,7 +275,7 @@
             });
             $('#datatable-responsive').DataTable();
             $('#datatable-scroller').DataTable({
-              ajax: "${contextPath }/resources/js/datatables/json/scroller-demo.json",
+              ajax: "js/datatables/json/scroller-demo.json",
               deferRender: true,
               scrollY: 380,
               scrollCollapse: true,
