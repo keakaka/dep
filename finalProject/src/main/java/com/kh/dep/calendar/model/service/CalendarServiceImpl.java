@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.calendar.model.dao.CalendarDao;
+import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.member.model.vo.Member;
 
 @Service
@@ -23,6 +24,14 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	public List<Member> searchAttName(String attName) {
 		return cd.searchAttName(attName);
+	}
+
+	@Override
+	public List<Calendar> insertCalendar(Calendar ca) {
+		List<Calendar> insertC = cd.selectCalendar(ca);
+		int result = cd.insertCalendar(insertC);
+		
+		return insertC;
 	}
 
 

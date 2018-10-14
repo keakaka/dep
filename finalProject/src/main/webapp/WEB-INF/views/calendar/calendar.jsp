@@ -164,7 +164,7 @@
 										<label class="col-sm-3 control-label">날짜 </label>
 										<div class="col-sm-9"
 											style="height: 30px; padding-top:7px; align-items: center; justify-content: left;">
-											<p class="date" id="nows"></p></div>
+											<p class="date" id="nows" name="nows"></p></div>
 											
 									</div>
 									<script>
@@ -176,8 +176,8 @@
 
 									<div class="form-group">
 										<label class="col-sm-3 control-label">게시자 </label>
-										<div class="col-sm-9"
-											style="height: 30px; padding-top:7px;">
+										<div class="col-sm-9" id="loginName"
+											style="height: 30px; padding-top:7px;" value="${ sessionScope.loginUser.empName }">
 											${ sessionScope.loginUser.empName } </div>
 									</div>
 
@@ -203,11 +203,7 @@
 														dataType:"text",
 														data:{attName:attName},
 														success:function(data){
-															values = data.data;
-															$.each(values, function(index, value){
-																console.log(index + " :" + value.empName);
-															});
-															
+															console.log(data);
 															
 															/* console.log(data.empName);
 															var e = $(data).find('empName');
@@ -221,7 +217,6 @@
 												}
 											</script>
 										</div>
-										<div id="dataArea" style="width:100px; height:100px; border:1px solid red;">
 											
 										</div>
 										<div class="form-group" style="width:60%; float:right; margin-right:170px; margin-top:10px;">
@@ -285,6 +280,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- 상세보기 페이지 -->
 			<div id="CalenderModalEdit" class="modal fade" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -371,6 +368,7 @@
 								</form>
 							</div> -->
 			</div>
+			<!-- /상세보기 페이지 -->
 			
 		</div>
 	</div>
@@ -436,6 +434,8 @@
 			var categoryClass;
 
 			var calendar = $('#calendar').fullCalendar({
+				
+				
 				header : {
 					left : 'prev,next today',
 					center : 'title',
@@ -443,7 +443,7 @@
 				},
 				
 				dayClick: function(date, allDay, jsEvent, view) {
-					
+					   
 					   var yy=date.format("YYYY");
 					   var mm=date.format("MM");
 					   var dd=date.format("DD");
@@ -461,7 +461,17 @@
 					ended = end
 
 					$(".antosubmit").on("click", function() {
+						console.log("추가 버튼 클릭");
+						
 						var title = $("#title").val();
+						var content = $("#content").val();
+						/* var nows = $("#nows").val(); */
+						/* var loginName = $(sessionScope.loginUser.empName); */
+						
+						console.log(nows);
+						console.log(loginName);
+						
+						
 						if (end) {
 							ended = end
 						}
@@ -476,6 +486,24 @@
 							}, true // make the event "stick"
 							);
 						}
+						
+						$.ajax({
+							url:"insertCalendar.ca",
+							type:'post',
+							data:{title:title,
+								  content:content},
+							success:function(data){
+								console.log("success");
+							},
+							error:function(data){
+								console.log("error");
+							},
+							
+						});
+						
+						
+						
+						
 						$('#title').val('');
 						calendar.fullCalendar('unselect');
 
@@ -503,30 +531,7 @@
 					title : 'All Day Event',
 					start : new Date(y, m, 1),
 				 	
-				}, /*{
-													   title: 'Long Event',
-													   start: new Date(y, m, d - 5),
-													   end: new Date(y, m, d - 2)
-													 }, {
-													   title: 'Meeting',
-													   start: new Date(y, m, d, 10, 30),
-													   allDay: false
-													 }, {
-													   title: 'Lunch',
-													   start: new Date(y, m, d + 14, 12, 0),
-													   end: new Date(y, m, d, 14, 0),
-													   allDay: false
-													 }, {
-													   title: 'Birthday Party',
-													   start: new Date(y, m, d + 1, 19, 0),
-													   end: new Date(y, m, d + 1, 22, 30),
-													   allDay: false
-													 }, {
-													   title: 'Click for Google',
-													   start: new Date(y, m, 28),
-													   end: new Date(y, m, 29),
-													   url: 'http://google.com/'
-													 }*/]
+				},]
 			});
 		});
 	</script>

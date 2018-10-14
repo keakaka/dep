@@ -20,7 +20,7 @@
 		<typeAlias type="com.kh.dep.member.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.kh.dep.member.model.vo.WorkingHours" alias="WorkingHours"/>
 		<typeAlias type="com.kh.dep.sign.model.vo.MemberDep" alias="MemberDep"/>
-
+		<typeAlias type="com.kh.dep.calendar.model.vo.Calendar" alias="Calendar"/>
 
 	</typeAliases>
 	<mappers>

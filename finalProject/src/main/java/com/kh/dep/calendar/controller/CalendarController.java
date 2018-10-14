@@ -1,6 +1,7 @@
 package com.kh.dep.calendar.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.calendar.model.service.CalendarService;
+import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.member.model.vo.Member;
 
 @Controller
@@ -60,5 +62,23 @@ public class CalendarController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
+	}
+	
+	@RequestMapping("insertCalendar.ca")
+	public void insertCalendar(String title, String content, HttpServletResponse response) {
+		System.out.println("insertCalendar title : " + title);
+		System.out.println("insertCalendar content : " + content);
+		
+		Calendar ca = new Calendar();
+		ca.setScheduleTitle(title);
+		ca.setScheduleContent(content);
+		/*ca.setScheStartDate(nows);*/
+		
+		System.out.println("insert ca : " + ca);
+		
+		List<Calendar> ca2 = cs.insertCalendar(ca);
+		System.out.println("insert ca2 : " + ca2);
+	
+	
 	}
 }
