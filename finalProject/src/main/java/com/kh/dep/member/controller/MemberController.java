@@ -62,7 +62,7 @@ public class MemberController {
 
 			model.addAttribute("loginUser", loginUser);
 
-			return "board/boardList";
+			return "member/sample";
 
 		} catch (LoginException e) {
 
