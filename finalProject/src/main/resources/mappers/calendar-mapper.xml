@@ -79,11 +79,11 @@
 	</select>
 	
 	<insert id="insertCalendar" parameterType="Calendar">
-		INSERT INTO SCHEDULE VALUES(SCHEDULE_NO.NEXTVAL, #{empNo}, #{scheduleTitle}, #{scheduleContent}, NULL, NULL, NULL)
+		INSERT INTO SCHEDULE VALUES(SCHEDULE_NO.NEXTVAL, #{empNo}, #{scheduleTitle}, #{scheduleContent}, #{scheStartDate}, #{scheEndDate}, NULL)
 	</insert>
 	
 	<select id="selectCalendar" parameterType="int" resultMap="Calendar">
-		SELECT SCHEDULE_TITLE, SCHEDULE_CONTENT
+		SELECT SCHEDULE_NO, SCHEDULE_TITLE, SCHEDULE_CONTENT, SCHE_STARTDATE, SCHE_ENDDATE
 		FROM SCHEDULE
 		WHERE EMP_NO = #{empNo}
 	</select>
