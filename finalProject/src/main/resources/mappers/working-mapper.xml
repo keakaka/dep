@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Working">
+	<resultMap type="Working" id="WorkingResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="depId" column="DEP_ID" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="today" column="TODAY" />
+		<result property="tTime" column="TTTIME" />
+		<result property="leaveTime" column="LEAVETIME" />
+	</resultMap>
+	
+	
+	
+	
+	<!-- 부서별 조회-->
+	<select id="workingSelectList" resultMap="WorkingResultSet" parameterType="Working">
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME , MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME 
+	FROM WORKING_RECORD WR 
+	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
+	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+	JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+	WHERE DEP_NAME = #{depName}
+	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
+	ORDER BY TODAY DESC 
+	</select>
+	
+	<select id="workingdaySelectList" resultMap="WorkingResultSet" parameterType="String">
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME , 
+	MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME 
+	FROM WORKING_RECORD WR 
+	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
+	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+	JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+	WHERE TO_CHAR(WR.HOURS, 'MM') = #{day}
+	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
+	ORDER BY TODAY DESC
+
+	</select>
+	
+
+	
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

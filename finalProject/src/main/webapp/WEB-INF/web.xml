@@ -178,6 +178,9 @@
 		<servlet-name>personMgt</servlet-name>
 		<url-pattern>*.pm</url-pattern>
 	</servlet-mapping>
+	<listener>
+<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
 	
 	
 

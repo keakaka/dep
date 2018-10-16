@@ -3,6 +3,43 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
+	<resultMap type="Board" id="boardResultSet">
+		<id property="boardNo" column="BOARD_NO" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardType" column="BOARD_TYPE" />
+		<result property="selectCount" column="SELECT_COUNT" />
+		<result property="status" column="STATUS" />
+		<result property="empName" column="EMP_NAME" />
+	</resultMap>
+
+
+	<!-- board list 조회 -->
+	<select id="selectBoardList" resultMap="boardResultSet">
+		SELECT B.BOARD_NO,
+		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE,
+		B.SELECTCOUNT, B.STATUS
+		FROM BOARD B
+		JOIN EMPLOYEE E ON(B.EMP_NO = E.EMP_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE='BT1'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<!-- Board One 조회  -->
+	<select id="selectOneBoard" resultMap="boardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARD_NO,
+		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE,
+		B.SELECTCOUNT, B.STATUS
+		FROM BOARD B
+		JOIN EMPLOYEE E ON(B.EMP_NO = E.EMP_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE='BT1'
+		AND B.BOARD_NO = #{bid}
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
 	
 	
 </mapper>

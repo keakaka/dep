@@ -20,6 +20,7 @@ public class SignDaoImpl implements SignDao{
 
 	@Override
 	public int insertDocApproval(SqlSessionTemplate sqlSession, InsertSign is) {
+
 		return sqlSession.insert("sign.insertDocApproval", is);
 	}
 

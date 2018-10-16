@@ -182,7 +182,7 @@
                   	   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">부서</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="depId">
+                        <select class="form-control" name="depId" required="required">
                           <option>부서를 선택하세요</option>
                           <c:forEach var='d' items="${deplist }">
                           <option value="${d.depId }">${d.depName }</option>
@@ -193,7 +193,7 @@
                      <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">직급</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="jobCode">
+                        <select class="form-control" name="jobCode" required="required">
                           <option>직급을 선택하세요</option>
                           <c:forEach var='j' items="${joblist }">
                           <option value="${j.jobCode }">${j.jobName }</option>
@@ -202,7 +202,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">직책</label>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" required="required">직책</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <select class="form-control" name="positionNo">
                           <option>직책을 선택하세요</option>
@@ -215,14 +215,14 @@
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">서명</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="file" id="signature" name="signature" style="margin-top:5px;">
+                          <input type="file" id="signature" name="signature" style="margin-top:5px;" required="required">
                       </div>
                     </div>
                  
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="file" id="photo" name="photo" style="margin-top:5px;">
+                          <input type="file" id="photo" name="photo" style="margin-top:5px;" required="required">
                       </div>
                     </div>
                      

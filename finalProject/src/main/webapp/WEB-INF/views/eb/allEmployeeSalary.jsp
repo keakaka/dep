@@ -60,6 +60,8 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
 </head>
 
 
@@ -248,7 +250,7 @@
 
 												<form id="excelUploadForm" name="excelUploadForm"
 													enctype="multipart/form-data" method="post"
-													action="<c:url value="/excelUploadAjax"/>" >
+													action="" >
 
 													<div class="contents">
 														<div>첨부파일은 한개만 등록 가능합니다.</div>
@@ -262,7 +264,7 @@
 													</div>
 
 													<div class="bottom">
-														<button type="button" id="addExcelImportBtn" class="btn"
+														<button type="button" id="excelImportBtn" class="btn"
 															onclick="check()">
 															<span>추가</span>
 														</button>
@@ -272,7 +274,10 @@
 												<script>
 												function checkFileType(filePath) {
 									                var fileFormat = filePath.split(".");
-									                if (fileFormat.indexOf("xlsx") > -1) {
+									                if(fileFormat.indexOf("xls") > -1){
+									                	return true;
+									                }
+									                else if (fileFormat.indexOf("xlsx") > -1) {
 									                    return true;
 									                } else {
 									                    return false;
@@ -289,16 +294,20 @@
 									                    alert("엑셀 파일만 업로드 가능합니다.");
 									                    return false;
 									                }
+									                
+									                var fileFormat = file.split(".");
+									                var fileType = fileFormat[1];
 									 
-									                if (confirm("업로드 하시겠습니까?")) {
+									                if(confirm("업로드 하시겠습니까?")) {
+									                	$("#excelUploadForm").attr("action","excelUploadAjax");
 									                    var options = {
 									                        success : function(data) {
-									                            alert("모든 데이터가 업로드 되었습니다.");
-									 
+									                            alert("업로드가 완료되었습니다.");
 									                        },
-									                        type : "POST"
+									                        type : "POST",
+									                        data : {"excelType" : fileType}
 									                    };
-									                    $("#excelUploadForm").ajaxSubmit(options);
+									                    $("form").ajaxSubmit(options);
 									    
 									                }
 									            }
@@ -306,20 +315,10 @@
 
 
 											</div>
-
-
 										</div>
 									</div>
-
-									<div class="col-md-12 col-sm-12 col-xs-12">
-										<div id='calendar'></div>
-									</div>
-
-									<div class="clearfix"></div>
 								</div>
 							</div>
-
-
 						</div>
 						<br />
 						<!-- footer content -->

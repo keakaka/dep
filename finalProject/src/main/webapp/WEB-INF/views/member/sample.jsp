@@ -60,7 +60,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>Empty <small>no content</small></h3>
+									<h3>임시 <small>내용 없음</small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -71,7 +71,7 @@
 								<div id='calendar'></div>
 							</div>
 
-							<div class="clearfix">ejrerhekkhk</div>
+							<div class="clearfix">Main Page?????</div>
 						</div>
 					</div>
 
