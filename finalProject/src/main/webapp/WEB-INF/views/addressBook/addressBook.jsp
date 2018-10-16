@@ -30,6 +30,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
+	a:hover{
+		cursor:pointer;
+	}
 </style>
 <body class="nav-md">
 	<div class="container body">
@@ -77,16 +80,19 @@
 														<th class="column-title">전화번호</th>
 														<th class="column-title">메일 주소</th>
 														<th></th>
+														
 													</tr>
 												</thead>
 												
 												<tbody>
 													<c:forEach var="list" items="${addressBookList}" varStatus = 'status'>
 														<tr class="even pointer">
-															<td class="a-center" style="width:85px;"><input type="checkbox" 
-																name="check" class="flat" value="${list.empNo}"></td>
-															<input type="hidden" name="loginNo"
-																value="${ sessionScope.loginUser.empNo }">
+															<td class="a-center" style="width:85px;" align="center">
+															<%-- <input type="checkbox" name="check" class="flat" value="${list.empNo}"></td> --%>
+															<!-- <button type="button" class="btn btn-info btn-xs" onclick="checkboxArr();">주소록에 추가하기</button> -->
+															<a onclick="checkboxArr();"><i class="fa fa-sign-in fa-lg"></i></a></td>
+															<input type="hidden" id="loginNo" name="loginNo" value="${ loginUser.empNo }">
+															<input type="hidden" id="empNo" name="empNo" value="${list.empNo}">
 															<td width="254">${list.depName}</td>
 															<td width="200">${list.empName}</td>
 															<td width="190">${list.jobName}</td>
@@ -94,14 +100,15 @@
 															<td width="320">${list.phone}</td>
 															<td>${list.email}</td>
 															<td><a href="#/comments-o"><i class="fa fa-comments-o fa-lg"></i></a></td>
+															
 														</tr>
 													</c:forEach>
 												</tbody>
 
 											</table>
-											<div>
+											<!-- <div>
 												 <button type="button" class="btn btn-info btn-sm" onclick="checkboxArr();">주소록에 추가하기</button>
-											</div>
+											</div> -->
 										</div>
 									</div>
 								</div>
@@ -110,13 +117,11 @@
 							function checkboxArr(){
 								console.log("주소록 추가하기 버튼");
 								
-								$("input[name='check']:checked").each(function(i){
-									empNo = $("input[name='check']:checked").val();
-									loginNo = $("input[name='loginNo']").val();
-									
-									console.log(empNo);
-									console.log(loginNo);
-								});
+								
+								var empNo = $("#empNo").val();
+								var loginNo = $("#loginNo").val();
+								console.log(empNo);
+								console.log(loginNo);
 								
 								$.ajax({
 									url:"insertAddressBook.ad",
@@ -156,6 +161,7 @@
 														<th class="column-title">전화번호</th>
 														<th class="column-title">메일 주소</th>
 														<th></th>
+														<th></th>
 													</tr>
 												</thead>
 												<tbody>
@@ -163,44 +169,52 @@
 													<c:forEach var="list" items="${list}" varStatus = 'status'>
 													<c:if test="${list.loginNo == sessionScope.loginUser.empNo }">
 														<tr class="even pointer">
-															<td class="a-center" style="width:85px;"><input type="checkbox"
-																name="check" class="flat" value="${list.empNo}"></td>
+															<td class="a-center" style="width:85px;"></td>
+															<input type="hidden" id="empNo2" name="empNo2" value="${list.empNo}">
+															<input type="hidden" id="loginNo2" name="loginNo2" value="${loginUser.empNo}">
 															<td width="254">${list.depName}</td>
-															<td width="200">${list.empName}</td>
+															<td width="180">${list.empName}</td>
 															<td width="190">${list.jobName}</td>
-															<td width="200">${list.positionName}</td>
+															<td width="190">${list.positionName}</td>
 															<td width="320">${list.phone}</td>
 															<td>${list.email}</td>
 															<td><a href="facing.ms"><i class="fa fa-comments-o fa-lg"></i></a></td>
+															<td><!-- <button type="button" class="btn btn-dark btn-xs" onclick="deleteAdd();">삭제하기</button> -->
+															<a onclick="deleteAdd();"><i class="fa fa-trash fa-lg" class="btn btn-dark btn-lg" ></i></a></td>
 														</tr>
 														</c:if>
 													</c:forEach>
 													
 												</tbody>
 											</table>
-											<div align="left">
+											<!-- <div align="left">
 												 <button type="button" class="btn btn-dark btn-sm" onclick="deleteAdd();">삭제하기</button>
-											</div>
+											</div> -->
 										</div>
 									</div>
 								</div>
 								<script>
 							function deleteAdd(){
-								console.log("주소록에서 삭제 버튼");
+								﻿
 								
+								/* var eNo = new Array();
 								$("input[name='check']:checked").each(function(i){
 									empNo = $("input[name='check']:checked").val();
-									
+									eNo.push(empNo);
 									console.log(empNo);
-								});
+								}); */
 								
+								var empNo = $("#empNo2").val();
+								var loginNo = $("#loginNo2").val();
+								
+								console.log(empNo);
+								console.log(loginNo);
 								$.ajax({
 									url:"deleteAddressBook.ad",
 									type:'post',
 									data:{empNo:empNo},
 									success:function(data){
 										window.location = "selectAdd.ad";
-										
 									},
 									error:function(data){
 										console.log("error");
@@ -260,7 +274,7 @@
 					src="${contextPath }/resources/js/datepicker/daterangepicker.js"></script>
 
 				<script src="${contextPath }/resources/js/custom.js"></script>
-				--%>
+				
 
 
 				<!-- /footer content -->

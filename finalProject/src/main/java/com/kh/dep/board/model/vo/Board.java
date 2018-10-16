@@ -13,13 +13,14 @@ public class Board implements java.io.Serializable {
 	private String boardType;
 	private int selectCount;
 	private String status;
+	private String empName;
 	
 	
 	public Board(){}
 
 
 	public Board(int boardNo, int empNo, String boardTitle, String boardContent, String boardType, int selectCount,
-			String status) {
+			String status, String empName) {
 		super();
 		this.boardNo = boardNo;
 		this.empNo = empNo;
@@ -28,14 +29,7 @@ public class Board implements java.io.Serializable {
 		this.boardType = boardType;
 		this.selectCount = selectCount;
 		this.status = status;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Board [boardNo=" + boardNo + ", empNo=" + empNo + ", boardTitle=" + boardTitle + ", boardContent="
-				+ boardContent + ", boardType=" + boardType + ", selectCount=" + selectCount + ", status=" + status
-				+ "]";
+		this.empName = empName;
 	}
 
 
@@ -107,6 +101,27 @@ public class Board implements java.io.Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	public String getEmpName() {
+		return empName;
+	}
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Board [boardNo=" + boardNo + ", empNo=" + empNo + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", boardType=" + boardType + ", selectCount=" + selectCount + ", status=" + status
+				+ ", empName=" + empName + "]";
+	}
+
+
+	
 
 	
 	
