@@ -64,7 +64,7 @@ public class MemberController {
 
 			model.addAttribute("loginUser", loginUser);
 
-			return "board/boardList";
+			return "member/sample";
 
 		} catch (LoginException e) {
 
@@ -186,6 +186,15 @@ public class MemberController {
 		}
 
 		return "personManagement/memberInsert";
+	}
+	
+	
+	@RequestMapping("insertLeave.me")
+	public String insertLeaveMember(MemberSelect m){
+		
+		System.out.println("leave Member info :" + m);
+		
+		return "personManagement/leave";
 	}
 
 	@RequestMapping(value="myInfo.me")
