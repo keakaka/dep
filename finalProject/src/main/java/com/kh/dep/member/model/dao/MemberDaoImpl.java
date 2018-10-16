@@ -13,6 +13,7 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.SalaryExcel;
 import com.kh.dep.member.model.vo.Vacation;
 import com.kh.dep.member.model.vo.WorkingHours;
 
@@ -161,6 +162,15 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return sqlSession.update("Member.updateMyImageFile", list);
 	}
+
+	@Override
+	public List<SalaryExcel> xlsExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
+		
+		
+		/*return sqlSession.insert("Member.insertSalaryExcel", list);*/
+		return null;
+	}
+	
 	
 
 }
