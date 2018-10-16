@@ -159,6 +159,7 @@
 									})
 										$(function(){
 									        $(".appBtn").click(function(){
+									        	
 									        	var $appBody = $('.appTable');
 									        	var $appTr = $('<tr role="row" class="odd">');
 									        	var appName = $(this).parent().parent().children('input').val();
@@ -167,11 +168,42 @@
 									        	var $resetApp = $('<button type="button" class="btn btn-default btn-xs resApp">X</button>');
 									        	var $empNo = $(this).parent().parent().children('td').eq(0).text();
 									        	var $appHidden = $('<input type="hidden" value="'+$empNo+'" name="appList">'); 
-									        	$appTd.append($resetApp);
-									        	$appTr.append($appName);
-									        	$appTr.append($appTd);
-									        	$appTr.append($appHidden);
-									        	$appBody.append($appTr);
+									        	var appEno = new Array();
+									        	var recEno = new Array();
+									        	var appOverlap = true;
+									        	var recOverlap = true;
+									        	$('.recTable tr').each(function() {
+									        	    recEno.push($(this).find("input").val());
+									        	});
+									        	$('.appTable tr').each(function() {
+									        	    appEno.push($(this).find("input").val());
+									        	});
+									        	
+									        	for(var i in appEno){
+									        		if(appEno[i] == $empNo || appEno.length == 0){
+									        			appOverlap = false;
+									        		}else{
+									        			appOverlap = true;
+									        		}
+									        	}
+									        	for(var i in recEno){
+									        		if(recEno[i] == $empNo || recEno.length == 0){
+									        			recOverlap = false;
+									        		}else{
+									        			recOverlap = true;
+									        		}
+									        	}
+									        	if(appOverlap == true && recOverlap == true){
+									        		$appTd.append($resetApp);
+										        	$appTr.append($appName);
+										        	$appTr.append($appTd);
+										        	$appTr.append($appHidden);
+										        	$appBody.append($appTr);
+									        	}else if(appOverlap == false){
+									        		alert('이미 결재선에 추가 된 사원입니다.');
+									        	}else if(recOverlap == false){
+									        		alert('이미 수신 참조된 사원입니다.');
+									        	}
 									        	$(function(){
 													$(".resApp").click(function(){
 														var $thisAppTr = $(this).parent().parent('tr');
@@ -180,6 +212,7 @@
 												});
 									        });
 								        });
+									
 										$(function(){
 									        $(".recBtn").click(function(){
 									        	var $recBody = $('.recTable');
@@ -190,11 +223,42 @@
 									        	var $resetRec = $('<button type="button" class="btn btn-default btn-xs resRec">X</button>');
 									        	var $empNo = $(this).parent().parent().children('td').eq(0).text();
 									        	var $recHidden = $('<input type="hidden" value="'+$empNo+'" name="recList">'); 
-									        	$recTd.append($resetRec);
-									        	$recTr.append($recName);
-									        	$recTr.append($recTd);
-									        	$recTr.append($recHidden);
-									        	$recBody.append($recTr);
+									        	var appEno = new Array();
+									        	var recEno = new Array();
+									        	var appOverlap = true;
+									        	var recOverlap = true;
+									        	$('.recTable tr').each(function() {
+									        	    recEno.push($(this).find("input").val());
+									        	});
+									        	$('.appTable tr').each(function() {
+									        	    appEno.push($(this).find("input").val());
+									        	});
+									        	
+									        	for(var i in appEno){
+									        		if(appEno[i] == $empNo || appEno.length == 0){
+									        			appOverlap = false;
+									        		}else{
+									        			appOverlap = true;
+									        		}
+									        	}
+									        	for(var i in recEno){
+									        		if(recEno[i] == $empNo || recEno.length == 0){
+									        			recOverlap = false;
+									        		}else{
+									        			recOverlap = true;
+									        		}
+									        	}
+									        	if(appOverlap == true && recOverlap == true){
+									        		$recTd.append($resetRec);
+										        	$recTr.append($recName);
+										        	$recTr.append($recTd);
+										        	$recTr.append($recHidden);
+										        	$recBody.append($recTr);
+									        	}else if(appOverlap == false){
+									        		alert('이미 결재선에 추가 된 사원입니다.');
+									        	}else if(recOverlap == false){
+									        		alert('이미 수신 참조된 사원입니다.');
+									        	}
 									        	$(function(){
 													$(".resRec").click(function(){
 														var $thisRecTr = $(this).parent().parent('tr');
@@ -332,7 +396,7 @@
 
 				<footer>
 					<div class="copyright-info">
-						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
+						<p class="pull-right">DBDBDep - B오전 Final Project by <a href="http://www.iei.or.kr/main/main.kh?src=overture&kw=003DFA&gclid=Cj0KCQjw9ZDeBRD9ARIsAMbAmoZTJZP5ENi7OkIuimgnF0lSAzQFJc29u1JYoV58VDyCQIAEFRCY9SEaAr4hEALw_wcB">KH Academy</a>
 						</p>
 					</div>
 					<div class="clearfix"></div>

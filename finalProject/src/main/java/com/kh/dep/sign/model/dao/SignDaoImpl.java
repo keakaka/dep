@@ -20,8 +20,8 @@ public class SignDaoImpl implements SignDao{
 
 	@Override
 	public int insertDocApproval(SqlSessionTemplate sqlSession, InsertSign is) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return sqlSession.insert("sign.insertDocApproval", is);
 	}
 
 	@Override

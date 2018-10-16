@@ -10,8 +10,14 @@
 		<result property="jobName" column="JOB_NAME" />
 		<result property="positionName" column="POSITION_NAME" />
 	</resultMap>
-	
-	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
+	<resultMap type="InsertSign" id="InsertSignList">
+		<id property="writer" column="WRITER"/>
+		<result property="originFileName" column="ORI_FILENAME" />
+		<result property="changeName" column="MODI_FILENAME" />
+		<result property="signTitle" column="DOC_TITLE" />
+		<result property="signContent" column="DOC_CONTENT" />
+	</resultMap>
+	<!-- 부서별 부서원 목록 조회 -->
 	<select id="selectMemberDep" resultMap="MemberDepList" parameterType="MemberDep">
 		SELECT E.EMP_NO, E.EMP_NAME, D.DEP_NAME, J.JOB_NAME, P.POSITION_NAME FROM EMPLOYEE E
 		LEFT JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
@@ -26,7 +32,11 @@
 		AND DEP_NAME = #{depName}
 		ORDER BY 1
 	</select>
-
+	
+	<!-- DOCAPPROVAL Insert -->
+	<insert id="insertDocApproval" parameterType="InsertSign">
+	
+	</insert>
 	
 		
 </mapper>
