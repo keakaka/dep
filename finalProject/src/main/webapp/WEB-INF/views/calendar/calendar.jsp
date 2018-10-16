@@ -280,9 +280,9 @@
 					</div>
 				</div>
 			</div>
-			
-			<!-- 상세보기 페이지 -->
-			<div id="CalenderModalEdit" class="modal fade" tabindex="-1"
+
+		<!-- 상세보기 페이지 -->
+		<div id="CalenderModalEdit" class="modal fade" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -291,11 +291,16 @@
 							<div style="width: 100%" align="right">
 								<a style="margin-right: 7px; margin-top: 2px;"><i
 									class="fa fa-edit fa-lg"></i></a> <a style="margin-right: 10px;"><i
-									class="fa fa-trash fa-lg"></i></a>
+									class="fa fa-trash fa-lg" onclick="deleteC();"></i></a>
 							</div>
-							<h4 class="modal-title" id="myModalLabel2">일정 제목</h4>
+							
+							<h4><input type="text" class="modal-title" id="title2" style="border:none;"
+												name="title2"></h4>
+								<c:forEach var="list2" items="${cList}" varStatus = 'status'>
+								<input type="hidden" id="scheduleNo" name="scheduleNo" value="${list2.scheduleNo}">
+								</c:forEach>
+								<input type="hidden" name="loginNo" value="${ sessionScope.loginUser.empNo }">
 						</div>
-
 						<div class="modal-body">
 							<div class="modal-body">
 								<div id="testmodal" style="padding: 5px 20px;">
@@ -306,21 +311,20 @@
 											<label class="col-sm-3 control-label">날짜 </label>
 											<div class="col-sm-9"
 												style="height: 30px; display: flex; align-items: center; justify-content: left;">
-												ex)208년 09월 20일 9:00 ~ 11:00</div>
+												</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">게시자 </label>
 											<div class="col-sm-9"
 												style="height: 30px; display: flex; align-items: center; justify-content: left;">
-												ex)지은경</div>
+												</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">참석자 </label>
 											<div id="attSearchDiv2" class="col-sm-9"
-												style="width: 300px; height: 100px;">ex)박필, 채은비, 정경덕,
-												신재원, 김지황</div>
+												style="width: 300px; height: 100px;"></div>
 										</div>
 
 
@@ -328,9 +332,9 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">메모</label>
 											<div class="col-sm-9">
-												<textarea id="content" name="content"
+												<textarea id="descr2" name="descr"
 													style="height: 100px; width: 300px; padding: 0px; word-break: break-all; border-style: none;"
-													readonly>ex)내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</textarea>
+													readonly></textarea>
 											</div>
 										</div>
 
@@ -345,6 +349,33 @@
 									data-dismiss="modal">닫기</button>
 							</div>
 						</div>
+						<script>
+						function deleteC(){
+								console.log("일정에서 삭제 버튼");
+								scheduleNo = $("input[name='scheduleNo']").val();
+								loginNo = $("input[name='loginNo']").val();
+								
+								console.log(scheduleNo);
+								console.log(loginNo);
+								
+								/* $.ajax({
+									url:"deleteAddressBook.ad",
+									type:'post',
+									data:{empNo:empNo},
+									success:function(data){
+										window.location = "selectAdd.ad";
+										
+									},
+									error:function(data){
+										console.log("error");
+									},
+									
+								}); */
+								
+							
+						}
+						
+						</script>
 					</div>
 				</div>
 				<!-- <div id="testmodal2" style="padding: 5px 20px;">
@@ -368,9 +399,51 @@
 								</form>
 							</div> -->
 			</div>
-			<!-- /상세보기 페이지 -->
-			
-		</div>
+		<!-- <div id="CalenderModalEdit" class="modal fade" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel2">Edit Calender
+							Entry</h4>
+					</div>
+					<div class="modal-body">
+
+						<div id="testmodal2" style="padding: 5px 20px;">
+							<form id="antoform2" class="form-horizontal calender" role="form">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Title</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="title2"
+											name="title2">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Description</label>
+									<div class="col-sm-9">
+										<textarea class="form-control" style="height: 55px;"
+											id="descr2" name="descr"></textarea>
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default antoclose2"
+							data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary antosubmit2">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<!-- /상세보기 페이지 -->
+
+	</div>
 	</div>
 	</div>
 
@@ -382,10 +455,10 @@
 	<script src="${contextPath }/resources/js/moment/moment.min.js"></script>
 	<script src="${contextPath }/resources/js/calendar/fullcalendar.min.js"></script>
 	<!-- gauge js -->
-	<script type="text/javascript"
+	<%-- <script type="text/javascript"
 		src="${contextPath }/resources/js/gauge/gauge.min.js"></script>
 	<script type="text/javascript"
-		src="${contextPath }/resources/js/gauge/gauge_demo.js"></script>
+		src="${contextPath }/resources/js/gauge/gauge_demo.js"></script> --%>
 	<!-- chart js -->
 	<script src="${contextPath }/resources/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
@@ -423,38 +496,65 @@
 		src="${contextPath }/resources/js/flot/curvedLines.js"></script>
 	<script type="text/javascript"
 		src="${contextPath }/resources/js/flot/jquery.flot.resize.js"></script>
+		
+		
+		
 	<script>
 		$(window).load(function() {
+			var title = 'test';
+			
+			 $.ajax({
+				url:"calendarList.ca",
+				type:"post",
+				data:{title:title},
+				success:function(data){
+					var result = data.cList;
+					console.log("test1:"+title);
+					
+					$.each(result, function(i){
+			               var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
+			                $('#calendar').fullCalendar( 'renderEvent', event, true);
+			            });
 
-			var date = new Date();
+				},
+				error:function(data){
+					console.log("실패");
+				}
+			});
+			
+		});
+
+			/* var date = new Date();
 			var d = date.getDate();
 			var m = date.getMonth();
 			var y = date.getFullYear();
 			var started;
-			var categoryClass;
+			var categoryClass; */
 
 			var calendar = $('#calendar').fullCalendar({
-				
 				
 				header : {
 					left : 'prev,next today',
 					center : 'title',
 					right : 'month,agendaWeek,agendaDay'
 				},
-				
-				dayClick: function(date, allDay, jsEvent, view) {
+				 editable : true
+		           , eventLimit : true,
+		           
+		           
+				/* dayClick: function(date, allDay, jsEvent, view) {
 					   
 					   var yy=date.format("YYYY");
 					   var mm=date.format("MM");
 					   var dd=date.format("DD");
 					   var e=date.format("e");
 					   onchangeDay(yy,mm,dd,e);
-				},
+				}, */
 
-				
+				navLinks: true, // can click day/week names to navigate views
 				selectable : true,
 				selectHelper : true,
-				select : function(start, end, allDay) {
+				select : function(start, end) {
 					$('#fc_create').click();
 
 					started = start;
@@ -463,9 +563,17 @@
 					$(".antosubmit").on("click", function() {
 						console.log("추가 버튼 클릭");
 						
+						var sDateFormat = moment(start, 'YYYY-MM-DD');
+			            var eDateFormat = moment(end, 'YYYY-MM-DD');
+			              
+			            var sDate = sDateFormat.format('YYYY-MM-DD');
+			            var eDate = eDateFormat.format('YYYY-MM-DD');
+
+			            console.log(sDate);
+			            console.log(eDate);
+						
 						var title = $("#title").val();
 						var content = $("#content").val();
-						/* var nows = $("#nows").val(); */
 						
 						console.log(nows);
 						
@@ -473,23 +581,28 @@
 							url:"insertCalendar.ca",
 							type:'post',
 							data:{title:title,
-								  content:content},
+								  content:content,
+								  sDate:sDate,
+								  eDate:eDate},
 							success:function(data){
+								var list = data.list2;
+								console.log(list);
 								
 								if (end) {
 									ended = end
 								}
 								categoryClass = $("#event_type").val();
 
-								if (title) {
+								if (title, content) {
 									calendar.fullCalendar('renderEvent', {
 										title : title,
+										content : content,
 										start : started,
-										end : end,
-										allDay : allDay
+										end : end
 									}, true // make the event "stick"
 									);
 								}
+								
 								
 								console.log("success");
 							},
@@ -507,29 +620,37 @@
 
 						return false;
 					});
+					calendar.fullCalendar('unselect');
 				},
 				eventClick : function(calEvent, jsEvent, view) {
 					/* alert(calEvent.title, jsEvent, view); */
 
 					$('#fc_edit').click();
 					$('#title2').val(calEvent.title);
+					$('#descr2').val(calEvent.content);
+					
 					categoryClass = $("#event_type").val();
 					$(".antosubmit2").on("click", function() {
 						calEvent.title = $("#title2").val();
+						calEvent.content = $("#descr2").val();
 
 						calendar.fullCalendar('updateEvent', calEvent);
+						
 						$('.antoclose2').click();
 					});
 					calendar.fullCalendar('unselect');
 				},
 				editable : true,
-				events : [ {
+				eventLimit: true // allow "more" link when too many events
+				/* , */
+				/* events : [ {
 					title : title,
 					start : new Date(y, m, 1),
 				 	
-				},]
+				},] */
 			});
-		});
+			
+			
 	</script>
 </body>
 

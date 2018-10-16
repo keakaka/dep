@@ -7,14 +7,16 @@ public class Calendar {
 	private int empNo;
 	private String scheduleTitle;
 	private String scheduleContent;
-	private Date scheStartDate;
-	private Date scheEndDate;
+	private String scheStartDate;
+	private String scheEndDate;
 	private String scheType;
+	private String dayNum;
+	private String dayWeek;
 	
 	public Calendar() {}
 
-	public Calendar(int scheduleNo, int empNo, String scheduleTitle, String scheduleContent, Date scheStartDate,
-			Date scheEndDate, String scheType) {
+	public Calendar(int scheduleNo, int empNo, String scheduleTitle, String scheduleContent, String scheStartDate,
+			String scheEndDate, String scheType, String dayNum, String dayWeek) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.empNo = empNo;
@@ -23,6 +25,8 @@ public class Calendar {
 		this.scheStartDate = scheStartDate;
 		this.scheEndDate = scheEndDate;
 		this.scheType = scheType;
+		this.dayNum = dayNum;
+		this.dayWeek = dayWeek;
 	}
 
 	public int getScheduleNo() {
@@ -41,16 +45,24 @@ public class Calendar {
 		return scheduleContent;
 	}
 
-	public Date getScheStartDate() {
+	public String getScheStartDate() {
 		return scheStartDate;
 	}
 
-	public Date getScheEndDate() {
+	public String getScheEndDate() {
 		return scheEndDate;
 	}
 
 	public String getScheType() {
 		return scheType;
+	}
+
+	public String getDayNum() {
+		return dayNum;
+	}
+
+	public String getDayWeek() {
+		return dayWeek;
 	}
 
 	public void setScheduleNo(int scheduleNo) {
@@ -69,11 +81,11 @@ public class Calendar {
 		this.scheduleContent = scheduleContent;
 	}
 
-	public void setScheStartDate(Date scheStartDate) {
+	public void setScheStartDate(String scheStartDate) {
 		this.scheStartDate = scheStartDate;
 	}
 
-	public void setScheEndDate(Date scheEndDate) {
+	public void setScheEndDate(String scheEndDate) {
 		this.scheEndDate = scheEndDate;
 	}
 
@@ -81,12 +93,21 @@ public class Calendar {
 		this.scheType = scheType;
 	}
 
+	public void setDayNum(String dayNum) {
+		this.dayNum = dayNum;
+	}
+
+	public void setDayWeek(String dayWeek) {
+		this.dayWeek = dayWeek;
+	}
+
 	@Override
 	public String toString() {
 		return "Calendar [scheduleNo=" + scheduleNo + ", empNo=" + empNo + ", scheduleTitle=" + scheduleTitle
 				+ ", scheduleContent=" + scheduleContent + ", scheStartDate=" + scheStartDate + ", scheEndDate="
-				+ scheEndDate + ", scheType=" + scheType + "]";
+				+ scheEndDate + ", scheType=" + scheType + ", dayNum=" + dayNum + ", dayWeek=" + dayWeek + "]";
 	}
+	
 	
 }
 
