@@ -159,13 +159,14 @@
                           <tr>
                               <th>사원명</th>
                               <th>부서</th>
-                              <th>날짜</th>
-                              <th>출근시간</th>
-                              <th>퇴근시간</th>     
+                              <th>휴가사유</th>
+                              <th>휴가타입</th>
+                              <th>휴가시작일</th>
+                              <th>휴가종료일</th>     
                             </tr>
                           </thead>
 
-                          <tbody class="workingList">
+                          <tbody class="vacationList">
                     	  </tbody>
                   </table>
 
@@ -209,11 +210,11 @@
 	
 	<script>
 	$(function(){
-		$("#depList").change(function(){
+		$("#vacationList").change(function(){
 			var depName = $("#depList option:selected").val();
 			console.log(depName);
 			$.ajax({
-				url : "depMgtList.pm",
+				url : "vacationList.pm",
 				data : {depName : depName},
 				success : function(data){
 					var $tbody = $('.workingList');
