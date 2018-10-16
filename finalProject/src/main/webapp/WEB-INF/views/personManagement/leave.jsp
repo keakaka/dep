@@ -151,7 +151,7 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-                         <form data-parsley-validate class="form-horizontal form-label-left">
+                         <form data-parsley-validate class="form-horizontal form-label-left" action="insertLeave.me" method="post">
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
@@ -198,7 +198,7 @@
                         class="form-control col-md-7 col-xs-12">
                       		</td>
                       		  <td><button type="reset" class="btn btn-round btn-default">확인</button></td>
-                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
+                              <td><button type="submit" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            

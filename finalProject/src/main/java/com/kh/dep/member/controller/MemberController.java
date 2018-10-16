@@ -185,6 +185,15 @@ public class MemberController {
 
 		return "personManagement/memberInsert";
 	}
+	
+	
+	@RequestMapping("insertLeave.me")
+	public String insertLeaveMember(MemberSelect m){
+		
+		System.out.println("leave Member info :" + m);
+		
+		return "personManagement/leave";
+	}
 
 	@RequestMapping(value="myInfo.me")
 	public String selectMyInfoDetail(){
