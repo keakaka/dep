@@ -24,9 +24,11 @@
 		<typeAlias type="com.kh.dep.calendar.model.vo.Calendar" alias="Calendar"/>
 		<typeAlias type="com.kh.dep.depEmergency.model.vo.DepE" alias="DepE"/>
 		<typeAlias type="com.kh.dep.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.dep.personManagement.model.vo.Working" alias="Working"/>
 
 
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/addressBook-mapper.xml"/>
@@ -35,6 +37,7 @@
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/depE-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/working-mapper.xml"/>
 	</mappers>
 	
 	
