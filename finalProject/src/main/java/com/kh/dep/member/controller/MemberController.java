@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.service.AttachServiceImpl;
@@ -37,6 +38,7 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.member.model.vo.Position;
+import com.kh.dep.member.model.vo.SalaryExcel;
 import com.kh.dep.member.model.vo.Vacation;
 import com.kh.dep.member.model.vo.WorkingHours;
 
@@ -434,4 +436,26 @@ public class MemberController {
 
 		return "eb/myInfo";
 	}
+	
+	
+	@RequestMapping(value="excelUploadAjax")
+	public String excelUpload(Model model, MultipartHttpServletRequest req){
+		
+		System.out.println("급여 엑셀 업로드 컨트롤러!");
+		
+		List<SalaryExcel> list = new ArrayList<>();
+		
+		String excelType = req.getParameter("excelType");
+		if(excelType.equals("xlsx")){
+			//list = ms.xlsxExcelReader(req);
+		}else if(excelType.equals("xls")){
+			//list = ms.xlsExcelReader(req);
+		}
+		
+		model.addAttribute("list", list);
+		
+		return "eb/allEmployeeSalary";
+	}
+
+
 }
