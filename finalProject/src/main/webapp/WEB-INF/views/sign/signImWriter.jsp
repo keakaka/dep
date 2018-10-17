@@ -45,7 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>결재 할 문서 </h3>
+              <h3> 내가 올린 문서 </h3>
             </div>
 
             <div class="title_right">
@@ -60,7 +60,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>결재 할 문서</h2>
+                  <h2>내가 올린 문서</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -71,10 +71,26 @@
                         <th>제목</th>
                         <th>기안자</th>
                         <th>작성일자</th>
+                        <th>결재상태</th>
                         <th>문서 보기</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="d" items="${list}">
+                    	<tr>
+                    		<td>${d.docNo }</td>
+                    		<td>${d.docTitle }</td>
+                    		<td>${d.writer }</td>
+                    		<td>${d.writeDate }</td>
+                    		<c:if test="${d.appStatus > 0}">
+                    			<td>결재 진행중</td>
+                    		</c:if>
+                    		<c:if test="${d.appStatus < 1 }">
+                    			<td>결재 완료</td>
+                    		</c:if>
+                    		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
+                    	</tr>
+					</c:forEach> 
                       <!-- <tr>
                         <td>Tiger Nixon</td>
                         <td>System Architect</td>
