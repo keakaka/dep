@@ -67,6 +67,9 @@ public interface MemberDao {
 
 	ArrayList<MemberSelect> selectAllMember(SqlSessionTemplate sqlSession);
 
+	List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list);
+
+
 
 
 }

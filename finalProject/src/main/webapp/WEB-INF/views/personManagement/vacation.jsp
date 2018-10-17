@@ -69,7 +69,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 근태현항</h3>
+									<h3>결재 승인</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -85,7 +85,7 @@
 
 			<div class="clearfix">				
 				<div class="x_panel">
-                <div class="x_title">
+                <!-- <div class="x_title">
                   <h2><i class="fa fa-bars"></i> Tabs <small>Float left</small></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -102,34 +102,33 @@
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                   </ul>
-                  <div class="clearfix"></div>
-                </div>
+              <div class="clearfix"></div>
+                </div> -->
                 <div class="x_content">
 
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">진급</a>
+                      <li role="presentation" class="active"><a href="promotion.pm" id="home-tab" role="tab" aria-expanded="false">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">퇴사</a>
+                      <li role="presentation" class=""><a href="#leave.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">휴가</a>
+                      <li role="presentation" class=""><a href="leave.pm" role="tab" id="profile-tab"  aria-expanded="false">퇴사</a>
+                      </li>                      
+                      <li role="presentation" class=""><a href="moveDept.pm" role="tab" id="profile-tab3" aria-expanded="false">부서이동</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">부서이동</a>
-                      </li>
-                       <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false">근태관리</a>
-                      </li>
+                      
                       
                     </ul>
                     <div id="myTabContent" class="tab-content">
                     
               		<!--진급 -->
-                      <div role="tabpanel" class="tab-pane fade active in" id="tab_content3 aria-labelledby="home-tab">
+                      <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                           <div class="col-md-18 col-sm-18 col-xs-18">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>promotion <small>Users</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
+                  <h2>진급</h2>
+                  <!-- <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li class="dropdown">
@@ -143,7 +142,7 @@
                     </li>
                     <li><a href="#"><i class="fa fa-close"></i></a>
                     </li>
-                  </ul>
+                  </ul> -->
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -152,34 +151,50 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-
+                         <form data-parsley-validate class="form-horizontal form-label-left">
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
                               <th>사원명</th>
-                              <th>직책</th>
                               <th>부서</th>
+                              <th>직책</th>
                               <th>휴가시작일</th>
                               <th>휴가종료일</th>
-                              <th>입력</th>
-                            
+                              <th>승인</th>
+                              
                             </tr>
                           </thead>
 
 
                           <tbody>
                             <tr>
-                              <td>Brielle Williamson</td>
-                              <td>Integration Specialist</td>
-                              <td>New York</td>
-                              <td>2012/12/01</td>
-                              <td>2012/12/02</td>
-                              <th><button type="button" class="btn btn-round btn-default">입력</button></th>
+                              <td>
+                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 사원명"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>
+                      		   <td>
+                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 부서"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>
+                      		   <td>
+                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 직책"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>
+                      		   <td>
+                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 휴가시작일"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>
+                      		   <td>
+                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 휴가종료일"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>
+                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            
                           </tbody>
                         </table>
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -187,19 +202,6 @@
 
                 </div>
                       </div> 
-                      
-                      <!-- 퇴사 -->
-       <!--       <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">         				
-	        -->
-                      </div>
-               <!--        휴가 
-                      <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                       
-                      </div>
-                      부서이동 
-                      <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-                    
-                      </div> -->
                     </div>
                   </div>
 							
@@ -210,8 +212,6 @@
 						
 						</div>
 					</div>
-
-				</div>
 				<br />
 				<!-- footer content -->
 

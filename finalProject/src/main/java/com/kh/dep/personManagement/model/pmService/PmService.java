@@ -2,8 +2,8 @@ package com.kh.dep.personManagement.model.pmService;
 
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Service;
-
+import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
 
@@ -11,7 +11,15 @@ public interface PmService {
 
 	ArrayList<Working> depMgtList(String depName);
 
-	ArrayList<Working> depMgtdayList(String day);
+	ArrayList<Working> depMgtdayList(String day ,String depName , String year);
+
+	ArrayList<VacationLi> vacationDayList(String day);
+	
+	ArrayList<VacationLi> vacationDepList(String depName);
+
+	ArrayList<PromotionLi> selectPromotionList(String depName);
+
+	ArrayList<PromotionLi> selectPromotiondayList(String day,String depName ,String year);
 	
 	
 	
