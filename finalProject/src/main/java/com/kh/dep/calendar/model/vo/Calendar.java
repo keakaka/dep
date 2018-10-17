@@ -1,7 +1,7 @@
 package com.kh.dep.calendar.model.vo;
 
 import java.sql.Date;
-
+ 
 public class Calendar {
 	private int scheduleNo;
 	private int empNo;
