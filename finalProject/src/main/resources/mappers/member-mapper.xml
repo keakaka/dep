@@ -102,6 +102,15 @@
 		<result property="attendTime" column="ATTENDTIME" />
 		<result property="leaveTime" column="LEAVETIME" />
 	</resultMap>
+	
+	<resultMap type="SalaryExcel" id="salaryRecordResultSet">
+		<result property="empName" column="EMP_NAME" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="jobName" column="JOB_NAME" />
+		<result property="basePay" column="BASE_PAY "/>
+		<result property="regularBonus" column="REGULAR_BONUS" />
+		<result property="incomeDate" column="INCOME_DATE" />
+	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
 	<select id="selectPwd" resultType="java.lang.String"
@@ -322,6 +331,29 @@
 		SET MODI_FILENAME='${list.get(1)}', ORI_FILENAME='${list.get(2)}', UPLOAD_DATE=SYSDATE
 		WHERE EMP_NO=${list.get(0)}
 	</update>
+	
+	<!-- <insert id="insertSalaryExcel" parameterType="SalaryExcel">
+		INSERT INTO SALARY(EMP_NO, BASE_PAY, REGULAR_BONUS, INCOME_DATE)
+		<foreach collection="list" item="item" separator=",">
+		VALUES	(#{item.empName},#{item.basePay},#{item.regularBonus},#{item.incomeDate})
+		</foreach>
+	</insert> -->
+	
+	<insert id="insertSalaryExcel" parameterType="SalaryExcel">
+		INSERT INTO SALARY(SALARY_NO, EMP_NO, BASE_PAY, REGULAR_BONUS, INCOME_DATE)
+		VALUES (SALARY_NO.NEXTVAL, (SELECT EMP_NO FROM EMPLOYEE WHERE EMP_NAME LIKE #{empName} ),#{basePay},#{regularBonus},#{incomeDate})
+	</insert>
+	
+	<select id="selectSalaryList" resultMap="salaryRecordResultSet">
+		SELECT D.DEP_NAME, J.JOB_NAME, E.EMP_NAME, S.BASE_PAY, S.INCOME_DATE, S.REGULAR_BONUS
+		FROM SALARY S
+		JOIN EMPLOYEE E ON(E.EMP_NO=S.EMP_NO)
+		JOIN JOB_RECORD JR ON(JR.EMP_NO=S.EMP_NO)
+		JOIN JOB J ON(J.JOB_CODE=JR.JOB_CODE)
+		JOIN DEPT_RECORD DR ON(DR.EMP_NO=S.EMP_NO)
+		JOIN DEPARTMENT D ON(D.DEP_ID=DR.DEP_ID)
+		WHERE D.STATUS = 'Y'
+	</select>
 </mapper>
 
 
