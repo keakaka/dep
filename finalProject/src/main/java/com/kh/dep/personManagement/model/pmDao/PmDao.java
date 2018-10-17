@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -21,5 +22,9 @@ public interface PmDao {
 	ArrayList<PromotionLi> selectPromotionList(SqlSessionTemplate sqlSession, String depName);
 
 	ArrayList<PromotionLi> selectPromotiondayList(SqlSessionTemplate sqlSession, String day , String depName , String year);
+
+	ArrayList<DepLeave> selectDepLeaveList(SqlSessionTemplate sqlSession, String depName);
+
+	ArrayList<DepLeave> selectDepLeavedayList(SqlSessionTemplate sqlSession, String depName, String day, String year);
 
 }

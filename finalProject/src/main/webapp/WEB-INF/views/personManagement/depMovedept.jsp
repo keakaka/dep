@@ -61,7 +61,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 퇴사자 현황</h3>
+									<h3>부서별 부서이동 현황</h3>
 								</div>
 								<div class="col-md-6">
 								
@@ -153,8 +153,8 @@
                               <th>사원번호</th>
                               <th>사원명</th>
                               <th>직급</th>
-                              <th>입사일</th>
-                              <th>퇴사일</th>     
+                              <th>사유</th>
+                              <th>발령일</th>     
                             </tr>
                           </thead>
 

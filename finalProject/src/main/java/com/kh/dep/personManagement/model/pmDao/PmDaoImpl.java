@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -80,6 +81,29 @@ public class PmDaoImpl implements PmDao {
 		System.out.println("부서별 돌아온 리스트값" + list);
 		
 		return list;
+	}
+
+	// 부서별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeaveList(SqlSessionTemplate sqlSession, String depName) {
+		
+		
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepLeaveList", depName);
+	}
+
+	// 부서별 월별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeavedayList(SqlSessionTemplate sqlSession, String depName, String day,
+			String year) {
+		
+		DepLeave dl = new DepLeave();
+		
+		dl.setDepName(depName);
+		dl.setDay(day);
+		dl.setYear(year);
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepLeavedayList" , dl);
 	}
 
 	

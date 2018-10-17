@@ -30,6 +30,7 @@
 		<typeAlias type="com.kh.dep.member.model.vo.SalaryExcel" alias="SalaryExcel"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.VacationLi" alias="VacationLi"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.PromotionLi" alias="PromotionLi"/>
+		<typeAlias type="com.kh.dep.personManagement.model.vo.DepLeave" alias="DepLeave"/>
 	</typeAliases>
 	
 	<mappers>

@@ -13,6 +13,7 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.personManagement.model.pmService.PmService;
+import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -181,10 +182,39 @@ public class PersonController {
 	public String movedepleave(){
 		
 		
-		return "personManagement/depleave";
+		return "personManagement/depLeave";
 	}
 	
 	
+	@RequestMapping("depleaveList.pm")
+	public @ResponseBody ArrayList<DepLeave> selectDepLeaveList(@RequestParam String depName){
+		
+		
+		ArrayList<DepLeave> dlist = ps.selectDepLeaveList(depName);
+		
+		System.out.println(dlist);
+		//hmap.put("list", list);
+		
+		return dlist;
+	}
+	
+	@RequestMapping("depleavedayList.pm")
+	public @ResponseBody ArrayList<DepLeave> depLeavedayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
+		
+		
+		ArrayList<DepLeave> list = ps.selectDepLeavedayList(day ,depName , year);
+		
+		System.out.println(list);
+		//hmap.put("list", list);
+		
+		return list;
+	}
+	
+	@RequestMapping("depmoveDeptRecord.pm")
+	public String movedepmoveDeptRecord(){
+		
+		return "personManagement/depMovedept";
+	}
 	
 
 }
