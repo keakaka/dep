@@ -45,12 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>
-                    	수신함
-                    <small>
-                        	수신참조된 문서 보기
-                    </small>
-                </h3>
+              <h3> 수신 참조된 문서 </h3>
             </div>
 
             <div class="title_right">
@@ -65,48 +60,36 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>수신함</h2>
+                  <h2>수신받은 문서</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                   <table id="datatable" class="table table-striped table-bordered">
-                    <thead>
+                   <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>문서번호</th>
+                        <th>제목</th>
+                        <th>기안자</th>
+                        <th>작성일자</th>
+                        <th>문서 보기</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <!-- <tr>
                         <td>Tiger Nixon</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
                         <td>61</td>
                         <td>2011/04/25</td>
-                        <td>$320,800</td>
-                      </tr>
+                      </tr> -->
                       
-                      <tr>
-                        <td>Caesar Vance</td>
-                        <td>Pre-Sales Support</td>
-                        <td>New York</td>
-                        <td>21</td>
-                        <td>2011/12/12</td>
-                        <td>$106,450</td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
+            </div>
             
-            </div>
-            </div>
-            </div>
             
 				<!-- footer content -->
 
@@ -122,7 +105,10 @@
 			<!-- /page content -->
 
 		</div>
-
+ 			</div>
+ 			</div>
+            </div>
+           
 	</div>
 
 	<div id="custom_notifications" class="custom-notifications dsp_none">

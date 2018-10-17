@@ -19,7 +19,9 @@ import com.kh.dep.common.CommonUtils;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.sign.model.exception.InsertSignException;
+import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.service.SignService;
+import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
 
@@ -41,7 +43,8 @@ public class SignController {
 	}
 	
 	@RequestMapping(value="insertSign.sg")
-	public String insertSign(InsertSign is, HttpServletRequest request, String signTitle, String signContent, @RequestParam("appList") int[] appList, int[] recList, MultipartFile signFile, int empNo){
+	public String insertSign(Model model, InsertSign is, HttpServletRequest request, String signTitle, 
+			String signContent, @RequestParam("appList") int[] appList, int[] recList, MultipartFile signFile, int empNo){
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadSignFiles";
@@ -58,26 +61,15 @@ public class SignController {
 			is.setSignTitle(signTitle);
 			is.setSignContent(signContent);
 			is.setWriter(empNo);
-			
-			int result = ss.insertSign(is);
-			
+			is.setAppList(appList);
+			is.setRecList(recList);
+			ss.insertSign(is);
+			return "sign/signWright";
 		} catch (Exception e) {
 			new File(filePath + "\\" + changeName + ext).delete();
-			String message = e.getMessage();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
 		}
-		
-		System.out.println("signcontent=" + signContent);
-		for(int i = 0; i < appList.length; i++){
-			System.out.println("appList = " + appList[i]);
-		}
-		for(int i = 0; i < recList.length; i++){
-			System.out.println("recList = " + recList[i]);
-		}
-		System.out.println("파일 : " + signFile);
-		
-		
-		
-		return "sign/signWright";
 	}
 	
 	
@@ -89,5 +81,39 @@ public class SignController {
 		System.out.println("리스트 : " + list);
 		hmap.put("list", list);
 		return list;
+	}
+	
+	@RequestMapping(value="signImWriter.sg")
+	public String signImWriter(Model model, int empNo){
+		Document d = new Document();
+		d.setEmpNo(empNo);
+		try {
+			ArrayList<Document> list = ss.selectImWriter(d);
+			model.addAttribute("list", list);
+			return "sign/signImWriter";
+			
+		} catch (SelectDocException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="signApprovalList.sg")
+	public String signApprovalList(Model model, int empNo){
+		try {
+			ArrayList<Document> list = ss.selectApprovalList(empNo);
+			
+			model.addAttribute(list);
+			return "sign/signApprovalList";
+		} catch (SelectDocException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="signReceive.sg")
+	public String signReceive(Model model, int empNo){
+		
+		return "sign/signReceive";
 	}
 }

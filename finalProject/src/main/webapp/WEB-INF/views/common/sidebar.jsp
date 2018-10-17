@@ -63,9 +63,10 @@
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="signWright.sg">기안하기</a></li>
-                     <li><a href="signApprovalList.sg">결재함</a></li>
-                     <li><a href="signReceive.sg">수신함</a></li>
+                     <li><a href="signWright.sg">문서작성</a></li>
+                     <li><a href="signImWriter.sg?empNo=${loginUser.empNo }">내가 올린 문서</a></li>
+                     <li><a href="signApprovalList.sg?empNo=${loginUser.empNo }">결재할 문서</a></li>
+                     <li><a href="signReceive.sg?empNo=${loginUser.empNo }">수신받은 문서</a></li>
                   </ul>
                </li>
                
