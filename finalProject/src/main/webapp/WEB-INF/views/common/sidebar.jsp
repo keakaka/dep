@@ -39,11 +39,7 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
                      <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
-                     <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
-                     <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
-                     <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-					 <li><a href="${ contextPath }/qrInsert.ms"></a>><li>
+                     <li><a href="${ contextPath }/qrInsert.ms">QR출석</a><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -53,10 +49,10 @@
                   <a><i class="fa fa-envelope"></i> 전자메일 <span
                      class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="empty.html">편지 쓰기</a></li>
-                     <li><a href="empty.html">받은 메일함</a></li>
-                     <li><a href="empty.html">보낸 메일함</a></li>
-                     <li><a href="empty.html">휴지통</a></li>
+                  <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
+                  <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
+                  <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
+                     
                   </ul>
                </li>
                

@@ -16,10 +16,25 @@ public class Working implements java.io.Serializable{
 	private String today;
 	private String tTime;
 	private String leaveTime;
+	private String day;
+	private String year;
+	
+	
 	public Working()
 	{
 		
 	}
+	
+
+	public Working(String empName, String day, String year) {
+		super();
+		this.empName = empName;
+		this.day = day;
+		this.year = year;
+	}
+	
+	
+
 	public Working(int empNo, String empName, String depId, String depName,  String today, String tTime,
 			String leaveTime) {
 		super();
@@ -32,6 +47,27 @@ public class Working implements java.io.Serializable{
 		this.leaveTime = leaveTime;
 	}
 	
+	
+	public String getDay() {
+		return day;
+	}
+
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+
+	public String getYear() {
+		return year;
+	}
+
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+
 	public int getEmpNo() {
 		return empNo;
 	}
@@ -76,11 +112,16 @@ public class Working implements java.io.Serializable{
 		this.leaveTime = leaveTime;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Working [empNo=" + empNo + ", empName=" + empName + ", depId=" + depId + ", depName=" + depName
-				+ ", today=" + today + ", tTime=" + tTime + ", leaveTime=" + leaveTime + "]";
+				+ ", today=" + today + ", tTime=" + tTime + ", leaveTime=" + leaveTime + ", day=" + day + ", year="
+				+ year + "]";
 	}
+
+	
+	
 	
 	
 
