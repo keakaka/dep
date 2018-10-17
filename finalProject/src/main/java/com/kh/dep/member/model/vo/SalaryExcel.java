@@ -5,13 +5,13 @@ public class SalaryExcel {
 	private String jobName;
 	private String empName;
 	private String incomeDate;
-	private String basePay;
-	private String regularBonus;
+	private int basePay;
+	private int regularBonus;
 	
 	public SalaryExcel(){}
 
-	public SalaryExcel(String depName, String jobName, String empName, String incomeDate, String basePay,
-			String regularBonus) {
+	public SalaryExcel(String depName, String jobName, String empName, String incomeDate, int basePay,
+			int regularBonus) {
 		super();
 		this.depName = depName;
 		this.jobName = jobName;
@@ -53,19 +53,19 @@ public class SalaryExcel {
 		this.incomeDate = incomeDate;
 	}
 
-	public String getBasePay() {
+	public int getBasePay() {
 		return basePay;
 	}
 
-	public void setBasePay(String basePay) {
+	public void setBasePay(int basePay) {
 		this.basePay = basePay;
 	}
 
-	public String getRegularBonus() {
+	public int getRegularBonus() {
 		return regularBonus;
 	}
 
-	public void setRegularBonus(String regularBonus) {
+	public void setRegularBonus(int regularBonus) {
 		this.regularBonus = regularBonus;
 	}
 
@@ -75,5 +75,6 @@ public class SalaryExcel {
 				+ incomeDate + ", basePay=" + basePay + ", regularBonus=" + regularBonus + "]";
 	}
 
+	
 	
 }

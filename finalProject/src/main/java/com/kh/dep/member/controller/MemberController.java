@@ -30,6 +30,7 @@ import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.service.AttachServiceImpl;
 import com.kh.dep.attachment.model.vo.Attachment;
 import com.kh.dep.common.CommonUtils;
+import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Department;
@@ -64,7 +65,7 @@ public class MemberController {
 
 			model.addAttribute("loginUser", loginUser);
 
-			return "member/sample";
+			return "member/sample";			
 
 		} catch (LoginException e) {
 
@@ -185,16 +186,39 @@ public class MemberController {
 
 		}
 
-		return "personManagement/memberInsert";
+		return "redirect:/moveMemberInsert.me";
 	}
 	
 	
 	@RequestMapping("insertLeave.me")
 	public String insertLeaveMember(MemberSelect m){
 		
-		System.out.println("leave Member info :" + m);
 		
-		return "personManagement/leave";
+		try {
+			int result = ms.insertLeaveMember(m);
+		} catch (InsertRecordException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
+		
+		return "redirect:/leave.pm";
+	}
+	
+	@RequestMapping("insertmoveDept.me")
+	public String insertMoveDept(MemberSelect m){
+		
+		
+		try {
+			int result = ms.insertMoveDept(m);
+		} catch (InsertRecordException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		
+		
+		return "redirect:/moveDept.pm";
 	}
 
 	@RequestMapping(value="myInfo.me")
@@ -447,8 +471,8 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="excelUploadAjax")
-	public String excelUpload(Model model, MultipartHttpServletRequest req){
+	@RequestMapping(value="excelUploadAjax.me")
+	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
 		
 		System.out.println("급여 엑셀 업로드 컨트롤러!");
 		
@@ -456,14 +480,30 @@ public class MemberController {
 		
 		String excelType = req.getParameter("excelType");
 		if(excelType.equals("xlsx")){
-			//list = ms.xlsxExcelReader(req);
+			list = ms.xlsxExcelReader(req);
 		}else if(excelType.equals("xls")){
-			//list = ms.xlsExcelReader(req);
+			list = ms.xlsExcelReader(req);
+		}
+		System.out.println("급여 조회 : " + list);
+		
+		try {
+			response.setCharacterEncoding("UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			out.println(list);
+			
+			out.flush();
+			out.close();
+			
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("data", list);
+			String json = jsonObj.toString();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		model.addAttribute("list", list);
-		
-		return "eb/allEmployeeSalary";
 	}
 
 

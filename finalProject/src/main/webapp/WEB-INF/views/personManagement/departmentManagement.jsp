@@ -89,34 +89,27 @@
                         <option>회계부</option>
                     
 				  </select>
+				  <select id="year">
+				  <option>년</option>
+				   <c:forEach var="y"  begin="1950" end="2080" step="1">
+				   <option>${y}</option>
+				  </c:forEach>
+				  </select>
 				  
 				  <select id="day">
-				  <option>날짜</option>
-                  	
-                        <option>01</option>
-                   
-                        <option>02</option>
-                   
-                        <option>03</option>
-                   
-                        <option>04</option>
-                   
-                        <option>05</option>
-                   
-                        <option>06</option>
-                   
-                        <option>07</option>
-                   
-                        <option>08</option>
-                    
-                         <option>09</option>
-                   
-                        <option>10</option>
-                   
-                        <option>11</option>
-                   
-                        <option>12</option>
-                     
+				  <option>월</option>
+                  	<option>01</option>
+                  	<option>02</option>
+                  	<option>03</option>
+                  	<option>04</option>
+                  	<option>05</option>
+                  	<option>06</option>
+                  	<option>07</option>
+                  	<option>08</option>
+                  	<option>09</option>
+                  	<option>10</option>
+                  	<option>11</option>
+                  	<option>12</option> 	
 				  </select>
                 
                   <div id="test1"></small></div>
@@ -247,10 +240,18 @@
 	$(function(){
 		$("#day").change(function(){
 			var day = $("#day option:selected").val();
+			var depName = $("#depList option:selected").val();
+			var year = $("#year option:selected").val();
+						
+			console.log(depName);
+			console.log(year);
 			console.log(day);
 			$.ajax({
 				url : "depMgtdayList.pm",
-				data : {day : day},
+				data : {day : day ,
+						year : year,
+						depName : depName},
+				
 				success : function(data){
 					var $tbody = $('.workingList');
 					$tbody.html("");

@@ -152,14 +152,15 @@
 
 
 															<tbody>
+																<%-- <c:forEach var="salaryList" items="${list}">
 																<tr>
-																	<td>영업부</td>
-																	<td>대리</td>
-																	<td>폴킴</td>
+																	<td>${salaryList.depName }</td>
+																	<td>${salaryList.jobName }</td>
+																	<td>${salaryList.empName }</td>
 																	<td><input type="button" value="불러오기"/></td>
-																	<td>날짜</td>
-																	<td>Tiger Nixon</td>
-																	<td>System Architect</td>
+																	<td>${salaryList.incomeDate }</td>
+																	<td>${salaryList.basePay }</td>
+																	<td>${salaryList.regularBonus }</td>
 																	<td>Edinburgh</td>
 																	<td>61</td>
 																	<td>2011/04/25</td>
@@ -170,6 +171,7 @@
 																	<td>ㄴㅇㄹㄴㅇ</td>
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
 																</tr>
+																</c:forEach>
 																<tr>
 																	<td>영업부</td>
 																	<td>대리</td>
@@ -241,7 +243,7 @@
 																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
 																	<td>ㄴㅇㄹㄴㅇ</td>
 																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
+																</tr> --%>
 
 															</tbody>
 														</table>
@@ -250,7 +252,7 @@
 
 												<form id="excelUploadForm" name="excelUploadForm"
 													enctype="multipart/form-data" method="post"
-													action="" >
+													action="" role="form">
 
 													<div class="contents">
 														<div>첨부파일은 한개만 등록 가능합니다.</div>
@@ -258,14 +260,15 @@
 														<dl class="vm_name">
 															<dt class="down w90">첨부 파일</dt>
 															<dd>
-																<input type="file" id="excelFile" name="excelFile" />
+																<input type="file" id="excelFile" name="excelFile" 
+																multiple data-show-upload="false" data-show-caption="true"/>
 															</dd>
 														</dl>
 													</div>
 
 													<div class="bottom">
 														<button type="button" id="excelImportBtn" class="btn"
-															onclick="check()">
+															onclick="excelCheck();">
 															<span>추가</span>
 														</button>
 														<!-- <input type="submit" value="업로드"/> -->
@@ -285,7 +288,7 @@
 									 
 									            }
 
-												function check() {
+												function excelCheck() {
 									                var file = $("#excelFile").val();
 									                if (file == "" || file == null) {
 									                    alert("파일을 선택해주세요.");
@@ -299,16 +302,20 @@
 									                var fileType = fileFormat[1];
 									 
 									                if(confirm("업로드 하시겠습니까?")) {
-									                	$("#excelUploadForm").attr("action","excelUploadAjax");
+									                	
+									                	$("#excelUploadForm").attr("action","excelUploadAjax.me");
 									                    var options = {
 									                        success : function(data) {
 									                            alert("업로드가 완료되었습니다.");
+									                            console.log(data);
+									                            console.log(typeof(data));
 									                        },
 									                        type : "POST",
-									                        data : {"excelType" : fileType}
+									                        data : {"excelType" : fileType},
 									                    };
 									                    $("form").ajaxSubmit(options);
-									    
+									                    
+									     
 									                }
 									            }
 												</script>
