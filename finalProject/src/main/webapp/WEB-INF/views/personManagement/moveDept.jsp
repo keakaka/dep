@@ -151,14 +151,14 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-                         <form data-parsley-validate class="form-horizontal form-label-left">
+                         <form data-parsley-validate class="form-horizontal form-label-left" action="insertmoveDept.me" method="post">
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
                               <th>사원번호</th>
                               <th>사원명</th>
-                              <th>발령 부서</th>
                               <th>직급</th>
+                              <th>발령 부서</th>
                               <th>사유</th>
                               <th>사원 확인</th>
                               <th>승인</th>
@@ -170,35 +170,44 @@
                           <tbody>
                             <tr>
                               <td>
-                        <input type="number" id="empNo" name="empNo" required="required" placeholder="ex> 1001"
-                        class="form-control col-md-7 col-xs-12">
+                       <select class="form-control" name="empNo" required="required">                         
+                          <option>-사원 번호를 선택하세요-</option>
+                          <c:forEach var='m' items="${mlist }">
+                          <option value="${m.empNo }">${m.empNo }</option>
+                          </c:forEach>
+                        </select>
                       		</td>
                       		   <td>
-                        <input type="text" id="empName" name="empName" required="required" placeholder="ex> 김아무개"
-                        class="form-control col-md-7 col-xs-12">
+                       <select class="form-control" name="empName" required="required">
+                          <option>-사원명을 선택하세요-</option>
+                          <c:forEach var='m' items="${mlist }">
+                          <option value="${m.empName }">${m.empName }</option>
+                          </c:forEach>
+                        </select>
                       		</td>
                       		   <td>
-                        <select class="form-control" name="depId" required="required">
-                          <option>부서를 선택하세요</option>
+                      		   <select class="form-control" name="jobCode" required="required">
+                          <option>-직급을 선택하세요-</option>
+                          <c:forEach var='j' items="${joblist }">
+                          <option value="${j.jobCode }">${j.jobName }</option>
+                          </c:forEach>
+                        </select>
+                        
+                      		</td>
+                      		   <td>
+                        	<select class="form-control" name="depId" required="required">
+                          <option>-부서를 선택하세요-</option>
                           <c:forEach var='d' items="${deplist }">
                           <option value="${d.depId }">${d.depName }</option>
                           </c:forEach>
                         </select>
                       		</td>
                       		   <td>
-                        <select class="form-control" name="jobCode" required="required">
-                          <option>직급을 선택하세요</option>
-                          <c:forEach var='j' items="${joblist }">
-                          <option value="${j.jobCode }">${j.jobName }</option>
-                          </c:forEach>
-                        </select>
-                      		</td>
-                      		   <td>
-                        <input type="text" id="reason" name="reason" required="required" placeholder="ex> 권고사직"
+                        <input type="text" id="depReason" name="depReason" required="required" placeholder="ex> 발령"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
                       		  <td><button type="reset" class="btn btn-round btn-default">확인</button></td>
-                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
+                              <td><button type="submit" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            

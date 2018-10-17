@@ -61,6 +61,12 @@ public interface MemberDao {
 
 	List<SalaryExcel> xlsExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list);
 
+	int insertLeaveMember(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	int insertMoveDept(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	ArrayList<MemberSelect> selectAllMember(SqlSessionTemplate sqlSession);
+
 
 
 }

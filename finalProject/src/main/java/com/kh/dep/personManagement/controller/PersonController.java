@@ -18,6 +18,7 @@ import com.kh.dep.personManagement.model.vo.Working;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
+import com.kh.dep.member.model.vo.MemberSelect;
 
 @Controller
 public class PersonController {
@@ -98,6 +99,7 @@ public class PersonController {
 		return "personManagement/promotion";
 	}
 	
+	
 
 	
 	@RequestMapping("leave.pm")
@@ -107,9 +109,11 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
 		
 		
 		
@@ -125,10 +129,11 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
-		
+		model.addAttribute("mlist", mlist);
 		
 		
 		
@@ -136,6 +141,12 @@ public class PersonController {
 	}
 	
 	
+	@RequestMapping("depleave.pm")
+	public String movedepleave(){
+		
+		
+		return "personManagement/depleave";
+	}
 	
 	
 

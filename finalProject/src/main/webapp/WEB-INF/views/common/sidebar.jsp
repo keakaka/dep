@@ -93,10 +93,10 @@
                      <li><a href="moveMemberInsert.me">사원 추가</a></li>
                      <li><a href="depMgt.pm">부서근태현황</a></li>                                                  
                      <li><a href="promotion.pm">문서승인</a></li>
-                     <li><a href="depVacation.pm">부서별 휴가자조회</a></li>
-                     <li><a href="depPromotion.pm">부서별 진급자조회</a></li>               
-                     <li><a href="promotion.pm">결재승인</a></li>               
-
+                     <li><a href="depVacation.pm">부서별 휴가자 조회</a></li>
+                     <li><a href="depPromotion.pm">부서별 진급자 조회</a></li>
+                     <li><a href="depleave.pm">부서별 퇴사자 조회</a></li>
+                     <li><a href="#depmoveDeptRecord.pm">부서별 부서이동이력 조회</a></li>
                   </ul>             
                </li>
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>

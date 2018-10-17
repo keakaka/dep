@@ -29,13 +29,18 @@ public class MemberSelect implements java.io.Serializable {
 	private String positionNo;
 	private String modiFileName;
 	private String empType;
+	private String depReason;
 	
 	public MemberSelect(){}
+
+	
+
+	
 
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
 			String positionName, String birthDate, String email, String phone, String emergencyPhone, String address,
 			int salary, Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
-			String positionNo, String modiFileName, String empType) {
+			String positionNo, String modiFileName, String empType, String depReason) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -59,7 +64,13 @@ public class MemberSelect implements java.io.Serializable {
 		this.positionNo = positionNo;
 		this.modiFileName = modiFileName;
 		this.empType = empType;
+		this.depReason = depReason;
 	}
+
+
+	
+	
+
 
 	@Override
 	public String toString() {
@@ -68,8 +79,29 @@ public class MemberSelect implements java.io.Serializable {
 				+ birthDate + ", email=" + email + ", phone=" + phone + ", emergencyPhone=" + emergencyPhone
 				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
 				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
-				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType + "]";
+				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType
+				+ ", depReason=" + depReason + "]";
 	}
+
+
+
+
+
+	public String getDepReason() {
+		return depReason;
+	}
+
+
+
+
+
+	public void setDepReason(String depReason) {
+		this.depReason = depReason;
+	}
+
+
+
+
 
 	public int getEmpNo() {
 		return empNo;

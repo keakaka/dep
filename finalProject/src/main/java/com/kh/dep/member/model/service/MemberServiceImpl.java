@@ -304,4 +304,47 @@ public class MemberServiceImpl implements MemberService{
 		//return md.updateMyImage(sqlSession, empNo, newFileName, originFileName);
 	}
 
+	// 퇴사자승인처리
+	@Override
+	public int insertLeaveMember(MemberSelect m) throws InsertRecordException {
+		
+		int result = md.insertLeaveMember(sqlSession, m);
+		
+		if(result > 0){
+			return result;
+		}else{
+			throw new InsertRecordException("퇴사승인 실패");
+		}
+		
+		
+		
+	}
+
+	// 부서이동 승인 처리
+	@Override
+	public int insertMoveDept(MemberSelect m) throws InsertRecordException {
+		
+		int result = md.insertMoveDept(sqlSession, m);
+		
+		if(result > 0){
+			return result;
+		}else{
+			throw new InsertRecordException("부서이동 승인 실패");
+		}
+		
+		
+	
+	}
+
+	//모든 사원 조회
+	@Override
+	public ArrayList<MemberSelect> selectAllMember() {
+		
+		ArrayList<MemberSelect> mlist = null;
+		
+		mlist = md.selectAllMember(sqlSession);
+		
+		return mlist;
+	}
+
 }
