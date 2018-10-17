@@ -61,7 +61,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 근태현황</h3>
+									<h3>부서별 휴가</h3>
 								</div>
 								<div class="col-md-6">
 								
@@ -94,27 +94,16 @@
 				  <option>날짜</option>
                   	
                         <option>01</option>
-                   
                         <option>02</option>
-                   
                         <option>03</option>
-                   
                         <option>04</option>
-                   
                         <option>05</option>
-                   
                         <option>06</option>
-                   
                         <option>07</option>
-                   
                         <option>08</option>
-                    
-                         <option>09</option>
-                   
+                        <option>09</option>
                         <option>10</option>
-                   
                         <option>11</option>
-                   
                         <option>12</option>
                      
 				  </select>
@@ -210,7 +199,7 @@
 	
 	<script>
 	$(function(){
-		$("#vacationList").change(function(){
+		$("#depList").change(function(){
 			var depName = $("#depList option:selected").val();
 			console.log(depName);
 			$.ajax({
@@ -235,7 +224,8 @@
 						$tr.append($tTime);
 						$tr.append($leaveTime);
 						$tbody.append($tr);
-					});	
+					});
+					
 					},
 					error : function(){
 					
@@ -248,10 +238,14 @@
 	$(function(){
 		$("#day").change(function(){
 			var day = $("#day option:selected").val();
+			var depName $("#depList option:selected").val();
 			console.log(day);
+			console.log(depName);
 			$.ajax({
-				url : "depMgtdayList.pm",
-				data : {day : day},
+				url : "vacationDayList.pm",
+				data : {day : day,
+						depName : depName},
+				}
 				success : function(data){
 					var $tbody = $('.workingList');
 					$tbody.html("");
