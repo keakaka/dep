@@ -23,7 +23,7 @@ import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.calendar.model.vo.DayWeek;
 import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberSelect;
-
+  
 @Controller
 @SessionAttributes("loginUser")
 public class CalendarController {
@@ -134,11 +134,14 @@ public class CalendarController {
 		c.setScheStartDate(sDate);
 		c.setScheEndDate(eDate);
 		
-		System.out.println("CalendarController c : " + c);
+		System.out.println("CalendarController Insert c : " + c);
 		
 		
 		Calendar ca2 = cs.insertCalendar(c);
 		System.out.println("insert ca2 : " + ca2);
+		
+		int next = cs.selectCurval();
+		System.out.println("CalendarController insert next : " + next);
 		
 		MemberSelect ms2 = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int empNo = ms2.getEmpNo();

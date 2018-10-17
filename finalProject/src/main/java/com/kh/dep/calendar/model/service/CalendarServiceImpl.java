@@ -9,7 +9,7 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.calendar.model.dao.CalendarDao;
 import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.member.model.vo.Member;
-
+  
 @Service
 public class CalendarServiceImpl implements CalendarService{
 	
@@ -41,6 +41,11 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	public List<Calendar> selectCalendar(int empNo) {
 		return cd.selectCalendar(empNo);
+	}
+
+	@Override
+	public int selectCurval() {
+		return cd.selectCurval();
 	}
 
 
