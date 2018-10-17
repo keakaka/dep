@@ -40,6 +40,11 @@ public class CalendarDaoImpl implements CalendarDao{
 		return sqlSession.selectList("Calendar.selectCalendar", empNo);
 	}
 
+	@Override
+	public int selectCurval() {
+		return sqlSession.selectOne("Calendar.selectCurval");
+	}
+
 	
 
 }

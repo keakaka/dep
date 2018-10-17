@@ -17,5 +17,7 @@ public interface CalendarDao {
 
 	List<Calendar> selectCalendar(int empNo);
 
+	int selectCurval();
+
 
 }

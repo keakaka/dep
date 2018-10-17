@@ -16,5 +16,7 @@ public interface CalendarService {
 
 	List<Calendar> selectCalendar(int empNo);
 
+	int selectCurval();
+
 
 }

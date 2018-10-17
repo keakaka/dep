@@ -87,6 +87,11 @@
 		FROM SCHEDULE
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<select id="selectCurval" resultType="int">
+		SELECT SCHEDULE_NO.CURRVAL
+		FROM DUAL
+	</select>
 
 
 </mapper>

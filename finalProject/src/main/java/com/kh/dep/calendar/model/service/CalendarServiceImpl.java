@@ -43,5 +43,10 @@ public class CalendarServiceImpl implements CalendarService{
 		return cd.selectCalendar(empNo);
 	}
 
+	@Override
+	public int selectCurval() {
+		return cd.selectCurval();
+	}
+
 
 }
