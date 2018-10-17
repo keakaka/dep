@@ -2,21 +2,21 @@ package com.kh.dep.personManagement.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
+import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.personManagement.model.pmService.PmService;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
+
 
 @Controller
 public class PersonController {
@@ -110,6 +110,7 @@ public class PersonController {
 		return "personManagement/promotion";
 	}
 	
+
 	@RequestMapping("depPromotinList.pm")
 	public @ResponseBody ArrayList<PromotionLi> selectPromotionList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
@@ -133,7 +134,8 @@ public class PersonController {
 		
 		return list;
 	}
-	
+
+
 
 	
 	@RequestMapping("leave.pm")
@@ -143,9 +145,11 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
 		
 		
 		
@@ -161,10 +165,11 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
-		
+		model.addAttribute("mlist", mlist);
 		
 		
 		
@@ -172,6 +177,12 @@ public class PersonController {
 	}
 	
 	
+	@RequestMapping("depleave.pm")
+	public String movedepleave(){
+		
+		
+		return "personManagement/depleave";
+	}
 	
 	
 	

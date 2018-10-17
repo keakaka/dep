@@ -30,6 +30,7 @@ import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.service.AttachServiceImpl;
 import com.kh.dep.attachment.model.vo.Attachment;
 import com.kh.dep.common.CommonUtils;
+import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Department;
@@ -64,7 +65,7 @@ public class MemberController {
 
 			model.addAttribute("loginUser", loginUser);
 
-			return "member/sample";
+			return "member/sample";			
 
 		} catch (LoginException e) {
 
@@ -185,16 +186,39 @@ public class MemberController {
 
 		}
 
-		return "personManagement/memberInsert";
+		return "redirect:/moveMemberInsert.me";
 	}
 	
 	
 	@RequestMapping("insertLeave.me")
 	public String insertLeaveMember(MemberSelect m){
 		
-		System.out.println("leave Member info :" + m);
 		
-		return "personManagement/leave";
+		try {
+			int result = ms.insertLeaveMember(m);
+		} catch (InsertRecordException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
+		
+		return "redirect:/leave.pm";
+	}
+	
+	@RequestMapping("insertmoveDept.me")
+	public String insertMoveDept(MemberSelect m){
+		
+		
+		try {
+			int result = ms.insertMoveDept(m);
+		} catch (InsertRecordException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		
+		
+		return "redirect:/moveDept.pm";
 	}
 
 	@RequestMapping(value="myInfo.me")

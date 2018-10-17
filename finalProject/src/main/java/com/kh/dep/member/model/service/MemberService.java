@@ -70,4 +70,13 @@ public interface MemberService {
 	List<SalaryExcel> xlsExcelReader(MultipartHttpServletRequest req);
 
 
+	int insertLeaveMember(MemberSelect m) throws InsertRecordException;
+
+
+	int insertMoveDept(MemberSelect m) throws InsertRecordException;
+
+
+	ArrayList<MemberSelect> selectAllMember();
+
+
 }

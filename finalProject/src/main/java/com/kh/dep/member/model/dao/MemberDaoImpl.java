@@ -200,6 +200,28 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return result2;
 	}
+
+	// 퇴사 승인 처리
+	@Override
+	public int insertLeaveMember(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.update("Member.updateLeaveMember", m);
+	}
+
+	// 부서 이동 처리
+	@Override
+	public int insertMoveDept(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.insert("Member.insertMoveDept", m);
+	}
+
+	//모든 사원 조회
+	@Override
+	public ArrayList<MemberSelect> selectAllMember(SqlSessionTemplate sqlSession) {
+		
+		
+		return (ArrayList)sqlSession.selectList("Member.selectAllMember");
+	}
 	
 	
 

@@ -170,16 +170,28 @@
                           <tbody>
                             <tr>
                               <td>
-                        <input type="number" id="empNo" name="empNo" required="required" placeholder="ex> 1001"
-                        class="form-control col-md-7 col-xs-12">
+                        <!-- <input type="number" id="empNo" name="empNo" required="required" placeholder="ex> 1001"
+                        class="form-control col-md-7 col-xs-12"> -->
+                        <select class="form-control" name="empNo" required="required">                         
+                          <option>-사원 번호를 선택하세요-</option>
+                          <c:forEach var='m' items="${mlist }">
+                          <option value="${m.empNo }">${m.empNo }</option>
+                          </c:forEach>
+                        </select>
                       		</td>
                       		   <td>
-                        <input type="text" id="empName" name="empName" required="required" placeholder="ex> 김아무개"
-                        class="form-control col-md-7 col-xs-12">
+                      <!--   <input type="text" id="empName" name="empName" required="required" placeholder="ex> 김아무개"
+                        class="form-control col-md-7 col-xs-12"> -->
+                        <select class="form-control" name="empName" required="required">
+                          <option>-사원명을 선택하세요-</option>
+                          <c:forEach var='m' items="${mlist }">
+                          <option value="${m.empName }">${m.empName }</option>
+                          </c:forEach>
+                        </select>
                       		</td>
                       		   <td>
                         <select class="form-control" name="depId" required="required">
-                          <option>부서를 선택하세요</option>
+                          <option>-부서를 선택하세요-</option>
                           <c:forEach var='d' items="${deplist }">
                           <option value="${d.depId }">${d.depName }</option>
                           </c:forEach>
@@ -187,7 +199,7 @@
                       		</td>
                       		   <td>
                         <select class="form-control" name="jobCode" required="required">
-                          <option>직급을 선택하세요</option>
+                          <option>-직급을 선택하세요-</option>
                           <c:forEach var='j' items="${joblist }">
                           <option value="${j.jobCode }">${j.jobName }</option>
                           </c:forEach>
