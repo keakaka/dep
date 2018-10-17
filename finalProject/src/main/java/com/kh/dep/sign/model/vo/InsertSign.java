@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class InsertSign implements java.io.Serializable{
+	private int docNo;
 	private String filePath;
 	private String originFileName;
 	private String changeName;
@@ -13,14 +14,16 @@ public class InsertSign implements java.io.Serializable{
 	private String signTitle;
 	private String signContent;
 	private int writer;
+	private int empNo;
 	private int[] appList;
 	private int[] recList;
 	
 	public InsertSign(){}
 	
-	public InsertSign(String filePath, String originFileName, String changeName, String ext, String signTitle,
-			String signContent, int writer, int[] appList, int[] recList) {
+	public InsertSign(int docNo, String filePath, String originFileName, String changeName, String ext, String signTitle,
+			String signContent, int writer, int empNo, int[] appList, int[] recList) {
 		super();
+		this.docNo = docNo;
 		this.filePath = filePath;
 		this.originFileName = originFileName;
 		this.changeName = changeName;
@@ -28,17 +31,26 @@ public class InsertSign implements java.io.Serializable{
 		this.signTitle = signTitle;
 		this.signContent = signContent;
 		this.writer = writer;
+		this.empNo = empNo;
 		this.appList = appList;
 		this.recList = recList;
 	}
 
 	@Override
 	public String toString() {
-		return "InsertSign [filePath=" + filePath + ", originFileName=" + originFileName + ", changeName=" + changeName
-				+ ", ext=" + ext + ", signTitle=" + signTitle + ", signContent=" + signContent + ", writer=" + writer
+		return "InsertSign [docNo=" + docNo + ", filePath=" + filePath + ", originFileName=" + originFileName + ", changeName=" + changeName
+				+ ", ext=" + ext + ", signTitle=" + signTitle + ", signContent=" + signContent + ", writer=" + writer + ", empNo=" + empNo
 				+ ", appList=" + Arrays.toString(appList) + ", recList=" + Arrays.toString(recList) + "]";
 	}
 
+	public int getDocNo() {
+		return docNo;
+	}
+	
+	public void setDocNo(int docNo) {
+		this.docNo = docNo;
+	}
+	
 	public String getFilePath() {
 		return filePath;
 	}
@@ -94,7 +106,15 @@ public class InsertSign implements java.io.Serializable{
 	public void setWriter(int writer) {
 		this.writer = writer;
 	}
-
+	
+	public int getEmpNo() {
+		return empNo;
+	}
+	
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
+	}
+	
 	public int[] getAppList() {
 		return appList;
 	}

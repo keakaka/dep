@@ -39,11 +39,7 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
                      <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
-                     <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
-                     <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
-                     <li><a href="${ contextPath }/facingSelectOne.ms?loginUser=${sessionScope.loginUser.empNo}" >상세보기</a>
-					 <li><a href="${ contextPath }/qrInsert.ms"></a>><li>
+                     <li><a href="${ contextPath }/qrInsert.ms">QR출석</a><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -53,19 +49,20 @@
                   <a><i class="fa fa-envelope"></i> 전자메일 <span
                      class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="empty.html">편지 쓰기</a></li>
-                     <li><a href="empty.html">받은 메일함</a></li>
-                     <li><a href="empty.html">보낸 메일함</a></li>
-                     <li><a href="empty.html">휴지통</a></li>
+                  <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
+                  <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
+                  <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
+                     
                   </ul>
                </li>
                
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="signWright.sg">기안하기</a></li>
-                     <li><a href="signApprovalList.sg">결재함</a></li>
-                     <li><a href="signReceive.sg">수신함</a></li>
+                     <li><a href="signWright.sg">문서작성</a></li>
+                     <li><a href="signImWriter.sg?empNo=${loginUser.empNo }">내가 올린 문서</a></li>
+                     <li><a href="signApprovalList.sg?empNo=${loginUser.empNo }">결재할 문서</a></li>
+                     <li><a href="signReceive.sg?empNo=${loginUser.empNo }">수신받은 문서</a></li>
                   </ul>
                </li>
                
@@ -93,10 +90,10 @@
                      <li><a href="moveMemberInsert.me">사원 추가</a></li>
                      <li><a href="depMgt.pm">부서근태현황</a></li>                                                  
                      <li><a href="promotion.pm">문서승인</a></li>
-                     <li><a href="depVacation.pm">부서별 휴가자조회</a></li>
-                     <li><a href="depPromotion.pm">부서별 진급자조회</a></li>               
-                     <li><a href="promotion.pm">결재승인</a></li>               
-
+                     <li><a href="depVacation.pm">부서별 휴가자 조회</a></li>
+                     <li><a href="depPromotion.pm">부서별 진급자 조회</a></li>
+                     <li><a href="depleave.pm">부서별 퇴사자 조회</a></li>
+                     <li><a href="#depmoveDeptRecord.pm">부서별 부서이동이력 조회</a></li>
                   </ul>             
                </li>
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>

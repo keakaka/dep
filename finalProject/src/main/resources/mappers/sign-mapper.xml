@@ -11,11 +11,23 @@
 		<result property="positionName" column="POSITION_NAME" />
 	</resultMap>
 	<resultMap type="InsertSign" id="InsertSignList">
-		<id property="writer" column="WRITER"/>
+		<id property="docNo" column="DOC_NO"/>
+		<result property="writer" column="WRITER"/>
 		<result property="originFileName" column="ORI_FILENAME" />
 		<result property="changeName" column="MODI_FILENAME" />
 		<result property="signTitle" column="DOC_TITLE" />
 		<result property="signContent" column="DOC_CONTENT" />
+		<result property="empNo" column="EMP_NO" />
+	</resultMap>
+	<resultMap type="Document" id="DocumentList">
+		<id property="docNo" column="DOC_NO"/>
+		<result property="docTitle" column="DOC_TITLE"/>
+		<result property="docContent" column="DOC_CONTENT"/>
+		<result property="docformNo" column="DOCFORM_NO"/>
+		<result property="writeDate" column="WRITE_DATE"/>
+		<result property="empNo" column="EMP_NO"/>
+		<result property="writer" column="EMP_NAME"/>
+		<result property="appStatus" column="APP_STATUS"/>
 	</resultMap>
 	<!-- 부서별 부서원 목록 조회 -->
 	<select id="selectMemberDep" resultMap="MemberDepList" parameterType="MemberDep">
@@ -33,12 +45,53 @@
 		ORDER BY 1
 	</select>
 	
+	
+	
 	<!-- DOCAPPROVAL Insert -->
 	<insert id="insertDocApproval" parameterType="InsertSign">
-	
+		INSERT INTO DOCAPPROVAL
+		VALUES(DOC_NO.NEXTVAL, #{signTitle}, #{signContent}, 1, SYSDATE, #{writer})
 	</insert>
 	
-		
+	<!-- DocNo 시퀀스 현재값 조회 -->
+	<select id="selectGetDocNoSeq" resultType="_int">
+		SELECT DOC_NO.CURRVAL FROM DUAL
+	</select>
+	
+	<!-- Approval_Record Insert -->
+	<insert id="insertApprovalRecord" parameterType="InsertSign">
+		INSERT INTO APPROVAL_RECORD
+		VALUES(APPRECORD_NO.NEXTVAL, #{docNo}, SYSDATE, 'AP1', #{empNo})
+	</insert>
+	
+	<!-- Receiving_check Insert -->
+	<insert id="insertReceivingCheck" parameterType="InsertSign">
+		INSERT INTO RECEIVING_CHECK
+		VALUES(#{docNo}, #{empNo})
+	</insert>
+	
+	<!-- Attachment Insert -->
+	<insert id="insertAttachment" parameterType="InsertSign">
+		INSERT INTO ATTACHMENT
+		VALUES(FILE_NO.NEXTVAL, #{originFileName}, #{changeName}, SYSDATE, NULL, #{docNo}, NULL, null, null)
+	</insert>
+	
+	<!-- 내가 기안한 문서 조회 -->
+	<select id="selectImWriter" parameterType="Document" resultMap="DocumentList">
+		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME, 
+		(SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP1' AND DOC_NO = D.DOC_NO) AS APP_STATUS 
+		FROM DOCAPPROVAL D
+		JOIN EMPLOYEE E ON(WRITER = EMP_NO) 
+		WHERE WRITER = #{empNo}
+	</select>
+	
+	<!-- 결재 할 문서 조회 -->
+	<select id="selectApprovalList" parameterType="Document" resultMap="DocumentList">
+		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME 
+		FROM  DOCAPPROVAL D
+		JOIN EMPLOYEE E ON(WRITER = EMP_NO)
+		WHERE DOC_NO = #{docNo}
+	</select>
 </mapper>
 
 

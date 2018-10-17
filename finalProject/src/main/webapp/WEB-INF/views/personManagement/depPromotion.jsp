@@ -89,34 +89,26 @@
                         <option>회계부</option>
                     
 				  </select>
-				  
+				  <select id="year">
+				  <option>년도</option>
+				 <c:forEach var="a"  begin="1950" end="2080" step="1">
+				  <option>${a}</option>
+				  </c:forEach>
+				  </select>
 				  <select id="day">
-				  <option>날짜</option>
-                  	
-                        <option>01</option>
-                   
-                        <option>02</option>
-                   
-                        <option>03</option>
-                   
-                        <option>04</option>
-                   
-                        <option>05</option>
-                   
-                        <option>06</option>
-                   
-                        <option>07</option>
-                   
-                        <option>08</option>
-                    
-                         <option>09</option>
-                   
-                        <option>10</option>
-                   
-                        <option>11</option>
-                   
-                        <option>12</option>
-                     
+				  <option>월</option>
+                 	<option>01</option>
+                  	<option>02</option>
+                  	<option>03</option>
+                  	<option>04</option>
+                  	<option>05</option>
+                  	<option>06</option>
+                  	<option>07</option>
+                  	<option>08</option>
+                  	<option>09</option>
+                  	<option>10</option>
+                  	<option>11</option>
+                  	<option>12</option>
 				  </select>
                 
                   <div id="test1"></small></div>
@@ -159,9 +151,9 @@
                           <tr>
                               <th>사원명</th>
                               <th>부서</th>
-                              <th>날짜</th>
-                              <th>출근시간</th>
-                              <th>퇴근시간</th>     
+                              <th>직책</th>
+                              <th>진급사유</th>
+                              <th>진급날짜</th>     
                             </tr>
                           </thead>
 
@@ -213,7 +205,7 @@
 			var depName = $("#depList option:selected").val();
 			console.log(depName);
 			$.ajax({
-				url : "depMgtList.pm",
+				url : "depPromotinList.pm",
 				data : {depName : depName},
 				success : function(data){
 					var $tbody = $('.workingList');
@@ -223,16 +215,16 @@
 					
 						var $tr = $("<tr role='row' class='odd'>");
 						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $jobReason = $('<td>').text(decodeURIComponent(val.jobReason));
+						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
 						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $jobRecordDate = $('<td>').text(decodeURIComponent(val.jobRecordDate));
 						
 						$tr.append($empName);
 						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
+						$tr.append($jobReason);
+						$tr.append($jobName);
+						$tr.append($jobRecordDate);
 						$tbody.append($tr);
 					});	
 					},
@@ -247,10 +239,17 @@
 	$(function(){
 		$("#day").change(function(){
 			var day = $("#day option:selected").val();
+			var depName = $("#depList option:selected").val();
+			var year = $("#year option:selected").val();
+			console.log(depName);
 			console.log(day);
+			console.log(year);
 			$.ajax({
-				url : "depMgtdayList.pm",
-				data : {day : day},
+				url : "depPromotiondayList.pm",
+				data : {day : day, 
+					depName : depName,
+					year : year},
+				
 				success : function(data){
 					var $tbody = $('.workingList');
 					$tbody.html("");
@@ -259,16 +258,16 @@
 					
 						var $tr = $("<tr role='row' class='odd'>");
 						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $jobReason = $('<td>').text(decodeURIComponent(val.jobReason));
+						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
 						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $jobRecordDate = $('<td>').text(decodeURIComponent(val.jobRecordDate));
 						
 						$tr.append($empName);
 						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
+						$tr.append($jobReason);
+						$tr.append($jobName);
+						$tr.append($jobRecordDate);
 						$tbody.append($tr);
 					});	
 					},

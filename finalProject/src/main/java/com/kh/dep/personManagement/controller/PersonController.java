@@ -2,22 +2,21 @@ package com.kh.dep.personManagement.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.kh.dep.personManagement.model.pmService.PmService;
-import com.kh.dep.personManagement.model.vo.Working;
-
-
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
+import com.kh.dep.member.model.vo.MemberSelect;
+import com.kh.dep.personManagement.model.pmService.PmService;
+import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationLi;
+import com.kh.dep.personManagement.model.vo.Working;
+
 
 @Controller
 public class PersonController {
@@ -51,11 +50,11 @@ public class PersonController {
 		return list;
 	}
 	@RequestMapping("depMgtdayList.pm")
-	public @ResponseBody ArrayList<Working> depMgtdayList(@RequestParam String day){
+	public @ResponseBody ArrayList<Working> depMgtdayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		System.out.println("근태 컨트롤 입장"+day);
 		
-		ArrayList<Working> list = ps.depMgtdayList(day);
+		ArrayList<Working> list = ps.depMgtdayList(day ,depName , year);
 		
 		hmap.put("list", list);
 		
@@ -76,12 +75,25 @@ public class PersonController {
 		System.out.println("컨트롤 입장");
 		return "personManagement/depPromotion";
 	}
-	@RequestMapping("vacationList.pm")
-	public @ResponseBody ArrayList<Working> depVacationList(@RequestParam String day){
+	
+	@RequestMapping(value="vacationList.pm")
+	public @ResponseBody ArrayList<VacationLi> depVacationList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("근태 컨트롤 입장"+day);
+		System.out.println("휴가 컨트롤 입장"+depName);
 		
-		ArrayList<Working> list = ps.depMgtdayList(day);
+		ArrayList<VacationLi> list = ps.vacationDepList(depName);
+		
+		hmap.put("list", list);
+		
+		return list;
+	}
+	
+	@RequestMapping("vacationDayList.pm")
+	public @ResponseBody ArrayList<VacationLi> depVacationDayList(@RequestParam String day){
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		System.out.println("휴가 날짜 컨트롤 입장"+day);
+		
+		ArrayList<VacationLi> list = ps.vacationDayList(day);
 		
 		hmap.put("list", list);
 		
@@ -99,6 +111,32 @@ public class PersonController {
 	}
 	
 
+	@RequestMapping("depPromotinList.pm")
+	public @ResponseBody ArrayList<PromotionLi> selectPromotionList(@RequestParam String depName){
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		System.out.println("진급 컨트롤 입장"+depName);
+		
+		ArrayList<PromotionLi> list = ps.selectPromotionList(depName);
+		
+		hmap.put("list", list);
+		
+		return list;
+	}
+	
+	@RequestMapping("depPromotiondayList.pm")
+	public @ResponseBody ArrayList<PromotionLi> selectPromotiondayList(@RequestParam String year,@RequestParam String day,@RequestParam String depName){
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		System.out.println("진급 날짜 컨트롤 입장 "+day+"진급부서 "+depName);
+		
+		ArrayList<PromotionLi> list = ps.selectPromotiondayList(day,depName,year);
+		
+		hmap.put("list", list);
+		
+		return list;
+	}
+
+
+
 	
 	@RequestMapping("leave.pm")
 	public String leave(Model model){
@@ -107,9 +145,11 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
 		
 		
 		
@@ -125,16 +165,24 @@ public class PersonController {
 
 		ArrayList<MemberJob> joblist = ms.selectJobList();
 		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
-		
+		model.addAttribute("mlist", mlist);
 		
 		
 		
 		return "personManagement/moveDept";
 	}
 	
+	
+	@RequestMapping("depleave.pm")
+	public String movedepleave(){
+		
+		
+		return "personManagement/depleave";
+	}
 	
 	
 	

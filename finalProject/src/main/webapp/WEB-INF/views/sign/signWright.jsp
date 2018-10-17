@@ -112,7 +112,7 @@
 						<input type="file" name="signFile"/>
                     </div>
                     <div id="step-2">
-                    <h2 class="StepTitle">결재선 지정<small>(먼저 선택하신 분이 최종 결재자입니다.)</small></h2>
+                    <h2 class="StepTitle">결재선 지정<small>(결재 순서대로 추가해주세요)</small></h2>
                        <div class="clearfix"></div>
 
             <div class="col-md-12 col-sm-12 col-xs-16">

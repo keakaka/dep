@@ -1,13 +1,21 @@
 package com.kh.dep.member.model.service;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -206,30 +214,24 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<SalaryExcel> xlsxExcelReader(MultipartHttpServletRequest req) {
-
-
-
-
-		return null;
-	}
-
-	@Override
-	public List<SalaryExcel> xlsExcelReader(MultipartHttpServletRequest req) {
+		System.out.println("급여 엑셀 업로드파일 서비스 호출");
 		List<SalaryExcel> list = new ArrayList<>();
 
 		MultipartFile file = req.getFile("excelFile");
-		HSSFWorkbook workbook = null;
-		
+		XSSFWorkbook workbook = null;
+
 		try {
-			workbook = new HSSFWorkbook(file.getInputStream());
-			
-			HSSFSheet curSheet;
-			HSSFRow curRow;
-			HSSFCell curCell;
+			workbook = new XSSFWorkbook(file.getInputStream());
+
+			XSSFSheet curSheet;
+			XSSFRow curRow;
+			XSSFCell curCell;
 			SalaryExcel vo;
-			
+
+			// Sheet 탐색 for문
 			for (int sheetIndex = 0; sheetIndex < workbook.getNumberOfSheets(); sheetIndex++) {
 				// 현재 sheet 반환
 				curSheet = workbook.getSheetAt(sheetIndex);
@@ -240,37 +242,149 @@ public class MemberServiceImpl implements MemberService{
 						curRow = curSheet.getRow(rowIndex);
 						vo = new SalaryExcel();
 						String value;
-						
+
 						// row의 첫번째 cell값이 비어있지 않는 경우만 cell탐색
 						if (curRow.getCell(0) != null) {
 							if (!"".equals(curRow.getCell(0).getStringCellValue())) {
+								// cell 탐색 for문
 								for (int cellIndex = 0; cellIndex < curRow.getPhysicalNumberOfCells(); cellIndex++) {
 									curCell = curRow.getCell(cellIndex);
 									
 									if (true) {
 										value = "";
 										// cell 스타일이 다르더라도 String으로 반환 받음
-										switch (curCell.getCellType()) {
-										case HSSFCell.CELL_TYPE_FORMULA:
-										value = curCell.getCellFormula();
+										switch (curCell.getCellTypeEnum()) {
+										case FORMULA:
+											value = curCell.getCellFormula();
+											break;
+											case NUMERIC:
+												if(DateUtil.isCellDateFormatted(curCell)) {
+													SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+													value = sdf.format(curCell.getDateCellValue());
+												} else {
+													value = String.valueOf(curCell.getNumericCellValue());
+												}
+												/*curCell.setCellType(XSSFCell.CELL_TYPE_STRING);
+												value = curCell.getStringCellValue();*/
+												break;
+											case STRING:
+											value = curCell.getStringCellValue() + "";
+											break;
+											case BLANK:
+											value = curCell.getBooleanCellValue() + "";
+											break;
+											case ERROR:
+											value = curCell.getErrorCellValue() + "";
+											break;
+											default:
+											value = new String();
+											break;
+										}
+										switch (cellIndex) {
+										case 0: vo.setDepName(value);
 										break;
-										case HSSFCell.CELL_TYPE_NUMERIC:
-										value = curCell.getNumericCellValue() + "";
+										case 1: vo.setJobName(value);
 										break;
-										case HSSFCell.CELL_TYPE_STRING:
-										value = curCell.getStringCellValue() + "";
+										case 2: vo.setEmpName(value);
 										break;
-										case HSSFCell.CELL_TYPE_BLANK:
-										value = curCell.getBooleanCellValue() + "";
+										case 3: vo.setIncomeDate(value);
 										break;
-										case HSSFCell.CELL_TYPE_ERROR:
-										value = curCell.getErrorCellValue() + "";
+										case 4: 
+											int value3 = (int)Double.parseDouble(value);
+											vo.setBasePay(value3);
+										break;
+										case 5: 
+											int value2 = (int) Double.parseDouble(value);
+											vo.setRegularBonus(value2);
 										break;
 										default:
-										value = new String();
 										break;
 										}
-										
+									}
+								}
+								list.add(vo);
+							}
+						}
+					}
+					
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return md.xlsxExcelReader(sqlSession, list);
+
+	}
+
+	@Override
+	public List<SalaryExcel> xlsExcelReader(MultipartHttpServletRequest req) {
+		System.out.println("급여 엑셀 업로드파일 서비스 호출");
+		List<SalaryExcel> list = new ArrayList<>();
+
+		MultipartFile file = req.getFile("excelFile");
+		HSSFWorkbook workbook = null;
+
+		try {
+			workbook = new HSSFWorkbook(file.getInputStream());
+
+			HSSFSheet curSheet;
+			HSSFRow curRow;
+			HSSFCell curCell;
+			SalaryExcel vo;
+
+			for (int sheetIndex = 0; sheetIndex < workbook.getNumberOfSheets(); sheetIndex++) {
+				// 현재 sheet 반환
+				curSheet = workbook.getSheetAt(sheetIndex);
+				// row 탐색 for문
+				for (int rowIndex = 0; rowIndex < curSheet.getPhysicalNumberOfRows(); rowIndex++) {
+					// row 0은 헤더정보이기 때문에 무시
+					if (rowIndex != 0) {
+						curRow = curSheet.getRow(rowIndex);
+						vo = new SalaryExcel();
+						String value;
+
+						// row의 첫번째 cell값이 비어있지 않는 경우만 cell탐색
+						if (curRow.getCell(0) != null) {
+							if (!"".equals(curRow.getCell(0).getStringCellValue())) {
+								for (int cellIndex = 0; cellIndex < curRow.getPhysicalNumberOfCells(); cellIndex++) {
+									curCell = curRow.getCell(cellIndex);
+
+									if (true) {
+										value = "";
+										String cellString = "";
+										// cell 스타일이 다르더라도 String으로 반환 받음
+										switch (curCell.getCellTypeEnum()) {
+										case FORMULA:
+											value = curCell.getCellFormula();
+											break;
+										case NUMERIC:
+											/*if(HSSFDateUtil.isCellDateFormatted(curCell)) {
+												Date date = (Date) curCell.getDateCellValue();
+												value = new SimpleDateFormat("yyyy-MM-dd").format(date);
+											}else{
+												value = curCell.getNumericCellValue() + "";
+											}*/
+											if(DateUtil.isCellDateFormatted(curCell)) {
+												SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+												value = sdf.format(curCell.getDateCellValue());
+											} else {
+												value = String.valueOf(curCell.getNumericCellValue());
+											}
+											break;
+										case STRING:
+											value = curCell.getStringCellValue() + "";
+											break;
+										case BLANK:
+											value = curCell.getBooleanCellValue() + "";
+											break;
+										case ERROR:
+											value = curCell.getErrorCellValue() + "";
+											break;
+										default:
+											value = new String();
+											break;
+										}
+
 										switch(cellIndex) {
 										case 0: vo.setDepName(value);
 										break;
@@ -280,9 +394,13 @@ public class MemberServiceImpl implements MemberService{
 										break;
 										case 3: vo.setIncomeDate(value);
 										break;
-										case 4: vo.setBasePay(value);
+										case 4: 
+											int value3 = (int)Double.parseDouble(value);
+											vo.setBasePay(value3);
 										break;
-										case 5: vo.setRegularBonus(value);
+										case 5: 
+											int value2 = (int) Double.parseDouble(value);
+											vo.setRegularBonus(value2);
 										break;
 										default:
 										break;
@@ -294,14 +412,58 @@ public class MemberServiceImpl implements MemberService{
 							}
 						}
 					}
-					
+
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("00"+list);
 		return md.xlsExcelReader(sqlSession, list);
-		//return md.updateMyImage(sqlSession, empNo, newFileName, originFileName);
+	}
+
+	// 퇴사자승인처리
+	@Override
+	public int insertLeaveMember(MemberSelect m) throws InsertRecordException {
+		
+		int result = md.insertLeaveMember(sqlSession, m);
+		
+		if(result > 0){
+			return result;
+		}else{
+			throw new InsertRecordException("퇴사승인 실패");
+		}
+		
+		
+		
+	}
+
+	// 부서이동 승인 처리
+	@Override
+	public int insertMoveDept(MemberSelect m) throws InsertRecordException {
+		
+		int result = md.insertMoveDept(sqlSession, m);
+		
+		if(result > 0){
+			return result;
+		}else{
+			throw new InsertRecordException("부서이동 승인 실패");
+		}
+		
+		
+	
+	}
+
+	//모든 사원 조회
+	@Override
+	public ArrayList<MemberSelect> selectAllMember() {
+		
+		ArrayList<MemberSelect> mlist = null;
+		
+		mlist = md.selectAllMember(sqlSession);
+		
+		return mlist;
 	}
 
 }
