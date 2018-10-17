@@ -602,7 +602,7 @@
 				selectHelper : true,
 				select : function(start, end) {
 					
-					 
+					  
 					$('#fc_create').click();
 
 					    console.log("title : " + document.getElementById('title').value);
