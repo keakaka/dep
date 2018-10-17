@@ -165,10 +165,40 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<SalaryExcel> xlsExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
+		System.out.println("급여 엑셀(xls) 업로드파일 다오 호출");
+		int result = sqlSession.insert("Member.insertSalaryExcel", list); 
+		System.out.println(result);
+		List<SalaryExcel> result2 = new ArrayList<SalaryExcel>();
 		
+		if(result > 0){
+			
+			result2 = sqlSession.selectList("Member.selectSalaryList");
+			
+		}
 		
-		/*return sqlSession.insert("Member.insertSalaryExcel", list);*/
-		return null;
+		return result2;
+	}
+
+	@Override
+	public List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
+		System.out.println("급여 엑셀(xlsx) 업로드파일 다오 호출");
+		System.out.println("00"+list);
+		//int result = sqlSession.insert("Member.insertSalaryExcel", list); 
+		
+		int result=0;
+		
+		for(int i=0;i<list.size();i++){
+			result = sqlSession.insert("Member.insertSalaryExcel", list.get(i)); 
+		}
+		
+		System.out.println(result);
+		List<SalaryExcel> result2 = new ArrayList<SalaryExcel>();
+		
+		if(result > 0){
+			result2 = sqlSession.selectList("Member.selectSalaryList");
+		}
+		
+		return result2;
 	}
 	
 	

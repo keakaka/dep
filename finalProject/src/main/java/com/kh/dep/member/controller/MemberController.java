@@ -447,8 +447,8 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="excelUploadAjax")
-	public String excelUpload(Model model, MultipartHttpServletRequest req){
+	@RequestMapping(value="excelUploadAjax.me")
+	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
 		
 		System.out.println("급여 엑셀 업로드 컨트롤러!");
 		
@@ -456,14 +456,30 @@ public class MemberController {
 		
 		String excelType = req.getParameter("excelType");
 		if(excelType.equals("xlsx")){
-			//list = ms.xlsxExcelReader(req);
+			list = ms.xlsxExcelReader(req);
 		}else if(excelType.equals("xls")){
-			//list = ms.xlsExcelReader(req);
+			list = ms.xlsExcelReader(req);
+		}
+		System.out.println("급여 조회 : " + list);
+		
+		try {
+			response.setCharacterEncoding("UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			out.println(list);
+			
+			out.flush();
+			out.close();
+			
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("data", list);
+			String json = jsonObj.toString();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		model.addAttribute("list", list);
-		
-		return "eb/allEmployeeSalary";
 	}
 
 
