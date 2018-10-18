@@ -19,5 +19,11 @@ public interface CalendarDao {
 
 	int selectCurval();
 
+	int deleteCalendar(Calendar c);
+
+	Calendar updateModalCalendar(Calendar c);
+
+	int updateCalendar(Calendar c);
+
 
 }

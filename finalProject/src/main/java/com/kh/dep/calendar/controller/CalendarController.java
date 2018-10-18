@@ -120,7 +120,7 @@ public class CalendarController {
 	}
 	
 	@RequestMapping("insertCalendar.ca")
-	public void insertCalendar(String title, String content, String sDate, String eDate, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public @ResponseBody HashMap<String, Object> insertCalendar(String title, String content, String sDate, String eDate, HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("insertCalendar title : " + title);
 		System.out.println("insertCalendar content : " + content);
 		
@@ -147,13 +147,65 @@ public class CalendarController {
 		int empNo = ms2.getEmpNo();
 		List<Calendar> list = cs.selectCalendar(empNo);
 		
-		model.addAttribute("list2", list);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		/*model.addAttribute("list2", list);
+		model.addAttribute("next", next);*/
+		hmap.put("next", next);
+		
+		return hmap;
 	
 	}
 	
-	/*@RequestMapping(value="deleteCalendar.ca")
-	public String deleteCalendar() {
+	@RequestMapping(value="deleteCalendar.ca")
+	public void deleteCalendar(int id, HttpServletRequest request, HttpServletResponse response) {
+		MemberSelect ms2 = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int empNo = ms2.getEmpNo();
+		
+		Calendar c = new Calendar();
+		c.setEmpNo(empNo);
+		c.setScheduleNo(id);
 		
 		
-	}*/
+		int deleteC = cs.deleteCalendar(c);
+	
+	}
+	
+	@RequestMapping("updateModalCalendar.ca")
+	public @ResponseBody HashMap<String, Object> updateModalCalendar(int id, HttpServletRequest request, HttpServletResponse response) {
+		MemberSelect ms2 = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int empNo = ms2.getEmpNo();
+		
+		Calendar c = new Calendar();
+		c.setEmpNo(empNo);
+		c.setScheduleNo(id);
+		
+		Calendar c2 = cs.updateModelCalendar(c);
+		System.out.println("updateModalCalendar c2 : " + c2);
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("c2", c2);
+		
+		return hmap;
+		
+	}
+	
+	@RequestMapping("updateCalendar")
+	public void updateCalendar(int updateId, String title, String content, HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		Calendar c = new Calendar();
+		c.setScheduleNo(updateId);
+		c.setScheduleTitle(title);
+		c.setScheduleContent(content);
+		System.out.println("updateCalendar c : " + c);
+		
+		int c2 = cs.updateCalendar(c);
+		System.out.println("updateCalendar c2 : " + c2);
+		
+	}
+	
+	
+	
 }
