@@ -48,5 +48,20 @@ public class CalendarServiceImpl implements CalendarService{
 		return cd.selectCurval();
 	}
 
+	@Override
+	public int deleteCalendar(Calendar c) {
+		return cd.deleteCalendar(c);
+	}
+
+	@Override
+	public Calendar updateModelCalendar(Calendar c) {
+		return cd.updateModalCalendar(c);
+	}
+
+	@Override
+	public int updateCalendar(Calendar c) {
+		return cd.updateCalendar(c);
+	}
+
 
 }

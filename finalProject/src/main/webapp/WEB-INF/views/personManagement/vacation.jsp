@@ -111,7 +111,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                       <li role="presentation" class="active"><a href="promotion.pm" id="home-tab" role="tab" aria-expanded="false">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#leave.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
+                      <li role="presentation" class=""><a href="vacation.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
                       </li>
                       <li role="presentation" class=""><a href="leave.pm" role="tab" id="profile-tab"  aria-expanded="false">퇴사</a>
                       </li>                      
@@ -151,13 +151,17 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-                         <form data-parsley-validate class="form-horizontal form-label-left">
+                         <form data-parsley-validate class="form-horizontal form-label-left" action="insertVacation.pm" method="post">
+                        
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
+                              <th>사원번호</th>
                               <th>사원명</th>
                               <th>부서</th>
                               <th>직책</th>
+                              <th>사유</th>
+                              <th>휴가종류</th>
                               <th>휴가시작일</th>
                               <th>휴가종료일</th>
                               <th>승인</th>
@@ -168,27 +172,57 @@
 
                           <tbody>
                             <tr>
-                              <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 사원명"
+                          	   <td>
+                          	   <select class="form-control" required="required" id="userNo" name="userNo">
+                 			   <option>사원번호</option> 
+                      		   <c:forEach var="n" items="${mlist}"> 
+                      		   <option>${n.empNo}</option>s
+                      		   </c:forEach>
+                      		   
+                      		   <td>
+                      		   <select class="form-control" required="required" id="empName" name="empName">
+                      		   <option>사원명</option>
+                      		   <c:forEach var="m" items="${mlist}"> 
+                      		   <option>${m.empName}</option>
+                      		   </c:forEach>
+                      		   
+                      		   </select>
+                      		   </td>
+                      		   <td>
+                      		   <select class="form-control" name="empNo" required="required" id="depName" name="depName">
+                      		   <option>부서</option> 
+                      		   <c:forEach var="d" items="${deplist}"> 
+                      		   <option>${d.depName}</option>
+                      		   </c:forEach>
+                      		   
+                      		   </select>
+                      		   </td>
+                      		   <td>
+                      		   <select class="form-control" name="jobCode" required="required" id="jabCode">
+                      		   <option>직책</option>
+                      		   <c:forEach var="j" items="${joblist}"> 
+                      		   <option>${j.jobName}</option>
+                      		   </c:forEach>
+                      		   
+                      		   </select>
+                      		   </td>
+                      		  <td>
+                        <input type="text" id="vacReason" name="vacReason" required="required" placeholder="ex> 사유"
+                        class="form-control col-md-7 col-xs-12">
+                      		</td>   
+                     	  <td>
+                        <input type="text" id="vacType" name="vacType" required="required" placeholder="ex> 휴가종류"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 부서"
+                        <input type="date" id="vacStartDate" name="vacStartDate" required="required" placeholder="ex> 휴가시작일"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 직책"
+                        <input type="date" id="vacEndDate" name="vacEndDate" required="required" placeholder="ex> 휴가종료일"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
-                      		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 휴가시작일"
-                        class="form-control col-md-7 col-xs-12">
-                      		</td>
-                      		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 휴가종료일"
-                        class="form-control col-md-7 col-xs-12">
-                      		</td>
-                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
+                              <td><button type="submit" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            

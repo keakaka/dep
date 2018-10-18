@@ -178,13 +178,12 @@
 															<td width="190">${list.positionName}</td>
 															<td width="320">${list.phone}</td>
 															<td>${list.email}</td>
-															<td><a href="facing.ms"><i class="fa fa-comments-o fa-lg"></i></a></td>
+															<td><a href="facing.ad?var=${list.empNo }"><i class="fa fa-comments-o fa-lg"></i></a></td>
 															<td><!-- <button type="button" class="btn btn-dark btn-xs" onclick="deleteAdd();">삭제하기</button> -->
 															<a onclick="deleteAdd();"><i class="fa fa-trash fa-lg" class="btn btn-dark btn-lg" ></i></a></td>
 														</tr>
 														</c:if>
 													</c:forEach>
-													
 												</tbody>
 											</table>
 											<!-- <div align="left">

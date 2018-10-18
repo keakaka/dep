@@ -183,22 +183,45 @@ public class MemberDaoImpl implements MemberDao {
 	public List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
 		System.out.println("급여 엑셀(xlsx) 업로드파일 다오 호출");
 		System.out.println("00"+list);
-		//int result = sqlSession.insert("Member.insertSalaryExcel", list); 
 		
-		int result=0;
+		int salaryCount=0;
+		int delResult=0;
+		int insertResult=0;
+
+		salaryCount = sqlSession.selectOne("Member.selectSalaryCount");
+		System.out.println("급여 테이블에 데이터가 있나욤? " + salaryCount);
+		
+		if(salaryCount > 0){	//SALARY 테이블에 값이 있을 경우
+			delResult = sqlSession.delete("Member.deleteAllEmpSalaryData");
+			System.out.println("급여 테이블 삭제완료 되면 ? : " + delResult);
+			
+			if(delResult > 0){	//SALARY 테이블의 값을 성공적으로 삭제 한 경우
+				for(int i=0;i<list.size();i++){
+					insertResult = sqlSession.insert("Member.insertSalaryExcel", list.get(i));
+				}
+			}
+			else{	//SALARY 테이블의 값 삭제 에러
+				System.out.println("delete error");
+			}
+		}
+		else{	//SALARY 테이블에 값이 없을 경우
+			for(int i=0;i<list.size();i++){
+				insertResult = sqlSession.insert("Member.insertSalaryExcel", list.get(i));
+			}
+		}
+		
+		System.out.println(insertResult);
+		List<SalaryExcel> returnList = new ArrayList<SalaryExcel>();
+		
+		if(insertResult > 0){
+			returnList = sqlSession.selectList("Member.selectSalaryList");
+		}
 		
 		for(int i=0;i<list.size();i++){
-			result = sqlSession.insert("Member.insertSalaryExcel", list.get(i)); 
+			returnList.get(i).setTotalSalary(list.get(i).getTotalSalary());
 		}
 		
-		System.out.println(result);
-		List<SalaryExcel> result2 = new ArrayList<SalaryExcel>();
-		
-		if(result > 0){
-			result2 = sqlSession.selectList("Member.selectSalaryList");
-		}
-		
-		return result2;
+		return returnList;
 	}
 
 	// 퇴사 승인 처리
@@ -219,8 +242,16 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public ArrayList<MemberSelect> selectAllMember(SqlSessionTemplate sqlSession) {
 		
-		
 		return (ArrayList)sqlSession.selectList("Member.selectAllMember");
+	}
+
+	@Override
+	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType) {
+		List<SalaryExcel> list = sqlSession.selectList("Member.selectSearchCondition", depType);
+		System.out.println("급여(부서조건) : " + list);
+		/*List<WorkingHours> list = sqlSession.selectList("Member.selectMyWorkingHoursRecord", empNo);
+		System.out.println("나의 출퇴근이력(dao) : " + list);*/
+		return list;
 	}
 	
 	

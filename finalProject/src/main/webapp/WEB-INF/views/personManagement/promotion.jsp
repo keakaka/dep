@@ -111,7 +111,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                       <li role="presentation" class="active"><a href="promotion.pm" id="home-tab" role="tab" aria-expanded="false">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#leave.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
+                      <li role="presentation" class=""><a href="vacation.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
                       </li>
                       <li role="presentation" class=""><a href="leave.pm" role="tab" id="profile-tab"  aria-expanded="false">퇴사</a>
                       </li>                      
@@ -151,14 +151,15 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-                         <form data-parsley-validate class="form-horizontal form-label-left">
+                         <form data-parsley-validate class="form-horizontal form-label-left" action="insertPromotion.pm" method="post">
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
+                              <th>사원번호</th>
                               <th>사원명</th>
                               <th>부서</th>
-                              <th>직책</th>
                               <th>진급직책</th>
+                              <th>진급사유</th>
                               <th>진급날짜</th>
                               <th>승인</th>
                               
@@ -168,27 +169,48 @@
 
                           <tbody>
                             <tr>
-                              <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 901101"
-                        class="form-control col-md-7 col-xs-12">
-                      		</td>
+                            <td>
+                        <select class="form-control" required="required" id="userNo" name="userNo">
+                 			   <option>사원번호</option> 
+                      		   <c:forEach var="n" items="${mlist}"> 
+                      		   <option>${n.empNo}</option>
+                      		   </c:forEach>
+                      		   </select>
+                      		   </td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 901101"
-                        class="form-control col-md-7 col-xs-12">
-                      		</td>
+                      		   <select class="form-control" required="required" id="empName" name="empName">
+                 			   <option>사원명</option> 
+                      		   <c:forEach var="m" items="${mlist}"> 
+                      		   <option>${m.empName}</option>s
+                      		   </c:forEach>
+                      		   </select>
+                      		   </td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 901101"
-                        class="form-control col-md-7 col-xs-12">
-                      		</td>
+                      		   <select class="form-control" required="required" id="depName" name="depName">
+                 			   <option>부서</option> 
+                      		   <c:forEach var="d" items="${deplist}"> 
+                      		   <option>${d.depName}</option>
+                      		   </c:forEach>
+                      		   </select>
+                      		   </td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 901101"
+                      		   <select class="form-control" required="required" id="jobCode" name="jobCode">
+                 			   <option>진급직급</option> 
+                      		   <c:forEach var="j" items="${joblist}"> 
+                      		   <option>${j.jobName}</option>
+                      		   </c:forEach>
+                      		   </select>
+                      		   </td>
+                      		   
+                      	<td>
+                        <input type="text" id="jobReason" name="jobReason" required="required" placeholder="ex> 진급사유"
                         class="form-control col-md-7 col-xs-12">
-                      		</td>
+                      	</td>
                       		   <td>
-                        <input type="text" id="birthDate" name="birthDate" required="required" placeholder="ex> 901101"
+                        <input type="date" id="jobRecordDate" name="jobRecordDate" required="required" placeholder="ex> 진급날짜"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
-                              <td><button type="button" class="btn btn-round btn-default">입력</button></td>
+                      	  <td><button type="submit" class="btn btn-round btn-default">입력</button></td>
                             </tr>
                           
                            

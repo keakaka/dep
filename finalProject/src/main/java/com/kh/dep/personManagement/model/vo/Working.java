@@ -18,8 +18,34 @@ public class Working implements java.io.Serializable{
 	private String leaveTime;
 	private String day;
 	private String year;
+	private String State;
 	
-	
+	public String getState() {
+		return State;
+	}
+
+
+	public void setState(String state) {
+		State = state;
+	}
+
+
+	public Working(int empNo, String empName, String depId, String depName, String today, String tTime,
+			String leaveTime, String day, String year, String state) {
+		super();
+		this.empNo = empNo;
+		this.empName = empName;
+		this.depId = depId;
+		this.depName = depName;
+		this.today = today;
+		this.tTime = tTime;
+		this.leaveTime = leaveTime;
+		this.day = day;
+		this.year = year;
+		State = state;
+	}
+
+
 	public Working()
 	{
 		
@@ -117,9 +143,11 @@ public class Working implements java.io.Serializable{
 	public String toString() {
 		return "Working [empNo=" + empNo + ", empName=" + empName + ", depId=" + depId + ", depName=" + depName
 				+ ", today=" + today + ", tTime=" + tTime + ", leaveTime=" + leaveTime + ", day=" + day + ", year="
-				+ year + "]";
+				+ year + ", State=" + State + "]";
 	}
 
+
+	
 	
 	
 	

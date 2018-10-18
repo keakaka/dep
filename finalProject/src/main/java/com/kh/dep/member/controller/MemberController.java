@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.Response;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -192,7 +193,6 @@ public class MemberController {
 	
 	@RequestMapping("insertLeave.me")
 	public String insertLeaveMember(MemberSelect m){
-		
 		
 		try {
 			int result = ms.insertLeaveMember(m);
@@ -470,8 +470,7 @@ public class MemberController {
 		return "eb/myInfo";
 	}
 	
-	
-	@RequestMapping(value="excelUploadAjax.me")
+	/*@RequestMapping(value="excelUploadAjax.me")
 	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
 		
 		System.out.println("급여 엑셀 업로드 컨트롤러!");
@@ -486,6 +485,7 @@ public class MemberController {
 		}
 		System.out.println("급여 조회 : " + list);
 		
+		
 		try {
 			response.setCharacterEncoding("UTF-8");
 			
@@ -494,6 +494,7 @@ public class MemberController {
 			
 			out.flush();
 			out.close();
+			
 			
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("data", list);
@@ -504,7 +505,52 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 
+	@RequestMapping(value="excelUploadAjax.me")
+	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
+		
+		System.out.println("급여 엑셀 업로드 컨트롤러!");
+		
+		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		
+		String excelType = req.getParameter("excelType");
+		if(excelType.equals("xlsx")){
+			list = ms.xlsxExcelReader(req);
+		}else if(excelType.equals("xls")){
+			list = ms.xlsExcelReader(req);
+		}
+		System.out.println("급여 조회 : " + list);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().print(mapper.writeValueAsString(list));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+	}
+	
+	@RequestMapping(value="selectSearchCondition.me")
+	public void selectSearchCondition(String depType, HttpServletResponse response){
+		System.out.println("조건에 맞는 사원 급여 데이터 검색 컨트롤러!");
+		
+		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		
+		list = ms.selectSearchCondition(depType);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().print(mapper.writeValueAsString(list));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }

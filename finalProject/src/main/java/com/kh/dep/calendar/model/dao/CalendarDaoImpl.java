@@ -45,6 +45,22 @@ public class CalendarDaoImpl implements CalendarDao{
 		return sqlSession.selectOne("Calendar.selectCurval");
 	}
 
+	@Override
+	public int deleteCalendar(Calendar c) {
+		return sqlSession.delete("Calendar.deleteCalendar", c);
+	}
+
+	@Override
+	public Calendar updateModalCalendar(Calendar c) {
+		return sqlSession.selectOne("Calendar.updateModalCalendar", c);
+	}
+
+	@Override
+	public int updateCalendar(Calendar c) {
+		System.out.println("updateCalendar DaoImpl c : " + c);
+		return sqlSession.update("Calendar.updateCalendar", c);
+	}
+
 	
 
 }

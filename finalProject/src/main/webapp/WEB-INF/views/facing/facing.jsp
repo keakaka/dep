@@ -188,7 +188,7 @@
 						
                         <script type="text/javascript"></script>
                         <br/>
-                        <button class="btn btn-primary">보내기</button>
+                        <button type="submit" "btn btn-primary">보내기</button>
 
 						</p>
 					  </div>
