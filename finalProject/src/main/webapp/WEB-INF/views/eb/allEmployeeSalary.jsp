@@ -100,27 +100,43 @@
 													<div id="search-select">
 														<select id="departmentType">
 															<option id="web-font">부서명</option>
-															<option id="web-font">인사부</option>
-															<option id="web-font">영업부</option>
-															<option id="web-font">회계부</option>
-														</select> <select id="jobType">
+															<option id="web-font" value="D1">영업부</option>
+															<option id="web-font" value="D2">인사관리부</option>
+															<option id="web-font" value="D3">총무부</option>
+															<option id="web-font" value="D4">회계부</option>
+															<option id="web-font" value="D5">연구개발부</option>
+														</select> 
+														<select id="jobType">
 															<option id="web-font">직급</option>
-															<option id="web-font">대리</option>
-															<option id="web-font">과장</option>
-															<option id="web-font">대표</option>
-														</select> <select id="nameType">
+															<option id="web-font" value="J1">대표</option>
+															<option id="web-font" value="J2">대표이사</option>
+															<option id="web-font" value="J3">이사</option>
+															<option id="web-font" value="J4">팀장</option>
+															<option id="web-font" value="J5">부장</option>
+															<option id="web-font" value="J6">차장</option>
+															<option id="web-font" value="J7">과장</option>
+															<option id="web-font" value="J8">대리</option>
+															<option id="web-font" value="J9">사원</option>
+														</select> 
+														<select id="nameType">
 															<option id="web-font">사원이름</option>
 															<option id="web-font">뚜비</option>
 															<option id="web-font">나나</option>
 															<option id="web-font">뽀</option>
-														</select> <select id="dateType">
+														</select> 
+														<select id="dateType">
 															<option id="web-font">날짜</option>
 															<option id="web-font">2018</option>
 															<option id="web-font">2017</option>
 															<option id="web-font">2016</option>
 														</select>
+														<select id="quarter">
+															<option id="web-font">분기</option>
+															<option id="web-font">1분기</option>
+															<option id="web-font">2분기</option>
+														</select>
 
-														<button onclick="#">검색</button>
+														<button onclick="searchBtn()">검색</button>
 
 													</div>
 
@@ -134,117 +150,20 @@
 																	<th>부서명</th>
 																	<th>직급</th>
 																	<th>사원명</th>
-																	<th>기본급<br>불러오기</th>
+																	<!-- <th>기본급<br>불러오기</th> -->
 																	<th>입금월</th>
 																	<th>기본급</th>
 																	<th>정기상여금</th>
 																	<th>비과세수당</th>
-																	<th>휴일수당</th>
-																	<th>야근수당</th>
-																	<th>자격수당</th>
 																	<th>국민연금</th>
 																	<th>건강보험</th>
+																	<th>장기요양</th>
 																	<th>고용보험</th>
-																	<th>산재보험</th>
 																	<th>실지급액</th>
 																</tr>
 															</thead>
-
-
 															<tbody>
-																<%-- <c:forEach var="salaryList" items="${list}">
-																<tr>
-																	<td>${salaryList.depName }</td>
-																	<td>${salaryList.jobName }</td>
-																	<td>${salaryList.empName }</td>
-																	<td><input type="button" value="불러오기"/></td>
-																	<td>${salaryList.incomeDate }</td>
-																	<td>${salaryList.basePay }</td>
-																	<td>${salaryList.regularBonus }</td>
-																	<td>Edinburgh</td>
-																	<td>61</td>
-																	<td>2011/04/25</td>
-																	<td>$320,800</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																</c:forEach>
-																<tr>
-																	<td>영업부</td>
-																	<td>대리</td>
-																	<td>폴킴</td>
-																	<td><input type="button" value="불러오기"/></td>
-																	<td>날짜</td>
-																	<td>Garrett Winters</td>
-																	<td>Accountant</td>
-																	<td>Tokyo</td>
-																	<td>63</td>
-																	<td>2011/07/25</td>
-																	<td>$170,750</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>영업부</td>
-																	<td>대리</td>
-																	<td>폴킴</td>
-																	<td><input type="button" value="불러오기"/></td>
-																	<td>날짜</td>
-																	<td>Ashton Cox</td>
-																	<td>Junior Technical Author</td>
-																	<td>San Francisco</td>
-																	<td>66</td>
-																	<td>2009/01/12</td>
-																	<td>$86,000</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>영업부</td>
-																	<td>대리</td>
-																	<td>폴킴</td>
-																	<td><input type="button" value="불러오기"/></td>
-																	<td>날짜</td>
-																	<td>Cedric Kelly</td>
-																	<td>Senior Javascript Developer</td>
-																	<td>Edinburgh</td>
-																	<td>22</td>
-																	<td>2012/03/29</td>
-																	<td>$433,060</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>영업부</td>
-																	<td>대리</td>
-																	<td>폴킴</td>
-																	<td><input type="button" value="불러오기"/></td>
-																	<td>날짜</td>
-																	<td>Airi Satou</td>
-																	<td>Accountant</td>
-																	<td>Tokyo</td>
-																	<td>33</td>
-																	<td>2008/11/28</td>
-																	<td>$162,700</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr> --%>
-
+															
 															</tbody>
 														</table>
 													</div>
@@ -267,9 +186,8 @@
 													</div>
 
 													<div class="bottom">
-														<button type="button" id="excelImportBtn" class="btn"
-															onclick="excelCheck();">
-															<span>추가</span>
+														<button type="button" id="excelImportBtn" class="btn btn-default"
+															onclick="excelCheck();">추가
 														</button>
 														<!-- <input type="submit" value="업로드"/> -->
 													</div>
@@ -309,6 +227,22 @@
 									                            alert("업로드가 완료되었습니다.");
 									                            console.log(data);
 									                            console.log(typeof(data));
+									                            
+									                            $("#datatable tbody").html('');
+									                            
+									                            list = JSON.parse(data);
+									                            console.log(list);
+									                            
+									                            var str = '<tr>';
+									                            $.each(list, function(i){
+									                            	str += '<td>' + list[i].depName + '</td><td>' + list[i].jobName + '</td><td>'
+									                            	+ list[i].empName + '</td><td>' + list[i].incomeDate + '</td><td>' + list[i].basePay 
+									                            	+ '</td><td>' + list[i].regularBonus + '</td><td>' + list[i].taxFreeAlw + '</td><td>'
+									                            	+ list[i].nationalPension + '</td><td>' + list[i].healthIns + '</td><td>' + list[i].longtermcareIns
+									                            	+ '</td><td>' + list[i].employeeIns + '</td><td>' + list[i].totalSalary + '</td>';
+									                            	str += '</tr>';
+									                            })
+									                            $("#datatable tbody").append(str);
 									                        },
 									                        type : "POST",
 									                        data : {"excelType" : fileType},
@@ -318,6 +252,37 @@
 									     
 									                }
 									            }
+												
+												function searchBtn() {
+													var depType = $("#departmentType option:selected").val();
+													console.log(depType);
+													
+													$.ajax({
+														type : "post",
+														url : "selectSearchCondition.me",
+														data : {depType:depType},
+														dataType : "json",
+														success : function(data) {
+															console.log(data);
+															console.log(typeof data);
+															
+															$("#datatable tbody").html('');
+															
+															var list = data;
+															
+															var str = '<tr>';
+								                            $.each(list, function(i){
+								                            	str += '<td>' + list[i].depName + '</td><td>' + list[i].jobName + '</td><td>'
+								                            	+ list[i].empName + '</td><td>' + list[i].incomeDate + '</td><td>' + list[i].basePay 
+								                            	+ '</td><td>' + list[i].regularBonus + '</td><td>' + list[i].taxFreeAlw + '</td><td>'
+								                            	+ list[i].nationalPension + '</td><td>' + list[i].healthIns + '</td><td>' + list[i].longtermcareIns
+								                            	+ '</td><td>' + list[i].employeeIns + '</td><td>' + list[i].totalSalary + '</td>';
+								                            	str += '</tr>';
+								                            })
+								                            $("#datatable tbody").append(str);
+														}
+													})
+												}
 												</script>
 
 

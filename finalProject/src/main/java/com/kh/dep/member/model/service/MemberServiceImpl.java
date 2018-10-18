@@ -214,7 +214,7 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 
-	@SuppressWarnings("deprecation")
+	/*@SuppressWarnings("deprecation")*/
 	@Override
 	public List<SalaryExcel> xlsxExcelReader(MultipartHttpServletRequest req) {
 		System.out.println("급여 엑셀 업로드파일 서비스 호출");
@@ -264,8 +264,6 @@ public class MemberServiceImpl implements MemberService{
 												} else {
 													value = String.valueOf(curCell.getNumericCellValue());
 												}
-												/*curCell.setCellType(XSSFCell.CELL_TYPE_STRING);
-												value = curCell.getStringCellValue();*/
 												break;
 											case STRING:
 											value = curCell.getStringCellValue() + "";
@@ -290,13 +288,46 @@ public class MemberServiceImpl implements MemberService{
 										case 3: vo.setIncomeDate(value);
 										break;
 										case 4: 
-											int value3 = (int)Double.parseDouble(value);
-											vo.setBasePay(value3);
+											int value1 = (int)Double.parseDouble(value);
+											vo.setBasePay(value1);
 										break;
 										case 5: 
 											int value2 = (int) Double.parseDouble(value);
 											vo.setRegularBonus(value2);
 										break;
+										case 6:
+											int value3 = (int) Double.parseDouble(value);
+											vo.setTaxFreeAlw(value3);
+											break;
+										case 7:
+											int value4 = (int) (vo.getBasePay() * 0.045);
+											vo.setNationalPension(value4);
+											/*int value4 = (int) Double.parseDouble(value);
+											vo.setNationalPension(value4);*/
+											break;
+										case 8:
+											int value5 = (int) (vo.getBasePay() * 0.0312);
+											vo.setHealthIns(value5);
+											/*int value5 = (int) Double.parseDouble(value);
+											vo.setHealthIns(value5);*/
+											break;
+										case 9:
+											int value6 = (int) (vo.getBasePay() * 0.0023025);
+											vo.setLongtermcareIns(value6);
+											/*int value6 = (int) Double.parseDouble(value);
+											vo.setLongtermcareIns(value6);*/
+											break;
+										case 10:
+											int value7 = (int) (vo.getBasePay() * 0.0065);
+											vo.setEmployeeIns(value7);
+											/*int value7 = (int) Double.parseDouble(value);
+											vo.setEmployeeIns(value7);*/
+											break;
+										case 11:
+											int value8 = (vo.getBasePay() + vo.getRegularBonus() + vo.getTaxFreeAlw()) 
+											             - (vo.getNationalPension() + vo.getHealthIns() + vo.getLongtermcareIns() + vo.getEmployeeIns());
+											vo.setTotalSalary(value8);
+											break;
 										default:
 										break;
 										}
@@ -358,12 +389,6 @@ public class MemberServiceImpl implements MemberService{
 											value = curCell.getCellFormula();
 											break;
 										case NUMERIC:
-											/*if(HSSFDateUtil.isCellDateFormatted(curCell)) {
-												Date date = (Date) curCell.getDateCellValue();
-												value = new SimpleDateFormat("yyyy-MM-dd").format(date);
-											}else{
-												value = curCell.getNumericCellValue() + "";
-											}*/
 											if(DateUtil.isCellDateFormatted(curCell)) {
 												SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 												value = sdf.format(curCell.getDateCellValue());
@@ -395,13 +420,46 @@ public class MemberServiceImpl implements MemberService{
 										case 3: vo.setIncomeDate(value);
 										break;
 										case 4: 
-											int value3 = (int)Double.parseDouble(value);
-											vo.setBasePay(value3);
-										break;
+											int value1 = (int)Double.parseDouble(value);
+											vo.setBasePay(value1);
+											break;
 										case 5: 
 											int value2 = (int) Double.parseDouble(value);
 											vo.setRegularBonus(value2);
-										break;
+											break;
+										case 6:
+											int value3 = (int) Double.parseDouble(value);
+											vo.setTaxFreeAlw(value3);
+											break;
+										case 7:
+											int value4 = (int) (vo.getBasePay() * 0.045);
+											vo.setNationalPension(value4);
+											/*int value4 = (int) Double.parseDouble(value);
+											vo.setNationalPension(value4);*/
+											break;
+										case 8:
+											int value5 = (int) (vo.getBasePay() * 0.0312);
+											vo.setHealthIns(value5);
+											/*int value5 = (int) Double.parseDouble(value);
+											vo.setHealthIns(value5);*/
+											break;
+										case 9:
+											int value6 = (int) (vo.getBasePay() * 0.0023025);
+											vo.setLongtermcareIns(value6);
+											/*int value6 = (int) Double.parseDouble(value);
+											vo.setLongtermcareIns(value6);*/
+											break;
+										case 10:
+											int value7 = (int) (vo.getBasePay() * 0.0065);
+											vo.setEmployeeIns(value7);
+											/*int value7 = (int) Double.parseDouble(value);
+											vo.setEmployeeIns(value7);*/
+											break;
+										case 11:
+											int value8 = (vo.getBasePay() + vo.getRegularBonus() + vo.getTaxFreeAlw()) 
+											             - (vo.getNationalPension() + vo.getHealthIns() + vo.getLongtermcareIns() + vo.getEmployeeIns());
+											vo.setTotalSalary(value8);
+											break;
 										default:
 										break;
 										}
@@ -464,6 +522,12 @@ public class MemberServiceImpl implements MemberService{
 		mlist = md.selectAllMember(sqlSession);
 		
 		return mlist;
+	}
+
+	@Override
+	public List<SalaryExcel> selectSearchCondition(String depType) {
+		
+		return md.selectSearchCondition(sqlSession, depType);
 	}
 
 }
