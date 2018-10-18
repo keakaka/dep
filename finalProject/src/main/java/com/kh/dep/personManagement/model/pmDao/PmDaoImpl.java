@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -104,6 +105,33 @@ public class PmDaoImpl implements PmDao {
 		dl.setYear(year);
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepLeavedayList" , dl);
+	}
+
+	// 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveList(SqlSessionTemplate sqlSession, String depName) {
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveList", depName);
+	}
+
+	// 월별 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmovedayList(SqlSessionTemplate sqlSession, String depName, String day,
+			String year) {
+		DepMoveDepRecord dm = new DepMoveDepRecord();
+		
+		dm.setDepName(depName);
+		dm.setDay(day);
+		dm.setYear(year);
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveDayList", dm);
+	}
+
+	//
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveEmpNoList(SqlSessionTemplate sqlSession, int empNo) {
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveEmpNoList", empNo);
 	}
 
 	

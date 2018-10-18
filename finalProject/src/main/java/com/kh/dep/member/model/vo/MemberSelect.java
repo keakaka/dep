@@ -30,17 +30,18 @@ public class MemberSelect implements java.io.Serializable {
 	private String modiFileName;
 	private String empType;
 	private String depReason;
+	private String leavein;
 	
 	public MemberSelect(){}
 
 	
 
-	
+
 
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
 			String positionName, String birthDate, String email, String phone, String emergencyPhone, String address,
 			int salary, Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
-			String positionNo, String modiFileName, String empType, String depReason) {
+			String positionNo, String modiFileName, String empType, String depReason, String leavein) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -65,11 +66,10 @@ public class MemberSelect implements java.io.Serializable {
 		this.modiFileName = modiFileName;
 		this.empType = empType;
 		this.depReason = depReason;
+		this.leavein = leavein;
 	}
 
 
-	
-	
 
 
 	@Override
@@ -80,7 +80,7 @@ public class MemberSelect implements java.io.Serializable {
 				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
 				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
 				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType
-				+ ", depReason=" + depReason + "]";
+				+ ", depReason=" + depReason + ", leavein=" + leavein + "]";
 	}
 
 
@@ -279,9 +279,26 @@ public class MemberSelect implements java.io.Serializable {
 		this.empType = empType;
 	}
 
+
+
+
+
+	public String getLeavein() {
+		return leavein;
+	}
+
+
+
+
+
+	public void setLeavein(String leavein) {
+		this.leavein = leavein;
+	}
+
 	
 	
 
+	
 
 	
 

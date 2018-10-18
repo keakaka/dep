@@ -61,7 +61,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 부서이동 현황</h3>
+									<h3>부서이동 이력</h3>
 								</div>
 								<div class="col-md-6">
 								
@@ -110,6 +110,12 @@
                   	<option>11</option>
                   	<option>12</option>
 				  </select>
+				  <select id="empNo" name="empNo">                         
+                          <option>사원명</option>
+                          <c:forEach var='m' items="${mlist }">
+                          <option value="${m.empNo }">${m.empName }</option>
+                          </c:forEach>
+                        </select>
                 
                   <div id="test1"></small></div>
 <!--        <button id="testB">테스트</button>
@@ -153,8 +159,8 @@
                               <th>사원번호</th>
                               <th>사원명</th>
                               <th>직급</th>
-                              <th>사유</th>
-                              <th>발령일</th>     
+                              <th>발령일</th>
+                              <th>사유</th>     
                             </tr>
                           </thead>
 
@@ -206,7 +212,7 @@
 			var depName = $("#depList option:selected").val();
 			console.log(depName);
 			$.ajax({
-				url : "depleaveList.pm",
+				url : "depMoveList.pm",
 				data : {depName : depName},
 				success : function(data){
 					console.log(data);
@@ -220,15 +226,15 @@
 						var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
 						var $empName = $('<td>').text(decodeURIComponent(val.empName));
 						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
-						var $hireDate = $('<td>').text(decodeURIComponent(val.hireDate));
-						var $leaveDate = $('<td>').text(decodeURIComponent(val.leaveDate));
+						var $depRcordDate = $('<td>').text(decodeURIComponent(val.depRcordDate));
+						var $depReason = $('<td>').text(decodeURIComponent(val.depReason));
 						
 						$tr.append($depName);
 						$tr.append($empNo);
 						$tr.append($empName);
 						$tr.append($jobName);
-						$tr.append($hireDate);
-						$tr.append($leaveDate);
+						$tr.append($depRcordDate);
+						$tr.append($depReason);
 						$tbody.append($tr);
 					});	
 					},
@@ -249,7 +255,7 @@
 			console.log(day);
 			console.log(year);
 			$.ajax({
-				url : "depleavedayList.pm",
+				url : "depMovedayList.pm",
 				data : {day : day, 
 					depName : depName,
 					year : year},
@@ -265,15 +271,55 @@
 						var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
 						var $empName = $('<td>').text(decodeURIComponent(val.empName));
 						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
-						var $hireDate = $('<td>').text(decodeURIComponent(val.hireDate));
-						var $leaveDate = $('<td>').text(decodeURIComponent(val.leaveDate));
+						var $depRcordDate = $('<td>').text(decodeURIComponent(val.depRcordDate));
+						var $depReason = $('<td>').text(decodeURIComponent(val.depReason));
 						
 						$tr.append($depName);
 						$tr.append($empNo);
 						$tr.append($empName);
 						$tr.append($jobName);
-						$tr.append($hireDate);
-						$tr.append($leaveDate);
+						$tr.append($depRcordDate);
+						$tr.append($depReason);
+						$tbody.append($tr);
+					});	
+					},
+					error : function(){
+					
+					}
+					});
+
+			});
+	});
+	
+	$(function(){
+		$("#empNo").change(function(){
+			var empNo = $("#empNo option:selected").val();
+			
+			console.log(empNo);
+			
+			 $.ajax({
+				url : "depMoveEmpNoList.pm",
+				data : {empNo : empNo},			
+				success : function(data){
+					var $tbody = $('.workingList');
+					$tbody.html("");
+					var i = 0;
+					$.each(data, function(index, val){
+					
+						var $tr = $("<tr role='row' class='odd'>");
+						var $depName = $('<td>').text(decodeURIComponent(val.depName));
+						var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
+						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
+						var $depRcordDate = $('<td>').text(decodeURIComponent(val.depRcordDate));
+						var $depReason = $('<td>').text(decodeURIComponent(val.depReason));
+						
+						$tr.append($depName);
+						$tr.append($empNo);
+						$tr.append($empName);
+						$tr.append($jobName);
+						$tr.append($depRcordDate);
+						$tr.append($depReason);
 						$tbody.append($tr);
 					});	
 					},

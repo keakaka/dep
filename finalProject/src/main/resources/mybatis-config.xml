@@ -31,6 +31,7 @@
 		<typeAlias type="com.kh.dep.personManagement.model.vo.VacationLi" alias="VacationLi"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.PromotionLi" alias="PromotionLi"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.DepLeave" alias="DepLeave"/>
+		<typeAlias type="com.kh.dep.personManagement.model.vo.DepMoveDepRecord" alias="DepmoveRecord"/>
 	</typeAliases>
 	
 	<mappers>

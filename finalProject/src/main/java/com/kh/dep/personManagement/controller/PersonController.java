@@ -14,6 +14,7 @@ import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.personManagement.model.pmService.PmService;
 import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -193,7 +194,7 @@ public class PersonController {
 		ArrayList<DepLeave> dlist = ps.selectDepLeaveList(depName);
 		
 		System.out.println(dlist);
-		//hmap.put("list", list);
+		
 		
 		return dlist;
 	}
@@ -205,16 +206,57 @@ public class PersonController {
 		ArrayList<DepLeave> list = ps.selectDepLeavedayList(day ,depName , year);
 		
 		System.out.println(list);
-		//hmap.put("list", list);
+		
 		
 		return list;
 	}
 	
 	@RequestMapping("depmoveDeptRecord.pm")
-	public String movedepmoveDeptRecord(){
+	public String movedepmoveDeptRecord(Model model){
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		
+		model.addAttribute("mlist", mlist);
 		
 		return "personManagement/depMovedept";
 	}
 	
+	
+	@RequestMapping("depMoveList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> selectDepMoveList(@RequestParam String depName){
+		
+		
+		ArrayList<DepMoveDepRecord> dlist = ps.selectDepmoveList(depName);
+		
+		System.out.println(dlist);
+		
+		
+		return dlist;
+	}
+	
+	@RequestMapping("depMovedayList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> depMovedayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
+		
+		
+		ArrayList<DepMoveDepRecord> list = ps.selectDepMovedayList(day ,depName , year);
+		
+		System.out.println(list);
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("depMoveEmpNoList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> depMoveEmpNoList(@RequestParam int empNo){
+		
+		
+		ArrayList<DepMoveDepRecord> list = ps.selectDepMoveEmpNoList(empNo);
+		
+		System.out.println(list);
+		
+		
+		return list;
+	}
 
 }

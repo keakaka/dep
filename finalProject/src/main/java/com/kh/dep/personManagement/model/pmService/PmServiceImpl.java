@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dep.personManagement.model.pmDao.PmDao;
 import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
@@ -106,6 +107,41 @@ public class PmServiceImpl implements PmService {
 		ArrayList<DepLeave> dlist = null;
 		
 		dlist = pd.selectDepLeavedayList(sqlSession, depName, day, year);
+		
+		return dlist;
+	}
+
+
+	// 부서이동이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveList(String depName) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmoveList(sqlSession, depName);
+		
+		return dlist;
+	}
+
+
+	// 월별 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepMovedayList(String day, String depName, String year) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmovedayList(sqlSession, depName, day, year);
+		
+		return dlist;
+	}
+
+
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepMoveEmpNoList(int empNo) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmoveEmpNoList(sqlSession, empNo);
 		
 		return dlist;
 	}
