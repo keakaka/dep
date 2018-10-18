@@ -111,7 +111,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                       <li role="presentation" class=""><a href="promotion.pm" id="home-tab" role="tab" aria-expanded="false">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#leave.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
+                      <li role="presentation" class=""><a href="vacation.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
                       </li>
                       <li role="presentation" class="active"><a href="leave.pm" role="tab" id="profile-tab"  aria-expanded="false">퇴사</a>
                       </li>                      
@@ -159,7 +159,7 @@
                               <th>사원명</th>
                               <th>부서</th>
                               <th>직급</th>
-                              <th>사유</th>
+                              <th>퇴사일</th>
                               <th>사원 확인</th>
                               <th>승인</th>
                               
@@ -206,7 +206,7 @@
                         </select>
                       		</td>
                       		   <td>
-                        <input type="text" id="reason" name="reason" required="required" placeholder="ex> 권고사직"
+                        <input type="date" id="leavein" name="leavein" required="required"
                         class="form-control col-md-7 col-xs-12">
                       		</td>
                       		  <td><button type="reset" class="btn btn-round btn-default">확인</button></td>

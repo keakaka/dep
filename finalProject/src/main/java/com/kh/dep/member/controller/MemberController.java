@@ -194,7 +194,6 @@ public class MemberController {
 	@RequestMapping("insertLeave.me")
 	public String insertLeaveMember(MemberSelect m){
 		
-		
 		try {
 			int result = ms.insertLeaveMember(m);
 		} catch (InsertRecordException e) {

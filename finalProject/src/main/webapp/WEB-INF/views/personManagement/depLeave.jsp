@@ -61,7 +61,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 퇴사자 조회</h3>
+									<h3>부서별 퇴사자 현황</h3>
 								</div>
 								<div class="col-md-6">
 								
@@ -89,34 +89,26 @@
                         <option>회계부</option>
                     
 				  </select>
-				  
+				  <select id="year">
+				  <option>년도</option>
+				 <c:forEach var="a"  begin="1950" end="2018" step="1">
+				  <option>${a}</option>
+				  </c:forEach>
+				  </select>
 				  <select id="day">
-				  <option>날짜</option>
-                  	
-                        <option>01</option>
-                   
-                        <option>02</option>
-                   
-                        <option>03</option>
-                   
-                        <option>04</option>
-                   
-                        <option>05</option>
-                   
-                        <option>06</option>
-                   
-                        <option>07</option>
-                   
-                        <option>08</option>
-                    
-                         <option>09</option>
-                   
-                        <option>10</option>
-                   
-                        <option>11</option>
-                   
-                        <option>12</option>
-                     
+				  <option>월</option>
+                 	<option>01</option>
+                  	<option>02</option>
+                  	<option>03</option>
+                  	<option>04</option>
+                  	<option>05</option>
+                  	<option>06</option>
+                  	<option>07</option>
+                  	<option>08</option>
+                  	<option>09</option>
+                  	<option>10</option>
+                  	<option>11</option>
+                  	<option>12</option>
 				  </select>
                 
                   <div id="test1"></small></div>
@@ -157,16 +149,16 @@
                   <table class="table table-hover">
                     <thead>
                           <tr>
+                          	  <th>부서</th>	
+                              <th>사원번호</th>
                               <th>사원명</th>
-                              <th>부서</th>
-                              <th>휴가사유</th>
-                              <th>휴가타입</th>
-                              <th>휴가시작일</th>
-                              <th>휴가종료일</th>     
+                              <th>직급</th>
+                              <th>입사일</th>
+                              <th>퇴사일</th>     
                             </tr>
                           </thead>
 
-                          <tbody class="vacationList">
+                          <tbody class="workingList">
                     	  </tbody>
                   </table>
 
@@ -210,30 +202,33 @@
 	
 	<script>
 	$(function(){
-		$("#vacationList").change(function(){
+		$("#depList").change(function(){
 			var depName = $("#depList option:selected").val();
 			console.log(depName);
 			$.ajax({
-				url : "vacationList.pm",
+				url : "depleaveList.pm",
 				data : {depName : depName},
 				success : function(data){
+					console.log(data);
 					var $tbody = $('.workingList');
 					$tbody.html("");
 					var i = 0;
 					$.each(data, function(index, val){
 					
 						var $tr = $("<tr role='row' class='odd'>");
-						var $empName = $('<td>').text(decodeURIComponent(val.empName));
 						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
+						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
+						var $hireDate = $('<td>').text(decodeURIComponent(val.hireDate));
+						var $leaveDate = $('<td>').text(decodeURIComponent(val.leaveDate));
 						
-						$tr.append($empName);
 						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
+						$tr.append($empNo);
+						$tr.append($empName);
+						$tr.append($jobName);
+						$tr.append($hireDate);
+						$tr.append($leaveDate);
 						$tbody.append($tr);
 					});	
 					},
@@ -248,10 +243,17 @@
 	$(function(){
 		$("#day").change(function(){
 			var day = $("#day option:selected").val();
+			var depName = $("#depList option:selected").val();
+			var year = $("#year option:selected").val();
+			console.log(depName);
 			console.log(day);
+			console.log(year);
 			$.ajax({
-				url : "depMgtdayList.pm",
-				data : {day : day},
+				url : "depleavedayList.pm",
+				data : {day : day, 
+					depName : depName,
+					year : year},
+				
 				success : function(data){
 					var $tbody = $('.workingList');
 					$tbody.html("");
@@ -259,17 +261,19 @@
 					$.each(data, function(index, val){
 					
 						var $tr = $("<tr role='row' class='odd'>");
-						var $empName = $('<td>').text(decodeURIComponent(val.empName));
 						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $empNo = $('<td>').text(decodeURIComponent(val.empNo));
+						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $jobName = $('<td>').text(decodeURIComponent(val.jobName));
+						var $hireDate = $('<td>').text(decodeURIComponent(val.hireDate));
+						var $leaveDate = $('<td>').text(decodeURIComponent(val.leaveDate));
 						
-						$tr.append($empName);
 						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
+						$tr.append($empNo);
+						$tr.append($empName);
+						$tr.append($jobName);
+						$tr.append($hireDate);
+						$tr.append($leaveDate);
 						$tbody.append($tr);
 					});	
 					},

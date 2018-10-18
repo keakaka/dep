@@ -129,7 +129,7 @@
 	});
 </script>            -->
                   
-                  <ul class="nav navbar-right panel_toolbox">
+           <!--        <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li class="dropdown">
@@ -143,7 +143,7 @@
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
-                  </ul>
+                  </ul> -->
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -154,7 +154,8 @@
                               <th>부서</th>
                               <th>날짜</th>
                               <th>출근시간</th>
-                              <th>퇴근시간</th>     
+                              <th>퇴근시간</th>
+                              <th>상태</th>     
                             </tr>
                           </thead>
 
@@ -220,12 +221,14 @@
 						var $today = $('<td>').text(decodeURIComponent(val.today));
 						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
 						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $state = $('<td>').text(decodeURIComponent(val.state));
 						
 						$tr.append($empName);
 						$tr.append($depName);
 						$tr.append($today);
 						$tr.append($tTime);
 						$tr.append($leaveTime);
+						$tr.append($state);
 						$tbody.append($tr);
 					});	
 					},
@@ -264,12 +267,15 @@
 						var $today = $('<td>').text(decodeURIComponent(val.today));
 						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
 						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $state = $('<td>').text(decodeURIComponent(val.state));
+						
 						
 						$tr.append($empName);
 						$tr.append($depName);
 						$tr.append($today);
 						$tr.append($tTime);
 						$tr.append($leaveTime);
+						$tr.append($state);
 						$tbody.append($tr);
 					});	
 					},

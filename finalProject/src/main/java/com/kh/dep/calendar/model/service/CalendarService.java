@@ -18,5 +18,11 @@ public interface CalendarService {
 
 	int selectCurval();
 
+	int deleteCalendar(Calendar c);
+
+	Calendar updateModelCalendar(Calendar c);
+
+	int updateCalendar(Calendar c);
+
 
 }
