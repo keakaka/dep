@@ -1,7 +1,12 @@
 package com.kh.dep.personManagement.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +18,11 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.personManagement.model.pmService.PmService;
+import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
+
+import com.kh.dep.personManagement.model.vo.Tdatel;
+import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
@@ -42,8 +51,11 @@ public class PersonController {
 	public @ResponseBody ArrayList<Working> depMgtList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		System.out.println("근태 컨트롤 입장"+depName);
-		
+		Working w = new Working();
 		ArrayList<Working> list = ps.depMgtList(depName);
+		
+
+		
 		
 		hmap.put("list", list);
 		
@@ -102,13 +114,7 @@ public class PersonController {
 	
 	
 	
-	@RequestMapping("promotion.pm")
-	public String promotion(){
-		
-		
-		
-		return "personManagement/promotion";
-	}
+
 	
 
 	@RequestMapping("depPromotinList.pm")
@@ -182,6 +188,127 @@ public class PersonController {
 		
 		
 		return "personManagement/depleave";
+	}
+	
+	@RequestMapping("vacation.pm")
+	public String vacation(Model model){
+		
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+
+		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		model.addAttribute("deplist", deplist);
+		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
+		
+		
+		return "personManagement/vacation";
+	}
+	
+
+	@RequestMapping("promotion.pm")
+	public String promotion(Model model){
+		
+		
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+
+		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		model.addAttribute("deplist", deplist);
+		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
+		
+		
+		return "personManagement/promotion";
+	}
+	
+	@RequestMapping("insertVacation.pm")
+	public String insertvacation(@RequestParam String userNo , @RequestParam String vacReason, @RequestParam String vacType,
+			@RequestParam String vacEndDate,@RequestParam String vacStartDate){
+		
+		System.out.println("휴가 정보입력");
+		VacationIn v = new VacationIn();
+		
+			int empNo = Integer.parseInt(userNo);
+			
+			System.out.println(empNo);
+			
+		
+			v.setEmpNo(empNo);
+			v.setVacStartDate(vacStartDate);
+			v.setVacEndDate(vacEndDate);
+			v.setVacReason(vacReason);
+			v.setVacType(vacType);
+			
+			System.out.println(v);
+			
+			int result = ps.insertvacation(v);
+		
+		return "personManagement/vacation";
+	}
+	
+
+	@RequestMapping("insertPromotion.pm")
+	public String insertpromotion(@RequestParam String userNo , @RequestParam String jobRecordDate, @RequestParam String jobReason,
+			@RequestParam String jobCode){
+		PromotionIn p = new PromotionIn();
+		int empNo = Integer.parseInt(userNo);
+		
+		if(jobCode.equals("대표"))
+		{
+			jobCode = "J1";
+			System.out.println(jobCode);
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("대표이사"))
+		{
+			jobCode ="J2";
+			System.out.println(jobCode);
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("이사"))
+		{
+			jobCode ="J3";
+			System.out.println(jobCode);
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("팀장"))
+		{
+			jobCode ="J4";
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("부장"))
+		{
+			jobCode ="J5";
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("차장"))
+		{
+			jobCode ="J6";
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("과장"))
+		{
+			jobCode ="J7";
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("대리"))
+		{
+			jobCode ="J8";
+			p.setJobCode(jobCode);
+		}else if(jobCode.equals("사원"))
+		{
+			jobCode ="J9";
+			p.setJobCode(jobCode);
+		}
+		p.setEmpNo(empNo);
+		p.setJobReason(jobReason);
+		p.setJobRecordDate(jobRecordDate);
+		
+		
+		System.out.println("프로모션 컨트롤  : " + p);
+		
+		int result = ps.insertpromotion(p);
+		
+		
+		return "personManagement/promotion";
 	}
 	
 	

@@ -2,7 +2,9 @@ package com.kh.dep.personManagement.model.pmService;
 
 import java.util.ArrayList;
 
+import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
@@ -20,6 +22,10 @@ public interface PmService {
 	ArrayList<PromotionLi> selectPromotionList(String depName);
 
 	ArrayList<PromotionLi> selectPromotiondayList(String day,String depName ,String year);
+
+	int insertvacation(VacationIn v);
+
+	int insertpromotion(PromotionIn p);
 	
 	
 	
