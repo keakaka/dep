@@ -25,5 +25,7 @@ public interface SignService {
 	ArrayList<Document> selectAppProgress(int docNo);
 
 	InsertSign selectDocDetail(int docNo);
+
+	int updateApprovalStatus(Document d);
 	
 }

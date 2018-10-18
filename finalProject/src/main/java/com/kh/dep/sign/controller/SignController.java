@@ -202,4 +202,13 @@ public class SignController {
 	    
 	}
 	
+	@RequestMapping(value="updateApprovalStatus.sg")
+	public @ResponseBody int updateApprovalStatus(Model model, int docNo, int empNo, String approvalStatus, Document d){
+		d.setEmpNo(empNo);
+		d.setDocNo(docNo);
+		d.setApprovalStatus(approvalStatus);
+		
+		return ss.updateApprovalStatus(d);
+	}
+	
 }

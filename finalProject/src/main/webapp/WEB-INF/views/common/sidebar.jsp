@@ -3,8 +3,8 @@
          pageEncoding="UTF-8"%>
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       
-      <div class="navbar nav_title" style="border: 0;">
-         <a href="logout.me" class="site_title"><i class="fa fa-paw"></i> <span>DBDBDep</span></a>
+      <div class="navbar nav_title" style="border: 0;" >
+         <a href="logout.me" class="site_title"><img src="${contextPath }/resources/images/DBDBDEP.png" width="200px" height="50px"></a>
       </div>
       <div class="clearfix"></div>
       
@@ -59,11 +59,11 @@
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="signWright.sg">문서작성</a></li>
-                     <li><a href="signImWriter.sg?empNo=${loginUser.empNo }">내가 올린 문서</a></li>
-                     <li><a href="signApprovalList.sg?empNo=${loginUser.empNo }">결재할 문서</a></li>
-                     <li><a href="signComplete.sg?empNo=${loginUser.empNo }">결재 완료된 문서</a></li>
-                     <li><a href="signReceive.sg?empNo=${loginUser.empNo }">수신 참조된 문서</a></li>
+                     <li><a href="signWright.sg">문서 기안</a></li>
+                     <li><a href="signImWriter.sg?empNo=${loginUser.empNo }">기안함</a></li>
+                     <li><a href="signApprovalList.sg?empNo=${loginUser.empNo }">결재 대기함</a></li>
+                     <li><a href="signComplete.sg?empNo=${loginUser.empNo }">결재 완료함</a></li>
+                     <li><a href="signReceive.sg?empNo=${loginUser.empNo }">수신함</a></li>
                   </ul>
                </li>
                
