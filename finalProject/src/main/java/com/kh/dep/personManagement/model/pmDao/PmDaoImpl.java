@@ -37,24 +37,18 @@ public class PmDaoImpl implements PmDao {
 			String chul ="정상출근";
 			if(sibalint > 10)
 			{
-				//w.setState(jigak);
-				//System.out.println(w.getState());
+			
 				list.get(i).setState(jigak);;
 				System.out.println("리스트 출력1 :" + list);
 			}else
 			{
 				
-				//w.setState(chul);
-				//System.out.println(w.getState());
-				//list.add(w);
+		
 				list.get(i).setState(chul);
 				
-				//System.out.println("리스트 출력2 :" + list);
 			}
-			
-			//System.out.println("포문 리스트 출력 :" + list);
-			
 		
+			
 		}
 		
 		System.out.println("다오 상태" + list);
@@ -194,6 +188,7 @@ public class PmDaoImpl implements PmDao {
 	public ArrayList<DepMoveDepRecord> selectDepmoveEmpNoList(SqlSessionTemplate sqlSession, int empNo) {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepMoveEmpNoList", empNo);
+	}
 
 	@Override
 	public int insertVacation(SqlSessionTemplate sqlSession, VacationIn v) {

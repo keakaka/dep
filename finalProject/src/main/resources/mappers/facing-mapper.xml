@@ -17,6 +17,23 @@
 		<result property="depName" column="DEP_NAME" />
 		
 	</resultMap>
+		<resultMap type="FacingInsert" id="FacingIResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="facingNo" column="FACING_NO" />
+		<result property="facingTitle" column="FACING_TITLE" />
+		<result property="facingContents" column="FACING_CONTENTS" />
+		<result property="writeDate" column="WRITE_DATE" />
+		<result property="receiver" column="RECEIVER" />
+		<result property="status" column="STATUS" />
+		<result property="receiverDate" column="RECEIVER_DATE" />
+	</resultMap>
+	
+		<resultMap type="FacingInsertR" id="FacingRResultSet">
+		<result property="facingNo" column="FACING_NO" />
+		<result property="receiver" column="RECEIVER" />	
+		<result property="receiverDate" column="RECEIVER_DATE" />
+	</resultMap>
 	
 	<!-- <resultMap type="WorkginRecord" id="WorkingResultSet">
 		<id property="empNo" column="EMP_NO" />
@@ -56,6 +73,25 @@
 	<update id="updateFacing" parameterType="int">
 	UPDATE FACING SET STATUS = 'N' WHERE FACING_NO = #{facingNo} 
 	</update>
+	<insert id="insertFacing" parameterType="FacingInsert">
+	  
+      INSERT INTO "FINAL"."FACING" (FACING_NO, FACING_TITLE, FACING_CONTENTS, WRITE_DATE, EMP_NO, STATUS) 
+  	  VALUES (FACING_NO.NEXTVAL, #{facingTitle}, #{facingContents}, SYSDATE,#{empNo}, 'Y')
+            
+	</insert>
+	
+	<select id="selectNowFaicng" resultMap="FacingResultSet" parameterType="int">
+	SELECT FACING_NO ,WRITE_DATE FROM
+	FACING 
+	WHERE WRITE_DATE = (SELECT MAX(WRITE_DATE)FROM FACING WHERE EMP_NO=1000)
+	AND EMP_NO = #{empNo}
+	AND ROWNUM = 1 
+	ORDER BY FACING_NO DESC
+	</select>
+	<insert id="insertFaicngR" parameterType="FacingInsertR">
+	INSERT INTO "FINAL"."FACING_RECEIVE" (FACING_NO, RECEIVER, RECEIVE_DATE) 
+	VALUES (#{facingNo}, #{receiver}, SYSDATE)
+	</insert>
 	
 <!-- 	   쪽지보내기 쿼리문 
    <insert id="insertFacing"  parameterType="Facing">

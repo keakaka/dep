@@ -34,6 +34,10 @@
 		<typeAlias type="com.kh.dep.personManagement.model.vo.DepMoveDepRecord" alias="DepmoveRecord"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.VacationIn" alias="VacationIn"/>
 		<typeAlias type="com.kh.dep.personManagement.model.vo.PromotionIn" alias="PromotionIn"/>
+		<typeAlias type="com.kh.dep.facing.model.vo.FacingInsertR" alias="FacingInsertR"/>
+		<typeAlias type="com.kh.dep.facing.model.vo.FacingInsert" alias="FacingInsert"/>
+		
+		
 	</typeAliases>
 	
 	<mappers>

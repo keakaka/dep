@@ -7,7 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.vo.Facing;
+import com.kh.dep.facing.model.vo.FacingInsert;
+import com.kh.dep.facing.model.vo.FacingInsertR;
 import com.kh.dep.facing.model.vo.WorkingRecord;
+import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberJob;
 
 public interface FacingDao {
@@ -24,6 +27,15 @@ public interface FacingDao {
 	int updateFacing(SqlSessionTemplate sqlSession, int fNo);
 
 	int insertWorking(SqlSessionTemplate sqlSession, int empNo);
+
+	int insertFacing(SqlSessionTemplate sqlSession, FacingInsert fi);
+
+	Facing selectNowFaicng(int empNo);
+
+	int insertReceiver(FacingInsertR fir);
+
+
+	
 
 /*	int insertFacing(SqlSessionTemplate sqlSession, Facing f);
 

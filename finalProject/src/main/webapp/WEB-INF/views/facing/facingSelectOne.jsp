@@ -66,10 +66,10 @@
                   <!-- start form for validation -->
                   <form id="demo-form" data-parsley-validate>
                     <label for="fullname">보낸사람  :</label>
-                    <input type="text" id="fullname" class="form-control" name="fullname" required />
+                    <input type="text" id="fullname" class="form-control" name="receiverName" required />
 
                     <label for="email">제목  :</label>
-                    <input type="email" id="email" class="form-control" name="email" data-parsley-trigger="change" required />
+                    <input type="email" id="email" class="form-control" name="title" data-parsley-trigger="change" required />
 
                     <label for="email">내용  :</label>                  
                         <label for="message">Message (20 chars min, 100 max) :</label>

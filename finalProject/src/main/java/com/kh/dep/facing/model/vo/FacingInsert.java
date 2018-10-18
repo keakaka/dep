@@ -12,18 +12,17 @@ public class FacingInsert implements java.io.Serializable {
 	private int facingNo;
 	private String facingTitle;
 	private String facingContents;
-	private Date writeDate;
+	private String writeDate;
 	private int receiver;
 	private String status;
-	private Date reciverDate;
+	private String reciverDate;
 	
 	public FacingInsert()
 	{
 		
 	}
-
 	public FacingInsert(int empNo, String empName, int facingNo, String facingTitle, String facingContents,
-			Date writeDate, int receiver, String status, Date reciverDate) {
+			String writeDate, int receiver, String status, String reciverDate) {
 		super();
 		this.empNo = empNo;
 		this.empName = empName;
@@ -35,79 +34,60 @@ public class FacingInsert implements java.io.Serializable {
 		this.status = status;
 		this.reciverDate = reciverDate;
 	}
-
 	public int getEmpNo() {
 		return empNo;
 	}
-
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
-
 	public String getEmpName() {
 		return empName;
 	}
-
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
-
 	public int getFacingNo() {
 		return facingNo;
 	}
-
 	public void setFacingNo(int facingNo) {
 		this.facingNo = facingNo;
 	}
-
 	public String getFacingTitle() {
 		return facingTitle;
 	}
-
 	public void setFacingTitle(String facingTitle) {
 		this.facingTitle = facingTitle;
 	}
-
 	public String getFacingContents() {
 		return facingContents;
 	}
-
 	public void setFacingContents(String facingContents) {
 		this.facingContents = facingContents;
 	}
-
-	public Date getWriteDate() {
+	public String getWriteDate() {
 		return writeDate;
 	}
-
-	public void setWriteDate(Date writeDate) {
+	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
-
 	public int getReceiver() {
 		return receiver;
 	}
-
 	public void setReceiver(int receiver) {
 		this.receiver = receiver;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public Date getReciverDate() {
+	public String getReciverDate() {
 		return reciverDate;
 	}
-
-	public void setReciverDate(Date reciverDate) {
+	public void setReciverDate(String reciverDate) {
 		this.reciverDate = reciverDate;
 	}
-
 	@Override
 	public String toString() {
 		return "FacingInsert [empNo=" + empNo + ", empName=" + empName + ", facingNo=" + facingNo + ", facingTitle="
@@ -115,7 +95,5 @@ public class FacingInsert implements java.io.Serializable {
 				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + "]";
 	}
 	
-
-
 	
 }

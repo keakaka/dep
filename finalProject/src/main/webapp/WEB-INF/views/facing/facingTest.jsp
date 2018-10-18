@@ -102,7 +102,7 @@
                     <input type="text" id="price" class="form-control" name="price" data-parsley-trigger="change" required /><br>
                      -->
 					<label for="count">받는사람 * :</label>
-                    <input type="text" id="count" class="form-control" name="count" value=''/><br>
+                    <input type="text" id="count" class="form-control" name="receive" value=''/><br>
                     <label>제목</label><br>
                     
                     <div class="well">
@@ -110,7 +110,7 @@
 	                        <div class="control-group">
 	                          <div class="controls">
 	                            <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-	                              <input type="text" class="form-control has-feedback-left" name="deadline" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status" value="">
+	                              <input type="text" class="form-control has-feedback-left" name="title" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status" >
 	                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 	                              <span id="inputSuccess2Status" class="sr-only">(success)</span>
 	                            </div>
@@ -120,19 +120,20 @@
 	                    </div>
                     
 						<label>내용</label>
-						<textarea id="summernote" name="proContent" required>
+						<textarea id="summernote" name="mailContent" required>
 							
 						</textarea>
 						<input type="hidden" id='memberNo' name="memberNo" value="">
 	                  	<label>썸네일 : &nbsp; </label><input type="file" id='thumbnail' name="filename" size=40>
 	                  	<br><br>
 	                  	
-	                  	<button type="rest" id='Enrollment' class="btn btn-primary" style="width:400px;">보내기</button>
+	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px;">보내기</button>
                         <br/>
                         <input type='hidden' id='hid' name='hid' value=''>	<!-- 유저 아이디 -->
 						<input type='hidden' id='read' name='attachNo' value='food'>			<!-- Attach id 번호 -->
 						
                         <script type="text/javascript">
+                        
 
                         <%-- 	$(function(){
 		                		$.ajax({ 

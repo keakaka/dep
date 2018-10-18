@@ -218,7 +218,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<SalaryExcel> xlsxExcelReader(MultipartHttpServletRequest req) {
 		System.out.println("급여 엑셀 업로드파일 서비스 호출");
-		List<SalaryExcel> list = new ArrayList<>();
+		List<SalaryExcel> list = new ArrayList();
 
 		MultipartFile file = req.getFile("excelFile");
 		XSSFWorkbook workbook = null;
@@ -350,7 +350,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<SalaryExcel> xlsExcelReader(MultipartHttpServletRequest req) {
 		System.out.println("급여 엑셀 업로드파일 서비스 호출");
-		List<SalaryExcel> list = new ArrayList<>();
+		List<SalaryExcel> list = new ArrayList();
 
 		MultipartFile file = req.getFile("excelFile");
 		HSSFWorkbook workbook = null;
