@@ -172,6 +172,7 @@
 									        	var recEno = new Array();
 									        	var appOverlap = true;
 									        	var recOverlap = true;
+									        	var selfOverlap = true;
 									        	$('.recTable tr').each(function() {
 									        	    recEno.push($(this).find("input").val());
 									        	});
@@ -179,6 +180,9 @@
 									        	    appEno.push($(this).find("input").val());
 									        	});
 									        	
+									        	if($empNo == ${loginUser.empNo}){
+									        		selfOverlap = false;
+									        	}
 									        	for(var i in appEno){
 									        		if(appEno[i] == $empNo || appEno.length == 0){
 									        			appOverlap = false;
@@ -193,7 +197,7 @@
 									        			recOverlap = true;
 									        		}
 									        	}
-									        	if(appOverlap == true && recOverlap == true){
+									        	if(appOverlap == true && recOverlap == true && selfOverlap == true){
 									        		$appTd.append($resetApp);
 										        	$appTr.append($appName);
 										        	$appTr.append($appTd);
@@ -203,6 +207,8 @@
 									        		alert('이미 결재선에 추가 된 사원입니다.');
 									        	}else if(recOverlap == false){
 									        		alert('이미 수신 참조된 사원입니다.');
+									        	}else if(selfOverlap == false){
+									        		alert('자기 자신은 추가할 수 없습니다.');
 									        	}
 									        	$(function(){
 													$(".resApp").click(function(){
@@ -227,6 +233,7 @@
 									        	var recEno = new Array();
 									        	var appOverlap = true;
 									        	var recOverlap = true;
+									        	var selfOverlap = true;
 									        	$('.recTable tr').each(function() {
 									        	    recEno.push($(this).find("input").val());
 									        	});
@@ -234,6 +241,9 @@
 									        	    appEno.push($(this).find("input").val());
 									        	});
 									        	
+									        	if($empNo == ${loginUser.empNo}){
+									        		selfOverlap = false;
+									        	}
 									        	for(var i in appEno){
 									        		if(appEno[i] == $empNo || appEno.length == 0){
 									        			appOverlap = false;
@@ -248,7 +258,7 @@
 									        			recOverlap = true;
 									        		}
 									        	}
-									        	if(appOverlap == true && recOverlap == true){
+									        	if(appOverlap == true && recOverlap == true && selfOverlap == true){
 									        		$recTd.append($resetRec);
 										        	$recTr.append($recName);
 										        	$recTr.append($recTd);
@@ -258,6 +268,8 @@
 									        		alert('이미 결재선에 추가 된 사원입니다.');
 									        	}else if(recOverlap == false){
 									        		alert('이미 수신 참조된 사원입니다.');
+									        	}else if(selfOverlap == false){
+									        		alert('자기 자신은 추가할 수 없습니다.');
 									        	}
 									        	$(function(){
 													$(".resRec").click(function(){

@@ -75,14 +75,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                      </tr> -->
-                      
+						<c:forEach var="d" items="${list}">
+                    	<tr>
+                    		<td>${d.docNo }</td>
+                    		<td>${d.docTitle }</td>
+                    		<td>${d.writer }</td>
+                    		<td>${d.writeDate }</td>
+                    		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
+                    	</tr>
+					</c:forEach> 
                     </tbody>
                   </table>
                 </div>

@@ -45,7 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>결재 할 문서 </h3>
+              <h3> 결재 완료된 문서 </h3>
             </div>
 
             <div class="title_right">
@@ -60,7 +60,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>결재 할 문서</h2>
+                  <h2>결재 완료 문서</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -72,7 +72,6 @@
                         <th>기안자</th>
                         <th>작성일자</th>
                         <th>문서 보기</th>
-                        <th>결재</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -83,7 +82,6 @@
                     		<td>${d.writer }</td>
                     		<td>${d.writeDate }</td>
                     		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
-                    		<td align="center"><button type="button" class="btn btn-default btn-xs approval">결재</button></td>
                     	</tr>
 					</c:forEach> 
                     </tbody>

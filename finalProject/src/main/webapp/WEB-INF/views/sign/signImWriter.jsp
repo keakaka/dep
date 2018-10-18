@@ -83,35 +83,144 @@
                     		<td>${d.writer }</td>
                     		<td>${d.writeDate }</td>
                     		<c:if test="${d.appStatus > 0}">
-                    			<td>결재 진행중</td>
+                    			<td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showAppProg" style="cursor:pointer">결재 진행중</a></td>
                     		</c:if>
                     		<c:if test="${d.appStatus < 1 }">
-                    			<td>결재 완료</td>
+                    			<td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showAppProg" style="cursor:pointer">결재 완료</a></td>
                     		</c:if>
                     		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
                     	</tr>
 					</c:forEach> 
-                      <!-- <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                      </tr> -->
                       
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-            
+           </div>
+           <!-- Large modal -->
+
+                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">결재 진행 상태 보기</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+		              		<div class="x_panel">
+		                  <table class="table table-bordered appProg">
+		                    <thead>
+		                    </thead>
+		                    <tbody>
+		                    </tbody>
+		                  </table>
+				              </div>
+				            </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                      </div>
+
+                    </div>
                   </div>
-            
+                </div>
+           
+           <script>
+            	$(function(){
+            		$(".showAppProg").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			
+            			$.ajax({
+            				url : "showAppProg.sg",
+            				data : {docNo:docNo},
+            				success : function(data){
+            					var $appProg = $(".appProg");
+            					$appProg.html('');
+            					var $tr = $("<tr>");
+            					$.each(data, function(index, val){
+									var $td = $("<td align='center'>").text(decodeURIComponent(val.writer));
+									$tr.append($td);
+								});
+								
+            					var $tr2 = $("<tr>");
+            					$.each(data, function(index, val){
+            						var status = "";
+            						if(val.approvalStatus = 'AP1'){
+            							status = '결재 대기중';
+            						}else if(val.approvalStatus == 'AP2'){
+            							status = '승인';
+            						}else if(val.approvalStatus == 'AP3'){
+            							status = '반려';
+            						}
+									var $td = $("<td align='center'>").text(status);
+									$tr2.append($td);
+								});
+            					var $tr3 = $("<tr>");
+            					$.each(data, function(index, val){
+            						var date = decodeURIComponent(val.approvalDate);
+            						if(date == "null"){
+            							date = "-";
+            						}
+									var $td = $("<td align='center'>").text(date);
+									$tr3.append($td);
+								});
+            					var $tr4 = $("<tr>");
+            					$.each(data, function(index, val){
+            						var reason = decodeURIComponent(val.appReason);
+            						if(reason == "null"){
+            							reason = "-";
+            						}
+									var $td = $("<td align='center'>").text(reason);
+									$tr4.append($td);
+								});
+            					
+								$appProg.append($tr);
+								$appProg.append($tr2);
+								$appProg.append($tr3);
+								$appProg.append($tr4);
+            				},
+            				error : function(){
+            					console.log('error');
+            				}
+            			});
+            		});
+            	});
+            </script>
+            <script>
+            	$(function(){
+            		$(".showDoc").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			var url = "showDoc.sg?docNo="+docNo;
+            			var popupOption = "width = " + 1000 + ", height = " + 500;
+            			window.open(url, "", popupOption);
+            		});
+            	});
+				/* function rtcOpen(){
+					var empName = $("#empName").val();
+					var empNo = $("#empNo").val();
+					var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
+					var url = encodeURI(url1);
+				    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+					window.open(url,"",popupOption);
+				}
+				function openTest(){
+					var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
+					var empName = $("#empName").val();
+					var empNo = $("#empNo").val();
+					var url="https://192.168.43.84:55555?id="+empName+"#/room/"+roomName;
+					var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+					window.open(url,"",popupOption);
+				} */
+			</script>
             
 				<!-- footer content -->
 
 				<footer>
+				
 					<div class="copyright-info">
 						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
 						</p>

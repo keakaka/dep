@@ -1,15 +1,21 @@
 package com.kh.dep.sign.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,41 +51,58 @@ public class SignController {
 	@RequestMapping(value="insertSign.sg")
 	public String insertSign(Model model, InsertSign is, HttpServletRequest request, String signTitle, 
 			String signContent, @RequestParam("appList") int[] appList, int[] recList, MultipartFile signFile, int empNo){
-		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadSignFiles";
-		String originFileName = signFile.getOriginalFilename();
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		String changeName = CommonUtils.getRandomString();
-		
-		try {
-			signFile.transferTo(new File(filePath + "\\" + changeName + ext));
-			is.setFilePath(filePath);
-			is.setOriginFileName(originFileName);
-			is.setChangeName(changeName);
-			is.setExt(ext);
-			is.setSignTitle(signTitle);
-			is.setSignContent(signContent);
-			is.setWriter(empNo);
-			is.setAppList(appList);
-			is.setRecList(recList);
-			ss.insertSign(is);
-			return "sign/signWright";
-		} catch (Exception e) {
-			new File(filePath + "\\" + changeName + ext).delete();
-			model.addAttribute("msg", e.getMessage());
-			return "common/errorPage";
+		String originFileName ="";
+		String ext ="";
+		String changeName ="";
+		System.out.println("signFile : " + signFile);
+		System.out.println("recList : " + recList);
+		for(int i = 0; i < recList.length; i++){
+			System.out.println(recList[i]);
 		}
+		if(originFileName != ""){	
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			changeName = CommonUtils.getRandomString();
+			try {
+				signFile.transferTo(new File(filePath + "\\" + changeName + ext));
+				is.setFilePath(filePath);
+				is.setOriginFileName(originFileName);
+				is.setChangeName(changeName + ext);
+				is.setExt(ext);
+				is.setSignTitle(signTitle);
+				is.setSignContent(signContent);
+				is.setWriter(empNo);
+				is.setAppList(appList);
+				is.setRecList(recList);
+				ss.insertSign(is);
+				return "sign/signWright";
+			} catch (Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+		}else{
+			try {
+				System.out.println("오긴오냐");
+				is.setSignTitle(signTitle);
+				is.setSignContent(signContent);
+				is.setWriter(empNo);
+				is.setAppList(appList);
+				is.setRecList(recList);
+				ss.insertSign(is);
+				return "sign/signWright";
+			} catch (InsertSignException e) {
+				return "common/errorPage";
+			}
+		}
+		
 	}
 	
 	
 	@RequestMapping(value="depEmpSelect.sg")
 	public @ResponseBody ArrayList<MemberDep> depEmpSelect(@RequestParam String depName){
-		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("dep : " + depName);
 		ArrayList<MemberDep> list = ss.selectMemberDep(depName);
-		System.out.println("리스트 : " + list);
-		hmap.put("list", list);
 		return list;
 	}
 	
@@ -103,7 +126,7 @@ public class SignController {
 		try {
 			ArrayList<Document> list = ss.selectApprovalList(empNo);
 			
-			model.addAttribute(list);
+			model.addAttribute("list", list);
 			return "sign/signApprovalList";
 		} catch (SelectDocException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -113,7 +136,70 @@ public class SignController {
 	
 	@RequestMapping(value="signReceive.sg")
 	public String signReceive(Model model, int empNo){
-		
-		return "sign/signReceive";
+		try {
+			ArrayList<Document> list = ss.selectReceiveList(empNo);
+			
+			model.addAttribute("list", list);
+			
+			return "sign/signReceive";
+		} catch (SelectDocException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
 	}
+	
+	@RequestMapping(value="signComplete.sg")
+	public String signComplete(Model model, int empNo){
+		ArrayList<Document> list = ss.selectCompleteList(empNo);
+		model.addAttribute("list", list);
+		return "sign/signComplete";
+	}
+	
+	@RequestMapping(value="showAppProg.sg")
+	public @ResponseBody ArrayList<Document> selectAppProgress(@RequestParam int docNo){
+		ArrayList<Document> list = ss.selectAppProgress(docNo);
+		return list;
+	}
+	
+	@RequestMapping(value="showDoc.sg")
+	public String showDoc(Model model, int docNo){
+		InsertSign d = ss.selectDocDetail(docNo);
+		model.addAttribute("d", d);
+		System.out.println("d.orifilename : " + d.getOriginFileName());
+		return "sign/showDoc";
+	}
+	
+	@RequestMapping(value="signFileDownload.sg")
+	public void signFileDownload(HttpServletRequest request, HttpServletResponse response, int docNo){
+		InsertSign d = ss.selectDocDetail(docNo);
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadSignFiles";
+		File file = new File(filePath, d.getChangeName());
+	    
+		String fileName;
+	    
+		try {
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+			
+			fileName = new String(d.getOriginFileName().getBytes("UTF-8"), "iso-8859-1");
+			
+		    response.setContentType("application/octet-stream");
+
+		    //다운로드와 다운로드될 파일이름
+		    response.setHeader("Content-Disposition", "attachment; filename=\""+ fileName + "\"");
+		    
+		    //파일복사
+		    FileCopyUtils.copy(in, response.getOutputStream());
+		    in.close();
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    
+	}
+	
 }

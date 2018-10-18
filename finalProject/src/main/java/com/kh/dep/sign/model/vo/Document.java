@@ -14,10 +14,14 @@ public class Document implements java.io.Serializable{
 	private int empNo;
 	private String writer;
 	private int appStatus;
+	private String approvalStatus;
+	private String appReason;
+	private String approvalDate;
 	
 	public Document(){}
 
-	public Document(int docNo, String docTitle, String docContent, int docformNo, Date writeDate, int empNo, String writer, int appStatus) {
+	public Document(int docNo, String docTitle, String docContent, int docformNo, Date writeDate, int empNo, String writer, 
+			int appStatus, String approvalStatus, String appReason, String approvalDate) {
 		super();
 		this.docNo = docNo;
 		this.docTitle = docTitle;
@@ -27,12 +31,16 @@ public class Document implements java.io.Serializable{
 		this.empNo = empNo;
 		this.writer = writer;
 		this.appStatus = appStatus;
+		this.approvalStatus = approvalStatus;
+		this.appReason = appReason;
+		this.approvalDate = approvalDate;
 	}
 
 	@Override
 	public String toString() {
 		return "Document [docNo=" + docNo + ", docTitle=" + docTitle + ", docContent=" + docContent + ", docformNo=" + docformNo + ", writeDate="
-				+ writeDate + ", empNo=" + empNo + ", writer=" + writer + ", appStatus=" + appStatus + "]";
+				+ writeDate + ", empNo=" + empNo + ", writer=" + writer + ", appStatus=" + appStatus + ", approvalStatus=" + approvalStatus + 
+				", appReason=" + appReason + ", approvalDate=" + approvalDate + "]";
 	}
 
 	public int getDocNo() {
@@ -99,6 +107,29 @@ public class Document implements java.io.Serializable{
 		this.appStatus = appStatus;
 	}
 	
+	public String getApprovalStatus() {
+		return approvalStatus;
+	}
+	
+	public void setApprovalStatus(String approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
+	public String getAppReason() {
+		return appReason;
+	}
+
+	public void setAppReason(String appReason) {
+		this.appReason = appReason;
+	}
+
+	public String getApprovalDate() {
+		return approvalDate;
+	}
+
+	public void setApprovalDate(String approvalDate) {
+		this.approvalDate = approvalDate;
+	}
 	
 	
 }

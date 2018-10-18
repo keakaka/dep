@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
@@ -24,9 +25,21 @@ public interface SignDao {
 
 	ArrayList<Document> selectImWriter(SqlSessionTemplate sqlSession, Document doc);
 
-	ArrayList selectGetDocNo(SqlSessionTemplate sqlSession, int empNo);
+	ArrayList selectGetDocNo(SqlSessionTemplate sqlSession, int empNo) throws SelectDocException;
 
 	Document selectApprovalList(SqlSessionTemplate sqlSession, Object object);
+
+	ArrayList selectGetRecDocNo(SqlSessionTemplate sqlSession, int empNo);
+
+	Document selectReceiveList(SqlSessionTemplate sqlSession, Object object);
+
+	ArrayList selectGetComDocNo(SqlSessionTemplate sqlSession, int empNo);
+
+	Document selectCompleteList(SqlSessionTemplate sqlSession, Object object);
+
+	ArrayList<Document> selectAppProgress(SqlSessionTemplate sqlSession, int docNo);
+
+	InsertSign selectDocDetail(SqlSessionTemplate sqlSession, int docNo);
 
 	
 }
