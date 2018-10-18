@@ -24,20 +24,35 @@
 	</resultMap>
 	<resultMap type="PromotionLi" id="PromotionResultSet">
 		<id property="empNo" column="EMP_NO" />
-		<id property="jobCode" column="JOB_CODE"/>
+		<result property="jobCode" column="JOB_CODE"/>
 		<result property="depId" column="DEP_ID" />
 		<result property="empName" column="EMP_NAME" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="jobName" column="JOB_NAME" />
 		<result property="jobReason" column="JOB_REASON"/>
 		<result property="jobRecordDate" column="JOB_RECORD_DATE" />
+	</resultMap>
+		<resultMap type="VacationIn" id="VacationInResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="depId" column="DEP_ID" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="vacReason" column="VAC_REASON" />
+		<result property="vacType" column="VAC_TYPE" />
+		<result property="vacStartDate" column="VAC_STARTDATE" />
+		<result property="vacEndDate" column="VAC_ENDDATE" />
+	</resultMap>
+		<resultMap type="PromotionIn" id="PromotionInResultSet">
+		<id property="empNo" column="EMP_NO" />
+		<result property="jobCode" column="JOB_CODE"/>
+		<result property="jobName" column="JOB_NAME" />
+		<result property="jobReason" column="JOB_REASON"/>
+		<result property="jobRecordDate" column="JOB_RECORD_DATE" />
 	
 	</resultMap>
-	
-	
 	<!-- 근태 부서별 조회-->
 	<select id="workingSelectList" resultMap="WorkingResultSet" parameterType="Working">
-	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME , MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME 
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , MAX(TO_CHAR(WR.HOURS,'HH24:MI:SS')) LEAVETIME 
 	FROM WORKING_RECORD WR 
 	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
 	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
@@ -48,8 +63,8 @@
 	</select>
 	<!-- 근태 월별 조회-->
 	<select id="workingdaySelectList" resultMap="WorkingResultSet" parameterType="Working">
-	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME , 
-	MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME 
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , 
+	MAX(TO_CHAR(WR.HOURS,'HH24:MI:SS')) LEAVETIME 
 	FROM WORKING_RECORD WR 
 	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
 	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
@@ -109,7 +124,15 @@
 	AND NOT JOB_REASON = '입사'
 	ORDER BY JOB_RECORD_DATE DESC
 	</select>
+	<insert id="insertVacation" parameterType="VacationIn">
+	INSERT INTO "FINAL"."VACATION"(VAC_NO,EMP_NO,VAC_REASON,VAC_TYPE,VAC_STARTDATE,VAC_ENDDATE)
+    VALUES (VAC_NO.NEXTVAL,#{empNo},#{vacReason},#{vacType},#{vacStartDate},#{vacEndDate})
+	</insert>
 	
+	<insert id="insertPromotion" parameterType="PromotionIn">
+	INSERT INTO "FINAL"."JOB_RECORD"(JOB_RECORD_NO,JOB_RECORD_DATE,JOB_REASON,JOB_CODE,EMP_NO)
+	VALUES(JOB_RECORD_NO.NEXTVAL,#{jobRecordDate},#{jobReason},#{jobCode},#{empNo})
+	</insert>
 	
 
 	
