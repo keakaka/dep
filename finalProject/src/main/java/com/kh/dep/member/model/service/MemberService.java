@@ -79,4 +79,7 @@ public interface MemberService {
 	ArrayList<MemberSelect> selectAllMember();
 
 
+	List<SalaryExcel> selectSearchCondition(String depType);
+
+
 }
