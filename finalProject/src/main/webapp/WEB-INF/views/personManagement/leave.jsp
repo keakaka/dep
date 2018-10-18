@@ -111,7 +111,7 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                       <li role="presentation" class=""><a href="promotion.pm" id="home-tab" role="tab" aria-expanded="false">진급</a>
                       </li>
-                      <li role="presentation" class=""><a href="#leave.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
+                      <li role="presentation" class=""><a href="vacation.pm" role="tab" id="profile-tab2"  aria-expanded="false">휴가</a>
                       </li>
                       <li role="presentation" class="active"><a href="leave.pm" role="tab" id="profile-tab"  aria-expanded="false">퇴사</a>
                       </li>                      
