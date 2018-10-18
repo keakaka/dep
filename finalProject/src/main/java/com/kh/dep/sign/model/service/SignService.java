@@ -17,5 +17,13 @@ public interface SignService {
 	ArrayList<Document> selectImWriter(Document doc) throws SelectDocException;
 
 	ArrayList<Document> selectApprovalList(int empNo) throws SelectDocException;
+
+	ArrayList<Document> selectReceiveList(int empNo) throws SelectDocException;
+
+	ArrayList<Document> selectCompleteList(int empNo);
+
+	ArrayList<Document> selectAppProgress(int docNo);
+
+	InsertSign selectDocDetail(int docNo);
 	
 }

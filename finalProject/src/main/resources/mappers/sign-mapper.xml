@@ -28,6 +28,9 @@
 		<result property="empNo" column="EMP_NO"/>
 		<result property="writer" column="EMP_NAME"/>
 		<result property="appStatus" column="APP_STATUS"/>
+		<result property="approvalStatus" column="APPROVAL_STATUS"/>
+		<result property="appReason" column="APP_REASON"/>
+		<result property="approvalDate" column="APPROVAL_DATE"/>
 	</resultMap>
 	<!-- 부서별 부서원 목록 조회 -->
 	<select id="selectMemberDep" resultMap="MemberDepList" parameterType="MemberDep">
@@ -61,7 +64,7 @@
 	<!-- Approval_Record Insert -->
 	<insert id="insertApprovalRecord" parameterType="InsertSign">
 		INSERT INTO APPROVAL_RECORD
-		VALUES(APPRECORD_NO.NEXTVAL, #{docNo}, SYSDATE, 'AP1', #{empNo})
+		VALUES(APPRECORD_NO.NEXTVAL, #{docNo}, NULL, 'AP1', #{empNo}, NULL)
 	</insert>
 	
 	<!-- Receiving_check Insert -->
@@ -85,12 +88,65 @@
 		WHERE WRITER = #{empNo}
 	</select>
 	
+	<!-- 결재할 문서 조회 위해 자신이 결재선에 포함된 문서 번호 조회  -->
+	<select id="selectGetDocNo" parameterType="Document" resultType="_int">
+		SELECT DOC_NO FROM APPROVAL_RECORD WHERE EMP_NO = #{empNo} AND APPROVAL_STATUS = 'AP1'
+	</select>
+	
 	<!-- 결재 할 문서 조회 -->
 	<select id="selectApprovalList" parameterType="Document" resultMap="DocumentList">
 		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME 
 		FROM  DOCAPPROVAL D
 		JOIN EMPLOYEE E ON(WRITER = EMP_NO)
 		WHERE DOC_NO = #{docNo}
+	</select>
+	
+	<!-- 수신 참조된 문서번호 조회 -->
+	<select id="selectGetRecDocNo" parameterType="Document" resultType="_int">
+		SELECT DOC_NO 
+		FROM RECEIVING_CHECK 
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 수신 참조 된 문서 조회 -->
+	<select id="selectReceiveList" parameterType="Document" resultMap="DocumentList">
+		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME,
+		(SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP1' AND DOC_NO = D.DOC_NO) AS APP_STATUS  
+		FROM  DOCAPPROVAL D
+		JOIN EMPLOYEE E ON(WRITER = EMP_NO)
+		WHERE DOC_NO = #{docNo}
+	</select>
+	
+	<!-- 자신이 결재선에 포함 된 문서 조회 -->
+	<select id="selectGetComDocNo" parameterType="Document" resultType="_int">
+		SELECT DOC_NO 
+		FROM APPROVAL_RECORD 
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 결재선에 포함  -->
+	<select id="selectCompleteList" parameterType="Document" resultMap="DocumentList">
+		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME,
+		(SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP1' AND DOC_NO = D.DOC_NO) AS APP_STATUS  
+		FROM  DOCAPPROVAL D
+		JOIN EMPLOYEE E ON(WRITER = EMP_NO)
+		WHERE DOC_NO = #{docNo}
+	</select>
+	
+	<!-- 결재 진행상태 조회 -->
+	<select id="selectAppProgress" parameterType="Document" resultMap="DocumentList">
+		SELECT E.EMP_NAME, APPROVAL_STATUS, TO_CHAR(APPROVAL_DATE, 'YYYY/MM/DD HH24:MI:SS') AS APPROVAL_DATE, APP_REASON 
+		FROM APPROVAL_RECORD AR
+		JOIN EMPLOYEE E ON(AR.EMP_NO=E.EMP_NO)
+		WHERE DOC_NO = #{docNo}
+	</select>
+	
+	<!-- 문서 보기 -->
+	<select id="selectDocDetail" parameterType="InsertSign" resultMap="InsertSignList">
+		SELECT D.DOC_NO, D.DOC_TITLE, D.DOC_CONTENT, A.ORI_FILENAME, A.MODI_FILENAME
+		FROM DOCAPPROVAL D 
+		LEFT JOIN ATTACHMENT A ON(D.DOC_NO = A.DOC_NO) 
+		WHERE D.DOC_NO = #{docNo}
 	</select>
 </mapper>
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
@@ -41,6 +42,7 @@ public class SignDaoImpl implements SignDao{
 
 	@Override
 	public int insertAttachment(SqlSessionTemplate sqlSession, InsertSign is) {
+		System.out.println("DAO ATTACH 들어와?");
 		return sqlSession.insert("sign.insertAttachment", is);
 	}
 
@@ -50,7 +52,7 @@ public class SignDaoImpl implements SignDao{
 	}
 
 	@Override
-	public ArrayList selectGetDocNo(SqlSessionTemplate sqlSession, int empNo) {
+	public ArrayList selectGetDocNo(SqlSessionTemplate sqlSession, int empNo) throws SelectDocException {
 		
 		return (ArrayList)sqlSession.selectList("sign.selectGetDocNo", empNo);
 	}
@@ -59,9 +61,45 @@ public class SignDaoImpl implements SignDao{
 	public Document selectApprovalList(SqlSessionTemplate sqlSession, Object object) {
 		
 		int docNo = (Integer)object;
-		
 		return sqlSession.selectOne("sign.selectApprovalList", docNo);
 	}
+
+	@Override
+	public ArrayList selectGetRecDocNo(SqlSessionTemplate sqlSession, int empNo) {
+		
+		return (ArrayList)sqlSession.selectList("sign.selectGetRecDocNo", empNo);
+	}
+
+	@Override
+	public Document selectReceiveList(SqlSessionTemplate sqlSession, Object object) {
+		int docNo = (Integer)object;
+		return sqlSession.selectOne("sign.selectReceiveList", docNo);
+	}
+
+	@Override
+	public ArrayList selectGetComDocNo(SqlSessionTemplate sqlSession, int empNo) {
+		
+		return (ArrayList)sqlSession.selectList("sign.selectGetComDocNo", empNo);
+	}
+
+	@Override
+	public Document selectCompleteList(SqlSessionTemplate sqlSession, Object object) {
+		int docNo = (Integer)object;
+		return sqlSession.selectOne("sign.selectCompleteList", docNo);
+	}
+
+	@Override
+	public ArrayList<Document> selectAppProgress(SqlSessionTemplate sqlSession, int docNo) {
+		
+		return (ArrayList)sqlSession.selectList("sign.selectAppProgress", docNo);
+	}
+
+	@Override
+	public InsertSign selectDocDetail(SqlSessionTemplate sqlSession, int docNo) {
+		
+		return sqlSession.selectOne("sign.selectDocDetail", docNo);
+	}
+
 
 	
 
