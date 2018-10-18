@@ -293,7 +293,7 @@
 	<update id="updateLeaveMember" parameterType="MemberSelect">
 		UPDATE EMPLOYEE
 		SET
-		LEAVE_DATE = SYSDATE, STATUS = 'N'
+		LEAVE_DATE = #{leavein}, STATUS = 'N'
 		WHERE EMP_NO = #{empNo}
 	</update>
 

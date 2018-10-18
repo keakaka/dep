@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dep.personManagement.model.pmDao.PmDao;
+import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationIn;
@@ -88,6 +90,61 @@ public class PmServiceImpl implements PmService {
 		return list;
 	}
 
+	// 부서별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeaveList(String depName) {
+		
+		ArrayList<DepLeave> dlist = null;
+		
+		dlist = pd.selectDepLeaveList(sqlSession, depName);
+		
+		return dlist;
+	}
+
+
+	// 부서별 월별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeavedayList(String day, String depName, String year) {
+		ArrayList<DepLeave> dlist = null;
+		
+		dlist = pd.selectDepLeavedayList(sqlSession, depName, day, year);
+		
+		return dlist;
+	}
+
+
+	// 부서이동이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveList(String depName) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmoveList(sqlSession, depName);
+		
+		return dlist;
+	}
+
+
+	// 월별 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepMovedayList(String day, String depName, String year) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmovedayList(sqlSession, depName, day, year);
+		
+		return dlist;
+	}
+
+
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepMoveEmpNoList(int empNo) {
+		
+		ArrayList<DepMoveDepRecord> dlist = null;
+		
+		dlist = pd.selectDepmoveEmpNoList(sqlSession, empNo);
+		
+		return dlist;
 
 	@Override
 	public int insertvacation(VacationIn v) {
@@ -105,6 +162,7 @@ public class PmServiceImpl implements PmService {
 		System.out.println("진급인설트 서비스 도착");
 		int result = pd.insertProomotion(sqlSession,p);
 		return result;
+
 	}
 
 	

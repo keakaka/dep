@@ -18,9 +18,10 @@ import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberJob;
 import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.personManagement.model.pmService.PmService;
+import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
-
 import com.kh.dep.personManagement.model.vo.Tdatel;
 import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
@@ -187,7 +188,7 @@ public class PersonController {
 	public String movedepleave(){
 		
 		
-		return "personManagement/depleave";
+		return "personManagement/depLeave";
 	}
 	
 	@RequestMapping("vacation.pm")
@@ -312,6 +313,76 @@ public class PersonController {
 	}
 	
 	
+	@RequestMapping("depleaveList.pm")
+	public @ResponseBody ArrayList<DepLeave> selectDepLeaveList(@RequestParam String depName){
+		
+		
+		ArrayList<DepLeave> dlist = ps.selectDepLeaveList(depName);
+		
+		System.out.println(dlist);
+		
+		
+		return dlist;
+	}
 	
+	@RequestMapping("depleavedayList.pm")
+	public @ResponseBody ArrayList<DepLeave> depLeavedayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
+		
+		
+		ArrayList<DepLeave> list = ps.selectDepLeavedayList(day ,depName , year);
+		
+		System.out.println(list);
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("depmoveDeptRecord.pm")
+	public String movedepmoveDeptRecord(Model model){
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		
+		model.addAttribute("mlist", mlist);
+		
+		return "personManagement/depMovedept";
+	}
+	
+	
+	@RequestMapping("depMoveList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> selectDepMoveList(@RequestParam String depName){
+		
+		
+		ArrayList<DepMoveDepRecord> dlist = ps.selectDepmoveList(depName);
+		
+		System.out.println(dlist);
+		
+		
+		return dlist;
+	}
+	
+	@RequestMapping("depMovedayList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> depMovedayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
+		
+		
+		ArrayList<DepMoveDepRecord> list = ps.selectDepMovedayList(day ,depName , year);
+		
+		System.out.println(list);
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("depMoveEmpNoList.pm")
+	public @ResponseBody ArrayList<DepMoveDepRecord> depMoveEmpNoList(@RequestParam int empNo){
+		
+		
+		ArrayList<DepMoveDepRecord> list = ps.selectDepMoveEmpNoList(empNo);
+		
+		System.out.println(list);
+		
+		
+		return list;
+	}
 
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
+import com.kh.dep.personManagement.model.vo.DepLeave;
+import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
 import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
 import com.kh.dep.personManagement.model.vo.VacationIn;
@@ -146,6 +147,53 @@ public class PmDaoImpl implements PmDao {
 		
 		return list;
 	}
+
+
+	// 부서별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeaveList(SqlSessionTemplate sqlSession, String depName) {
+		
+		
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepLeaveList", depName);
+	}
+
+	// 부서별 월별 퇴사자 조회
+	@Override
+	public ArrayList<DepLeave> selectDepLeavedayList(SqlSessionTemplate sqlSession, String depName, String day,
+			String year) {
+		
+		DepLeave dl = new DepLeave();
+		
+		dl.setDepName(depName);
+		dl.setDay(day);
+		dl.setYear(year);
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepLeavedayList" , dl);
+	}
+	// 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveList(SqlSessionTemplate sqlSession, String depName) {
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveList", depName);
+	}
+	// 월별 부서이동 이력 조회
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmovedayList(SqlSessionTemplate sqlSession, String depName, String day,
+			String year) {
+		DepMoveDepRecord dm = new DepMoveDepRecord();
+		
+		dm.setDepName(depName);
+		dm.setDay(day);
+		dm.setYear(year);
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveDayList", dm);
+	}
+	//
+	@Override
+	public ArrayList<DepMoveDepRecord> selectDepmoveEmpNoList(SqlSessionTemplate sqlSession, int empNo) {
+		
+		return (ArrayList)sqlSession.selectList("Working.selectDepMoveEmpNoList", empNo);
 
 	@Override
 	public int insertVacation(SqlSessionTemplate sqlSession, VacationIn v) {
