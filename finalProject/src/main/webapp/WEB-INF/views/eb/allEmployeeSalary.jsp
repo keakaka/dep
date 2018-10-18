@@ -99,31 +99,29 @@
 
 													<div id="search-select">
 														<select id="departmentType">
-															<option id="web-font">부서명</option>
-															<option id="web-font" value="D1">영업부</option>
-															<option id="web-font" value="D2">인사관리부</option>
-															<option id="web-font" value="D3">총무부</option>
-															<option id="web-font" value="D4">회계부</option>
-															<option id="web-font" value="D5">연구개발부</option>
+															<option id="web-font" value="D.DEP_ID">부서명</option>
+															<option id="web-font" value="'D1'">영업부</option>
+															<option id="web-font" value="'D2'">인사관리부</option>
+															<option id="web-font" value="'D3'">총무부</option>
+															<option id="web-font" value="'D4'">회계부</option>
+															<option id="web-font" value="'D5'">연구개발부</option>
 														</select> 
 														<select id="jobType">
-															<option id="web-font">직급</option>
-															<option id="web-font" value="J1">대표</option>
-															<option id="web-font" value="J2">대표이사</option>
-															<option id="web-font" value="J3">이사</option>
-															<option id="web-font" value="J4">팀장</option>
-															<option id="web-font" value="J5">부장</option>
-															<option id="web-font" value="J6">차장</option>
-															<option id="web-font" value="J7">과장</option>
-															<option id="web-font" value="J8">대리</option>
-															<option id="web-font" value="J9">사원</option>
-														</select> 
-														<select id="nameType">
-															<option id="web-font">사원이름</option>
-															<option id="web-font">뚜비</option>
-															<option id="web-font">나나</option>
-															<option id="web-font">뽀</option>
-														</select> 
+															<option id="web-font" value="J.JOB_CODE">직급</option>
+															<option id="web-font" value="'J1'">대표</option>
+															<option id="web-font" value="'J2'">대표이사</option>
+															<option id="web-font" value="'J3'">이사</option>
+															<option id="web-font" value="'J4'">팀장</option>
+															<option id="web-font" value="'J5'">부장</option>
+															<option id="web-font" value="'J6'">차장</option>
+															<option id="web-font" value="'J7'">과장</option>
+															<option id="web-font" value="'J8'">대리</option>
+															<option id="web-font" value="'J9'">사원</option>
+														</select>
+														
+														<label>사원이름</label>
+														<input type="text" id="empNameBox" name="empNameBox"> 
+													
 														<select id="dateType">
 															<option id="web-font">날짜</option>
 															<option id="web-font">2018</option>
@@ -151,7 +149,7 @@
 																	<th>직급</th>
 																	<th>사원명</th>
 																	<!-- <th>기본급<br>불러오기</th> -->
-																	<th>입금월</th>
+																	<th>입금일</th>
 																	<th>기본급</th>
 																	<th>정기상여금</th>
 																	<th>비과세수당</th>
@@ -256,11 +254,12 @@
 												function searchBtn() {
 													var depType = $("#departmentType option:selected").val();
 													console.log(depType);
+													var jobType = $("#jobType option:selected").val();
 													
 													$.ajax({
 														type : "post",
 														url : "selectSearchCondition.me",
-														data : {depType:depType},
+														data : {depType:depType, jobType:jobType},
 														dataType : "json",
 														success : function(data) {
 															console.log(data);

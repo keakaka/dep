@@ -535,12 +535,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="selectSearchCondition.me")
-	public void selectSearchCondition(String depType, HttpServletResponse response){
+	public void selectSearchCondition(String depType, String jobType, HttpServletResponse response){
 		System.out.println("조건에 맞는 사원 급여 데이터 검색 컨트롤러!");
 		
-		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		/*if(depType.equals("D0")){
+			
+		}*/
 		
-		list = ms.selectSearchCondition(depType);
+		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType);
+		
+		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		list = ms.selectSearchCondition(depType, jobType);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
