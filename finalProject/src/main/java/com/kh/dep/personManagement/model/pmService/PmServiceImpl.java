@@ -145,6 +145,8 @@ public class PmServiceImpl implements PmService {
 		dlist = pd.selectDepmoveEmpNoList(sqlSession, empNo);
 		
 		return dlist;
+		
+	}
 
 	@Override
 	public int insertvacation(VacationIn v) {

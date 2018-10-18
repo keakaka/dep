@@ -194,6 +194,8 @@ public class PmDaoImpl implements PmDao {
 	public ArrayList<DepMoveDepRecord> selectDepmoveEmpNoList(SqlSessionTemplate sqlSession, int empNo) {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepMoveEmpNoList", empNo);
+		
+	}
 
 	@Override
 	public int insertVacation(SqlSessionTemplate sqlSession, VacationIn v) {

@@ -423,8 +423,8 @@ public class MemberController {
 		String originFileName = findFile.getOriginalFilename();
 		String newFileName = System.currentTimeMillis() + "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
 
-		System.out.println(originFileName);
-		System.out.println(newFileName);
+		//System.out.println(originFileName);
+		System.out.println("파일이름  :" + newFileName);
 
 		try {
 

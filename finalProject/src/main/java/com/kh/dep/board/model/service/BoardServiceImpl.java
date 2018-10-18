@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board selectOneBoard(String bid) {
+	public Board selectOneBoard(int bid) {
 		
 		Board b = null;
 		
