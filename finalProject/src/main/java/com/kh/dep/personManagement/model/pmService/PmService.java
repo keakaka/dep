@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
+import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
@@ -23,6 +25,7 @@ public interface PmService {
 
 	ArrayList<PromotionLi> selectPromotiondayList(String day,String depName ,String year);
 
+
 	ArrayList<DepLeave> selectDepLeaveList(String depName);
 
 	ArrayList<DepLeave> selectDepLeavedayList(String day, String depName, String year);
@@ -32,6 +35,11 @@ public interface PmService {
 	ArrayList<DepMoveDepRecord> selectDepMovedayList(String day, String depName, String year);
 
 	ArrayList<DepMoveDepRecord> selectDepMoveEmpNoList(int empNo);
+
+	int insertvacation(VacationIn v);
+
+	int insertpromotion(PromotionIn p);
+
 	
 	
 	

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.kh.dep.personManagement.model.pmDao.PmDao;
 import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
+import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
@@ -88,7 +90,6 @@ public class PmServiceImpl implements PmService {
 		return list;
 	}
 
-
 	// 부서별 퇴사자 조회
 	@Override
 	public ArrayList<DepLeave> selectDepLeaveList(String depName) {
@@ -144,6 +145,24 @@ public class PmServiceImpl implements PmService {
 		dlist = pd.selectDepmoveEmpNoList(sqlSession, empNo);
 		
 		return dlist;
+
+	@Override
+	public int insertvacation(VacationIn v) {
+		// TODO Auto-generated method stub
+		System.out.println("휴가인설트 서비스 도착");
+		int result = pd.insertVacation(sqlSession,v);
+		
+		return result;
+	}
+
+
+	@Override
+	public int insertpromotion(PromotionIn p) {
+		// TODO Auto-generated method stub
+		System.out.println("진급인설트 서비스 도착");
+		int result = pd.insertProomotion(sqlSession,p);
+		return result;
+
 	}
 
 	

@@ -24,17 +24,16 @@
 	</resultMap>
 	<resultMap type="PromotionLi" id="PromotionResultSet">
 		<id property="empNo" column="EMP_NO" />
-		<id property="jobCode" column="JOB_CODE" />
+		<result property="jobCode" column="JOB_CODE"/>
 		<result property="depId" column="DEP_ID" />
 		<result property="empName" column="EMP_NAME" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="jobName" column="JOB_NAME" />
 		<result property="jobReason" column="JOB_REASON" />
 		<result property="jobRecordDate" column="JOB_RECORD_DATE" />
-
 	</resultMap>
 
-	<resultMap type="DepLeave" id="depLeaveResultSet">
+  <resultMap type="DepLeave" id="depLeaveResultSet">
 		<id property="empNo" column="EMP_NO" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="empName" column="EMP_NAME" />
@@ -51,49 +50,31 @@
 		<result property="depRcordDate" column="DEP_RECORD_DATE" />
 		<result property="depReason" column="DEP_REASON" />
 	</resultMap>
-
-	<!-- 근태 부서별 조회 -->
-	<select id="workingSelectList" resultMap="WorkingResultSet"
-		parameterType="Working">
-		SELECT E.EMP_NAME
-		,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY,
-		MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME ,
-		MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME
-		FROM
-		WORKING_RECORD WR
-		JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
-		JOIN
-		DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
-		JOIN DEPARTMENT D ON (DR.DEP_ID
-		= D.DEP_ID)
-		WHERE DEP_NAME = #{depName}
-		GROUP BY
-		D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
-		ORDER BY TODAY
-		DESC
+	
+	<!-- 근태 부서별 조회-->
+	<select id="workingSelectList" resultMap="WorkingResultSet" parameterType="Working">
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , MAX(TO_CHAR(WR.HOURS,'HH24:MI:SS')) LEAVETIME 
+	FROM WORKING_RECORD WR 
+	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
+	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+	JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+	WHERE DEP_NAME = #{depName}
+	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
+	ORDER BY TODAY DESC 
 	</select>
-	<!-- 근태 월별 조회 -->
-	<select id="workingdaySelectList" resultMap="WorkingResultSet"
-		parameterType="Working">
-		SELECT E.EMP_NAME
-		,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY,
-		MIN(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) TTTIME ,
-		MAX(TO_CHAR(WR.HOURS,'YYYY/MM/DD/HH24:MI:SS')) LEAVETIME
-		FROM
-		WORKING_RECORD WR
-		JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
-		JOIN
-		DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
-		JOIN DEPARTMENT D ON (DR.DEP_ID
-		= D.DEP_ID)
-		WHERE TO_CHAR(WR.HOURS, 'MM') = #{day}
-		AND
-		DEP_NAME=#{depName}
-		AND TO_CHAR(WR.HOURS,'YYYY') = #{year}
-		GROUP BY
-		D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
-		ORDER BY TODAY
-		DESC
+	<!-- 근태 월별 조회-->
+	<select id="workingdaySelectList" resultMap="WorkingResultSet" parameterType="Working">
+	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , 
+	MAX(TO_CHAR(WR.HOURS,'HH24:MI:SS')) LEAVETIME 
+	FROM WORKING_RECORD WR 
+	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
+	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+	JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+	WHERE TO_CHAR(WR.HOURS, 'MM') = #{day}
+	AND DEP_NAME=#{depName}
+	AND TO_CHAR(WR.HOURS,'YYYY') = #{year}
+	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
+	ORDER BY TODAY DESC
 
 	</select>
 	<!-- 휴가 부서별 조회 -->
@@ -175,6 +156,16 @@
 		AND NOT JOB_REASON = '입사'
 		ORDER BY JOB_RECORD_DATE DESC
 	</select>
+
+	<insert id="insertVacation" parameterType="VacationIn">
+	INSERT INTO "FINAL"."VACATION"(VAC_NO,EMP_NO,VAC_REASON,VAC_TYPE,VAC_STARTDATE,VAC_ENDDATE)
+    VALUES (VAC_NO.NEXTVAL,#{empNo},#{vacReason},#{vacType},#{vacStartDate},#{vacEndDate})
+	</insert>
+	
+	<insert id="insertPromotion" parameterType="PromotionIn">
+	INSERT INTO "FINAL"."JOB_RECORD"(JOB_RECORD_NO,JOB_RECORD_DATE,JOB_REASON,JOB_CODE,EMP_NO)
+	VALUES(JOB_RECORD_NO.NEXTVAL,#{jobRecordDate},#{jobReason},#{jobCode},#{empNo})
+	</insert>
 
 	<!-- 부서별 퇴사자 조회 -->
 	<select id="selectDepLeaveList" resultMap="depLeaveResultSet"

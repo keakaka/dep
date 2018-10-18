@@ -92,7 +92,24 @@
 		SELECT SCHEDULE_NO.CURRVAL
 		FROM DUAL
 	</select>
+	
+	<delete id="deleteCalendar" parameterType="Calendar">
+		DELETE FROM SCHEDULE
+    	WHERE EMP_NO = #{empNo} AND SCHEDULE_NO = #{scheduleNo}
+	</delete>
+	
+	<select id="updateModalCalendar" parameterType="Calendar" resultMap="Calendar">
+		SELECT SCHEDULE_NO, EMP_NO, SCHEDULE_TITLE, SCHEDULE_CONTENT
+		FROM SCHEDULE
+		WHERE EMP_NO = #{empNo} AND SCHEDULE_NO = #{scheduleNo}
+	</select>
 
+
+	<update id="updateCalendar" parameterType="Calendar">
+		UPDATE SCHEDULE
+		SET SCHEDULE_TITLE = #{scheduleTitle}, SCHEDULE_CONTENT = #{scheduleContent}
+		WHERE SCHEDULE_NO = #{scheduleNo}
+	</update>
 
 </mapper>
 

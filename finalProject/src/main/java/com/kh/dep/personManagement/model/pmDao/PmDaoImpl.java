@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.kh.dep.personManagement.model.vo.DepLeave;
 import com.kh.dep.personManagement.model.vo.DepMoveDepRecord;
+import com.kh.dep.personManagement.model.vo.PromotionIn;
 import com.kh.dep.personManagement.model.vo.PromotionLi;
+import com.kh.dep.personManagement.model.vo.VacationIn;
 import com.kh.dep.personManagement.model.vo.VacationLi;
 import com.kh.dep.personManagement.model.vo.Working;
 
@@ -21,9 +22,42 @@ public class PmDaoImpl implements PmDao {
 		// TODO Auto-generated method stub
 		
 		System.out.println("근태 다오 입장");
+		Working w = new Working();
 		ArrayList<Working> list = (ArrayList) sqlSession.selectList("Working.workingSelectList" , depName);
 		
-		System.out.println(list);
+		for(int i = 0; i<list.size(); i++)
+		{
+			System.out.println("출근시간 : " + list.get(i).gettTime());
+			String sysdate = list.get(i).gettTime();
+			String sibal = sysdate.substring(0,2);
+			
+			System.out.println("시발 : " + sibal);
+			int sibalint = Integer.parseInt(sibal);
+			String jigak ="지각" ;
+			String chul ="정상출근";
+			if(sibalint > 10)
+			{
+				//w.setState(jigak);
+				//System.out.println(w.getState());
+				list.get(i).setState(jigak);;
+				System.out.println("리스트 출력1 :" + list);
+			}else
+			{
+				
+				//w.setState(chul);
+				//System.out.println(w.getState());
+				//list.add(w);
+				list.get(i).setState(chul);
+				
+				//System.out.println("리스트 출력2 :" + list);
+			}
+			
+			//System.out.println("포문 리스트 출력 :" + list);
+			
+		
+		}
+		
+		System.out.println("다오 상태" + list);
 		return list;
 	}
 
@@ -36,7 +70,37 @@ public class PmDaoImpl implements PmDao {
 		workingLi.setYear(year);
 		workingLi.setDepName(depName);
 		ArrayList<Working> list = (ArrayList) sqlSession.selectList("Working.workingdaySelectList",workingLi);
+		for(int i = 0; i<list.size(); i++)
+		{
+			System.out.println("출근시간 : " + list.get(i).gettTime());
+			String sysdate = list.get(i).gettTime();
+			String sibal = sysdate.substring(0,2);
+			
+			System.out.println("시발 : " + sibal);
+			int sibalint = Integer.parseInt(sibal);
+			String jigak ="지각" ;
+			String chul ="정상출근";
+			if(sibalint > 10)
+			{
+				//w.setState(jigak);
+				//System.out.println(w.getState());
+				list.get(i).setState(jigak);;
+				System.out.println("리스트 출력1 :" + list);
+			}else
+			{
+				
+				//w.setState(chul);
+				//System.out.println(w.getState());
+				//list.add(w);
+				list.get(i).setState(chul);
+				
+				//System.out.println("리스트 출력2 :" + list);
+			}
+			
+			//System.out.println("포문 리스트 출력 :" + list);
+			
 		
+		}
 		return list;
 	}
 
@@ -84,6 +148,7 @@ public class PmDaoImpl implements PmDao {
 		return list;
 	}
 
+
 	// 부서별 퇴사자 조회
 	@Override
 	public ArrayList<DepLeave> selectDepLeaveList(SqlSessionTemplate sqlSession, String depName) {
@@ -106,14 +171,12 @@ public class PmDaoImpl implements PmDao {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepLeavedayList" , dl);
 	}
-
 	// 부서이동 이력 조회
 	@Override
 	public ArrayList<DepMoveDepRecord> selectDepmoveList(SqlSessionTemplate sqlSession, String depName) {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepMoveList", depName);
 	}
-
 	// 월별 부서이동 이력 조회
 	@Override
 	public ArrayList<DepMoveDepRecord> selectDepmovedayList(SqlSessionTemplate sqlSession, String depName, String day,
@@ -126,12 +189,34 @@ public class PmDaoImpl implements PmDao {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepMoveDayList", dm);
 	}
-
 	//
 	@Override
 	public ArrayList<DepMoveDepRecord> selectDepmoveEmpNoList(SqlSessionTemplate sqlSession, int empNo) {
 		
 		return (ArrayList)sqlSession.selectList("Working.selectDepMoveEmpNoList", empNo);
+
+	@Override
+	public int insertVacation(SqlSessionTemplate sqlSession, VacationIn v) {
+		// TODO Auto-generated method stub
+		System.out.println("휴가 인설트 도착");
+		
+		int result = sqlSession.insert("Working.insertVacation", v);
+		
+		System.out.println("result " + result );
+		
+		return result;
+	}
+
+	@Override
+	public int insertProomotion(SqlSessionTemplate sqlSession, PromotionIn p) {
+		// TODO Auto-generated method stub
+		System.out.println("진급 인설트 도착");
+		
+		int result = sqlSession.insert("Working.insertPromotion" , p);
+		
+		System.out.println("result" + result);
+		
+		return result;
 	}
 
 	

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.dep.addressBook.model.service.AddressBookService;
 import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.member.model.vo.Member;
+import com.kh.dep.member.model.vo.MemberSelect;
 
 @Controller
 public class AddressBookController {
@@ -83,6 +85,21 @@ public class AddressBookController {
 		System.out.println("deleteAddressBook empNo : " + empNo);
 		
 		AddressBook ab = abs.deleteAddressBook(empNo);
+	}
+	
+	@RequestMapping("facing.ad")
+	public String facing(@RequestParam int var, Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int loginNo = ms.getEmpNo();
+		
+		AddressBook ab = new AddressBook();
+		ab.setEmpNo(var);
+		ab.setLoginNo(loginNo);
+		
+		model.addAttribute("ab", ab);
+		
+		return "facing/facingTest";
 	}
 	
 	
