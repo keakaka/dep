@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title>DBDBDep!</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="${contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3> 결재 완료된 문서 </h3>
+              <h3> 결재 완료함 </h3>
             </div>
 
             <div class="title_right">
@@ -92,12 +92,22 @@
             
                   </div>
             
-            
+            <script>
+            	$(function(){
+            		$(".showDoc").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			var url = "showDoc.sg?docNo="+docNo;
+            			var popupOption = "width = " + 1000 + ", height = " + 500;
+            			window.open(url, "", popupOption);
+            		});
+            	});
+			</script>
 				<!-- footer content -->
 
 				<footer>
 					<div class="copyright-info">
-						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
+						<p class="pull-right">DBDBDep - B오전 Final Project by 
+						<a href="http://www.iei.or.kr/main/main.kh?src=overture&kw=003DFA&gclid=Cj0KCQjw9ZDeBRD9ARIsAMbAmoZTJZP5ENi7OkIuimgnF0lSAzQFJc29u1JYoV58VDyCQIAEFRCY9SEaAr4hEALw_wcB">KH Academy</a>
 						</p>
 					</div>
 					<div class="clearfix"></div>

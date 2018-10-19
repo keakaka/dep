@@ -1,6 +1,7 @@
 package com.kh.dep.calendar.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,9 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.calendar.model.service.CalendarService;
 import com.kh.dep.calendar.model.vo.Calendar;
 import com.kh.dep.calendar.model.vo.DayWeek;
+import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Member;
+import com.kh.dep.member.model.vo.MemberDepartment;
 import com.kh.dep.member.model.vo.MemberSelect;
   
 @Controller
@@ -30,7 +33,8 @@ public class CalendarController {
 	
 	@Autowired
 	private CalendarService cs;
-	
+	@Autowired
+	private MemberService mservice;
 	
 	@RequestMapping(value="calendar.ca")
 	public String showCalendarView(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
@@ -43,22 +47,32 @@ public class CalendarController {
 		model.addAttribute("list", list);
 		
 		*/
+		ArrayList<MemberDepartment> depList = mservice.selectDepList();
+		model.addAttribute("depList", depList);
+		
 		return "calendar/calendar";
 	}
 	
 	@RequestMapping(value = "calendarList.ca", method=RequestMethod.POST)
-	 @ResponseBody 
-	public Object calendarList(@RequestParam String title, Map<String, Object> map,
+	@ResponseBody 
+	public Object calendarList(@RequestParam String title, String depNo, Map<String, Object> map,
 								HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CalendarController calendarList에 왔음");
+		
+		System.out.println("calendarList.ca title : " + title);
+		System.out.println("calendarList.ca depNo : " + depNo);
 		
 		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int empNo = ms.getEmpNo();
 		
-		List<Calendar> list = cs.selectCalendar(empNo);
+		Calendar c = new Calendar();
+		c.setEmpNo(empNo);
+		c.setScheType(depNo);
+		
+		List<Calendar> list = cs.selectCalendar(c);
 		System.out.println("CalendarController list : " + list);
 		
-	      
+	    
 	      for(int i=0; i<list.size(); i++){
 	         String str = ((Calendar) list.get(i)).getScheStartDate();
 	         /*System.out.println(str.substring(8, 10));*/
@@ -120,14 +134,17 @@ public class CalendarController {
 	}
 	
 	@RequestMapping("insertCalendar.ca")
-	public @ResponseBody HashMap<String, Object> insertCalendar(String title, String content, String sDate, String eDate, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public @ResponseBody HashMap<String, Object> insertCalendar(String title, String content, String sDate, String eDate, String depNo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("insertCalendar title : " + title);
 		System.out.println("insertCalendar content : " + content);
+		System.out.println("insertCalendar depNo : " + depNo);
 		
 		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int loginNo = ms.getEmpNo();
 		System.out.println("Calendar loginNo : " + loginNo);
+		
 		Calendar c = new Calendar();
+		c.setScheType(depNo);
 		c.setEmpNo(loginNo);
 		c.setScheduleTitle(title);
 		c.setScheduleContent(content);
@@ -145,7 +162,11 @@ public class CalendarController {
 		
 		MemberSelect ms2 = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int empNo = ms2.getEmpNo();
-		List<Calendar> list = cs.selectCalendar(empNo);
+		
+		Calendar c22 = new Calendar();
+		c22.setEmpNo(empNo);
+		c22.setScheType(depNo);
+		List<Calendar> list = cs.selectCalendar(c22);
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		
@@ -205,6 +226,7 @@ public class CalendarController {
 		System.out.println("updateCalendar c2 : " + c2);
 		
 	}
+	
 	
 	
 	

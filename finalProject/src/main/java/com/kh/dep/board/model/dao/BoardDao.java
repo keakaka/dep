@@ -10,6 +10,6 @@ public interface BoardDao {
 
 	ArrayList<Board> selectBoardList(SqlSessionTemplate sqlSession);
 
-	Board selectOneBoard(SqlSessionTemplate sqlSession,String bid);
+	Board selectOneBoard(SqlSessionTemplate sqlSession,int bid);
 
 }

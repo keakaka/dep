@@ -107,7 +107,7 @@ public class Calendar {
 				+ ", scheduleContent=" + scheduleContent + ", scheStartDate=" + scheStartDate + ", scheEndDate="
 				+ scheEndDate + ", scheType=" + scheType + ", dayNum=" + dayNum + ", dayWeek=" + dayWeek + "]";
 	}
-	
+
 	
 }
 

@@ -1,5 +1,7 @@
 package com.kh.dep.board.model.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -11,6 +13,7 @@ public class Board implements java.io.Serializable {
 	private String boardTitle;
 	private String boardContent;
 	private String boardType;
+	private Date boardDate;
 	private int selectCount;
 	private String status;
 	private String empName;
@@ -19,18 +22,55 @@ public class Board implements java.io.Serializable {
 	public Board(){}
 
 
-	public Board(int boardNo, int empNo, String boardTitle, String boardContent, String boardType, int selectCount,
-			String status, String empName) {
+	
+	
+
+	public Board(int boardNo, int empNo, String boardTitle, String boardContent, String boardType, Date boardDate,
+			int selectCount, String status, String empName) {
 		super();
 		this.boardNo = boardNo;
 		this.empNo = empNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardType = boardType;
+		this.boardDate = boardDate;
 		this.selectCount = selectCount;
 		this.status = status;
 		this.empName = empName;
 	}
+
+
+	
+
+
+
+	@Override
+	public String toString() {
+		return "Board [boardNo=" + boardNo + ", empNo=" + empNo + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", boardType=" + boardType + ", boardDate=" + boardDate + ", selectCount="
+				+ selectCount + ", status=" + status + ", empName=" + empName + "]";
+	}
+
+
+
+	
+	
+
+
+	public Date getBoardDate() {
+		return boardDate;
+	}
+
+
+
+
+
+	public void setBoardDate(Date boardDate) {
+		this.boardDate = boardDate;
+	}
+
+
+
 
 
 	public int getBoardNo() {
@@ -113,12 +153,7 @@ public class Board implements java.io.Serializable {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Board [boardNo=" + boardNo + ", empNo=" + empNo + ", boardTitle=" + boardTitle + ", boardContent="
-				+ boardContent + ", boardType=" + boardType + ", selectCount=" + selectCount + ", status=" + status
-				+ ", empName=" + empName + "]";
-	}
+
 
 
 	

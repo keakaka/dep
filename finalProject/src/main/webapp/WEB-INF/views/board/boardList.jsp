@@ -124,7 +124,7 @@
                               <td>${b.boardNo }</td>
                               <td>${b.boardTitle}</td>
                                <td>${b.empName}</td>
-                              <td>2018/04/19</td>
+                              <td>${b.boardDate }</td>
                               <td>${b.selectCount} </td>
                             </tr>
                             </c:forEach>   	

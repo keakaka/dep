@@ -210,7 +210,8 @@ public class MemberDaoImpl implements MemberDao {
 			}
 		}
 		
-		System.out.println(insertResult);
+		System.out.println("급여 테이블에 값이 성공적으로 들어가면 1 : " + insertResult);
+		System.out.println(list);
 		List<SalaryExcel> returnList = new ArrayList<SalaryExcel>();
 		
 		if(insertResult > 0){
@@ -218,8 +219,17 @@ public class MemberDaoImpl implements MemberDao {
 		}
 		
 		for(int i=0;i<list.size();i++){
-			returnList.get(i).setTotalSalary(list.get(i).getTotalSalary());
+			/*returnList.get(i).setTotalSalary(list.get(i).getTotalSalary());*/
+			for(int j=0;j<returnList.size();j++){
+				
+				if(list.get(i).getEmpName() == returnList.get(j).getEmpName()){
+					returnList.get(j).setTotalSalary(list.get(i).getTotalSalary());
+					break;
+				}
+			}
 		}
+		
+		System.out.println(returnList);
 		
 		return returnList;
 	}
@@ -246,11 +256,40 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType) {
-		List<SalaryExcel> list = sqlSession.selectList("Member.selectSearchCondition", depType);
-		System.out.println("급여(부서조건) : " + list);
-		/*List<WorkingHours> list = sqlSession.selectList("Member.selectMyWorkingHoursRecord", empNo);
-		System.out.println("나의 출퇴근이력(dao) : " + list);*/
+	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType) {
+		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType);
+		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		
+		/*if(depType.equals("D0")){
+			
+			list = sqlSession.selectList("Member.selectSearchCondition", jobType);
+			
+		}else if(jobType.equals("JOB_CODE")){
+			
+			list = sqlSession.selectList("Member.selectSearchCondition", depType);
+		}else{
+			ArrayList<Object> arr = new ArrayList<Object>();
+			arr.add(depType);
+			arr.add(jobType);
+			
+			list = sqlSession.selectList("Member.selectSearchCondition", arr);
+		}*/
+		
+		ArrayList<Object> arr = new ArrayList<Object>();
+		
+		arr = new ArrayList<Object>();
+		arr.add(depType);
+		arr.add(jobType);
+		
+		list = sqlSession.selectList("Member.selectSearchCondition", arr);
+		
+		System.out.println("급여(부서/직급조건) : " + list);
+		
+		for(int i=0;i<list.size();i++){
+			list.get(i).setTotalSalary((list.get(i).getBasePay() + list.get(i).getRegularBonus() + list.get(i).getTaxFreeAlw())-(list.get(i).getNationalPension()
+					                      + list.get(i).getHealthIns() + list.get(i).getLongtermcareIns() + list.get(i).getEmployeeIns()));
+		}
+			
 		return list;
 	}
 	

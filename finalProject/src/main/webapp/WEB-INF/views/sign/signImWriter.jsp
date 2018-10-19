@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title>DBDBDep!</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="${contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3> 내가 올린 문서 </h3>
+              <h3> 기안함 </h3>
             </div>
 
             <div class="title_right">
@@ -199,22 +199,6 @@
             			window.open(url, "", popupOption);
             		});
             	});
-				/* function rtcOpen(){
-					var empName = $("#empName").val();
-					var empNo = $("#empNo").val();
-					var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
-					var url = encodeURI(url1);
-				    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
-					window.open(url,"",popupOption);
-				}
-				function openTest(){
-					var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
-					var empName = $("#empName").val();
-					var empNo = $("#empNo").val();
-					var url="https://192.168.43.84:55555?id="+empName+"#/room/"+roomName;
-					var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
-					window.open(url,"",popupOption);
-				} */
 			</script>
             
 				<!-- footer content -->
@@ -222,7 +206,8 @@
 				<footer>
 				
 					<div class="copyright-info">
-						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
+						<p class="pull-right">DBDBDep - B오전 Final Project by 
+						<a href="http://www.iei.or.kr/main/main.kh?src=overture&kw=003DFA&gclid=Cj0KCQjw9ZDeBRD9ARIsAMbAmoZTJZP5ENi7OkIuimgnF0lSAzQFJc29u1JYoV58VDyCQIAEFRCY9SEaAr4hEALw_wcB">KH Academy</a>
 						</p>
 					</div>
 					<div class="clearfix"></div>

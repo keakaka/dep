@@ -69,7 +69,7 @@ public interface MemberDao {
 
 	List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list);
 
-	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType);
+	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType);
 
 
 

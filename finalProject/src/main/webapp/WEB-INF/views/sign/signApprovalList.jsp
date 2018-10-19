@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title>DBDBDep! </title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="${contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>결재 할 문서 </h3>
+              <h3>결재 대기함 </h3>
             </div>
 
             <div class="title_right">
@@ -83,7 +83,10 @@
                     		<td>${d.writer }</td>
                     		<td>${d.writeDate }</td>
                     		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
-                    		<td align="center"><button type="button" class="btn btn-default btn-xs approval">결재</button></td>
+                    		<td align="center">
+                    			<button type="button" class="btn btn-default btn-xs approval">승인</button>
+                    			<button type="button" class="btn btn-default btn-xs reject">반려</button>
+                    		</td>
                     	</tr>
 					</c:forEach> 
                     </tbody>
@@ -94,12 +97,74 @@
             
                   </div>
             
-            
+            <script>
+            	$(function(){
+            		$(".showDoc").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			var url = "showDoc.sg?docNo="+docNo;
+            			var popupOption = "width = " + 1000 + ", height = " + 500;
+            			window.open(url, "", popupOption);
+            		});
+            	});
+            	
+            	$(function(){
+            		$(".approval").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			var empNo = ${loginUser.empNo};
+            			var approvalStatus = "AP2";
+            			var check = confirm('문서 승인 하시겠습니까?');
+            			if(check == true){
+            				$.ajax({
+                				url : "updateApprovalStatus.sg",
+                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus},
+                				type : "POST",
+                				success : function(data){
+                					if(data > 0){
+    	            					window.location.href = 'signApprovalList.sg?empNo='+empNo;
+                					}else{
+                						alert('결재상태 변경에 실패하셨습니다.');
+                					}
+                				},
+                				error : function(){
+                					console.log('error');
+                				}
+                			});
+            			}
+            		});
+            	});
+            	$(function(){
+            		$(".reject").click(function(){
+            			var docNo = $(this).parent().parent().children('td').eq(0).text();
+            			var empNo = ${loginUser.empNo};
+            			var approvalStatus = "AP3";
+            			var check = confirm('문서 반려 하시겠습니까?');
+            			if(check == true){
+            				$.ajax({
+                				url : "updateApprovalStatus.sg",
+                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus},
+                				type : "POST",
+                				success : function(data){
+                					if(data > 0){
+                						window.location.href = 'signApprovalList.sg?empNo='+empNo;
+                					}else{
+                						alert('결재상태 변경에 실패하셨습니다.');
+                					}
+                				},
+                				error : function(){
+                					console.log('error');
+                				}
+                			});
+            			}
+            			
+            		});
+            	});
+			</script>
 				<!-- footer content -->
 
 				<footer>
 					<div class="copyright-info">
-						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
+						<p class="pull-right">DBDBDep - B오전 Final Project by 
+						<a href="http://www.iei.or.kr/main/main.kh?src=overture&kw=003DFA&gclid=Cj0KCQjw9ZDeBRD9ARIsAMbAmoZTJZP5ENi7OkIuimgnF0lSAzQFJc29u1JYoV58VDyCQIAEFRCY9SEaAr4hEALw_wcB">KH Academy</a>
 						</p>
 					</div>
 					<div class="clearfix"></div>

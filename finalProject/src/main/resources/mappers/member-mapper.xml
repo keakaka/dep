@@ -123,9 +123,10 @@
 	</resultMap>
 	
 	<resultMap type="SalaryExcel" id="salaryRecordResultSet">
-		<result property="empName" column="EMP_NAME" />
 		<result property="depName" column="DEP_NAME" />
 		<result property="jobName" column="JOB_NAME" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="incomeDate" column="INCOME_DATE" />
 		<result property="basePay" column="BASE_PAY"/>
 		<result property="regularBonus" column="REGULAR_BONUS" />
 		<result property="taxFreeAlw" column="TAX_FREE_ALW" />
@@ -133,7 +134,6 @@
 		<result property="healthIns" column="HEALTH_INS" />
 		<result property="longtermcareIns" column="LONGTERMCARE_INS" />
 		<result property="employeeIns" column="EMPLOYEE_INS" />
-		<result property="incomeDate" column="INCOME_DATE" />
 	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
@@ -450,7 +450,7 @@
 		FROM SALARY
 	</select>
 	
-	<select id="selectSearchCondition" resultMap="salaryRecordResultSet" parameterType="string">
+	<select id="selectSearchCondition" resultMap="salaryRecordResultSet" parameterType="java.util.ArrayList">
 		SELECT D.DEP_NAME, J.JOB_NAME, E.EMP_NAME, S.INCOME_DATE, S.BASE_PAY, S.REGULAR_BONUS, S.TAX_FREE_ALW, S.NATIONAL_PENSION, S.HEALTH_INS, S.LONGTERMCARE_INS, S.EMPLOYEE_INS
 		FROM SALARY S
 		JOIN EMPLOYEE E ON(E.EMP_NO=S.EMP_NO)
@@ -459,7 +459,8 @@
 		JOIN DEPT_RECORD DR ON(DR.EMP_NO=S.EMP_NO)
 		JOIN DEPARTMENT D ON(D.DEP_ID=DR.DEP_ID)
 		WHERE D.STATUS = 'Y'
-		AND D.DEP_ID = #{depType}
+		AND D.DEP_ID = ${list.get(0)}
+		AND J.JOB_CODE = ${list.get(1)}
 	</select>
 </mapper>
 
