@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title>DBDBDep!</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="${contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -102,17 +102,18 @@
 		function rtcOpen(){
 			var empName = $("#empName").val();
 			var empNo = $("#empNo").val();
-			var url1 = "https://localhost:55555?id="+empName;    //팝업창 페이지 URL
+			var roomId = prompt('방 제목을 입력하세요');
+			var url1 = "https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName;    //팝업창 페이지 URL
 			var url = encodeURI(url1);
-		    var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
-			window.open(url,"",popupOption);
+		    var popupOption= "width="+ 1200 +", height="+ 800 + ", fullscreen=yes";    //팝업창 옵션(option)
+		    window.open(url,'DBDBDep 화상회의 시스템', popupOption);
 		}
 		function openTest(){
-			var roomName = window.prompt('회의방을 개설한 분의 성함을 적어주세요');
 			var empName = $("#empName").val();
 			var empNo = $("#empNo").val();
-			var url="https://192.168.43.84:55555?id="+empName+"#/room/"+roomName;
-			var popupOption= "width="+screen.width+", height="+screen.height;    //팝업창 옵션(option)
+			var roomId = prompt('방 제목을 입력하세요');
+			var url="https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName+"#/room/"+roomId;
+			var popupOption= "width="+ 1200 +", height="+ 800;    //팝업창 옵션(option)
 			window.open(url,"",popupOption);
 		}
 	</script>
