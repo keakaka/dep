@@ -259,7 +259,7 @@ public class MemberServiceImpl implements MemberService{
 											break;
 											case NUMERIC:
 												if(DateUtil.isCellDateFormatted(curCell)) {
-													SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+													SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 													value = sdf.format(curCell.getDateCellValue());
 												} else {
 													value = String.valueOf(curCell.getNumericCellValue());
@@ -390,7 +390,7 @@ public class MemberServiceImpl implements MemberService{
 											break;
 										case NUMERIC:
 											if(DateUtil.isCellDateFormatted(curCell)) {
-												SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+												SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 												value = sdf.format(curCell.getDateCellValue());
 											} else {
 												value = String.valueOf(curCell.getNumericCellValue());
@@ -525,9 +525,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<SalaryExcel> selectSearchCondition(String depType) {
+	public List<SalaryExcel> selectSearchCondition(String depType, String jobType) {
 		
-		return md.selectSearchCondition(sqlSession, depType);
+		return md.selectSearchCondition(sqlSession, depType, jobType);
 	}
 
 }
