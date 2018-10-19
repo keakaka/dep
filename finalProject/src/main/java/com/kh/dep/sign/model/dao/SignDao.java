@@ -41,5 +41,7 @@ public interface SignDao {
 
 	InsertSign selectDocDetail(SqlSessionTemplate sqlSession, int docNo);
 
+	int updateApprovalStatus(SqlSessionTemplate sqlSession, Document d);
+
 	
 }
