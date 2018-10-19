@@ -223,7 +223,7 @@
 	</select>
 
 	<!-- 모든 사원 조회 -->
-	<select id="selectAllMember" resultMap="memberInfoResultSet">
+	<select id="selectAllMember" resultMap="memberResultSet">
 		SELECT EMP_NO, EMP_NAME
 		FROM EMPLOYEE
 		WHERE STATUS = 'Y'

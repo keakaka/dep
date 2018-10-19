@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.vo.Facing;
+import com.kh.dep.facing.model.vo.FacingInsert;
+import com.kh.dep.facing.model.vo.FacingInsertR;
 import com.kh.dep.facing.model.vo.WorkingRecord;
+import com.kh.dep.member.model.vo.Member;
 
 @Repository
 public class FacingDaoImpl implements FacingDao {
@@ -95,6 +98,37 @@ public class FacingDaoImpl implements FacingDao {
 		return reuselt;
 		
 	}
+
+	@Override
+	public int insertFacing(SqlSessionTemplate sqlSession, FacingInsert fi) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("페이징 인설트 다오");
+		
+		int result = sqlSession.insert("Facing.insertFacing",fi);
+		System.out.println("인서트완료 : " + result);
+		return result;
+	}
+
+	@Override
+	public Facing selectNowFaicng(int empNo) {
+		// TODO Auto-generated method stub
+		
+		Facing nowFacing = (Facing) sqlSession.selectOne("Facing.selectNowFaicng",empNo);
+		System.out.println("돌아온 최근 데이터" + nowFacing);
+		return nowFacing;
+	}
+
+	@Override
+	public int insertReceiver(FacingInsertR fir) {
+		// TODO Auto-generated method stub
+		System.out.println("수신자 등록 다오도착");
+		int resultR = sqlSession.insert("Facing.insertFaicngR",fir);
+		System.out.println("수신자 인서트완료 : " + resultR);
+		return resultR;
+	}
+
+	
 
 /*	@Override
 	public int insertFacing(SqlSessionTemplate sqlSession, Facing f) {

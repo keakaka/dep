@@ -151,19 +151,22 @@
                           <option value="mouth">Word of mouth</option>
                         </select> -->
 						
+						<!-- 보내는사람 -->
 						  <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">보내는 사람 <span class="required">*</span>
                       </label>
                       <br>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="이름">
                       </div>
                     </div>
                     <br><br>
+                    <!-- 받는사람 -->
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">받는사람 <span class="required">*</span>
                       </label>
                       <br>
+                      <!-- 내용 -->
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
                       </div>

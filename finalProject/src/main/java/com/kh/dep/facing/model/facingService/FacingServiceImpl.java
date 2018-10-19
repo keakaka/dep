@@ -11,7 +11,10 @@ import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.facingDao.FacingDao;
 import com.kh.dep.facing.model.vo.Facing;
+import com.kh.dep.facing.model.vo.FacingInsert;
+import com.kh.dep.facing.model.vo.FacingInsertR;
 import com.kh.dep.facing.model.vo.WorkingRecord;
+import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberJob;
 
 import oracle.net.aso.f;
@@ -94,6 +97,28 @@ public class FacingServiceImpl implements FacingService {
 		
 		return result;
 		
+	}
+	@Override
+	public int insertFacing(FacingInsert fi) {
+		// TODO Auto-generated method stub
+		int result = fd.insertFacing(sqlSession , fi);
+		
+		return result;
+	}
+	@Override
+	public Facing selectNowFacing(int empNo) {
+		// TODO Auto-generated method stub
+		
+		Facing nowFacing = (Facing) fd.selectNowFaicng(empNo);
+		
+		return nowFacing;
+	}
+	@Override
+	public int insertReceiver(FacingInsertR fir) {
+		// TODO Auto-generated method stub
+		int resultR = fd.insertReceiver(fir);
+		System.out.println("서비스옴");
+		return resultR;
 	}
 
 

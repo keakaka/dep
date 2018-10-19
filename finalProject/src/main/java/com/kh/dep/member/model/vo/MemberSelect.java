@@ -70,38 +70,13 @@ public class MemberSelect implements java.io.Serializable {
 	}
 
 
-
-
-	@Override
-	public String toString() {
-		return "MemberSelect [empNo=" + empNo + ", empId=" + empId + ", empPwd=" + empPwd + ", empName=" + empName
-				+ ", depName=" + depName + ", jobName=" + jobName + ", positionName=" + positionName + ", birthDate="
-				+ birthDate + ", email=" + email + ", phone=" + phone + ", emergencyPhone=" + emergencyPhone
-				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
-				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
-				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType
-				+ ", depReason=" + depReason + ", leavein=" + leavein + "]";
-	}
-
-
-
-
-
 	public String getDepReason() {
 		return depReason;
 	}
 
-
-
-
-
 	public void setDepReason(String depReason) {
 		this.depReason = depReason;
 	}
-
-
-
-
 
 	public int getEmpNo() {
 		return empNo;
@@ -280,14 +255,9 @@ public class MemberSelect implements java.io.Serializable {
 	}
 
 
-
-
-
 	public String getLeavein() {
 		return leavein;
 	}
-
-
 
 
 
@@ -298,7 +268,19 @@ public class MemberSelect implements java.io.Serializable {
 	
 	
 
-	
+	@Override
+	public String toString() {
+		return "MemberSelect [empNo=" + empNo + ", empId=" + empId + ", empPwd=" + empPwd + ", empName=" + empName
+				+ ", depName=" + depName + ", jobName=" + jobName + ", positionName=" + positionName + ", birthDate="
+				+ birthDate + ", email=" + email + ", phone=" + phone + ", emergencyPhone=" + emergencyPhone
+				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
+				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
+				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType
+				+ ", depReason=" + depReason + ", leavein=" + leavein + "]";
+	}
+
+
+
 
 	
 
