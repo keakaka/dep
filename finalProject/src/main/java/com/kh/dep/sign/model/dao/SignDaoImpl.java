@@ -100,6 +100,12 @@ public class SignDaoImpl implements SignDao{
 		return sqlSession.selectOne("sign.selectDocDetail", docNo);
 	}
 
+	@Override
+	public int updateApprovalStatus(SqlSessionTemplate sqlSession, Document d) {
+		
+		return sqlSession.update("sign.updateApprovalStatus", d);
+	}
+
 
 	
 
