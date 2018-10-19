@@ -145,7 +145,6 @@ public class PmServiceImpl implements PmService {
 		dlist = pd.selectDepmoveEmpNoList(sqlSession, empNo);
 		
 		return dlist;
-		
 	}
 
 	@Override

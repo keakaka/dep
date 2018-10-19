@@ -14,7 +14,7 @@ public interface CalendarService {
 
 	Calendar insertCalendar(Calendar c);
 
-	List<Calendar> selectCalendar(int empNo);
+	List<Calendar> selectCalendar(Calendar c);
 
 	int selectCurval();
 
@@ -23,6 +23,7 @@ public interface CalendarService {
 	Calendar updateModelCalendar(Calendar c);
 
 	int updateCalendar(Calendar c);
+
 
 
 }
