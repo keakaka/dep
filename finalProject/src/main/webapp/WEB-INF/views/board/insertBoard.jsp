@@ -71,7 +71,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 게시판</h3>
+									<h3>부서 게시판</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -88,85 +88,29 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>DIP부 <small>야근투나잇 대리</small></h2>
+                  <h2>${sessionScope.loginUser.depName}  <small>${sessionScope.loginUser.empName}  ${sessionScope.loginUser.jobName}</small></h2>
                   
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
 
                      <!-- start form for validation -->
-                  <form id="demo-form" data-parsley-validate action="insertProduct" method="post" enctype="multipart/form-data" autocomplete="off">
-                    <label for="fullname">상품 명 * :</label>
-                    <input type="text" id="proName" class="form-control" name="proName" required /><br>
-					
-                    <p>
-                      <label for="c1">식량작물</label>
-                      <input type="radio" class="flat" name="category" id="c1" value="식량작물" checked/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-					  <label for="c2">특용작물</label>
-                      <input type="radio" class="flat" name="category" id="c2" value="특용작물" />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <label for="c3">과수</label>
-                      <input type="radio" class="flat" name="category" id="c3" value="과수" />
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <label for="c4">채소</label>
-                      <input type="radio" class="flat" name="category" id="c4" value="채소" />
-                    </p><br>
-                    <label>상품 형식</label><br>
-                    <p>
-                    <span id='typeSpan'>
-                      <label id='B1' class='typeLabel' for="P1" style='border: inset;'>상시 판매 상품</label>
-                      <input type="radio" class="type" name="productType" id="P1" value="P1" checked/>
-                    </span>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>
-					  <label id='B2' class='typeLabel fundLabel' for="P2">달성형 펀딩 상품</label>
-                      <input type="radio" class="type" name="productType" id="P2" value="P2" />
-                   	</span>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>
-                      <label id='B3' class='typeLabel fundLabel' for="P3">미달성형 펀딩 상품</label>
-                      <input type="radio" class="type" name="productType" id="P3" value="P3" />
-                    </span>
-                    </p><br>
-                    
-                    
-                    <label for="price">가격 * :</label>
-                    <input type="text" id="price" class="form-control" name="price" data-parsley-trigger="change" required /><br>
-                    
-					<label for="count">수량 * :</label>
-                    <input type="text" id="count" class="form-control" name="count" value=''/><br>
-                    <label>상품 구분</label><br>
-                    
-                    <label>모금 마감일자 설정</label>
-                    <div class="well">
-                    	 <fieldset>
-	                        <div class="control-group">
-	                          <div class="controls">
-	                            <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-	                              <input type="text" class="form-control has-feedback-left" name="deadline" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status" value="">
-	                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-	                              <span id="inputSuccess2Status" class="sr-only">(success)</span>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </fieldset>
-	                    </div>
-                    
-						<label>상품 소개 작성</label>
-						<textarea id="summernote" name="proContent" required>
+                  <form id="demo-form" data-parsley-validate action="writeBoard.bo" method="post" enctype="multipart/form-data">
+                    <label for="fullname">제목 :</label>
+                    <input type="text" id="boardTitle" class="form-control" name="boardTitle" required /><br>
+                
+	                <label>첨부파일 : &nbsp; </label><input multiple="multiple" type="file" name="file" size=40>
+         
+						<br><br>
+						<textarea id="summernote" name="boardContent" required>
 							
 						</textarea>
-						<input type="hidden" id='memberNo' name="memberNo" value="">
-	                  	<label>썸네일 : &nbsp; </label><input type="file" id='thumbnail' name="filename" size=40>
+						
 	                  	<br><br>
-	                  	<button type='button' onclick='popupOpen()' class="btn btn-primary" id='insertBak' style='background:red; width:400px' disabled>상시 판매 상품은 밭면적을 입력 할 필요 없습니다.</button>
-	                  	
-	                  	<br>
-	                  	<button type="button" id='Enrollment' class="btn btn-primary" style="width:400px;">등록 신청</button>
+	                  	<input type="hidden" name="empNo" value="${sessionScope.loginUser.empNo} "/>
+	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px; float:right;">게시글 작성</button>
                         <br/>
-                        <input type='hidden' id='hid' name='hid' value=''>	<!-- 유저 아이디 -->
-						<input type='hidden' id='read' name='attachNo' value='food'>			<!-- Attach id 번호 -->
+                        
 						
                         <script type="text/javascript">
 
@@ -340,8 +284,8 @@
           data = new FormData();
            data.append("uploadFile", file);
            
-	       console.log(data);
-            $.ajax({ // ajax를 통해 파일 업로드 처리
+	       //console.log(data);
+             $.ajax({ // ajax를 통해 파일 업로드 처리
                data : data,
                type : "POST",
                url : "imgUpload.bo",
@@ -352,7 +296,8 @@
                success : function(data) { // 처리가 성공할 경우
                     // 에디터에 이미지 출력
                     console.log(data);
-                  $(editor).summernote('editor.insertImage', data);
+                 // $(editor).summernote('editor.insertImage', data);
+                  $(editor).summernote('editor.insertImage', "/dep/resources/uploadFiles/"+ data);
                },
                error:function(request,status,error){
                   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -369,7 +314,7 @@
     	    $.ajax({
     	        data: {src : src},
     	        type: "POST",
-    	        url: "", // replace with your url
+    	        url: "imgDelete.bo", // replace with your url
     	        cache: false,
     	        success: function(data) {
     	            console.log(data);
@@ -399,7 +344,7 @@
 	                callbacks: { // 콜백을 사용
                         // 이미지를 업로드할 경우 이벤트를 발생
                    onImageUpload: function(files, editor, welEditable) {
-                       console.log(files);
+                       //console.log(files);
                          
                          for (var i = files.length - 1; i >= 0; i--) {
                         	 
@@ -408,7 +353,7 @@
                          		var extdot = files[i].name.lastIndexOf('.');
                          		var ext = files[i].name.substring(extdot, extleng).toLowerCase();
 
-                        		 console.log(ext + ' / ' + fileExtension[j]) 
+                        		 //console.log(ext + ' / ' + fileExtension[j]) 
                         	 if(ext == fileExtension[j]){
                      		  sendFile(files[i], this); 
                          	}

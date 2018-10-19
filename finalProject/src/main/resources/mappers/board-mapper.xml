@@ -9,6 +9,7 @@
 		<result property="boardTitle" column="BOARD_TITLE" />
 		<result property="boardContent" column="BOARD_CONTENT" />
 		<result property="boardType" column="BOARD_TYPE" />
+		<result property="boardDate" column="BOARD_DATE" />
 		<result property="selectCount" column="SELECT_COUNT" />
 		<result property="status" column="STATUS" />
 		<result property="empName" column="EMP_NAME" />
@@ -18,7 +19,7 @@
 	<!-- board list 조회 -->
 	<select id="selectBoardList" resultMap="boardResultSet">
 		SELECT B.BOARD_NO,
-		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE,
+		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE, B.BOARD_DATE,
 		B.SELECTCOUNT, B.STATUS
 		FROM BOARD B
 		JOIN EMPLOYEE E ON(B.EMP_NO = E.EMP_NO)
@@ -28,9 +29,9 @@
 	</select>
 	
 	<!-- Board One 조회  -->
-	<select id="selectOneBoard" resultMap="boardResultSet" parameterType="java.lang.String">
+	<select id="selectOneBoard" resultMap="boardResultSet" parameterType="_int">
 		SELECT B.BOARD_NO,
-		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE,
+		B.EMP_NO, E.EMP_NAME, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_TYPE,B.BOARD_DATE,
 		B.SELECTCOUNT, B.STATUS
 		FROM BOARD B
 		JOIN EMPLOYEE E ON(B.EMP_NO = E.EMP_NO)

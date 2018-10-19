@@ -9,6 +9,6 @@ public interface BoardService {
 
 	ArrayList<Board> selectBoardList() throws BoardException;
 
-	Board selectOneBoard(String bid);
+	Board selectOneBoard(int i);
 
 }

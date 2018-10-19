@@ -115,31 +115,35 @@ a:hover{
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="btn-group" role="group"
 											aria-label="Button group with nested dropdown">
-											<a href="#tab_content1" type="button" class="btn btn-default">내 일정</a>
+											<a href="calendar.ca" type="button" class="btn btn-default">내 일정</a>
 											<div class="btn-group" role="group">
 												<div class="dropdown">
-													<button class="btn btn-default dropdown-toggle"
-														type="button" data-toggle="dropdown">
-														부서 일정 <span class="caret"></span>
+													
+													<button id="depName"class="btn btn-default dropdown-toggle"
+														type="button" data-toggle="dropdown">부서일정
+														<span class="caret"></span>
 													</button>
 													<ul class="dropdown-menu">
-														<li><a href="#">영업부</a></li>
-														<li><a href="#">회계부</a></li>
+													<c:forEach var="d" items="${depList }">
+														<li><a id="dep" value="${d.depId }">${d.depName }</a></li>
+													</c:forEach>
 													</ul>
+													
+													</div>
+													
 												</div>
-											</div>
 										</div>
 											<div id="myTabContent" class="tab-content">
 												<div id="tab_conten1" style="padding: 10px;"></div>
-												
-												
-												<div id='calendar'></div>
-
+												<div id="calendarArea">
+													<div id='calendar'></div>
+												</div>
 											</div>
 										</div>
 
 										<div class="clearfix"></div>
 									</div>
+									
 								</div>
 							</div>
 
@@ -173,68 +177,6 @@ a:hover{
 			</div>
 
 			<!-- Start Calender modal -->
-			<div class="remodal" data-remodal-id="modal2"
-				data-remodal-options="hashTracking: false,
-    closeOnConfirm:false,closeOnCancel:  false, closeOnEscape: false , closeOnOutsideClick: false,
-    modifier : without-animation with-test-class">
-
-				<a data-remodal-action="close" class="remodal-close"></a>
-				<div class="widget clearfix">
-					<div id="respond" class="comment-respond">
-						<h3 id="reply-title" class="comment-reply-title">
-							일정을 등록해주세요 <small> <a rel="nofollow"
-								id="cancel-comment-reply-link" href="" style="display: none;">
-									Cancel reply</a></small>
-						</h3>
-						<form action="#" method="post" id="commentform"
-							class="comment-form">
-							<p class="comment-notes">
-								Your email address will not be published. Required fields are
-								marked <span class="required">*</span>
-							</p>
-							<p class="comment-form-author" style="width: 100%;">
-								<label for="author">일정 제목 <span class="required">*</span></label>
-								<input id="sTitle" name="sTitle" type="text" value="" size="15"
-									aria-required="true">
-							</p>
-							<p class="comment-form-comment">
-								<label for="comment">일정 내용</label>
-								<textarea id="sContent" name="sContent" cols="45" rows="8"
-									aria-required="true"></textarea>
-							</p>
-							<p class="form-submit">
-								<input type="hidden" name="modalStart" id="modalStart" value="">
-								<input type="hidden" name="modalEnd" id="modalEnd" value="">
-							</p>
-						</form>
-					</div>
-					<!-- #respond -->
-				</div>
-				<a data-remodal-action="cancel" class="remodal-cancel" href="#">Cancel</a>
-				<a data-remodal-action="confirm" class="remodal-confirm"
-					id="addScehduleBu">OK</a> <a data-remodal-action="confirm"
-					class="remodal-confirm" id="updateScehduleBu" href="#"
-					style="display: none;">수정</a>
-			</div>
-
-
-			<div class="remodal" data-remodal-id="modal" role="dialog"
-				aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-				<button data-remodal-action="close" class="remodal-close"
-					aria-label="Close"></button>
-				<div>
-					<h2 id="modal1Title">일정 제목</h2>
-					<p id="modal1Desc">일정 내용 부분</p>
-				</div>
-				<br> <input type="hidden" id="dId" value="" />
-				<button id="updateBu" data-remodal-action="cancel"
-					class="remodal-cancel" style="background: lightblue;">수정</button>
-				<button id="delBu" data-remodal-action="cancel"
-					class="remodal-cancel">삭제</button>
-				<button data-remodal-action="confirm" class="remodal-confirm">확인</button>
-			</div>
-
-
 
 
 			<div id="CalenderModalNew" class="modal fade" tabindex="-1"
@@ -245,9 +187,28 @@ a:hover{
 					<div class="modal-content" style="width:500px;">
 
 						<div id="modal-header" class="modal-header">
-							<a href="calendar.ca" class="close">×</a>
-							
-								<div class="form-group">
+						
+							<%-- <div id="dropdown" class="dropdown">
+								<button id="depName" class="btn btn-default dropdown-toggle"
+									type="button" data-toggle="dropdown">
+									부서일정 <span class="caret"></span>
+								</button>
+								<ul id="dropdown-menu2" class="dropdown-menu">
+									<c:forEach var="d" items="${depList }">
+										<li><a id="dep" value="${d.depId }">${d.depName }</a></li>
+									</c:forEach>
+								</ul>
+							</div> --%>
+							<div id="dropdown2">
+							<select id= "dropdown22">
+								<c:forEach var="d" items="${depList }">
+										<option id="dep" value="${d.depId }">${d.depName }</option>
+								</c:forEach>
+							</select>
+							</div>
+
+							<div class="form-group">
+								
 									<div class="col-sm-9" style="padding:5px;">
 										<input type="text" class="form-control" id="title"style="border:none; font-size:13pt; font-weight:bold;"
 											name="title" placeholder="일정 제목을 입력하세요.">
@@ -395,7 +356,6 @@ a:hover{
 					<div class="modal-content" style="width:500px;">
 
 						<div id="modal-header" class="modal-header">
-							<a href="calendar.ca" class="close">×</a>
 							
 								<div class="form-group">
 									<div class="col-sm-9" style="padding:5px;">
@@ -827,71 +787,34 @@ a:hover{
 
 <script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
 <script>
-$(document).ready(function(){
-	var title = 'test';
+function startCal(){
 	
-	 $.ajax({
-		url:"calendarList.ca",
-		type:"post",
-		data:{title:title},
-		success:function(data){
-			var result = data.cList;
-			/* console.log("test1:"+title); */
-			
-			$.each(result, function(i){
-	              var event={id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
-	            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
-	               
-	               
-	               $('#calendar').fullCalendar('renderEvent', event, true);
+	  var date = new Date();
+	  var d = date.getDate();
+	  var m = date.getMonth();
+	  var y = date.getFullYear();
+	  var started;
+	  var categoryClass;
 
-	               /* calendar.fullCalendar('renderEvent', {
-							title : result[i].scheduleTitle,
-							content : result[i].scheduleContent,
-							start : result[i].scheStartDate,
-							end : result[i].scheEndDate
-						}, true // make the event "stick"
-						); */
-					
-	            });
-
-		},
-		error:function(data){
-			console.log("실패");
-		}
-	});
-});
-    $(window).load(function() {
-      
-		 
+	  var calendar = $('#calendar').fullCalendar({
+		  
 		
-      var date = new Date();
-      var d = date.getDate();
-      var m = date.getMonth();
-      var y = date.getFullYear();
-      var started;
-      var categoryClass;
-
-      var calendar = $('#calendar').fullCalendar({
-    	  
-    	
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-        },
-        selectable: true,
-        selectHelper: true,
-        select: function(start, end) {
-          $('#fc_create').click();
+	    header: {
+	      left: 'prev,next today',
+	      center: 'title',
+	      right: 'month,agendaWeek,agendaDay'
+	    },
+	    selectable: true,
+	    selectHelper: true,
+	    select: function(start, end) {
+	      $('#fc_create').click();
 
 
-          started = start;
-          ended = end
+	      started = start;
+	      ended = end
 
-          $(".antosubmit").on("click", function() {
-        	  
-        	  console.log("추가 버튼 클릭");
+	      $(".antosubmit").on("click", function() {
+	    	  
 				
 				var sDateFormat = moment(start, 'YYYY-MM-DD');
 	            var eDateFormat = moment(end, 'YYYY-MM-DD');
@@ -904,13 +827,14 @@ $(document).ready(function(){
 	            
 	            var title2 = document.getElementById('title').value;
 	            var content2 = document.getElementById('content').value;
-	            
+	            depNo = 'null';
 				
 				$.ajax({
 					url:"insertCalendar.ca",
 					type:'post',
 					data:{title:title2,
 						  content:content2,
+						  depNo:depNo,
 						  sDate:sDate,
 						  eDate:eDate},
 					success:function(data){
@@ -949,57 +873,220 @@ $(document).ready(function(){
 					
 				});
 				
-            var title = $("#title").val();
-            
-            if (end) {
-              ended = end
-            }
-            categoryClass = $("#event_type").val();
+	        var title = $("#title").val();
+	        
+	        if (end) {
+	          ended = end
+	        }
+	        categoryClass = $("#event_type").val();
 
-            if (title) {
-              calendar.fullCalendar('renderEvent', {
-                  title: title,
-                  start: started,
-                  end: end
-                },
-                true // make the event "stick"
-              );
-            }
-            $('#title').val('');
-            calendar.fullCalendar('unselect');
+	        if (title) {
+	          calendar.fullCalendar('renderEvent', {
+	              title: title,
+	              start: started,
+	              end: end
+	            },
+	            true // make the event "stick"
+	          );
+	        }
+	        $('#title').val('');
+	        calendar.fullCalendar('unselect');
 
-            $('.antoclose').click();
+	        $('.antoclose').click();
 
-            return false;
-          });
-        },
-        eventClick: function(calEvent, jsEvent, view) {
-          //alert(calEvent.title, jsEvent, view);
+	        return false;
+	      });
+	    },
+	    eventClick: function(calEvent, jsEvent, view) {
+	      //alert(calEvent.title, jsEvent, view);
 
-          $('#fc_edit').click();
-          $('#title2').val(calEvent.title);
-          $('#descr2').val(calEvent.content);
-          $('#id').val(calEvent.id);
-          
-          
-          categoryClass = $("#event_type").val();
+	      $('#fc_edit').click();
+	      $('#title2').val(calEvent.title);
+	      $('#descr2').val(calEvent.content);
+	      $('#id').val(calEvent.id);
+	      
+	      
+	      categoryClass = $("#event_type").val();
 
-          $(".antosubmit2").on("click", function() {
-            calEvent.title = $("#2").val();
-            calEvent.content = $("#2").val();
-            calEvent.id = $("#2").val();
+	      $(".antosubmit2").on("click", function() {
+	        calEvent.title = $("#2").val();
+	        calEvent.content = $("#2").val();
+	        calEvent.id = $("#2").val();
 
-            calendar.fullCalendar('updateEvent', calEvent);
-            $('.antoclose2').click();
-          });
-          
-          calendar.fullCalendar('unselect');
-        },
-        editable: true,
-        
-      });
+	        calendar.fullCalendar('updateEvent', calEvent);
+	        $('.antoclose2').click();
+	      });
+	      
+	      calendar.fullCalendar('unselect');
+	    },
+	    editable: true,
+	    
+	  });
+	  
+		}
+
+$(document).ready(function(){
+	var title = 'test';
+	depNo = 'null';
+	
+	 $.ajax({
+		url:"calendarList.ca",
+		type:"post",
+		data:{title:title,
+			  depNo:depNo},
+		success:function(data){
+			var result = data.cList;
+			/* console.log("test1:"+title); */
+			
+			$.each(result, function(i){
+	              var event={id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
+	            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
+	               
+	               
+	               $('#calendar').fullCalendar('renderEvent', event, true);
+
+	               /* calendar.fullCalendar('renderEvent', {
+							title : result[i].scheduleTitle,
+							content : result[i].scheduleContent,
+							start : result[i].scheStartDate,
+							end : result[i].scheEndDate
+						}, true // make the event "stick"
+						); */
+					
+	            });
+
+		},
+		error:function(data){
+			console.log("실패");
+		}
+	});
+});
+
+$(window).load(function() {
+    
+	
+    
+		 
+		 startCal();
+    
     });
   </script>
+  
+  <script>
+									
+									
+									
+									$('.dropdown-menu li > a').on('click', function() {
+										$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+									    depNo = $(this).attr('value');
+									    
+									    console.log("dep : " + depNo);
+									    
+									    title = 'test'; 
+									    	
+									    $.ajax({
+											url:"calendarList.ca",
+											type:'post',
+											data:{title:title,
+												depNo:depNo},
+											success:function(data){
+												
+												$("#calendar").remove();
+												
+												var area = document.getElementById('calendarArea');
+												
+												var div1 = document.createElement('div');
+												div1.setAttribute("id", "calendar");
+												
+												area.append(div1);
+												
+												startCal();
+												
+												var result = data.cList;
+												/* console.log("test1:"+title); */
+												
+												$.each(result, function(i){
+										              var event={schetype:result[i].scheType, id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
+										            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
+										               
+										               
+										               $('#calendar').fullCalendar('renderEvent', event, true);
+
+										               /* calendar.fullCalendar('renderEvent', {
+																title : result[i].scheduleTitle,
+																content : result[i].scheduleContent,
+																start : result[i].scheStartDate,
+																end : result[i].scheEndDate
+															}, true // make the event "stick"
+															); */
+														
+										            });
+												
+											},
+											error:function(data){
+												console.log("error");
+											},
+											
+										});
+									});
+									
+									
+									//modal창 안에 dropdown
+									$('#dropdown2').on('click', function() {
+									    /* depNo2 = $(this).attr('value'); */
+									    depNo = $("#dropdown22 option:selected").val();
+									    
+									    console.log("dep2 : " + depNo);
+									    
+									    title = 'test';
+									    
+									    
+									    $.ajax({
+											url:"calendarList.ca",
+											type:'post',
+											data:{title:title,
+												  depNo:depNo},
+											success:function(data){
+												$("#calendar").remove();
+												
+												var area = document.getElementById('calendarArea');
+												
+												var div1 = document.createElement('div');
+												div1.setAttribute("id", "calendar");
+												
+												area.append(div1);
+												
+												startCal();
+												
+												var result = data.cList;
+												
+												$.each(result, function(i){
+										              var event={schetype:result[i].scheType, id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
+										            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
+										               
+										               
+										               $('#calendar').fullCalendar('renderEvent', event, true);
+
+										               /* calendar.fullCalendar('renderEvent', {
+																title : result[i].scheduleTitle,
+																content : result[i].scheduleContent,
+																start : result[i].scheStartDate,
+																end : result[i].scheEndDate
+															}, true // make the event "stick"
+															); */
+														
+										            });
+												
+											},
+											error:function(data){
+												console.log("error");
+											},
+											
+										});
+									});
+									</script>
+  
+  
 <!-- Events -->
 <!-- <script>
   $(document).on('opening', '.remodal', function () {

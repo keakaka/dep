@@ -39,8 +39,8 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
-	public List<Calendar> selectCalendar(int empNo) {
-		return cd.selectCalendar(empNo);
+	public List<Calendar> selectCalendar(Calendar c) {
+		return cd.selectCalendar(c);
 	}
 
 	@Override

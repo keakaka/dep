@@ -112,9 +112,11 @@ public class SignServiceImpl implements SignService{
 		if(docList != null){
 			list = new ArrayList();
 			for(int i = 0; i < docList.size(); i++){
-				Document d = sd.selectApprovalList(sqlSession, docList.get(i));
-				
-				list.add(d);
+				Document d = new Document();
+				d = sd.selectApprovalList(sqlSession, docList.get(i));
+				if(d != null){
+					list.add(d);
+				}
 			}
 		}
 		return list;
@@ -127,8 +129,10 @@ public class SignServiceImpl implements SignService{
 		for(int i = 0; i < docList.size(); i++){
 			Document d = new Document();
 			d = sd.selectReceiveList(sqlSession, docList.get(i));
-			if(d.getAppStatus() == 0){
-				list.add(d);
+			if(d != null){
+				if(d.getAppStatus() == 0){
+					list.add(d);
+				}
 			}
 		}
 		
@@ -143,8 +147,10 @@ public class SignServiceImpl implements SignService{
 		for(int i = 0; i < docList.size(); i++){
 			Document d = new Document();
 			d = sd.selectCompleteList(sqlSession, docList.get(i));
-			if(d.getAppStatus() == 0){
-				list.add(d);
+			if(d != null){
+				if(d.getAppStatus() == 0){
+					list.add(d);
+				}
 			}
 		}
 		return list;
@@ -160,6 +166,12 @@ public class SignServiceImpl implements SignService{
 	public InsertSign selectDocDetail(int docNo) {
 		
 		return sd.selectDocDetail(sqlSession, docNo);
+	}
+
+	@Override
+	public int updateApprovalStatus(Document d) {
+		
+		return sd.updateApprovalStatus(sqlSession, d);
 	}
 	
 	
