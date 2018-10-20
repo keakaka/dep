@@ -34,6 +34,7 @@ import com.kh.dep.common.CommonUtils;
 import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.service.MemberService;
+import com.kh.dep.member.model.vo.Alarm;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
 import com.kh.dep.member.model.vo.MemberDepartment;
@@ -63,8 +64,11 @@ public class MemberController {
 			MemberSelect loginUser = ms.selectLoginMember(m);
 
 			System.out.println(loginUser);
-
 			model.addAttribute("loginUser", loginUser);
+			
+			int myAlarmCount = ms.selectMyAlarmCount(loginUser.getEmpNo());
+			System.out.println(myAlarmCount);
+			loginUser.setMyAlarmCount(myAlarmCount);
 
 			return "member/sample";			
 
@@ -535,17 +539,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="selectSearchCondition.me")
-	public void selectSearchCondition(String depType, String jobType, HttpServletResponse response){
+	public void selectSearchCondition(String depType, String jobType, String dateType, HttpServletResponse response){
 		System.out.println("조건에 맞는 사원 급여 데이터 검색 컨트롤러!");
 		
 		/*if(depType.equals("D0")){
 			
 		}*/
 		
-		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType);
+		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType);
 		
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
-		list = ms.selectSearchCondition(depType, jobType);
+		list = ms.selectSearchCondition(depType, jobType, dateType);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -556,6 +560,36 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping(value="alarm.me")
+	public void selectMyAlarm(int empNo, HttpServletResponse response){
+		System.out.println("사원번호 : " + empNo);
+		List<Alarm> alarmList = new ArrayList<Alarm>();
+		
+		alarmList = ms.selectMyAlarmList(empNo);
+		System.out.println(alarmList);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().println(mapper.writeValueAsString(alarmList));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="deleteAlarm.me")
+	public String updateMyAlarm(int alarmNo, HttpServletRequest request){
+		System.out.println("삭제할 alarmNo : " + alarmNo);
+		
+		int result = ms.updateMyAlarm(alarmNo);
+		
+		MemberSelect loginUser=(MemberSelect) request.getSession().getAttribute("loginUser");
+		loginUser.setMyAlarmCount(loginUser.getMyAlarmCount() - 1);
+		
+		return "member/sample";
 	}
 
 }

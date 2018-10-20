@@ -123,10 +123,11 @@
 														<input type="text" id="empNameBox" name="empNameBox"> 
 													
 														<select id="dateType">
-															<option id="web-font">날짜</option>
-															<option id="web-font">2018</option>
-															<option id="web-font">2017</option>
-															<option id="web-font">2016</option>
+															<option id="web-font" value="S.INCOME_DATE">년도</option>
+															<option id="web-font" value="'2018%'">2018</option>
+															<option id="web-font" value="'2017%'">2017</option>
+															<option id="web-font" value="'2016%'">2016</option>
+															<option id="web-font" value="'2015%'">2015</option>
 														</select>
 														<select id="quarter">
 															<option id="web-font">분기</option>
@@ -255,11 +256,14 @@
 													var depType = $("#departmentType option:selected").val();
 													console.log(depType);
 													var jobType = $("#jobType option:selected").val();
+													console.log(jobType);
+													var dateType = $("#dateType option:selected").val();
+													console.log(dateType);
 													
 													$.ajax({
 														type : "post",
 														url : "selectSearchCondition.me",
-														data : {depType:depType, jobType:jobType},
+														data : {depType:depType, jobType:jobType, dateType:dateType},
 														dataType : "json",
 														success : function(data) {
 															console.log(data);

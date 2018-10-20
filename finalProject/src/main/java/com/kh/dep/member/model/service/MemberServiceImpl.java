@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
 import com.kh.dep.member.model.dao.MemberDao;
+import com.kh.dep.member.model.vo.Alarm;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
 import com.kh.dep.member.model.vo.MemberDepartment;
@@ -323,11 +324,11 @@ public class MemberServiceImpl implements MemberService{
 											/*int value7 = (int) Double.parseDouble(value);
 											vo.setEmployeeIns(value7);*/
 											break;
-										case 11:
+										/*case 11:
 											int value8 = (vo.getBasePay() + vo.getRegularBonus() + vo.getTaxFreeAlw()) 
 											             - (vo.getNationalPension() + vo.getHealthIns() + vo.getLongtermcareIns() + vo.getEmployeeIns());
 											vo.setTotalSalary(value8);
-											break;
+											break;*/
 										default:
 										break;
 										}
@@ -456,11 +457,11 @@ public class MemberServiceImpl implements MemberService{
 											/*int value7 = (int) Double.parseDouble(value);
 											vo.setEmployeeIns(value7);*/
 											break;
-										case 11:
+										/*case 11:
 											int value8 = (vo.getBasePay() + vo.getRegularBonus() + vo.getTaxFreeAlw()) 
 											             - (vo.getNationalPension() + vo.getHealthIns() + vo.getLongtermcareIns() + vo.getEmployeeIns());
 											vo.setTotalSalary(value8);
-											break;
+											break;*/
 										default:
 										break;
 										}
@@ -526,9 +527,28 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<SalaryExcel> selectSearchCondition(String depType, String jobType) {
+	public List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType) {
 		
-		return md.selectSearchCondition(sqlSession, depType, jobType);
+		return md.selectSearchCondition(sqlSession, depType, jobType, dateType);
+	}
+
+	@Override
+	public List<Alarm> selectMyAlarmList(int empNo) {
+		
+		return md.selectMyAlarmList(sqlSession, empNo);
+	}
+
+	@Override
+	public int selectMyAlarmCount(int empNo) {
+		
+		return md.selectMyAlarmCount(sqlSession, empNo);
+	}
+
+	@Override
+	public int updateMyAlarm(int alarmNo) {
+		
+		
+		return md.updateMyAlarm(sqlSession, alarmNo);
 	}
 
 }
