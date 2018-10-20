@@ -79,15 +79,9 @@
                 <div class="x_title">
                 <select id="depList">
                   	<option>부서</option>
-                  	
-                        <option>영업부</option>
-                   
-                        <option>인사부</option>
-                   
-                        <option>총무부</option>
-                   
-                        <option>회계부</option>
-                    
+                  	<c:forEach var='d' items="${deplist }">
+                    <option>${d.depName }</option>
+                    </c:forEach> 
 				  </select>
 				  <select id="year">
 				  <option>년도</option>

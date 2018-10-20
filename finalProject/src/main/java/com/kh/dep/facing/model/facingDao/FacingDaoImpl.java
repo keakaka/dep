@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dep.facing.model.exception.FacingSelectListException;
+import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
@@ -126,6 +127,14 @@ public class FacingDaoImpl implements FacingDao {
 		int resultR = sqlSession.insert("Facing.insertFaicngR",fir);
 		System.out.println("수신자 인서트완료 : " + resultR);
 		return resultR;
+	}
+
+	@Override
+	public int insertAlram(Alram al) {
+		// TODO Auto-generated method stub
+		int alram = sqlSession.insert("Facing.insertAlram",al);
+		System.out.println("알람 인설트완료");
+		return alram;
 	}
 
 	

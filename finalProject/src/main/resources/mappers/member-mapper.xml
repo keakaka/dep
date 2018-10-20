@@ -245,13 +245,8 @@
 
 	<!-- 사진입력시 멤버 번호 조회 -->
 	<select id="selectempNumber" resultType="_int">
-		SELECT EMP_NO
-		FROM
-		(SELECT ROWNUM, EMP_NO
-		FROM EMPLOYEE
-		ORDER BY EMP_NO DESC)
-		WHERE ROWNUM =
-		1
+		SELECT EMP_NO.CURRVAL
+		FROM DUAL
 	</select>
 
 	<!-- 회원 사진 및 서명 파일 입력 -->
@@ -260,7 +255,7 @@
 		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE, EMP_NO,
 		EMP_TYPE)
 		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
-		SYSDATE, #{empNo},
+		SYSDATE,#{empNo},
 		#{empType})
 
 	</insert>
@@ -462,6 +457,13 @@
 		AND D.DEP_ID = ${list.get(0)}
 		AND J.JOB_CODE = ${list.get(1)}
 	</select>
+	<insert id="insertFacingAttach" parameterType="Attachment">
+	INSERT INTO
+		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE,EMAIL_NO, EMP_NO,
+		EMP_TYPE)
+		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
+		SYSDATE,#{emailNo},#{empNo},'ET1')
+	</insert>
 </mapper>
 
 
