@@ -11,13 +11,15 @@ public interface AddressBookDao {
 
 	List<Member> searchAdd(String name);
 
-	AddressBook selectAdd(int empNo);
+	AddressBook selectAdd(AddressBook ab);
 
 	int insertAdd(AddressBook ab);
 
 	List<AddressBook> selectAddList();
 
 	int deleteAdd(AddressBook ab);
+
+	AddressBook selectAdd2(AddressBook ab);
 
 
 }

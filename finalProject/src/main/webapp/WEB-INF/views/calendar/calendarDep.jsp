@@ -113,7 +113,22 @@ a:hover{
 									</div>
 									<div class="" role="tabpanel" data-example-id="togglable-tabs">
 										<div class="col-md-12 col-sm-12 col-xs-12">
-											
+											<div class="btn-group" role="group"
+											aria-label="Button group with nested dropdown">
+											<div class="btn-group" role="group">
+												<div class="dropdown">
+													
+													<button id="depName"class="btn btn-default dropdown-toggle"
+														type="button" data-toggle="dropdown">부서일정
+														<span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu">
+													<c:forEach var="d" items="${depList }">
+														<li><a id="dep" value="${d.depId }">${d.depName }</a></li>
+													</c:forEach>
+													</ul>
+													
+													</div>
 													
 												</div>
 										</div>
@@ -162,8 +177,6 @@ a:hover{
 
 			<!-- Start Calender modal -->
 			
-			<%-- <c:set var="d" items="${depList }">
-			<c:if test="${loginUser.shceType == d.depNo}"></c:if> --%>
 			
 			<div id="CalenderModalNew" class="modal fade" tabindex="-1"
 				role="dialog" aria-hidden="true"
@@ -216,12 +229,13 @@ a:hover{
 										} 
 									</script>
 
-									<%-- <div class="form-group">
+									<%--<div class="form-group">
 										<label class="col-sm-3 control-label">게시자 </label>
 										<div class="col-sm-9" id="loginName"
 											style="height: 30px; padding-top:7px;" value="${ sessionScope.loginUser.empName }">
 											${ sessionScope.loginUser.empName } </div>
-									</div> --%>
+										
+									</div>--%>
 
 									<!-- <div class="form-group">
 										<label class="col-sm-3 control-label">참석자 </label>
@@ -308,7 +322,7 @@ a:hover{
 								<div align="right">
 									<button type="button" style="border:none;" class="btn btn-primary antosubmit">
 										일정 추가</button>
-									<a href="calendar.ca" class="btn btn-default">취소</a>
+									<a href="calendarDep.ca" class="btn btn-default">취소</a>
 								</div>
 								<script>
 								
@@ -484,11 +498,24 @@ a:hover{
 
 						<div class="modal-header" style="background:#3a87ad;">
 							<div style="width: 100%" align="right">
-								<a style="margin-right: 7px; margin-top: 2px;"><i
-									class="fa fa-edit white fa-2x " data-dismiss="modal" onclick="updateC();"></i></a>
-								<a style="margin-right: 10px;">
+								
+								<input type="hidden" id="empno" name="empno">
+									<div>
+									<div align="left" style="float:left; width:250px;"><i class="fa fa-user white fa-2x"></i>&nbsp;<input type="text"id="empname" name="empname" style="font-size:15px; border:none; color:white; background:#3a87ad;" readonly></div>
+									<div style="width:150px;">
+									<a id="updateC" style="margin-right: 7px; margin-top: 2px;">
+									<i class="fa fa-edit white fa-2x" data-dismiss="modal" onclick="updateC();"></i></a>
+									<a id="deleteC" style="margin-right: 10px;">
 									<i class="fa fa-trash white fa-2x" onclick="deleteC();"></i></a>
+									</div>
+									</div>
+							<script>
+								
+								
+							</script>
 							</div>
+							
+							
 							
 							<div align="center">
 							<h4><input type="text" class="modal-title" id="title2"style="background:#3a87ad; color:white; font-weight:bold; border:none; text-align:center;"
@@ -605,7 +632,7 @@ a:hover{
 									  content:content2,
 									  updateId:updateId},
 								success:function(data){
-									window.location = "calendarMy.ca";
+									window.location = "calendarDep.ca";
 									
 								},
 								error:function(data){
@@ -627,7 +654,7 @@ a:hover{
 									type:'post',
 									data:{id:id},
 									success:function(data){
-										window.location = "calendarMy.ca";
+										window.location = "calendarDep.ca";
 										
 									},
 									error:function(data){
@@ -642,69 +669,9 @@ a:hover{
 						</script>
 					</div>
 				</div>
-				<!-- <div id="testmodal2" style="padding: 5px 20px;">
-								<form id="antoform2" class="form-horizontal calender"
-									role="form">
-									<div class="form-group">
-										<label class="col-sm-3 control-label"><h3>제목</h3></label>
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="title2"
-												name="title2">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">Description</label>
-										<div class="col-sm-9">
-											<textarea class="form-control" style="height: 55px;"
-												id="descr2" name="descr"></textarea>
-										</div>
-									</div>
-
-								</form>
-							</div> -->
+				
 			</div>
-		<!-- <div id="CalenderModalEdit" class="modal fade" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel2">Edit Calender
-							Entry</h4>
-					</div>
-					<div class="modal-body">
-
-						<div id="testmodal2" style="padding: 5px 20px;">
-							<form id="antoform2" class="form-horizontal calender" role="form">
-								<div class="form-group">
-									<label class="col-sm-3 control-label">Title</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="title2"
-											name="title2">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">Description</label>
-									<div class="col-sm-9">
-										<textarea class="form-control" style="height: 55px;"
-											id="descr2" name="descr"></textarea>
-									</div>
-								</div>
-
-							</form>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default antoclose2"
-							data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary antosubmit2">Save
-							changes</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
+		
 		<!-- /상세보기 페이지 -->
 
 	</div>
@@ -766,7 +733,8 @@ a:hover{
 <script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
 <script>
 function startCal(){
-	
+	   
+	   
 	  var date = new Date();
 	  var d = date.getDate();
 	  var m = date.getMonth();
@@ -805,7 +773,7 @@ function startCal(){
 	            
 	            var title2 = document.getElementById('title').value;
 	            var content2 = document.getElementById('content').value;
-	            depNo = 'null';
+	            /* depNo = 'null'; */
 				
 				$.ajax({
 					url:"insertCalendar.ca",
@@ -817,9 +785,13 @@ function startCal(){
 						  eDate:eDate},
 					success:function(data){
 						var next = data.next;
+						var empNo2 = data.empNo2;
+						var empName2 = data.empName2;
 						console.log(next);
+						console.log(empNo2);
+						console.log(empName2);
 						
-						window.location = "calendarMy.ca";
+						window.location = "calendarDep.ca";
 						
 						/* var list = data.list2;
 						console.log(list); */
@@ -877,12 +849,29 @@ function startCal(){
 	    },
 	    
 	    eventClick: function(calEvent, jsEvent, view) {
-	      //alert(calEvent.title, jsEvent, view);
-
+	
 	      $('#fc_edit').click();
 	      $('#title2').val(calEvent.title);
 	      $('#descr2').val(calEvent.content);
 	      $('#id').val(calEvent.id);
+	      $('#empno').val(calEvent.empno);
+	      $('#empname').val(calEvent.empname);
+	      
+	      
+	      empnoValue = $("#empno").val();
+	      empnameValue = $("#empname").val();
+	      loginUserEmpNo = ${loginUser.empNo};
+	      console.log(empnoValue);
+	      console.log(loginUserEmpNo);
+	      console.log(empnameValue);
+		  if(empnoValue != loginUserEmpNo){
+			  $("#updateC").hide();
+			  $("#deleteC").hide();
+		  }else{
+			  $("#updateC").show();
+			  $("#deleteC").show();
+		  }
+		  
 	      
 	      
 	      categoryClass = $("#event_type").val();
@@ -891,6 +880,8 @@ function startCal(){
 	        calEvent.title = $("#2").val();
 	        calEvent.content = $("#2").val();
 	        calEvent.id = $("#2").val();
+	        calEvent.empno = $("#2").val();
+	        calEvent.empname = $("#2").val();
 
 	        calendar.fullCalendar('updateEvent', calEvent);
 	        $('.antoclose2').click();
@@ -902,11 +893,11 @@ function startCal(){
 	    
 	  });
 	  
-		}
+	}
 
 $(document).ready(function(){
 	var title = 'test';
-	depNo = 'null';
+	depNo = 'D0';
 	
 	 $.ajax({
 		url:"calendarList.ca",
@@ -915,22 +906,13 @@ $(document).ready(function(){
 			  depNo:depNo},
 		success:function(data){
 			var result = data.cList;
-			/* console.log("test1:"+title); */
 			
 			$.each(result, function(i){
-	              var event={id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
+	              var event={empname:result[i].empName, id:result[i].scheduleNo, empno:result[i].empNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
 	            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
 	               
 	               
 	               $('#calendar').fullCalendar('renderEvent', event, true);
-
-	               /* calendar.fullCalendar('renderEvent', {
-							title : result[i].scheduleTitle,
-							content : result[i].scheduleContent,
-							start : result[i].scheStartDate,
-							end : result[i].scheEndDate
-						}, true // make the event "stick"
-						); */
 					
 	            });
 
@@ -942,11 +924,8 @@ $(document).ready(function(){
 });
 
 $(window).load(function() {
-    
-	
-    
 		 
-		 startCal();
+		 /* startCal(); */
     
     });
   </script>
@@ -955,23 +934,21 @@ $(window).load(function() {
 									
 									
 									
-									
-									//modal창 안에 dropdown
-									$('#dropdown2').on('click', function() {
-									    /* depNo2 = $(this).attr('value'); */
-									    depNo = $("#dropdown22 option:selected").val();
+									$('.dropdown-menu li > a').on('click', function() {
+										$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+									    depNo = $(this).attr('value');
 									    
-									    console.log("dep2 : " + depNo);
+									    console.log("dep : " + depNo);
 									    
-									    title = 'test';
-									    
-									    
+									    title = 'test'; 
+									    	
 									    $.ajax({
 											url:"calendarList.ca",
 											type:'post',
 											data:{title:title,
-												  depNo:depNo},
+												depNo:depNo},
 											success:function(data){
+												
 												$("#calendar").remove();
 												
 												var area = document.getElementById('calendarArea');
@@ -981,12 +958,13 @@ $(window).load(function() {
 												
 												area.append(div1);
 												
-												startCal();
+												startCal(depNo);
 												
 												var result = data.cList;
+												/* console.log("test1:"+title); */
 												
 												$.each(result, function(i){
-										              var event={schetype:result[i].scheType, id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
+										              var event={empname:result[i].empName, empno:result[i].empNo, schetype:result[i].scheType, id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
 										            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
 										               
 										               
@@ -1009,8 +987,12 @@ $(window).load(function() {
 											
 										});
 									});
+									
+									
 									</script>
   
+  
+
 </body>
 
 

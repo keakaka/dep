@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Calendar {
 	private int scheduleNo;
 	private int empNo;
+	private String empName;
 	private String scheduleTitle;
 	private String scheduleContent;
 	private String scheStartDate;
@@ -15,11 +16,12 @@ public class Calendar {
 	
 	public Calendar() {}
 
-	public Calendar(int scheduleNo, int empNo, String scheduleTitle, String scheduleContent, String scheStartDate,
-			String scheEndDate, String scheType, String dayNum, String dayWeek) {
+	public Calendar(int scheduleNo, int empNo, String empName, String scheduleTitle, String scheduleContent,
+			String scheStartDate, String scheEndDate, String scheType, String dayNum, String dayWeek) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.empNo = empNo;
+		this.empName = empName;
 		this.scheduleTitle = scheduleTitle;
 		this.scheduleContent = scheduleContent;
 		this.scheStartDate = scheStartDate;
@@ -35,6 +37,10 @@ public class Calendar {
 
 	public int getEmpNo() {
 		return empNo;
+	}
+
+	public String getEmpName() {
+		return empName;
 	}
 
 	public String getScheduleTitle() {
@@ -73,6 +79,10 @@ public class Calendar {
 		this.empNo = empNo;
 	}
 
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
 	public void setScheduleTitle(String scheduleTitle) {
 		this.scheduleTitle = scheduleTitle;
 	}
@@ -103,9 +113,10 @@ public class Calendar {
 
 	@Override
 	public String toString() {
-		return "Calendar [scheduleNo=" + scheduleNo + ", empNo=" + empNo + ", scheduleTitle=" + scheduleTitle
-				+ ", scheduleContent=" + scheduleContent + ", scheStartDate=" + scheStartDate + ", scheEndDate="
-				+ scheEndDate + ", scheType=" + scheType + ", dayNum=" + dayNum + ", dayWeek=" + dayWeek + "]";
+		return "Calendar [scheduleNo=" + scheduleNo + ", empNo=" + empNo + ", empName=" + empName + ", scheduleTitle="
+				+ scheduleTitle + ", scheduleContent=" + scheduleContent + ", scheStartDate=" + scheStartDate
+				+ ", scheEndDate=" + scheEndDate + ", scheType=" + scheType + ", dayNum=" + dayNum + ", dayWeek="
+				+ dayWeek + "]";
 	}
 
 	

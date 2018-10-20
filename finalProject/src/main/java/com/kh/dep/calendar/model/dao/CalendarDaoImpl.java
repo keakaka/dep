@@ -37,7 +37,15 @@ public class CalendarDaoImpl implements CalendarDao{
 
 	@Override
 	public List<Calendar> selectCalendar(Calendar c) {
-		return sqlSession.selectList("Calendar.selectCalendar", c);
+		System.out.println("CalendarDaoImpl selectCalendar c : " + c);
+		if(c.getScheType().equals("null")) {
+			return sqlSession.selectList("Calendar.selectCalendar", c);
+		}
+		else {
+			return sqlSession.selectList("Calendar.selectCalendar2", c);
+			
+		}
+		
 	}
 
 	@Override
@@ -59,6 +67,16 @@ public class CalendarDaoImpl implements CalendarDao{
 	public int updateCalendar(Calendar c) {
 		System.out.println("updateCalendar DaoImpl c : " + c);
 		return sqlSession.update("Calendar.updateCalendar", c);
+	}
+
+	@Override
+	public int selectEmpNo(int next) {
+		return sqlSession.selectOne("Calendar.selectEmpNo", next);
+	}
+
+	@Override
+	public String selectEmpName(int next) {
+		return sqlSession.selectOne("Calendar.selectEmpName", next);
 	}
 
 	
