@@ -185,8 +185,12 @@ public class PersonController {
 	
 	
 	@RequestMapping("depleave.pm")
-	public String movedepleave(){
+	public String movedepleave(Model model){
 		
+		
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+		
+		model.addAttribute("deplist", deplist);
 		
 		return "personManagement/depLeave";
 	}
@@ -341,8 +345,9 @@ public class PersonController {
 	public String movedepmoveDeptRecord(Model model){
 		
 		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 		
-		
+		model.addAttribute("deplist", deplist);
 		model.addAttribute("mlist", mlist);
 		
 		return "personManagement/depMovedept";
