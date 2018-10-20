@@ -17,16 +17,15 @@ public class Board implements java.io.Serializable {
 	private int selectCount;
 	private String status;
 	private String empName;
-	
+	private String jobName;
 	
 	public Board(){}
 
 
-	
-	
+
 
 	public Board(int boardNo, int empNo, String boardTitle, String boardContent, String boardType, Date boardDate,
-			int selectCount, String status, String empName) {
+			int selectCount, String status, String empName, String jobName) {
 		super();
 		this.boardNo = boardNo;
 		this.empNo = empNo;
@@ -37,24 +36,37 @@ public class Board implements java.io.Serializable {
 		this.selectCount = selectCount;
 		this.status = status;
 		this.empName = empName;
+		this.jobName = jobName;
 	}
 
 
-	
 
+	
 
 
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", empNo=" + empNo + ", boardTitle=" + boardTitle + ", boardContent="
 				+ boardContent + ", boardType=" + boardType + ", boardDate=" + boardDate + ", selectCount="
-				+ selectCount + ", status=" + status + ", empName=" + empName + "]";
+				+ selectCount + ", status=" + status + ", empName=" + empName + ", jobName=" + jobName + "]";
+	}
+
+
+	
+
+
+	public String getJobName() {
+		return jobName;
 	}
 
 
 
-	
-	
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
+
 
 
 	public Date getBoardDate() {

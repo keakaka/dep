@@ -7,8 +7,10 @@ import com.kh.dep.board.model.vo.Board;
 
 public interface BoardService {
 
-	ArrayList<Board> selectBoardList() throws BoardException;
+	ArrayList<Board> selectBoardList(String depName) throws BoardException;
 
 	Board selectOneBoard(int i);
+
+	int insertWriteBoard(Board b) throws BoardException;
 
 }
