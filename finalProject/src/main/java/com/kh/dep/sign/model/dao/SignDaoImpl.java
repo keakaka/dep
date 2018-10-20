@@ -9,6 +9,7 @@ import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
+import com.kh.dep.sign.model.vo.Proceeding;
 
 @Repository
 public class SignDaoImpl implements SignDao{
@@ -104,6 +105,21 @@ public class SignDaoImpl implements SignDao{
 	public int updateApprovalStatus(SqlSessionTemplate sqlSession, Document d) {
 		
 		return sqlSession.update("sign.updateApprovalStatus", d);
+	}
+
+	@Override
+	public int insertProceeding(SqlSessionTemplate sqlSession, Proceeding p) {
+		return sqlSession.insert("sign.insertProceeding", p);
+	}
+
+	@Override
+	public ArrayList<Proceeding> selectProceeding(SqlSessionTemplate sqlSession, int empNo) {
+		return (ArrayList)sqlSession.selectList("sign.selectProceeding", empNo);
+	}
+
+	@Override
+	public int deleteProceeding(SqlSessionTemplate sqlSession, Proceeding p) {
+		return sqlSession.update("sign.deleteProceeding", p);
 	}
 
 

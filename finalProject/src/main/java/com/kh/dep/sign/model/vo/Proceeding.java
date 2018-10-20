@@ -9,17 +9,19 @@ public class Proceeding implements java.io.Serializable{
 	
 	private int proceedNo;
 	private int empNo;
+	private String empName;
 	private String roomName;
 	private String roomContent;
-	private Date saveDate;
+	private String saveDate;
 	private String status;
 	
 	public Proceeding(){}
 
-	public Proceeding(int proceedNo, int empNo, String roomName, String roomContent, Date saveDate, String status) {
+	public Proceeding(int proceedNo, int empNo, String empName, String roomName, String roomContent, String saveDate, String status) {
 		super();
 		this.proceedNo = proceedNo;
 		this.empNo = empNo;
+		this.empName = empName;
 		this.roomName = roomName;
 		this.roomContent = roomContent;
 		this.saveDate = saveDate;
@@ -28,7 +30,7 @@ public class Proceeding implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Proceeding [proceedNo=" + proceedNo + ", empNo=" + empNo + ", roomName=" + roomName + ", roomContent=" + roomContent + ", saveDate="
+		return "Proceeding [proceedNo=" + proceedNo + ", empNo=" + empNo + ", empName=" + empName + ", roomName=" + roomName + ", roomContent=" + roomContent + ", saveDate="
 				+ saveDate + ", status=" + status + "]";
 	}
 
@@ -47,6 +49,14 @@ public class Proceeding implements java.io.Serializable{
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
+	
+	public String getEmpName() {
+		return empName;
+	}
+	
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
 
 	public String getRoomName() {
 		return roomName;
@@ -64,11 +74,11 @@ public class Proceeding implements java.io.Serializable{
 		this.roomContent = roomContent;
 	}
 
-	public Date getSaveDate() {
+	public String getSaveDate() {
 		return saveDate;
 	}
 
-	public void setSaveDate(Date saveDate) {
+	public void setSaveDate(String saveDate) {
 		this.saveDate = saveDate;
 	}
 

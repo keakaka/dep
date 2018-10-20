@@ -21,7 +21,51 @@
 	<link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/maps/jquery-jvectormap-2.0.3.css" />
 	<link href="${contextPath }/resources/css/icheck/flat/green.css" rel="stylesheet" />
 	<script src="${contextPath }/resources/js/jquery.min.js"></script>
+<style>
+.whov:hover { background-color: #00695c!important; }
+.view {
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 500px;
+}
+.secondbase {
+    background-color: rgba(255,255,255,.6); 
+    margin-top: -90px;
+}
+.jarallax {
+	height:50em;
+}
 
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.5em;
+  font-style: normal;
+  letter-spacing: 0.3em;
+  color: white;
+  border-radius: 0;
+  padding: 18px 80px 20px;
+  transition: all 0.7s ease-out;
+  background-image: linear-gradient(to right, #2b5876 0%, #4e4376 51%, #2b5876 100%);
+  margin-top:17% !important;
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.625rem;
+  border: none;
+  border: 1px solid rgba(223,190,106,0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223,190,106,0);
+  color: #fff;
+  background-position: right center;
+}
+</style>
 </head>
 
 
@@ -35,27 +79,57 @@
 
 
 			<!-- page content -->
+			<input type="hidden" value="${loginUser.empName }" id="empName"/>
+			<input type="hidden" value="${loginUser.empNo }" id="empNo"/>
+			
 			<div class="right_col" role="main">
-
+			
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="dashboard_graph">
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>Empty <small>no content</small></h3>
+									<h3>화상회의</h3>
 								</div>
 								<div class="col-md-6">
 			
 								</div>
 							</div>
+ 
+ 
 
 							<div class="col-md-12 col-sm-12 col-xs-12">
-								<button onclick="rtcOpen();">방 만들기</button>
-								<button onclick="openTest();">방 참여하기</button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    </div>
+    <div class="view hm-white-light jarallax" data-jarallax='{"speed": 0.2}' data-jarallax-video="https://youtu.be/Yn8yGje-6sk?t=12">
+            <div class="full-bg-img">
+                <div class="container flex-center">
+                    <div class="row">
+                        <div class="col-md-12 wow fadeIn">
+                            <div class="text-center text-danger">
+                            	<button onclick="rtcOpen();" class="btn">방 만들기</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button onclick="openTest();" class="btn">방 참여하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<hr>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script>
+    <script src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+    <script src="https://mdbootstrap.com/previews/docs/latest/js/jarallax.js"></script>
+    <script src="https://mdbootstrap.com/previews/docs/latest/js/jarallax-video.js"></script>
+    <script>
+        new WOW().init();
+    </script> 
 							</div>
-							<input type="hidden" value="${loginUser.empName }" id="empName"/>
-							<input type="hidden" value="${loginUser.empNo }" id="empNo"/>
+							
 
 							<div class="clearfix"></div>
 						</div>
@@ -66,7 +140,8 @@
 
 				<footer>
 					<div class="copyright-info">
-						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
+						<p class="pull-right">DBDBDep - B오전 Final Project by 
+						<a href="http://www.iei.or.kr/main/main.kh?src=overture&kw=003DFA&gclid=Cj0KCQjw9ZDeBRD9ARIsAMbAmoZTJZP5ENi7OkIuimgnF0lSAzQFJc29u1JYoV58VDyCQIAEFRCY9SEaAr4hEALw_wcB">KH Academy</a>
 						</p>
 					</div>
 					<div class="clearfix"></div>
@@ -103,18 +178,23 @@
 			var empName = $("#empName").val();
 			var empNo = $("#empNo").val();
 			var roomId = prompt('방 제목을 입력하세요');
-			var url1 = "https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName;    //팝업창 페이지 URL
-			var url = encodeURI(url1);
-		    var popupOption= "width="+ 1200 +", height="+ 800 + ", fullscreen=yes";    //팝업창 옵션(option)
-		    window.open(url,'DBDBDep 화상회의 시스템', popupOption);
+			if(roomId != null){
+				var url1 = "https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName;    //팝업창 페이지 URL
+				var url = encodeURI(url1);
+			    var popupOption= "width="+ 1200 +", height="+ 800 + ", fullscreen=yes";    //팝업창 옵션(option)
+			    window.open(url,'DBDBDep 화상회의 시스템', popupOption);
+			}
 		}
 		function openTest(){
 			var empName = $("#empName").val();
 			var empNo = $("#empNo").val();
 			var roomId = prompt('방 제목을 입력하세요');
-			var url="https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName+"#/room/"+roomId;
-			var popupOption= "width="+ 1200 +", height="+ 800;    //팝업창 옵션(option)
-			window.open(url,"",popupOption);
+			if(roomId != null){
+				var url="https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName+"#/room/"+roomId;
+				var popupOption= "width="+ 1200 +", height="+ 800;    //팝업창 옵션(option)
+				window.open(url,"",popupOption);
+			}
+			
 		}
 	</script>
 
