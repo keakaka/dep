@@ -7,6 +7,7 @@ import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
+import com.kh.dep.sign.model.vo.Proceeding;
 
 public interface SignService {
 
@@ -27,5 +28,11 @@ public interface SignService {
 	InsertSign selectDocDetail(int docNo);
 
 	int updateApprovalStatus(Document d);
+
+	int insertProceeding(Proceeding p);
+
+	ArrayList<Proceeding> selectProceeding(int empNo);
+
+	int deleteProceeding(Proceeding p);
 	
 }

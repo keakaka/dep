@@ -73,7 +73,7 @@
                   </a>
                   <ul class="nav child_menu" style="display: none">
                      <li><a href="rtcMain.rtc">화상회의 하기</a></li>
-                     <li><a href="empty.html">회의록 보기</a></li>
+                     <li><a href="selectProceeding.rtc?empNo=${loginUser.empNo }">회의록 보기</a></li>
                   </ul>
                </li>
                <li><a href="boardList.bo"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>

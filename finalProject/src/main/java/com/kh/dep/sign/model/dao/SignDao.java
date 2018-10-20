@@ -8,6 +8,7 @@ import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
+import com.kh.dep.sign.model.vo.Proceeding;
 
 public interface SignDao {
 
@@ -42,6 +43,12 @@ public interface SignDao {
 	InsertSign selectDocDetail(SqlSessionTemplate sqlSession, int docNo);
 
 	int updateApprovalStatus(SqlSessionTemplate sqlSession, Document d);
+
+	int insertProceeding(SqlSessionTemplate sqlSession, Proceeding p);
+
+	ArrayList<Proceeding> selectProceeding(SqlSessionTemplate sqlSession, int empNo);
+
+	int deleteProceeding(SqlSessionTemplate sqlSession, Proceeding p);
 
 	
 }

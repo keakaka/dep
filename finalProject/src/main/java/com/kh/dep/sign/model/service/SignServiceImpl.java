@@ -12,6 +12,7 @@ import com.kh.dep.sign.model.exception.SelectDocException;
 import com.kh.dep.sign.model.vo.Document;
 import com.kh.dep.sign.model.vo.InsertSign;
 import com.kh.dep.sign.model.vo.MemberDep;
+import com.kh.dep.sign.model.vo.Proceeding;
 
 @Service
 public class SignServiceImpl implements SignService{
@@ -30,7 +31,6 @@ public class SignServiceImpl implements SignService{
 
 	@Override
 	public int insertSign(InsertSign is) throws InsertSignException{
-		System.out.println("is? : " + is.getOriginFileName());
 		if(is.getOriginFileName() != null){
 		int result = 0;
 		int result2 = 0;
@@ -172,6 +172,23 @@ public class SignServiceImpl implements SignService{
 	public int updateApprovalStatus(Document d) {
 		
 		return sd.updateApprovalStatus(sqlSession, d);
+	}
+
+	@Override
+	public int insertProceeding(Proceeding p) {
+		
+		return sd.insertProceeding(sqlSession, p);
+	}
+
+	@Override
+	public ArrayList<Proceeding> selectProceeding(int empNo) {
+		
+		return sd.selectProceeding(sqlSession, empNo);
+	}
+
+	@Override
+	public int deleteProceeding(Proceeding p) {
+		return sd.deleteProceeding(sqlSession, p);
 	}
 	
 	
