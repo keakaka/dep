@@ -462,6 +462,13 @@
 		AND D.DEP_ID = ${list.get(0)}
 		AND J.JOB_CODE = ${list.get(1)}
 	</select>
+	<insert id="insertFacingAttach" parameterType="Attachment">
+	INSERT INTO
+		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE,EMAIL_NO, EMP_NO,
+		EMP_TYPE)
+		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
+		SYSDATE,#{emailNo},#{empNo},'ET1')
+	</insert>
 </mapper>
 
 

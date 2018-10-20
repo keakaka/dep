@@ -83,7 +83,7 @@ public class BoardController {
 	@RequestMapping("writeBoard.bo")
 	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
-		 List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadTest";

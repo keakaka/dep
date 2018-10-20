@@ -6,6 +6,8 @@ public interface AttachService {
 
 	int insertAttachment(Attachment file);
 
+	int insertFacingAttach(Attachment file);
+	
 	
 
 }

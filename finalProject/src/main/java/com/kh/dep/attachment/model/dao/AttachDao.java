@@ -8,4 +8,6 @@ public interface AttachDao {
 
 	int insertAttachment(SqlSessionTemplate sqlSession, Attachment file);
 
+	int insertFacingAttachment(SqlSessionTemplate sqlSession, Attachment file);
+
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dep.addressBook.model.vo.AddressBook;
 import com.kh.dep.facing.model.exception.FacingSelectListException;
 import com.kh.dep.facing.model.facingDao.FacingDao;
+import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
@@ -119,6 +120,12 @@ public class FacingServiceImpl implements FacingService {
 		int resultR = fd.insertReceiver(fir);
 		System.out.println("서비스옴");
 		return resultR;
+	}
+	@Override
+	public int insertAlram(Alram al) {
+		// TODO Auto-generated method stub
+		int alram = fd.insertAlram(al);
+		return alram;
 	}
 
 
