@@ -113,23 +113,7 @@ a:hover{
 									</div>
 									<div class="" role="tabpanel" data-example-id="togglable-tabs">
 										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="btn-group" role="group"
-											aria-label="Button group with nested dropdown">
-											<a href="calendar.ca" type="button" class="btn btn-default">내 일정</a>
-											<div class="btn-group" role="group">
-												<div class="dropdown">
-													
-													<button id="depName"class="btn btn-default dropdown-toggle"
-														type="button" data-toggle="dropdown">부서일정
-														<span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu">
-													<c:forEach var="d" items="${depList }">
-														<li><a id="dep" value="${d.depId }">${d.depName }</a></li>
-													</c:forEach>
-													</ul>
-													
-													</div>
+											
 													
 												</div>
 										</div>
@@ -177,8 +161,10 @@ a:hover{
 			</div>
 
 			<!-- Start Calender modal -->
-
-
+			
+			<%-- <c:set var="d" items="${depList }">
+			<c:if test="${loginUser.shceType == d.depNo}"></c:if> --%>
+			
 			<div id="CalenderModalNew" class="modal fade" tabindex="-1"
 				role="dialog" aria-hidden="true"
 				aria-labelledby="my80sizeCenterModalLabel">
@@ -199,13 +185,6 @@ a:hover{
 									</c:forEach>
 								</ul>
 							</div> --%>
-							<div id="dropdown2">
-							<select id= "dropdown22">
-								<c:forEach var="d" items="${depList }">
-										<option id="dep" value="${d.depId }">${d.depName }</option>
-								</c:forEach>
-							</select>
-							</div>
 
 							<div class="form-group">
 								
@@ -345,7 +324,6 @@ a:hover{
 					</div>
 				</div>
 			</div>
-			
 			
 		<!-- 수정 페이지 -->
 		<div id="CalenderModalNew2" class="modal fade" tabindex="-1"
@@ -627,7 +605,7 @@ a:hover{
 									  content:content2,
 									  updateId:updateId},
 								success:function(data){
-									window.location = "calendar.ca";
+									window.location = "calendarMy.ca";
 									
 								},
 								error:function(data){
@@ -649,7 +627,7 @@ a:hover{
 									type:'post',
 									data:{id:id},
 									success:function(data){
-										window.location = "calendar.ca";
+										window.location = "calendarMy.ca";
 										
 									},
 									error:function(data){
@@ -841,7 +819,7 @@ function startCal(){
 						var next = data.next;
 						console.log(next);
 						
-						window.location = "calendar.ca";
+						window.location = "calendarMy.ca";
 						
 						/* var list = data.list2;
 						console.log(list); */
@@ -897,6 +875,7 @@ function startCal(){
 	        return false;
 	      });
 	    },
+	    
 	    eventClick: function(calEvent, jsEvent, view) {
 	      //alert(calEvent.title, jsEvent, view);
 
@@ -976,60 +955,6 @@ $(window).load(function() {
 									
 									
 									
-									$('.dropdown-menu li > a').on('click', function() {
-										$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-									    depNo = $(this).attr('value');
-									    
-									    console.log("dep : " + depNo);
-									    
-									    title = 'test'; 
-									    	
-									    $.ajax({
-											url:"calendarList.ca",
-											type:'post',
-											data:{title:title,
-												depNo:depNo},
-											success:function(data){
-												
-												$("#calendar").remove();
-												
-												var area = document.getElementById('calendarArea');
-												
-												var div1 = document.createElement('div');
-												div1.setAttribute("id", "calendar");
-												
-												area.append(div1);
-												
-												startCal();
-												
-												var result = data.cList;
-												/* console.log("test1:"+title); */
-												
-												$.each(result, function(i){
-										              var event={schetype:result[i].scheType, id:result[i].scheduleNo, title: result[i].scheduleTitle, content:result[i].scheduleContent, 
-										            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
-										               
-										               
-										               $('#calendar').fullCalendar('renderEvent', event, true);
-
-										               /* calendar.fullCalendar('renderEvent', {
-																title : result[i].scheduleTitle,
-																content : result[i].scheduleContent,
-																start : result[i].scheStartDate,
-																end : result[i].scheEndDate
-															}, true // make the event "stick"
-															); */
-														
-										            });
-												
-											},
-											error:function(data){
-												console.log("error");
-											},
-											
-										});
-									});
-									
 									
 									//modal창 안에 dropdown
 									$('#dropdown2').on('click', function() {
@@ -1086,252 +1011,6 @@ $(window).load(function() {
 									});
 									</script>
   
-  
-<!-- Events -->
-<!-- <script>
-  $(document).on('opening', '.remodal', function () {
-    /* console.log('opening'); */
-  });
-
-  $(document).on('opened', '.remodal', function () {
-    /* console.log('opened'); */
-  });
-
-  $(document).on('closing', '.remodal', function (e) {
-    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('closed', '.remodal', function (e) {
-    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('confirmation', '.remodal', function () {
-    /* console.log('confirmation'); */
-  });
-
-  $(document).on('cancellation', '.remodal', function () {
-    /* console.log('cancellation'); */
-  });
-  
-  $('[data-remodal-id=modal2]').remodal({
-    /* modifier: 'with-red-theme' */
-  });
-</script>
-		
-		
-	<script>
-	$(document).ready(function(){
-		var title = 'test';
-		
-		 $.ajax({
-			url:"calendarList.ca",
-			type:"post",
-			data:{title:title},
-			success:function(data){
-				var result = data.cList;
-				/* console.log("test1:"+title); */
-				
-				$.each(result, function(i){
-		              var event={title: result[i].scheduleTitle, content:result[i].scheduleContent, 
-		            		  start:result[i].scheStartDate, end:result[i].scheEndDate};
-		               
-		               
-		               $('#calendar').fullCalendar('renderEvent', event, true);
-
-		               /* calendar.fullCalendar('renderEvent', {
-								title : result[i].scheduleTitle,
-								content : result[i].scheduleContent,
-								start : result[i].scheStartDate,
-								end : result[i].scheEndDate
-							}, true // make the event "stick"
-							); */
-						
-		            });
-
-			},
-			error:function(data){
-				console.log("실패");
-			}
-		});
-	});
-	
-	
-		$(window).load(function() {
-			var title = 'test';
-			
-			 $.ajax({
-				url:"calendarList.ca",
-				type:"post",
-				data:{title:title},
-				success:function(data){
-					var result = data.cList;
-					console.log("test1:"+title);
-					
-					$.each(result, function(i){
-			               var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
-			                $('#calendar').fullCalendar( 'renderEvent', event, true);
-			            });
-
-				},
-				error:function(data){
-					console.log("실패");
-				}
-			});
-			
-		});
-
-			/* var date = new Date();
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
-			var started;
-			var categoryClass; */
-
-			var calendar = $('#calendar').fullCalendar({
-				
-				header : {
-					left : 'prev,next today',
-					center : 'title',
-					right : 'month,agendaWeek,agendaDay'
-				},
-				 editable : true
-		           , eventLimit : true,
-		           
-		           
-				/* dayClick: function(date, allDay, jsEvent, view) {
-					   
-					   var yy=date.format("YYYY");
-					   var mm=date.format("MM");
-					   var dd=date.format("DD");
-					   var e=date.format("e");
-					   onchangeDay(yy,mm,dd,e);
-				}, */
-
-				navLinks: true, // can click day/week names to navigate views
-				selectable : true,
-				selectHelper : true,
-				select : function(start, end) {
-					
-					  
-					/* $('#fc_create').click(); */
-
-						location.href="#modal2";
-					
-					
-					    console.log("title : " + document.getElementById('title').value);
-						document.getElementById('title').value = "";
-						document.getElementById('content').value = "";
-						/* document.getElementById('nows').value = ""; */
-					/* start = start;
-					end = end; */
-					
-					
-
-					$("#addScehduleBu").on("click", function() {
-						
-						console.log("추가 버튼 클릭");
-						
-						var sDateFormat = moment(start, 'YYYY-MM-DD');
-			            var eDateFormat = moment(end, 'YYYY-MM-DD');
-			              
-			            var sDate = sDateFormat.format('YYYY-MM-DD');
-			            var eDate = eDateFormat.format('YYYY-MM-DD');
-
-			            console.log(sDate);
-			            console.log(eDate);
-			            
-			            var title = document.getElementById('sTitle').value;
-			            var content = document.getElementById('sContent').value;
-						
-						/* var title = $("#title").val();
-						var content = $("#content").val(); */
-						
-						/* console.log(nows); */
-						
-						$.ajax({
-							url:"insertCalendar.ca",
-							type:'post',
-							data:{title:title,
-								  content:content,
-								  sDate:sDate,
-								  eDate:eDate},
-							success:function(data){
-								/* var list = data.list2;
-								console.log(list); */
-								
-								if(sDate){
-									
-									started = sDate
-								}
-								if (eDate) {
-									
-									ended = eDate
-								}
-								/* categoryClass = $("#event_type").val(); */
-
-								if (title, content) {
-									calendar.fullCalendar('renderEvent', {
-										title : title,
-										content : content,
-										start : start,
-										end : ended
-									}, true // make the event "stick"
-									);
-								}
-								console.log("success");
-							},
-							error:function(data){
-								console.log("error");
-							},
-							
-						});
-						
-						
-						$('#title').val('');
-						/* calendar.fullCalendar('unselect'); */
-
-						$('.antoclose').click();
-
-						return false;
-					});
-					calendar.fullCalendar('unselect');
-				},
-				eventClick : function(calEvent, jsEvent, view) {
-					/* alert(calEvent.title, jsEvent, view); */
-
-					location.href="#modal";
-					
-					/* $('#fc_edit').click();
-					$('#title2').val(calEvent.title);
-					$('#descr2').val(calEvent.content);
-					
-					
-					categoryClass = $("#event_type").val();
-					$(".antosubmit2").on("click", function() {
-						calEvent.title = $("#title2").val();
-						
-
-						calendar.fullCalendar('updateEvent', calEvent);
-						
-						
-						
-						$('.antoclose2').click();
-					});
-					calendar.fullCalendar('unselect'); */
-					
-				},
-				editable : true,
-				eventLimit: true // allow "more" link when too many events
-				/* , */
-				/* events : [ {
-					title : title,
-					start : new Date(y, m, 1),
-				 	
-				},] */
-			});
-			
-			
-	</script> -->
 </body>
 
 

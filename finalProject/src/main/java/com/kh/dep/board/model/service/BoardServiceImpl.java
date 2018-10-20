@@ -21,11 +21,11 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao bd;
 	
 	@Override
-	public ArrayList<Board> selectBoardList() throws BoardException {
+	public ArrayList<Board> selectBoardList(String depName) throws BoardException {
 		
 		ArrayList<Board> blist = null;
 		
-		blist = bd.selectBoardList(sqlSession);
+		blist = bd.selectBoardList(sqlSession, depName);
 		
 		if(blist == null){
 			throw new BoardException("게시판 목록 불러오기 실패");
@@ -42,6 +42,25 @@ public class BoardServiceImpl implements BoardService {
 		b = bd.selectOneBoard(sqlSession, bid);
 		
 		return b;
+	}
+
+	// 게시판 입력
+	@Override
+	public int insertWriteBoard(Board b) throws BoardException {
+		
+		int result = bd.insertWriteBoard(sqlSession, b);
+		
+		
+		if(result > 0){
+			
+			int bNo = bd.selectBoardNumber(sqlSession);
+			
+			return bNo;
+		}else{
+			throw new BoardException("게시글 작성 실패");
+		}
+				
+		
 	}
 
 }

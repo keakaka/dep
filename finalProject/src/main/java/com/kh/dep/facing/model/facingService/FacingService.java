@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.dep.facing.model.exception.FacingSelectListException;
+import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
@@ -30,6 +31,8 @@ public interface FacingService {
 	Facing selectNowFacing(int empNo);
 
 	int insertReceiver(FacingInsertR fir);
+
+	int insertAlram(Alram al);
 	
 
 /*	Facing selectInsertFaicng(int empNo);

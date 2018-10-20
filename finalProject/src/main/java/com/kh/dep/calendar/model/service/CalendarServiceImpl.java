@@ -47,6 +47,11 @@ public class CalendarServiceImpl implements CalendarService{
 	public int selectCurval() {
 		return cd.selectCurval();
 	}
+	
+	@Override
+	public int selectEmpNo(int next) {
+		return cd.selectEmpNo(next);
+	}
 
 	@Override
 	public int deleteCalendar(Calendar c) {
@@ -62,6 +67,13 @@ public class CalendarServiceImpl implements CalendarService{
 	public int updateCalendar(Calendar c) {
 		return cd.updateCalendar(c);
 	}
+
+	@Override
+	public String selectEmpName(int next) {
+		return cd.selectEmpName(next);
+	}
+
+	
 
 
 }

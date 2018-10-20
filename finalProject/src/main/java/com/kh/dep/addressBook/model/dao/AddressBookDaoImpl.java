@@ -26,8 +26,13 @@ public class AddressBookDaoImpl implements AddressBookDao{
 	}
 
 	@Override
-	public AddressBook selectAdd(int empNo) {
-		return sqlSession.selectOne("AddressBook.selectAdd", empNo);
+	public AddressBook selectAdd(AddressBook ab) {
+		return sqlSession.selectOne("AddressBook.selectAdd", ab);
+	}
+	
+	@Override
+	public AddressBook selectAdd2(AddressBook ab) {
+		return sqlSession.selectOne("AddressBook.selectAdd2", ab);
 	}
 
 	@Override
@@ -43,8 +48,11 @@ public class AddressBookDaoImpl implements AddressBookDao{
 
 	@Override
 	public int deleteAdd(AddressBook ab) {
+		System.out.println("deleteAdd AddressBook ab : " + ab);
 		return sqlSession.delete("AddressBook.deleteAdd", ab);
 	}
+
+	
 
 
 

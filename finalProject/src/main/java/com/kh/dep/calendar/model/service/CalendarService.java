@@ -24,6 +24,10 @@ public interface CalendarService {
 
 	int updateCalendar(Calendar c);
 
+	int selectEmpNo(int next);
+
+	String selectEmpName(int next);
+
 
 
 }

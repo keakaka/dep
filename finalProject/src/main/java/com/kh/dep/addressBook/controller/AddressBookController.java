@@ -59,11 +59,18 @@ public class AddressBookController {
 	
 	//주소록 테이블에 추가
 	@RequestMapping("insertAddressBook.ad")
-	public void insertAddressBook(int empNo, int loginNo, HttpServletResponse response) {
+	public void insertAddressBook(int empNo, int loginNo, HttpServletResponse response, Model model) {
 		System.out.println("loginNo : " + loginNo);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		AddressBook ab = abs.insertAdd(empNo, loginNo);
+		
+		AddressBook ab = new AddressBook();
+		ab.setEmpNo(empNo);
+		ab.setLoginNo(loginNo);
+		
+		AddressBook ab2 = abs.insertAdd(ab);
+		
+		model.addAttribute("item", ab2);
 	}
 	
 	//주소록 테이블에 출력
@@ -81,10 +88,14 @@ public class AddressBookController {
 	
 	//주소록에서 삭제
 	@RequestMapping("deleteAddressBook.ad")
-	public void deleteAddressBook(int empNo, HttpServletResponse response) {
+	public void deleteAddressBook(int empNo, int loginNo, HttpServletResponse response) {
 		System.out.println("deleteAddressBook empNo : " + empNo);
+		System.out.println("deleteAddressBook loginNo : " + loginNo);
+		AddressBook ab = new AddressBook();
+		ab.setEmpNo(empNo);
+		ab.setLoginNo(loginNo);
 		
-		AddressBook ab = abs.deleteAddressBook(empNo);
+		AddressBook ab2 = abs.deleteAddressBook(ab);
 	}
 	
 	@RequestMapping("facing.ad")
