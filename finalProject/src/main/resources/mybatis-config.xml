@@ -36,6 +36,7 @@
 		<typeAlias type="com.kh.dep.personManagement.model.vo.PromotionIn" alias="PromotionIn"/>
 		<typeAlias type="com.kh.dep.facing.model.vo.FacingInsertR" alias="FacingInsertR"/>
 		<typeAlias type="com.kh.dep.facing.model.vo.FacingInsert" alias="FacingInsert"/>
+		<typeAlias type="com.kh.dep.facing.model.vo.Alram" alias="Alram"/>
 		<typeAlias type="com.kh.dep.sign.model.vo.Proceeding" alias="Proceeding"/>
 	</typeAliases>
 	

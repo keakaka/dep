@@ -297,10 +297,10 @@ function updateFacing(num , num2){
 		success:function(data){
 					
 			console.log("리스트값"+facingNo);
-			/* window.location = "facinglist.ms?loginUser=userNo"; */
+			
 			alert("성공!" + userNo);
 			
-			sibal(userNo);
+			window.location = "facingReceiveList.ms?loginUser="+userNo;
 			
 			/* if(data.length > 0){
 			

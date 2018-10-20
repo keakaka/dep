@@ -31,6 +31,15 @@ public class AttachServiceImpl implements AttachService {
 	}
 
 	@Override
+	public int insertFacingAttach(Attachment file) {
+		// TODO Auto-generated method stub
+		System.out.println("어태치 서비스 도착");
+		int resultA = ad.insertFacingAttachment(sqlSession, file);
+		System.out.println("어태치 결과값 :" + resultA);
+		return resultA;
+  }
+  
+  @Override
 	public int insertBoardAttach(Attachment file) {
 		
 		int result = ad.insertBoardAttach(sqlSession, file);

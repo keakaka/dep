@@ -35,6 +35,13 @@
 		<result property="receiverDate" column="RECEIVER_DATE" />
 	</resultMap>
 	
+	<resultMap type="Alram" id="AlramResultSet">
+		<result property="alramNo" column="ALARM_NO" />
+		<result property="alramContents" column="ALARM_CONTENTS" />	
+		<result property="empNo" column="EMP_NO" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+	
 	<!-- <resultMap type="WorkginRecord" id="WorkingResultSet">
 		<id property="empNo" column="EMP_NO" />
 		<result property="hours" column="HOURS" />
@@ -53,7 +60,7 @@
 	
 	<!--  보낸 쪽지 리스트-->
 	<select id="selectFacing" resultMap="FacingResultSet" parameterType="int">
- 	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO , RECEIVER 
+ 	SELECT F.WRITE_DATE , F.FACING_TITLE , F.FACING_CONTENTS, F.FACING_NO , RECEIVER 
 	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) JOIN FACING_RECEIVE FR ON (F.FACING_NO = FR.FACING_NO)
 	WHERE F.EMP_NO = #{empNo} AND F.STATUS = 'Y'
 	</select>
@@ -91,6 +98,11 @@
 	<insert id="insertFaicngR" parameterType="FacingInsertR">
 	INSERT INTO "FINAL"."FACING_RECEIVE" (FACING_NO, RECEIVER, RECEIVE_DATE) 
 	VALUES (#{facingNo}, #{receiver}, SYSDATE)
+	</insert>
+	
+	<insert id="insertAlram" parameterType="Alram">
+	INSERT INTO "FINAL"."ALARM" (ALARM_NO, ALARM_CONTENTS, EMP_NO , STATUS) 
+	VALUES (ALARM_NO.NEXTVAL,#{alramContents}, #{empNo}, 'N')
 	</insert>
 	
 <!-- 	   쪽지보내기 쿼리문 

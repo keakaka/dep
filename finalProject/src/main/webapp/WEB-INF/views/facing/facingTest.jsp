@@ -124,17 +124,113 @@
 							
 						</textarea>
 						<input type="hidden" id='memberNo' name="memberNo" value="">
-	                  	<label>썸네일 : &nbsp; </label><input type="file" id='thumbnail' name="filename" size=40>
+	                  	<label>썸네일 : &nbsp; </label><input id='thumbnail' multiple="multiple" type="file" name="file" size=40>
 	                  	<br><br>
 	                  	
 	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px;">보내기</button>
                         <br/>
                         <input type='hidden' id='hid' name='hid' value=''>	<!-- 유저 아이디 -->
 						<input type='hidden' id='read' name='attachNo' value='food'>			<!-- Attach id 번호 -->
-						
+						<script type="text/javascript">
+      
+						/* summernote에서 이미지 업로드시 실행할 함수 */
+        function sendFile(file, editor) {
+            // 파일 전송을 위한 폼생성
+          data = new FormData();
+           data.append("uploadFile", file);
+           
+          //console.log(data);
+             $.ajax({ // ajax를 통해 파일 업로드 처리
+               data : data,
+               type : "POST",
+               url : "imgUpload.bo",
+               cache : false,
+               contentType : false,
+               enctype: 'multipart/form-data',
+               processData : false,
+               success : function(data) { // 처리가 성공할 경우
+                    // 에디터에 이미지 출력
+                    console.log(data);
+                 // $(editor).summernote('editor.insertImage', data);
+                  $(editor).summernote('editor.insertImage', "/dep/resources/uploadFiles/"+ data);
+               },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                
+               
+               }
+
+           }); 
+       }
+       
+       
+       function deleteFile(src) {
+         
+           $.ajax({
+               data: {src : src},
+               type: "POST",
+               url: "imgDelete.bo", // replace with your url
+               cache: false,
+               success: function(data) {
+                   console.log(data);
+                   alert('삭제완료');
+               }
+           });
+           
+       }
+   </script>
+
+      <script>
+             $(document).ready(function() {
+                  var fileExtension = ['.jpg', '.png', '.jpeg', '.gif',];
+                $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+                    height: 300,
+                    lang: 'ko-KR',
+                    toolbar: [
+                        // [groupName, [list of button]]
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontname', 'fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['insert', ['picture', 'link', 'video', 'table', 'hr']]
+                      ],
+                   callbacks: { // 콜백을 사용
+                        // 이미지를 업로드할 경우 이벤트를 발생
+                   onImageUpload: function(files, editor, welEditable) {
+                       //console.log(files);
+                         
+                         for (var i = files.length - 1; i >= 0; i--) {
+                            
+                            for(var j = 0; j < fileExtension.length; j++){
+                               var extleng = files[i].name.length;
+                               var extdot = files[i].name.lastIndexOf('.');
+                               var ext = files[i].name.substring(extdot, extleng).toLowerCase();
+
+                               //console.log(ext + ' / ' + fileExtension[j]) 
+                            if(ext == fileExtension[j]){
+                             sendFile(files[i], this); 
+                            }
+                            }
+                         }
+                  },
+                  
+                  onMediaDelete : function(target) {
+                      alert(target[0].src);
+                      deleteFile(target[0].src);
+                      console.log(target[0].src)
+               }
+                
+                
+            }});
+         }); 
+
+
+      </script>
                         <script type="text/javascript">
                         
-
+						
                         <%-- 	$(function(){
 		                		$.ajax({ 
 		                            data : {

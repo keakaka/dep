@@ -11,8 +11,11 @@ public interface AttachDao {
 
 	int insertAttachment(SqlSessionTemplate sqlSession, Attachment file);
 
+	int insertFacingAttachment(SqlSessionTemplate sqlSession, Attachment file);
+
 	int insertBoardAttach(SqlSessionTemplate sqlSession, Attachment file);
 
 	ArrayList<Attachment> selectDownloadList(SqlSessionTemplate sqlSession, Board b);
+
 
 }

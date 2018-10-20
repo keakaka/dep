@@ -83,7 +83,7 @@
               <div class="x_panel">
                 <div class="x_title">
                   <h2><i class="fa fa-bars"></i> Tabs <small>Float right</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
+            <!--       <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li class="dropdown">
@@ -97,7 +97,7 @@
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
-                  </ul>
+                  </ul> -->
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -152,7 +152,7 @@
                             <tr>
                             
                               <th>날짜</th>
-                              <th>보낸사람</th>
+                              <th>받은사람</th>
                               <th>제목</th>
                               <th>받은날짜</th>
                               <th>삭제</th>
@@ -161,13 +161,13 @@
 
 					
                           <tbody>
-                          <c:forEach var="f" items="${FacingReciverList}">
+                          <c:forEach var="f" items="${FacingList}">
                             <tr>
                               <td>${f.writeDate}</td> 
                               <td>${f.empName}</td>
                               <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td>
                               <td>${f.facingContents }</td>
-                              <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})">삭제하기</button></td>
+                              <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})"/>삭제하기</td>
                             </tr>
   							</c:forEach>
                                                      
@@ -282,7 +282,7 @@ function updateFacing(num , num2){
 	//var facingNo = $("#facingNo").val();
 	var facingNo = num;
 	var userNo = num2;
-	
+	console.log(typeof userNo);
 	
 	$.ajax({
 		url:"updateFacing.ms",
@@ -295,10 +295,9 @@ function updateFacing(num , num2){
 		success:function(data){
 					
 			console.log("리스트값"+facingNo);
-			/* window.location = "facinglist.ms?loginUser=userNo"; */
-			alert("성공!" + userNo);
-			
-			sibal(userNo);
+		 	alert("성공!" + userNo);
+	
+ 			window.location = "facinglist.ms?loginUser="+userNo;
 			
 			/* if(data.length > 0){
 			
@@ -332,11 +331,11 @@ function updateFacing(num , num2){
 	return false;
 }
 
-function sibal(userNo)
+/* function sibal(userNo)
 {
 	return loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+userNo;
 	
-}
+} */
 
 
 

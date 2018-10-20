@@ -101,6 +101,22 @@ public class BoardController {
 	@RequestMapping("writeBoard.bo")
 	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
+
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadTest";
+		
+		
+		
+		for(MultipartFile f : fileList){
+			
+	
+			System.out.println("동작확인");
+			String originFileName = f.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeName = CommonUtils.getRandomString();
+			
 		if( b != null){
 			
 			try {

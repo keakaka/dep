@@ -9,10 +9,11 @@ public interface AttachService {
 
 	int insertAttachment(Attachment file);
 
+	int insertFacingAttach(Attachment file);
+	
 	int insertBoardAttach(Attachment file);
 
 	ArrayList<Attachment> selectDownloadList(Board b);
-
 	
 
 }
