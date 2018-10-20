@@ -25,5 +25,9 @@ public interface CalendarDao {
 
 	int updateCalendar(Calendar c);
 
+	int selectEmpNo(int next);
+
+	String selectEmpName(int next);
+
 
 }

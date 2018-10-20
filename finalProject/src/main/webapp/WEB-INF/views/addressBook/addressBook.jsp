@@ -86,7 +86,7 @@
 												
 												<tbody>
 													<c:forEach var="list" items="${addressBookList}" varStatus = 'status'>
-														<tr class="even pointer">
+														<tr class="even pointer" id="tableBody">
 															<td class="a-center" style="width:85px;" align="center">
 															<%-- <input type="checkbox" name="check" class="flat" value="${list.empNo}"></td> --%>
 															<!-- <button type="button" class="btn btn-info btn-xs" onclick="checkboxArr();">주소록에 추가하기</button> -->
@@ -129,8 +129,8 @@
 									data:{empNo:empNo,
 										  loginNo:loginNo},
 									success:function(data){
-										
 										window.location = "selectAdd.ad";
+										
 										
 									},
 									error:function(data){
@@ -165,43 +165,41 @@
 													</tr>
 												</thead>
 												<tbody>
-													
 													<c:forEach var="list" items="${list}" varStatus = 'status'>
 													<c:if test="${list.loginNo == sessionScope.loginUser.empNo }">
-														<tr class="even pointer">
-															<td class="a-center" style="width:85px;"></td>
+														<tr id="listArea" class="even pointer">
 															<input type="hidden" id="empNo2" name="empNo2" value="${list.empNo}">
 															<input type="hidden" id="loginNo2" name="loginNo2" value="${loginUser.empNo}">
+															<td class="a-center" style="width:85px;"></td>
 															<td width="254">${list.depName}</td>
 															<td width="180">${list.empName}</td>
 															<td width="190">${list.jobName}</td>
 															<td width="190">${list.positionName}</td>
 															<td width="320">${list.phone}</td>
 															<td>${list.email}</td>
-															<td><a href="facing.ad?var=${list.empNo }"><i class="fa fa-comments-o fa-lg"></i></a></td>
-															<td><!-- <button type="button" class="btn btn-dark btn-xs" onclick="deleteAdd();">삭제하기</button> -->
-															<a onclick="deleteAdd();"><i class="fa fa-trash fa-lg" class="btn btn-dark btn-lg" ></i></a></td>
+															<td><a id="facing"><i class="fa fa-comments-o fa-lg"></i></td>
+															<td><a onclick="deleteAdd();"><i class="fa fa-trash fa-lg"></i></a></td>
 														</tr>
 														</c:if>
 													</c:forEach>
 												</tbody>
 											</table>
-											<!-- <div align="left">
-												 <button type="button" class="btn btn-dark btn-sm" onclick="deleteAdd();">삭제하기</button>
-											</div> -->
 										</div>
 									</div>
 								</div>
 								<script>
-							function deleteAdd(){
-								﻿
+								$(function(){
+									$("#facing").click(function(){
+										var empNo22 = $(this).parent().parent().children("#empNo2").val();
+										console.log(empNo22);
+									});
+								});
+								/* function facing(){
+									var empNo22 = $("#listArea").children("input[id=empNo2]").val();
+									console.log(empNo22);
+								} */
 								
-								/* var eNo = new Array();
-								$("input[name='check']:checked").each(function(i){
-									empNo = $("input[name='check']:checked").val();
-									eNo.push(empNo);
-									console.log(empNo);
-								}); */
+							function deleteAdd(){
 								
 								var empNo = $("#empNo2").val();
 								var loginNo = $("#loginNo2").val();
@@ -211,7 +209,8 @@
 								$.ajax({
 									url:"deleteAddressBook.ad",
 									type:'post',
-									data:{empNo:empNo},
+									data:{empNo:empNo,
+										  loginNo:loginNo},
 									success:function(data){
 										window.location = "selectAdd.ad";
 									},

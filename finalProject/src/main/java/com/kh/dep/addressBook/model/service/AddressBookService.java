@@ -9,11 +9,11 @@ public interface AddressBookService {
 
 	List<Member> searchAdd(String name);
 
-	AddressBook insertAdd(int empNo, int loginNo);
+	AddressBook insertAdd(AddressBook ab);
 
 	List<AddressBook> selectAddList();
 
-	AddressBook deleteAddressBook(int empNo);
+	AddressBook deleteAddressBook(AddressBook ab);
 
 
 }

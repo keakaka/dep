@@ -53,6 +53,7 @@
 	<resultMap type="Calendar" id="Calendar">
 		<id property="scheduleNo" column="SCHEDULE_NO" />
 		<result property="empNo" column="EMP_NO" />
+		<result property="empName" column="EMP_NAME"/>
 		<result property="scheduleTitle" column="SCHEDULE_TITLE" />
 		<result property="scheduleContent" column="SCHEDULE_CONTENT" />
 		<result property="scheStartDate" column="SCHE_STARTDATE" />
@@ -83,10 +84,18 @@
 	</insert>
 	
 	<select id="selectCalendar" parameterType="Calendar" resultMap="Calendar">
-		SELECT SCHEDULE_NO, SCHEDULE_TITLE, SCHEDULE_CONTENT, SCHE_STARTDATE, SCHE_ENDDATE, SCHE_TYPE
+		SELECT EMP_NO, SCHEDULE_NO, SCHEDULE_TITLE, SCHEDULE_CONTENT, SCHE_STARTDATE, SCHE_ENDDATE, SCHE_TYPE
 		FROM SCHEDULE
 		WHERE EMP_NO = #{empNo} AND SCHE_TYPE = #{scheType}
 	</select>
+	
+	<select id="selectCalendar2" parameterType="Calendar" resultMap="Calendar">
+		SELECT S.EMP_NO, E.EMP_NAME, SCHEDULE_NO, SCHEDULE_TITLE, SCHEDULE_CONTENT, SCHE_STARTDATE, SCHE_ENDDATE, SCHE_TYPE
+		FROM SCHEDULE S
+		JOIN EMPLOYEE E ON(S.EMP_NO = E.EMP_NO)
+		WHERE SCHE_TYPE = #{scheType}
+	</select>
+	
 	
 	<select id="selectCurval" resultType="int">
 		SELECT SCHEDULE_NO.CURRVAL
@@ -95,7 +104,7 @@
 	
 	<delete id="deleteCalendar" parameterType="Calendar">
 		DELETE FROM SCHEDULE
-    	WHERE EMP_NO = #{empNo} AND SCHEDULE_NO = #{scheduleNo}
+    	WHERE SCHEDULE_NO = #{scheduleNo}
 	</delete>
 	
 	<select id="updateModalCalendar" parameterType="Calendar" resultMap="Calendar">
@@ -110,6 +119,19 @@
 		SET SCHEDULE_TITLE = #{scheduleTitle}, SCHEDULE_CONTENT = #{scheduleContent}
 		WHERE SCHEDULE_NO = #{scheduleNo}
 	</update>
+	
+	<select id="selectEmpNo" resultType="int" >
+		SELECT EMP_NO
+		FROM SCHEDULE
+		WHERE SCHEDULE_NO = #{next}
+	</select>
+	
+	<select id="selectEmpName" resultType="java.lang.String">
+		SELECT E.EMP_NAME
+		FROM EMPLOYEE E
+		JOIN SCHEDULE S ON(E.EMP_NO = S.EMP_NO)
+		WHERE SCHEDULE_NO = #{next}
+	</select>
 
 </mapper>
 

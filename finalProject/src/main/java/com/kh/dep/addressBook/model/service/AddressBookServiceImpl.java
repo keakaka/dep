@@ -24,13 +24,17 @@ public class AddressBookServiceImpl implements AddressBookService{
 	}
 
 	@Override
-	public AddressBook insertAdd(int empNo, int loginNo) {
-		AddressBook ab = abd.selectAdd(empNo);
-		ab.setLoginNo(loginNo);
-		System.out.println("insertAdd ab : " + ab);
-		int result = abd.insertAdd(ab);
+	public AddressBook insertAdd(AddressBook ab) {
+		AddressBook abab = new AddressBook();
+		abab.setEmpNo(ab.getEmpNo());
 		
-		return ab;
+		AddressBook ab3 = abd.selectAdd(abab);
+		ab3.setLoginNo(ab.getLoginNo());
+		
+		System.out.println("insertAdd ab3 : " + ab3);
+		int result = abd.insertAdd(ab3);
+		
+		return abab;
 	}
 
 	@Override
@@ -39,11 +43,13 @@ public class AddressBookServiceImpl implements AddressBookService{
 	}
 
 	@Override
-	public AddressBook deleteAddressBook(int empNo) {
-		AddressBook ab = abd.selectAdd(empNo);
-		int result = abd.deleteAdd(ab);
+	public AddressBook deleteAddressBook(AddressBook ab) {
+		AddressBook ab2 = new AddressBook();
+		ab2.setEmpNo(ab.getEmpNo());
+		AddressBook ab3 = abd.selectAdd2(ab);
+		int result = abd.deleteAdd(ab3);
 		
-		return ab;
+		return ab3;
 	}
 
 	

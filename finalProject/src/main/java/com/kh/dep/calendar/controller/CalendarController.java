@@ -36,7 +36,7 @@ public class CalendarController {
 	@Autowired
 	private MemberService mservice;
 	
-	@RequestMapping(value="calendar.ca")
+	@RequestMapping(value="calendarMy.ca")
 	public String showCalendarView(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		/*MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int empNo = ms.getEmpNo();
@@ -51,6 +51,23 @@ public class CalendarController {
 		model.addAttribute("depList", depList);
 		
 		return "calendar/calendar";
+	}
+	
+	@RequestMapping(value="calendarDep.ca")
+	public String showCalendarView2(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		/*MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
+		int empNo = ms.getEmpNo();
+		
+		List<Calendar> list = cs.selectCalendar(empNo);
+		System.out.println("CalendarController list : " + list);
+		
+		model.addAttribute("list", list);
+		
+		*/
+		ArrayList<MemberDepartment> depList = mservice.selectDepList();
+		model.addAttribute("depList", depList);
+		
+		return "calendar/calendarDep";
 	}
 	
 	@RequestMapping(value = "calendarList.ca", method=RequestMethod.POST)
@@ -70,7 +87,7 @@ public class CalendarController {
 		c.setScheType(depNo);
 		
 		List<Calendar> list = cs.selectCalendar(c);
-		System.out.println("CalendarController list : " + list);
+		System.out.println("CalendarController2222 list : " + list);
 		
 	    
 	      for(int i=0; i<list.size(); i++){
@@ -158,7 +175,11 @@ public class CalendarController {
 		System.out.println("insert ca2 : " + ca2);
 		
 		int next = cs.selectCurval();
+		String empName2 = cs.selectEmpName(next);
+		int empNo2 = cs.selectEmpNo(next);
 		System.out.println("CalendarController insert next : " + next);
+		System.out.println("CalendarController insert empName2 : " + empName2);
+		System.out.println("CalendarController insert empNo2 : " + empNo2);
 		
 		MemberSelect ms2 = (MemberSelect)request.getSession().getAttribute("loginUser");
 		int empNo = ms2.getEmpNo();
@@ -173,6 +194,8 @@ public class CalendarController {
 		/*model.addAttribute("list2", list);
 		model.addAttribute("next", next);*/
 		hmap.put("next", next);
+		hmap.put("empNo2", empNo2);
+		hmap.put("empName2", empName2);
 		
 		return hmap;
 	
