@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.dep.member.exception.InsertRecordException;
 import com.kh.dep.member.exception.LoginException;
+import com.kh.dep.member.model.vo.Alarm;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
 import com.kh.dep.member.model.vo.Member;
@@ -79,7 +80,16 @@ public interface MemberService {
 	ArrayList<MemberSelect> selectAllMember();
 
 
-	List<SalaryExcel> selectSearchCondition(String depType, String jobType);
+	List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType);
+
+
+	List<Alarm> selectMyAlarmList(int empNo);
+
+
+	int selectMyAlarmCount(int empNo);
+
+
+	int updateMyAlarm(int alarmNo);
 
 
 }

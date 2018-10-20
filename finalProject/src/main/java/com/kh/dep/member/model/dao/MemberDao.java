@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.dep.member.model.vo.Alarm;
 import com.kh.dep.member.model.vo.Department;
 import com.kh.dep.member.model.vo.Job;
 import com.kh.dep.member.model.vo.Member;
@@ -69,7 +70,13 @@ public interface MemberDao {
 
 	List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list);
 
-	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType);
+	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType);
+
+	List<Alarm> selectMyAlarmList(SqlSessionTemplate sqlSession, int empNo);
+
+	int selectMyAlarmCount(SqlSessionTemplate sqlSession, int empNo);
+
+	int updateMyAlarm(SqlSessionTemplate sqlSession, int alarmNo);
 
 
 

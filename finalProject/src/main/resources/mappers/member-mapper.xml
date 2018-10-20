@@ -135,6 +135,12 @@
 		<result property="longtermcareIns" column="LONGTERMCARE_INS" />
 		<result property="employeeIns" column="EMPLOYEE_INS" />
 	</resultMap>
+	
+	<resultMap type="Alarm" id="mySalaryResultSet">
+		<id property="alarmNo" column="ALARM_NO" />
+		<result property="alarmContents" column="ALARM_CONTENTS" />
+		<result property="empNo" column="EMP_NO" />
+	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
 	<select id="selectPwd" resultType="java.lang.String"
@@ -456,7 +462,28 @@
 		WHERE D.STATUS = 'Y'
 		AND D.DEP_ID = ${list.get(0)}
 		AND J.JOB_CODE = ${list.get(1)}
+		AND S.INCOME_DATE LIKE ${list.get(2)}
 	</select>
+	
+	<select id="selectMyAlarmList" parameterType="_int" resultMap="mySalaryResultSet">
+		SELECT ALARM_NO, ALARM_CONTENTS, EMP_NO
+		FROM ALARM
+		WHERE EMP_NO = #{empNo}
+		AND STATUS = 'Y'
+	</select>
+	
+	<select id="selectMyAlarmCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM ALARM
+		WHERE EMP_NO=#{empNo}
+	</select>
+	
+	<update id="updateMyAlarm" parameterType="_int">
+		UPDATE ALARM
+		SET STATUS='N'
+		WHERE ALARM_NO=#{alarmNo}
+	</update>
+
 	<insert id="insertFacingAttach" parameterType="Attachment">
 	INSERT INTO
 		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE,EMAIL_NO, EMP_NO,
@@ -464,6 +491,7 @@
 		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
 		SYSDATE,#{emailNo},#{empNo},'ET1')
 	</insert>
+
 </mapper>
 
 

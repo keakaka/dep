@@ -124,42 +124,16 @@
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
+            
 
             <ul class="nav navbar-nav navbar-right">
               <li role="presentation" class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <a onclick="return test(${loginUser.empNo });" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
+                  <span class="badge bg-green">${loginUser.myAlarmCount }</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                  <li>
-                    <a>
-                      <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                      <span>
-                                        <span>John Smith</span>
-                      <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                    </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <span class="image">
-                                        <img src="images/img.jpg" alt="Profile Image" />
-                                    </span>
-                      <span>
-                                        <span>John Smith</span>
-                      <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                    </span>
-                    </a>
-                  </li>
+                  
                   <li>
                     <div class="text-center">
                       <a>
@@ -177,7 +151,46 @@
 
       </div>
       
-      
+      <script>
+      	function test(empNo){
+      		var empNo = empNo;
+      		console.log(empNo);
+      		
+      		$.ajax({
+      			type : "post",
+      			url : "alarm.me",
+      			data : {empNo:empNo},
+      			dataType : "json",
+      			success : function(data) {
+      				console.log(data);
+      				console.log(typeof data);
+      				
+      				$("#menu1").html('');
+      				
+      				var list = data;
+      				
+      				var str = '';
+      				$.each(list, function(i){
+      					str += '<li><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'">' + list[i].alarmContents + '</a>';
+      					str += '</li>';
+      				})
+      				
+      				$("#menu1").append(str);
+      				/* $("#alarmMessage").html('');
+      				
+      				var list = data;
+      				$.each(data, function(index, item){
+      					console.log(item.alarmContents);
+      					$("#alarmMessage").text(item.alarmContents);
+      				}); */
+      				
+      			},
+      			error : function(data) {
+      				console.log(data);
+      			}
+      		});
+      	}
+      </script>
       
       
       <!-- 메세지 -->

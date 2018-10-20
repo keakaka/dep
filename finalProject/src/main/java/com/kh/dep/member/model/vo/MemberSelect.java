@@ -31,6 +31,7 @@ public class MemberSelect implements java.io.Serializable {
 	private String empType;
 	private String depReason;
 	private String leavein;
+	private int myAlarmCount;
 	
 	public MemberSelect(){}
 
@@ -41,7 +42,7 @@ public class MemberSelect implements java.io.Serializable {
 	public MemberSelect(int empNo, String empId, String empPwd, String empName, String depName, String jobName,
 			String positionName, String birthDate, String email, String phone, String emergencyPhone, String address,
 			int salary, Date hireDate, Date leaveDate, String phoneReveal, String status, String jobCode, String depId,
-			String positionNo, String modiFileName, String empType, String depReason, String leavein) {
+			String positionNo, String modiFileName, String empType, String depReason, String leavein, int myAlarmCount) {
 		super();
 		this.empNo = empNo;
 		this.empId = empId;
@@ -67,6 +68,7 @@ public class MemberSelect implements java.io.Serializable {
 		this.empType = empType;
 		this.depReason = depReason;
 		this.leavein = leavein;
+		this.myAlarmCount = myAlarmCount;
 	}
 
 
@@ -264,9 +266,20 @@ public class MemberSelect implements java.io.Serializable {
 	public void setLeavein(String leavein) {
 		this.leavein = leavein;
 	}
+	
 
-	
-	
+	public int getMyAlarmCount() {
+		return myAlarmCount;
+	}
+
+
+	public void setMyAlarmCount(int myAlarmCount) {
+		this.myAlarmCount = myAlarmCount;
+	}
+
+
+
+
 
 	@Override
 	public String toString() {
@@ -276,8 +289,11 @@ public class MemberSelect implements java.io.Serializable {
 				+ ", address=" + address + ", salary=" + salary + ", hireDate=" + hireDate + ", leaveDate=" + leaveDate
 				+ ", phoneReveal=" + phoneReveal + ", status=" + status + ", jobCode=" + jobCode + ", depId=" + depId
 				+ ", positionNo=" + positionNo + ", modiFileName=" + modiFileName + ", empType=" + empType
-				+ ", depReason=" + depReason + ", leavein=" + leavein + "]";
+				+ ", depReason=" + depReason + ", leavein=" + leavein + ", myAlarmCount=" + myAlarmCount + "]";
 	}
+
+
+	
 
 
 
