@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,6 +52,7 @@
 <script src="${contextPath }/resources/js/jquery.min.js"></script>
 <script src="${contextPath }/resources/js/nprogress.js"></script>
 
+
 <!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
 	<![endif]-->
@@ -86,7 +89,7 @@
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
-														<h2>
+														<h2 style="font-weight:bold; overflow:visible;">
 															급여이력조회 <small>${loginUser.empName }</small>
 														</h2>
 
@@ -98,94 +101,33 @@
 															class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th>입금월</th>
+																	<th>입금일</th>
 																	<th>기본급</th>
 																	<th>정기상여금</th>
 																	<th>비과세수당</th>
-																	<th>휴일수당</th>
-																	<th>야근수당</th>
-																	<th>자격수당</th>
 																	<th>국민연금</th>
 																	<th>건강보험</th>
+																	<th>장기요양</th>
 																	<th>고용보험</th>
-																	<th>산재보험</th>
 																	<th>실지급액</th>
 																</tr>
 															</thead>
 
 
-															<tbody>
+															<tbody style="font-size: 18px;">
+															<c:forEach items="${mySalaryRecordlist}" var="mySalaryRecord">
 																<tr>
-																	<td>날짜</td>
-																	<td>${loginUser.salary }</td>
-																	<td>System Architect</td>
-																	<td>Edinburgh</td>
-																	<td>61</td>
-																	<td>2011/04/25</td>
-																	<td>$320,800</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Garrett Winters</td>
-																	<td>Accountant</td>
-																	<td>Tokyo</td>
-																	<td>63</td>
-																	<td>2011/07/25</td>
-																	<td>$170,750</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Ashton Cox</td>
-																	<td>Junior Technical Author</td>
-																	<td>San Francisco</td>
-																	<td>66</td>
-																	<td>2009/01/12</td>
-																	<td>$86,000</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Cedric Kelly</td>
-																	<td>Senior Javascript Developer</td>
-																	<td>Edinburgh</td>
-																	<td>22</td>
-																	<td>2012/03/29</td>
-																	<td>$433,060</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-																<tr>
-																	<td>날짜</td>
-																	<td>Airi Satou</td>
-																	<td>Accountant</td>
-																	<td>Tokyo</td>
-																	<td>33</td>
-																	<td>2008/11/28</td>
-																	<td>$162,700</td>
-																	<td>ㄴㄻㄴㄹ</td>
-																	<td>ㄴㄻㄴㅇㄹ</td>
-																	<td>ㄴㅁㅇㄹㄴㅇㅁ</td>
-																	<td>ㄴㅇㄹㄴㅇ</td>
-																	<td>ㄴㅁㅇㄹㄴㅁㅇ</td>
-																</tr>
-
+																	<td>${mySalaryRecord.incomeDate}</td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.basePay}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.regularBonus}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.taxFreeAlw}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.nationalPension}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.healthIns}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.longtermcareIns}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.employeeIns}" pattern="#,###"/></td>
+																	<td>₩ <fmt:formatNumber value="${mySalaryRecord.totalSalary}" pattern="#,###"/></td>
+																</tr>															
+															</c:forEach>
 															</tbody>
 														</table>
 													</div>

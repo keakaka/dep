@@ -42,5 +42,7 @@ public interface PmDao {
 
 	int insertProomotion(SqlSessionTemplate sqlSession, PromotionIn p);
 
+	ArrayList<Working> depNameList(SqlSessionTemplate sqlSession, int empNo);
+
 
 }

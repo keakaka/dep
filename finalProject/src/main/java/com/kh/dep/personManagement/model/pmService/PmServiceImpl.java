@@ -166,5 +166,16 @@ public class PmServiceImpl implements PmService {
 
 	}
 
+
+	@Override
+	public ArrayList<Working> depNameList(String name) {
+		// TODO Auto-generated method stub
+		System.out.println("근태 이름 별 조회");
+		int empNo = Integer.parseInt(name);
+		ArrayList<Working> list = pd.depNameList(sqlSession , empNo);
+		
+		return list;
+	}
+
 	
 }

@@ -27,7 +27,9 @@ public class BoardServiceImpl implements BoardService {
 		
 		blist = bd.selectBoardList(sqlSession, depName);
 		
-		if(blist == null){
+		System.out.println("service :" + blist);
+		
+		if(blist.size() == 0){
 			throw new BoardException("게시판 목록 불러오기 실패");
 		}
 		
@@ -62,5 +64,7 @@ public class BoardServiceImpl implements BoardService {
 				
 		
 	}
+
+	
 
 }

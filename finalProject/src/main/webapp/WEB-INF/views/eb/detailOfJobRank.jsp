@@ -74,7 +74,7 @@
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
-														<h2>
+														<h2 style="font-weight:bold; overflow:visible;">
 															직급이력조회 <small>${loginUser.empName }</small>
 														</h2>
 
@@ -94,7 +94,7 @@
 															</thead>
 
 
-															<tbody>
+															<tbody style="font-size: 18px;">
 																<c:forEach items="${myJobRankRecordList }" var="myJobRankRecord">
 																	<tr>
 																		<td>${myJobRankRecord.seqNum }</td>

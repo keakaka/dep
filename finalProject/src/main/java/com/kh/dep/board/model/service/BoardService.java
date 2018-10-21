@@ -13,4 +13,6 @@ public interface BoardService {
 
 	int insertWriteBoard(Board b) throws BoardException;
 
+
+
 }

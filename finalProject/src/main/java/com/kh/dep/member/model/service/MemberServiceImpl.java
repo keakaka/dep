@@ -527,9 +527,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType) {
+	public List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType, String nameType) {
 		
-		return md.selectSearchCondition(sqlSession, depType, jobType, dateType);
+		return md.selectSearchCondition(sqlSession, depType, jobType, dateType, nameType);
 	}
 
 	@Override
@@ -549,6 +549,12 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 		return md.updateMyAlarm(sqlSession, alarmNo);
+	}
+
+	@Override
+	public List<SalaryExcel> selectMySalaryRecord(int empNo) {
+		
+		return md.selectMySalaryRecord(sqlSession, empNo);
 	}
 
 }

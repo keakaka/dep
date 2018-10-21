@@ -10,6 +10,7 @@ import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
+import com.kh.dep.facing.model.vo.WorkingQr;
 import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.vo.Member;
 
@@ -33,6 +34,8 @@ public interface FacingService {
 	int insertReceiver(FacingInsertR fir);
 
 	int insertAlram(Alram al);
+
+	ArrayList<WorkingQr> selectWorking(int empNo);
 	
 
 /*	Facing selectInsertFaicng(int empNo);
