@@ -141,9 +141,11 @@
                           <tbody>
                           <c:forEach var="f" items="${FacingList}">
                             <tr>
+                            	<input type="hidden" value="${f.facingNo}" class="facingNo"/>
                               <td>${f.writeDate}</td> 
                               <td>${f.empName}</td>
-                              <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td>
+                              <%-- <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td> --%>
+                              <td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showFacing" style="cursor:pointer">${f.facingTitle }</a></td>
                               <td>${f.facingContents }</td>
                               <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})"/>삭제하기</td>
                             </tr>
@@ -153,9 +155,100 @@
                         </table>
                         
                         <div class="btnContent">
+<script>
+	$(function(){
+		$('.showFacing').click(function(){
+			var facingNo = $(this).parent().parent().children('input').val();
+			console.log('클릭' + facingNo);
+			
+			$.ajax({
+				url : "facingSelectOne.ms",
+				data : {facingNo:facingNo},
+				success : function(data){
+					console.log('empName = ' + data.empName);
+					console.log('content : ' + data.facingContents);
+					var $div = $('.facingDiv');
+					var $writer = $('#fullname');
+					var $title = $('#email');
+					var $content = $('#facingContent');
+					var $fileNo = $('.fileNo');
+					var $fileName = $('.fileName');
+					var $oriName = $('.oriName');
+					var $modiName = $('.modiName');
+					$oriName.val(data.oriFileName);
+					$modiName.val(data.modiFileName);
+					$writer.val(data.empName);
+					$title.val(data.facingTitle);
+					$content.html(data.facingContents);
+					$fileNo.val(data.facingNo);
+					$fileName.text(data.oriFileName);
+					
+				},
+				error : function(){
+					console.log('error');
+				}
+			});
+		});
+	});
+	
+</script>
+ 			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
 
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">저장내용 보기</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                           <form id="returnFacing">
+                          <div class="x_panel facingDiv" style="overflow:auto; height:200px;">
+                          
+                          <input type="hidden" value="" class="oriName"/>
+                          <input type="hidden" value="" class="modiName"/>
+                          <input type="text" id="fullname" class="form-control" name="fullname" value='' required readonly/>
+                          <input type="email" id="email" class="form-control" name="email" value='' data-parsley-trigger="change" required readonly />
+                          <textarea id="facingContent" required="required" class="form-control" name="message" readonly></textarea>
+                          <a class="btn btn-primary returnFacing" type="button" href="${ contextPath }/replyFacing.ms?empNo=${loginUser.empNo}">답장</a>
+                          <button type="button" class="btn btn-primary fileName" type="button"></button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                      </div>
 
-
+                    </div>
+                  </div>
+                </div>
+				<script>
+					$(function(){
+						$('.fileName').click(function(){
+							var oriName = $(this).parent().children('.oriName').val();
+							var modiName = $(this).parent().children('.modiName').val();
+							$.ajax({
+								url : "facingDown.ms",
+								data : {oriName:oriName, modiName:modiName},
+								success : function(data){
+									console.log('data : ' + data);
+									console.log('fileName : ' + data.fileName);
+									var blob=new Blob([data]);
+	            	                var link=document.createElement('a');
+	            	                link.href=window.URL.createObjectURL(blob);
+	            	                link.download=oriName;
+	            	                link.click();
+								},
+								error : function(){
+									console.log('error');
+								}
+							});
+							
+						});
+					});
+				</script>
                         
                       </div>
                     </div>

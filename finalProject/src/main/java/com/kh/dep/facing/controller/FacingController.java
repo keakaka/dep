@@ -1,6 +1,10 @@
 package com.kh.dep.facing.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,8 +19,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -36,6 +42,7 @@ import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberSelect;
+import com.kh.dep.sign.model.vo.InsertSign;
 @Controller
 public class FacingController {
 	
@@ -193,12 +200,12 @@ public class FacingController {
 		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		System.out.println("리스트" + mlist);
 		Facing nowFacing = fs.selectNowFacing(empNo);
+		System.out.println("nowFacing : " + nowFacing);
 		System.out.println("돌아온 최근 쪽지번호 : " + nowFacing.getFacingNo());
-		
 	
 		
 		//==================수신자 ,알람 인설트==================
-		if(result > 0  && receive.length() > 6 )
+		if(result > 0  && receive.length() > 5 )
 		{
 			System.out.println("if문들어감");
 			System.out.println("if문에 들어온 :" +receive);
@@ -329,7 +336,7 @@ public class FacingController {
 	}
 	
 	@RequestMapping("facingSelectOne.ms")
-	public String SelectOneFacing(Model model , @RequestParam(name="facingNo") String facingNo)
+	public @ResponseBody Facing SelectOneFacing(Model model , @RequestParam(name="facingNo") String facingNo)
 	{
 		System.out.println("selectOne 입장");
 		
@@ -338,17 +345,18 @@ public class FacingController {
 		System.out.println("쪽지번호 : " + fNo);
 		
 		Facing f;
+		
 		try {
 			f = fs.selectOneFacing(fNo);
-			
+			System.out.println("f : " + f);
 			model.addAttribute("f" , f);
-			
-			return "facing/facingSelectOneTs1";
+			return f;
+			/*return "facing/facingSelectOneTs1";*/
 		} catch (FacingSelectListException e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("msg", e.getMessage());
-			
-			return "common/errorPage";
+			return null;
+			/*return "common/errorPage";*/
 		}
 		
 		
@@ -467,7 +475,7 @@ public class FacingController {
 		System.out.println("돌아온 리설트 값 :" + result);
 		model.addAttribute("qrList" , qrList);
 
-		return "qr/qrqr";
+		return "qr/qr출석완료";
 	}
 	
 	@RequestMapping("replyFacing.ms")
@@ -495,6 +503,41 @@ public class FacingController {
 		
 		return "facing/facingReply";
 	}
-
 	
-}
+	
+	@RequestMapping(value="facingDown.ms")
+	public @ResponseBody void signFileDownload(HttpServletRequest request, HttpServletResponse response, String oriName, String modiName){
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadTest";
+		
+	    
+		String fileName;
+	    
+		try {
+			File file = new File(filePath, modiName);
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+			
+			fileName = new String(oriName.getBytes("UTF-8"), "iso-8859-1");
+			
+		    response.setContentType("application/octet-stream");
+
+		    //다운로드와 다운로드될 파일이름
+		    response.setHeader("Content-Disposition", "attachment; filename=\""+ fileName + "\"");
+		    System.out.println("fileName : " + fileName);
+		    //파일복사
+		    FileCopyUtils.copy(in, response.getOutputStream());
+		    in.close();
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+			
+		    
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+	}
+	
+	
+	
+}}
