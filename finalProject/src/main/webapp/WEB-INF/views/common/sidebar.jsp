@@ -4,7 +4,7 @@
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       
       <div class="navbar nav_title" style="border: 0;" >
-         <a href="logout.me" class="site_title"><img src="${contextPath }/resources/images/DBDBDEP.png" width="200px" height="50px"></a>
+         <a href="#" class="site_title"><img src="${contextPath }/resources/images/DBDBDEP.png" width="200px" height="50px"></a>
       </div>
       <div class="clearfix"></div>
       
@@ -111,6 +111,7 @@
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
 
                </c:if>
+               <li><a href="logout.me"><i class="fa fa-user"></i> LogOut </a></li>
             </ul>
 
          </div>

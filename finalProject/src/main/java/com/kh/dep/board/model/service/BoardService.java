@@ -13,6 +13,10 @@ public interface BoardService {
 
 	int insertWriteBoard(Board b) throws BoardException;
 
+	int updateOneBoard(Board b);
+
+	int deleteBoard(int boardNo);
+
 
 
 }

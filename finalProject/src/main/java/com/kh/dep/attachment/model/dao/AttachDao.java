@@ -17,5 +17,7 @@ public interface AttachDao {
 
 	ArrayList<Attachment> selectDownloadList(SqlSessionTemplate sqlSession, Board b);
 
+	int deleteBoardAttach(SqlSessionTemplate sqlSession, int boardNo);
+
 
 }
