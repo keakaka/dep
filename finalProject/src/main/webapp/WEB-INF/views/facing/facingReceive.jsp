@@ -103,15 +103,12 @@
                 <div class="x_content">
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                    <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+					<ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
+                      <li role="presentation" class="active"><a href="${ contextPath }/facingReceiveList.ms?loginUser='${sessionScope.loginUser.empNo}'" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">받은쪽지함</a>
                       </li>
-                      <li role="presentation" class=""><a href="${ contextPath }/facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">넘어가자</a>
-                      </li> 
-                    
-                     
-                      </script>
-                      <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">Profile</a>
+                      <li role="presentation" class=""><a href="${ contextPath }/facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">보낸쪽지함</a>
+                      </li>
+                      <li role="presentation" class=""><a href="${ contextPath }/facinginsertSelect?loginUser='${sessionScope.loginUser.empNo}'" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">쪽지보내기</a>
                       </li>
                     </ul>
                     

@@ -16,6 +16,7 @@ public interface BoardDao {
 
 	int selectBoardNumber(SqlSessionTemplate sqlSession);
 
+
 	
 
 }

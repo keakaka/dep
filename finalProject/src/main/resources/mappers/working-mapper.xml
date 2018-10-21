@@ -62,6 +62,16 @@
 	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
 	ORDER BY TODAY DESC 
 	</select>
+	<select id="workingNameSelectList" resultMap="WorkingResultSet" parameterType="int">
+		SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , MAX(TO_CHAR(WR.HOURS,'HH24:MI:SS')) LEAVETIME 
+	FROM WORKING_RECORD WR 
+	JOIN EMPLOYEE E ON (E.EMP_NO = WR.EMP_NO)
+	JOIN DEPT_RECORD DR ON(E.EMP_NO = DR.EMP_NO)
+	JOIN DEPARTMENT D ON (DR.DEP_ID = D.DEP_ID)
+	WHERE E.EMP_NO = #{empNo}
+	GROUP BY D.DEP_NAME,E.EMP_NAME,TO_CHAR(WR.HOURS, 'YYYY-MM-DD')
+	ORDER BY TODAY DESC
+    </select>
 	<!-- 근태 월별 조회-->
 	<select id="workingdaySelectList" resultMap="WorkingResultSet" parameterType="Working">
 	SELECT E.EMP_NAME ,DEP_NAME,TO_CHAR(WR.HOURS,'YYYY-MM-DD')TODAY, MIN(TO_CHAR(WR.HOURS,'HH24:MI:SS')) TTTIME , 
@@ -349,6 +359,9 @@
         AND E.EMP_NO = #{empNo}
 		ORDER BY DR.DEP_RECORD_DATE DESC
 	</select>
+	
+	
+	
 </mapper>
 
 

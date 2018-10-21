@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.vo.Attachment;
@@ -52,8 +53,8 @@ public class BoardController {
 	@RequestMapping("boardList.bo")
 	public String selectBoardList(Model model, @RequestParam(name="depName")String depName){
 
-
-
+		System.out.println("depName :" + depName );
+		
 		try {
 			ArrayList<Board>blist = bs.selectBoardList(depName);
 
@@ -65,7 +66,7 @@ public class BoardController {
 		}
 
 
-		return "board/boardList";	
+		return "board/boardList";
 	}
 
 
@@ -101,24 +102,6 @@ public class BoardController {
 	@RequestMapping("writeBoard.bo")
 	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
-
-		/*List<MultipartFile> fileList = mtfRequest.getFiles("file");
-
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "\\uploadTest";
-		
-		
-		
-		for(MultipartFile f : fileList){
-			
-	
-			System.out.println("동작확인");
-			String originFileName = f.getOriginalFilename();
-			String ext = originFileName.substring(originFileName.lastIndexOf("."));
-			String changeName = CommonUtils.getRandomString();*/
-			
-		if( b != null){
-			
 			try {
 				int bNo = bs.insertWriteBoard(b);
 				
@@ -131,52 +114,62 @@ public class BoardController {
 						String root = request.getSession().getServletContext().getRealPath("resources");
 						String filePath = root + "\\uploadTest";
 	
-						for(MultipartFile f : fileList){
+						for(MultipartFile f : fileList1){
 						
 							String originFileName = f.getOriginalFilename();
 							String ext = originFileName.substring(originFileName.lastIndexOf("."));
 							String changeName = CommonUtils.getRandomString();
 							
-						try {
-								f.transferTo(new File(filePath + "\\" + changeName + ext));
 								
+									String originFileName = f.getOriginalFilename();
+									
+									if(originFileName != ""){
+									String ext = originFileName.substring(originFileName.lastIndexOf("."));
+									
+									String changeName = CommonUtils.getRandomString();
+				
 								
-								Attachment file = new Attachment();
-								
-								file.setBoardNo(b.getBoardNo());
-								file.setEmpNo(b.getEmpNo());
-								file.setModiFileName(changeName + ext);
-								file.setOriFileName(originFileName);
-								
-								int result = as.insertBoardAttach(file);
-								
+							try {
+									f.transferTo(new File(filePath + "\\" + changeName + ext));
+									
+									
+									Attachment file = new Attachment();
+									
+									file.setBoardNo(b.getBoardNo());
+									file.setEmpNo(b.getEmpNo());
+									file.setModiFileName(changeName + ext);
+									file.setOriFileName(originFileName);
+									
+									int result = as.insertBoardAttach(file);
+									
+									
 							
+								} catch (Exception e) {
+								
+									new File(filePath + "\\" + changeName + ext).delete();
+									
+								}
+								
 						
-							} catch (Exception e) {
-							
-								new File(filePath + "\\" + changeName + ext).delete();
-								
-							}
-							
-						}
 				
 					
+							}
+									
+							}
 				}
 				
+				
 			
-			} catch (BoardException e) {
-				System.out.println(e.getMessage());
+			} catch (Exception e) {
+				System.out.println("보드입력 예외발생");
+				//System.out.println(e.getMessage());
 			}
 			
-		}
+			redirectAttributes.addAttribute("depName", b.getDepName()); //value값 넘길때 공백확인 잘할것
+			
+			
 		
-		
-		
-		
-		
-		
-		
-		return "board/insertBoard";
+		return "redirect:/boardList.bo";
 	}
 	
 	//summerNote image Upload method

@@ -107,7 +107,8 @@
 						</textarea>
 						
 	                  	<br><br>
-	                  	<input type="hidden" name="empNo" value="${sessionScope.loginUser.empNo} "/>
+	                  	<input type="hidden" name="empNo" value="${sessionScope.loginUser.empNo}"/>
+	                  	<input type="hidden" name="depName" value="${sessionScope.loginUser.depName}"/>
 	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px; float:right;">게시글 작성</button>
                         <br/>
                         

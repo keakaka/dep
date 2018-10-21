@@ -11,6 +11,7 @@ public class WorkingRecord {
 	private int workRecordNo;
 	private Date hours;
 	private int empNo;
+
 	public WorkingRecord()
 	{
 		
@@ -21,6 +22,9 @@ public class WorkingRecord {
 		this.hours = hours;
 		this.empNo = empNo;
 	}
+	
+
+	
 	public int getWorkRecordNo() {
 		return workRecordNo;
 	}
@@ -43,6 +47,7 @@ public class WorkingRecord {
 	public String toString() {
 		return "WorkingRecord [workRecordNo=" + workRecordNo + ", hours=" + hours + ", empNo=" + empNo + "]";
 	}
+
 	
 	
 	

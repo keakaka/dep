@@ -1,7 +1,9 @@
 package com.kh.dep.facing.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -29,6 +31,7 @@ import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
+import com.kh.dep.facing.model.vo.WorkingQr;
 import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.service.MemberService;
 import com.kh.dep.member.model.vo.Member;
@@ -45,6 +48,8 @@ public class FacingController {
 		 
 		
 
+	 
+	 
 	@RequestMapping("facinglist.ms")
 	public String selectFacingList(Model model , @RequestParam String loginUser ){
 		
@@ -282,7 +287,7 @@ public class FacingController {
 		
 		//==================어태치 먼트 =========================
 		System.out.println("======어태치먼트 구역======");
-		
+
 		for(MultipartFile f : fileList){
              
              String originFileName = f.getOriginalFilename();
@@ -314,7 +319,8 @@ public class FacingController {
  
 		 }
 		
-
+		
+		
 		
 	
 
@@ -334,6 +340,7 @@ public class FacingController {
 		Facing f;
 		try {
 			f = fs.selectOneFacing(fNo);
+			
 			model.addAttribute("f" , f);
 			
 			return "facing/facingSelectOneTs1";
@@ -382,7 +389,7 @@ public class FacingController {
 	{
 		System.err.println("QR컨트롤 입장");
 		
-		return "qr/qrCode";
+		return "qr/qrCodeS";
 	}
 
 	@RequestMapping(value="qrInsertdb.ms")
@@ -397,10 +404,97 @@ public class FacingController {
 		
 		int result = fs.InsertWorking(empNo);
 		
-		System.out.println("돌아온 리설트 값 :" + result);
+		ArrayList<WorkingQr> qrList = fs.selectWorking(empNo);
 		
-		return "qr/qr출석완료";
+		
+		Date today = new Date();
+		System.out.println(today);
+		SimpleDateFormat date = new SimpleDateFormat("MM-dd");
+		String todayF = date.format(today).substring(0,2);
+		System.out.println("오늘 날짜  : "  + todayF);
+		
+		
+		for(int i = 0; i<qrList.size(); i++)
+		{
+			System.out.println("출근시간 : " + qrList.get(i).getHours());
+			String sysdate = qrList.get(i).getHours();
+			String sys = sysdate.substring(0,2);
+			
+			System.out.println("시간: " + sys);
+			int siint = Integer.parseInt(sys);
+			String jigak ="지각" ;
+			String chul ="정상출근";
+			String offWork = "퇴근";
+			
+			
+		if(qrList.get(i).getToday().equals(todayF))
+		{
+			if( siint > 10 && siint <=17 )
+			{
+				qrList.get(i).setState(jigak);;
+				System.out.println("리스트 출력1 :" + qrList);
+			}else if(siint > 7 &&siint <= 10)
+			{
+				
+		
+				qrList.get(i).setState(chul);
+				
+			}else if(siint >= 17)
+			{	
+				
+				qrList.get(i).setState(offWork);
+				
+				if(siint > 17 && siint < 24 )
+				{
+					
+						
+						int cho = 0;
+						cho = siint - 17;	
+						System.out.println("초과 근무시간  : " + cho);
+						
+						qrList.get(i).setPlusWork(cho);
+						
+				}
+				
+			}
+			
+			
+		
+		}
+		
+		}
+		
+		System.out.println("돌아온 리설트 값 :" + result);
+		model.addAttribute("qrList" , qrList);
+
+		return "qr/qrqr";
+	}
+	
+	@RequestMapping("replyFacing.ms")
+	public String replyFacing(Model model, @RequestParam String empNo )
+	{
+		System.out.println("입장" + empNo);
+		Facing f = new Facing();
+		int e = Integer.parseInt(empNo);
+		
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		for(int i = 0; i < mlist.size(); i++)
+		{
+			if(mlist.get(i).getEmpNo() == e)
+			{
+				System.out.println(mlist.get(i).getEmpName());
+				String reply = mlist.get(i).getEmpName();
+				f.setEmpName(reply);
+			}
+		}
+		
+		model.addAttribute("f" , f);
+
+		
+		return "facing/facingReply";
 	}
 
-
+	
 }
