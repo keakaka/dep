@@ -26,6 +26,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.dep.attachment.model.service.AttachService;
 import com.kh.dep.attachment.model.service.AttachServiceImpl;
@@ -58,7 +59,7 @@ public class MemberController {
 	private AttachService as;
 
 	@RequestMapping(value="login.me")
-	public String loginCheck(MemberSelect m, Model model){
+	public String loginCheck(MemberSelect m, Model model, RedirectAttributes redirect){
 
 		try {
 			MemberSelect loginUser = ms.selectLoginMember(m);
@@ -69,8 +70,9 @@ public class MemberController {
 			int myAlarmCount = ms.selectMyAlarmCount(loginUser.getEmpNo());
 			System.out.println(myAlarmCount);
 			loginUser.setMyAlarmCount(myAlarmCount);
-
-			return "member/sample";			
+			redirect.addAttribute("m", loginUser.getEmpNo());
+			
+			return "redirect:/mainPage.mn";			
 
 		} catch (LoginException e) {
 

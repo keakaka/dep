@@ -28,6 +28,7 @@
 		<result property="empNo" column="EMP_NO"/>
 		<result property="writer" column="EMP_NAME"/>
 		<result property="appStatus" column="APP_STATUS"/>
+		<result property="appReject" column="APP_REJECT"/>
 		<result property="approvalStatus" column="APPROVAL_STATUS"/>
 		<result property="appReason" column="APP_REASON"/>
 		<result property="approvalDate" column="APPROVAL_DATE"/>
@@ -92,7 +93,8 @@
 	<!-- 내가 기안한 문서 조회 -->
 	<select id="selectImWriter" parameterType="Document" resultMap="DocumentList">
 		SELECT D.DOC_NO, DOC_TITLE, DOC_CONTENT, WRITE_DATE, EMP_NAME, 
-		(SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP1' AND DOC_NO = D.DOC_NO) AS APP_STATUS 
+		(SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP1' AND DOC_NO = D.DOC_NO) AS APP_STATUS,
+        (SELECT COUNT(*) FROM APPROVAL_RECORD WHERE APPROVAL_STATUS = 'AP3' AND DOC_NO = D.DOC_NO) AS APP_REJECT
 		FROM DOCAPPROVAL D
 		JOIN EMPLOYEE E ON(WRITER = EMP_NO) 
 		WHERE WRITER = #{empNo}
@@ -177,7 +179,7 @@
 	<!-- 결재 승인 및 반려-->
 	<update id="updateApprovalStatus" parameterType="Document">
 		UPDATE APPROVAL_RECORD SET
-		APPROVAL_STATUS = #{approvalStatus}
+		APPROVAL_STATUS = #{approvalStatus}, APP_REASON = #{appReason}, APPROVAL_DATE = SYSDATE
 		WHERE DOC_NO = #{docNo}
 		AND EMP_NO = #{empNo}
 	</update>
@@ -198,7 +200,7 @@
 		AND E.STATUS = 'Y'
 	</select>
 	
-	<!-- 회의록 STATUS 삭제로 변경 -->
+	<!-- 회의록 STATUS 변경 -->
 	<update id="deleteProceeding" parameterType="Proceeding">
 		UPDATE PROCEEDING SET
 		STATUS = 'N'

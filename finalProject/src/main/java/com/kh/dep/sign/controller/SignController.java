@@ -39,13 +39,12 @@ public class SignController {
 	@Autowired
 	private MemberService ms;
 	
-	@RequestMapping(value="signWright.sg")
-	public String signWright(Model model){
+	@RequestMapping(value="signWrite.sg")
+	public String signWrite(Model model){
 		
 		ArrayList<MemberDepartment> depList = ms.selectDepList();
 		model.addAttribute("depList", depList);
-		System.out.println(depList);
-		return "sign/signWright";
+		return "sign/signWrite";
 	}
 	
 	@RequestMapping(value="insertSign.sg")
@@ -53,15 +52,11 @@ public class SignController {
 			String signContent, @RequestParam("appList") int[] appList, int[] recList, MultipartFile signFile, int empNo){
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadSignFiles";
-		String originFileName ="";
+		String originFileName = signFile.getOriginalFilename();
 		String ext ="";
 		String changeName ="";
-		System.out.println("signFile : " + signFile);
-		System.out.println("recList : " + recList);
-		for(int i = 0; i < recList.length; i++){
-			System.out.println(recList[i]);
-		}
-		if(originFileName != ""){	
+		
+		if(signFile.getOriginalFilename() != ""){	
 			ext = originFileName.substring(originFileName.lastIndexOf("."));
 			changeName = CommonUtils.getRandomString();
 			try {
@@ -76,7 +71,7 @@ public class SignController {
 				is.setAppList(appList);
 				is.setRecList(recList);
 				ss.insertSign(is);
-				return "sign/signWright";
+				return "redirect:/signWrite.sg";
 			} catch (Exception e) {
 				new File(filePath + "\\" + changeName + ext).delete();
 				model.addAttribute("msg", e.getMessage());
@@ -84,14 +79,13 @@ public class SignController {
 			}
 		}else{
 			try {
-				System.out.println("오긴오냐");
 				is.setSignTitle(signTitle);
 				is.setSignContent(signContent);
 				is.setWriter(empNo);
 				is.setAppList(appList);
 				is.setRecList(recList);
 				ss.insertSign(is);
-				return "sign/signWright";
+				return "redirect:/signWrite.sg";
 			} catch (InsertSignException e) {
 				return "common/errorPage";
 			}
@@ -203,10 +197,7 @@ public class SignController {
 	}
 	
 	@RequestMapping(value="updateApprovalStatus.sg")
-	public @ResponseBody int updateApprovalStatus(Model model, int docNo, int empNo, String approvalStatus, Document d){
-		d.setEmpNo(empNo);
-		d.setDocNo(docNo);
-		d.setApprovalStatus(approvalStatus);
+	public @ResponseBody int updateApprovalStatus(Model model, Document d){
 		
 		return ss.updateApprovalStatus(d);
 	}

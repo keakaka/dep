@@ -114,9 +114,10 @@
             			var approvalStatus = "AP2";
             			var check = confirm('문서 승인 하시겠습니까?');
             			if(check == true){
+            				var appReason = prompt('사유');
             				$.ajax({
                 				url : "updateApprovalStatus.sg",
-                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus},
+                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus, appReason:appReason},
                 				type : "POST",
                 				success : function(data){
                 					if(data > 0){
@@ -139,9 +140,10 @@
             			var approvalStatus = "AP3";
             			var check = confirm('문서 반려 하시겠습니까?');
             			if(check == true){
+            				var appReason = prompt('사유');
             				$.ajax({
                 				url : "updateApprovalStatus.sg",
-                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus},
+                				data : {docNo:docNo, empNo:empNo, approvalStatus:approvalStatus, appReason:appReason},
                 				type : "POST",
                 				success : function(data){
                 					if(data > 0){

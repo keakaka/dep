@@ -59,7 +59,7 @@
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li><a href="signWright.sg">문서 기안</a></li>
+                     <li><a href="signWrite.sg">문서 기안</a></li>
                      <li><a href="signImWriter.sg?empNo=${loginUser.empNo }">기안함</a></li>
                      <li><a href="signApprovalList.sg?empNo=${loginUser.empNo }">결재 대기함</a></li>
                      <li><a href="signComplete.sg?empNo=${loginUser.empNo }">결재 완료함</a></li>
