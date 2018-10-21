@@ -13,6 +13,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public ArrayList<Board> selectBoardList(SqlSessionTemplate sqlSession, String depName) {
 		
+	
 		
 		return (ArrayList)sqlSession.selectList("Board.selectBoardList", depName);
 	}
@@ -36,6 +37,7 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne("Board.selectBoardNumber");
 	}
 
+	
 	
 
 }
