@@ -54,6 +54,8 @@
 		WHERE DR.EMP_NO = B.EMP_NO)
 		ORDER BY B.BOARD_NO DESC
 	</select>
+	
+	
 
 	<!-- Board One 조회 -->
 	<select id="selectOneBoard" resultMap="boardResultSet"

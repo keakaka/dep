@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -99,7 +100,7 @@
                 <div class="x_content">
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="card-box table-responsive">
+                      <div class="card-box table-responsive" style="overflow-x:hidden;">
                         <!-- <p class="text-muted font-13 m-b-30">
                           KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action etc) can be assigned to individual cells, columns, rows or all cells.
                         </p> -->
@@ -119,9 +120,9 @@
 
 
                           <tbody>
-                       		<c:forEach var='b' items="${blist}">
+                       		<c:forEach var='b' items="${blist}" varStatus='status'>
                        		<tr>                   
-                              <td>${b.boardNo }</td>
+                              <td id="${b.boardNo}">${status.count}</td>
                               <td>${b.boardTitle}</td>
                                <td>${b.empName}</td>
                               <td>${b.boardDate }</td>
@@ -146,7 +147,9 @@
                 	$(function(){
                 		$("#datatable-fixed-header").find("td").click(function(){
                 			
-                			var bid = $(this).parents().children("td").eq(0).text();
+                			var bid = $(this).parents().children("td").eq(0).attr('id');
+                			
+                			console.log(bid);
                 			
                 			location.href="selectOneBoard.bo?bid=" + bid;
                 			

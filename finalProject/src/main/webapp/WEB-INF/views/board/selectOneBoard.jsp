@@ -33,7 +33,7 @@
 	<!-- summernote -->
 	<link href="${contextPath }/resources/css/summernote.css" rel="stylesheet">
 	<script src="${contextPath }/resources/js/summernote.js"></script>
-
+	
 
 	<!-- 추가  -->
 	
@@ -96,9 +96,15 @@
 
                      <!-- start form for validation -->
                   <form id="demo-form" data-parsley-validate action="" method="post" enctype="multipart/form-data">
+                  
+                   <c:if test="${sessionScope.loginUser.empNo ne b.empNo}">
                     <label for="fullname">제목 :</label>
                     <input type="text" id="boardTitle" class="form-control" name="boardTitle" readonly value="${b.boardTitle}" /><br>
-                	
+                	</c:if>
+                	 <c:if test="${sessionScope.loginUser.empNo eq b.empNo}">
+                	 <label for="fullname">제목 :</label>
+                    <input type="text" id="boardTitle" class="form-control" name="boardTitle" value="${b.boardTitle}" /><br>
+                    </c:if>
                 	<label for="fullname">작성자 :</label>
                     <input type="text" id="boardTitle" class="form-control" name="boardTitle" readonly value="${b.empName} ${b.jobName}" /><br>
                     
@@ -111,7 +117,7 @@
 	                </c:forEach>
          
 						<br><br>
-						<textarea id="summernote" name="boardContent">
+						<textarea id="summernote" name="boardContent" resize="none">
 							${b.boardContent} 
 						</textarea>
 						
@@ -203,15 +209,93 @@
   <script src="${contextPath }/resources/js/validator/validator.js"></script>
 
 
-
+		 <c:if test="${sessionScope.loginUser.empNo ne b.empNo}">  
 		<script>
              $(document).ready(function() {
-         	  	 var fileExtension = ['.jpg', '.png', '.jpeg', '.gif',];
+            	  $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+                      height: 300,
+            		  lang: 'ko-KR',
+                      toolbar: [],
+  	                callbacks: { // 콜백을 사용
+                          // 이미지를 업로드할 경우 이벤트를 발생
+                     onImageUpload: function(files, editor, welEditable) {
+                         //console.log(files);
+                           
+                           for (var i = files.length - 1; i >= 0; i--) {
+                          	 
+                           	for(var j = 0; j < fileExtension.length; j++){
+                           		var extleng = files[i].name.length;
+                           		var extdot = files[i].name.lastIndexOf('.');
+                           		var ext = files[i].name.substring(extdot, extleng).toLowerCase();
+
+                          		 //console.log(ext + ' / ' + fileExtension[j]) 
+                          	 if(ext == fileExtension[j]){
+                       		  sendFile(files[i], this); 
+                           	}
+                              }
+                           }
+                    },
+                    
+                    onMediaDelete : function(target) {
+                        alert(target[0].src);
+                        deleteFile(target[0].src);
+                        console.log(target[0].src)
+                 }
+                  
+                  
+              }});
                 $('#summernote').summernote('disable');
+              
          }); 
-
-
       </script>
+      </c:if>
+     
+      <c:if test="${sessionScope.loginUser.empNo eq b.empNo}">
+      	<script>
+             $(document).ready(function() {
+         	  	 var fileExtension = ['.jpg', '.png', '.jpeg', '.gif',];
+                $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+                    height: 300,
+                    lang: 'ko-KR',
+                    toolbar: [
+                        // [groupName, [list of button]]
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontname', 'fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['insert', ['picture', 'link', 'video', 'table', 'hr']]
+                      ],
+	                callbacks: { // 콜백을 사용
+                        // 이미지를 업로드할 경우 이벤트를 발생
+                   onImageUpload: function(files, editor, welEditable) {
+                       //console.log(files);
+                         
+                         for (var i = files.length - 1; i >= 0; i--) {
+                        	 
+                         	for(var j = 0; j < fileExtension.length; j++){
+                         		var extleng = files[i].name.length;
+                         		var extdot = files[i].name.lastIndexOf('.');
+                         		var ext = files[i].name.substring(extdot, extleng).toLowerCase();
+
+                        		 //console.log(ext + ' / ' + fileExtension[j]) 
+                        	 if(ext == fileExtension[j]){
+                     		  sendFile(files[i], this); 
+                         	}
+                            }
+                         }
+                  },
+                  
+                  onMediaDelete : function(target) {
+                      alert(target[0].src);
+                      deleteFile(target[0].src);
+                      console.log(target[0].src)
+               }     
+            }});
+         });
+      </script>
+       </c:if>
 </body>
 
 </html>
