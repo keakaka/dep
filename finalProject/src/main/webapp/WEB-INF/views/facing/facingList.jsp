@@ -32,15 +32,7 @@
 	<script src="${contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${contextPath }/resources/js/nprogress.js"></script>
 
-	<!--[if lt IE 9]>
-	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
-	<![endif]-->
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 
 </head>
 
@@ -75,43 +67,29 @@
 							</div>
 
 							<div class="clearfix">
-							   
+						<form id="setRows">	   
             <!-- ====================================== -->	
 							
 							
-							 <div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
                   <h2><i class="fa fa-bars"></i> Tabs <small>Float right</small></h2>
-            <!--       <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul> -->
+         
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
-                      <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+                      <li role="presentation" class="active"><a href="facingReceiveList.ms?loginUser='${sessionScope.loginUser.empNo}'" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">받은쪽지함</a>
                       </li>
-                      <li role="presentation" class=""><a href="${ contextPath }/facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">넘어가자</a>
+                      <li role="presentation" class=""><a href="facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">보낸쪽지함</a>
                       </li> 
                     
                      
                       </script>
-                      <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">Profile</a>
+                      <li role="presentation" class=""><a href="facinginsertSelect?loginUser='${sessionScope.loginUser.empNo}'" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">쪽지보내기</a>
                       </li>
                     </ul>
                     
@@ -173,6 +151,12 @@
                                                      
                           </tbody>
                         </table>
+                        
+                        <div class="btnContent">
+
+
+
+                        
                       </div>
                     </div>
                   </div>
@@ -190,6 +174,7 @@
 
                 </div>
               </div>
+              </form>
             </div>
             
             <!-- ====================================== -->	

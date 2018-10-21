@@ -79,19 +79,14 @@
                 <div class="x_title">
                 <select id="depList">
                   	<option>부서</option>
-                  	
-                        <option>영업부</option>
-                   
-                        <option>인사부</option>
-                   
-                        <option>총무부</option>
-                   
-                        <option>회계부</option>
-                    
-				  </select>
+                    <c:forEach var='d' items="${deplist }">
+                    <option>${d.depName }</option>
+                    </c:forEach>
+                 </select>
+				  
 				  <select id="year">
 				  <option>년</option>
-				   <c:forEach var="y"  begin="1950" end="2080" step="1">
+				   <c:forEach var="y"  begin="1999" end="2018" step="1">
 				   <option>${y}</option>
 				  </c:forEach>
 				  </select>
@@ -111,6 +106,13 @@
                   	<option>11</option>
                   	<option>12</option> 	
 				  </select>
+				  
+			 		<select id="name" name="name">                         
+                          <option>사원명</option>
+                          <c:forEach var='m' items="${mlist}">
+                          <option value="${m.empNo }">${m.empName }</option>
+                          </c:forEach>
+                    </select>
                 
                   <div id="test1"></small></div>
 <!--        <button id="testB">테스트</button>
@@ -269,6 +271,45 @@
 						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
 						var $state = $('<td>').text(decodeURIComponent(val.state));
 						
+						
+						$tr.append($empName);
+						$tr.append($depName);
+						$tr.append($today);
+						$tr.append($tTime);
+						$tr.append($leaveTime);
+						$tr.append($state);
+						$tbody.append($tr);
+					});	
+					},
+					error : function(){
+					
+					}
+					});
+
+			});
+	});
+	
+	
+	$(function(){
+		$("#name").change(function(){
+			var name = $("#name option:selected").val();
+			console.log(name);
+			$.ajax({
+				url : "depNameList.pm",
+				data : {name : name},
+				success : function(data){
+					var $tbody = $('.workingList');
+					$tbody.html("");
+					var i = 0;
+					$.each(data, function(index, val){
+					
+						var $tr = $("<tr role='row' class='odd'>");
+						var $empName = $('<td>').text(decodeURIComponent(val.empName));
+						var $depName = $('<td>').text(decodeURIComponent(val.depName));
+						var $today = $('<td>').text(decodeURIComponent(val.today));
+						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
+						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
+						var $state = $('<td>').text(decodeURIComponent(val.state));
 						
 						$tr.append($empName);
 						$tr.append($depName);

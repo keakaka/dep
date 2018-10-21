@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.dep.depEmergency.model.vo.*" %>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
 	<title>Gentallela Alela! | </title>
 
 	<!-- Bootstrap core CSS -->
@@ -56,109 +55,34 @@
 			<div class="right_col" role="main">
 
 				<div class="row">
-					<div class="col-md-20 col-sm-20 col-xs-20">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="dashboard_graph">
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>비상연락망</h3>
+									<h3>Empty <small>no content</small></h3>
 								</div>
 								<div class="col-md-6">
-								
+
 								</div>
 							</div>
 
-							<div class="col-md-18 col-sm-18 col-xs-20">
+							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div id='calendar'></div>
 							</div>
-
+							<!-- 여기부터 -->							
 							<div class="clearfix">
-		 					
-            <div class="col-md-18 col-sm-18 col-xs-18">
-              <div class="x_panel">
-                <div class="x_title">
-                  <div id="test1"></small></div>
-
-             
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <!-- <th>#</th> -->
-                        <th>사원명</th>
-                        <th>직급</th>
-                        <th>부서명</th>
-                        <th>비상연락망</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="d" items="${DepEList}">
-                      <tr>
-                        <!-- <th scope="row"></th> -->
-                        <td>${d.empName}</td>
-                        <td>${d.jobName}</td>
-                        <td>${d.depName}</td>
-                        <td>${d.emergencyPhone}</td>
-                      </tr>
-                   </c:forEach> 
-                    </tbody>
-                  </table>
-
-                </div>
-              </div>
-            </div> 
-            
-       <%--      	<div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
-            	<c:forEach var="s" items="${DepEList}">
-                      <div class="well profile_view">
-                        <div class="col-sm-12">
-                          <h4 class="brief"><i>Digital Strategist</i></h4>
-                          
-                          <div class="left col-xs-7">
-                            <h2>${s.empNmae}</h2>
-                            <p>부서: ${s.depName} </p>
-                            <p>직급: ${s.jobName} </p>
-                   
-                            <ul class="list-unstyled">
-                              <li><i class="fa fa-phone"></i> Address: ${s.emergencyPhone} </li>
-
-                            </ul>
-                          </div>
-                          
-                          <div class="right col-xs-5 text-center">
-                            <img src="images/img.jpg" alt="" class="img-circle img-responsive">
-                          </div>
-                        </div>
-                        <div class="col-xs-12 bottom text-center">
-                        </div>
-                      </div>
-                    </c:forEach> 
-                    </div>
-                   --%>
-							<!-- 여기까지! -->
 							
-				  
-				
-                    
 							
+							<c:forEach var="s" items="${qrList}">
+							<h1><samll>오늘날짜 :</samll>${s.today}</h1>
+							<h1><small>사원명 :</small>${s.empName}</h1>
+							<h1><samll>시간 : </samll>${s.hours}</h1>
+							<h1><samll>상태 : </samll>${s.state}</h1>
+							<h1><samll>추가근무시간 : </samll> + ${s.plusWork} 시간</h1>
+							</c:forEach>
 							</div>
+							<!-- 여기까지 -->							
 						</div>
 					</div>
 

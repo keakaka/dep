@@ -14,6 +14,7 @@ import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
+import com.kh.dep.facing.model.vo.WorkingQr;
 import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.vo.Member;
 
@@ -135,6 +136,17 @@ public class FacingDaoImpl implements FacingDao {
 		int alram = sqlSession.insert("Facing.insertAlram",al);
 		System.out.println("알람 인설트완료");
 		return alram;
+	}
+
+	@Override
+	public ArrayList<WorkingQr> selectWorking(SqlSessionTemplate sqlSession,int empNo) {
+		// TODO Auto-generated method stub
+		
+		ArrayList qrList = (ArrayList) sqlSession.selectList("Facing.selectQrList" , empNo);
+	
+		System.out.println("돌아온 qr 리스트" + qrList);
+		
+		return qrList;
 	}
 
 	

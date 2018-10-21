@@ -16,7 +16,7 @@
 		<typeAlias type="com.kh.dep.member.model.vo.Position" alias="Position"/>
 		<typeAlias type="com.kh.dep.attachment.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.dep.addressBook.model.vo.AddressBook" alias="AddressBook"/>
-		<typeAlias type="com.kh.dep.facing.model.vo.Facing" alias="Facing"/>
+		<typeAlias type="com.kh.dep.facing.model.vo.Facing" alias="Facing"/>	
 		<typeAlias type="com.kh.dep.facing.model.vo.WorkingRecord" alias="WorkingRecord"/>
 		<typeAlias type="com.kh.dep.member.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.kh.dep.member.model.vo.WorkingHours" alias="WorkingHours"/>
@@ -38,7 +38,9 @@
 		<typeAlias type="com.kh.dep.facing.model.vo.FacingInsert" alias="FacingInsert"/>
 		<typeAlias type="com.kh.dep.facing.model.vo.Alram" alias="Alram"/>
 		<typeAlias type="com.kh.dep.sign.model.vo.Proceeding" alias="Proceeding"/>
-		<typeAlias type="com.kh.dep.member.model.vo.Alarm" alias="Alarm"/>
+		<typeAlias type="com.kh.dep.facing.model.vo.WorkingQr" alias="WorkingQr"/>
+		<typeAlias type="com.kh.dep.member.model.vo.Alarm" alias="Alarm"/>	
+		
 	</typeAliases>
 	
 	<mappers>
