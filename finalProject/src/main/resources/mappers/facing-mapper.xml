@@ -17,8 +17,10 @@
 		<result property="depName" column="DEP_NAME" />
 		<result property="oriFileName" column="ORI_FILENAME" />
 		<result property="modiFileName" column="MODI_FILENAME"/>
-		
+		<result property="fileNo" column="FILE_NO"/>
+		<result property="emailNo" column="EAMIL_NO"/>	
 	</resultMap>
+	
 		<resultMap type="FacingInsert" id="FacingIResultSet">
 		<id property="empNo" column="EMP_NO" />
 		<result property="empName" column="EMP_NAME" />
@@ -78,7 +80,8 @@
 	
 	<select id ="selectOneFacing" resultMap="FacingResultSet" parameterType="int">
 	
-    SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS , F.EMP_NO , ORI_FILENAME , MODI_FILENAME
+    SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS , F.EMP_NO ,A.FILE_NO ,ORI_FILENAME , MODI_FILENAME
+     ,EMAIL_NO
 	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) JOIN ATTACHMENT A ON (F.FACING_NO = A.EMAIL_NO)  
     WHERE F.FACING_NO = #{facingNo}
     
@@ -94,14 +97,15 @@
             
 	</insert>
 	
-	 <select id="selectNowFaicng" resultMap="FacingResultSet" parameterType="int">
-   SELECT FACING_NO ,WRITE_DATE FROM
-   FACING 
-   WHERE WRITE_DATE = (SELECT MAX(WRITE_DATE)FROM FACING WHERE EMP_NO=#{empNo})
-   AND EMP_NO = #{empNo}
-   AND ROWNUM = 1 
-   ORDER BY FACING_NO DESC
-   </select>
+	<select id="selectNowFaicng" resultMap="FacingResultSet" parameterType="int">
+	SELECT FACING_NO ,WRITE_DATE FROM
+	FACING 
+	WHERE WRITE_DATE = (SELECT MAX(WRITE_DATE)FROM FACING WHERE EMP_NO=#{empNo})
+	AND EMP_NO = #{empNo}
+	AND ROWNUM = 1 
+	ORDER BY FACING_NO DESC
+	</select>
+
 	<insert id="insertFaicngR" parameterType="FacingInsertR">
 	INSERT INTO "FINAL"."FACING_RECEIVE" (FACING_NO, RECEIVER, RECEIVE_DATE) 
 	VALUES (#{facingNo}, #{receiver}, SYSDATE)
@@ -122,20 +126,4 @@
 	
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

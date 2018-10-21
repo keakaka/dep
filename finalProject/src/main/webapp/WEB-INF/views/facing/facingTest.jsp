@@ -124,7 +124,7 @@
 							
 						</textarea>
 						<input type="hidden" id='memberNo' name="memberNo" value="">
-	                  	<label>썸네일 : &nbsp; </label><input id='thumbnail' multiple="multiple" type="file" name="file" size=40>
+	                  	<input id='thumbnail' multiple="multiple" type="file" name="file" size=40>
 	                  	<br><br>
 	                  	
 	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px;">보내기</button>
@@ -194,7 +194,7 @@
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['height', ['height']],
-                        ['insert', ['picture', 'link', 'video', 'table', 'hr']]
+                        ['insert', ['link', 'video', 'table', 'hr']]
                       ],
                    callbacks: { // 콜백을 사용
                         // 이미지를 업로드할 경우 이벤트를 발생

@@ -16,6 +16,12 @@ public interface BoardDao {
 
 	int selectBoardNumber(SqlSessionTemplate sqlSession);
 
+	int updateOneBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int deleteBoard(SqlSessionTemplate sqlSession, int boardNo);
+
+	int updateCountBoard(SqlSessionTemplate sqlSession, int bid);
+
 
 	
 

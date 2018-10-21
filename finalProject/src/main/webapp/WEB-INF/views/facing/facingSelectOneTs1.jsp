@@ -96,7 +96,7 @@
                     <input type="email" id="email" class="form-control" name="email" data-parsley-trigger="change" value="${f.facingTitle}" required readonly />
 
                     <label for="email">내용  :</label>                  
-                        <label for="message">Message  :</label>
+                        
                         <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup"  data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                           data-parsley-validation-threshold="10" readonly>
                           <img src="${contextPath }/resources/uploadTest/${f.modiFileName}"/>
@@ -119,6 +119,7 @@
 							
 							
 							
+							</div>
 							
 							</div>
 						</div>
