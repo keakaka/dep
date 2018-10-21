@@ -27,7 +27,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		blist = bd.selectBoardList(sqlSession, depName);
 		
-		System.out.println("service :" + blist);
 		
 		if(blist.size() == 0){
 			throw new BoardException("게시판 목록 불러오기 실패");
@@ -41,7 +40,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		Board b = null;
 		
-		b = bd.selectOneBoard(sqlSession, bid);
+		int result = bd.updateCountBoard(sqlSession, bid);
+		
+		if(result > 0){
+			b = bd.selectOneBoard(sqlSession, bid);
+		}
 		
 		return b;
 	}
@@ -63,6 +66,25 @@ public class BoardServiceImpl implements BoardService {
 		}
 				
 		
+	}
+
+	@Override
+	public int updateOneBoard(Board b) {
+		
+		int upResult = bd.updateOneBoard(sqlSession, b);
+		
+		
+		
+		
+		return upResult;
+	}
+
+	@Override
+	public int deleteBoard(int boardNo) {
+		
+		int result = bd.deleteBoard(sqlSession, boardNo);
+		
+		return result;
 	}
 
 	

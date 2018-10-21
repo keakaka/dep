@@ -37,6 +37,25 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne("Board.selectBoardNumber");
 	}
 
+	@Override
+	public int updateOneBoard(SqlSessionTemplate sqlSession, Board b) {
+		
+		
+		return sqlSession.update("Board.updateOneBoard", b);
+	}
+
+	@Override
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("Board.deleteBoard", boardNo);
+	}
+
+	@Override
+	public int updateCountBoard(SqlSessionTemplate sqlSession, int bid) {
+		
+		return sqlSession.update("Board.updateCountBoard", bid);
+	}
+
 	
 	
 

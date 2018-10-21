@@ -151,7 +151,8 @@
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
                         </p>
-                         <form data-parsley-validate class="form-horizontal form-label-left" action="insertLeave.me" method="post">
+                         <form data-parsley-validate class="form-horizontal form-label-left" 
+                         action="insertLeave.me" method="post">
                         <table id="datatable-keytable" class="table table-striped table-bordered">
                           <thead>
                             <tr>
@@ -172,7 +173,7 @@
                               <td>
                         <!-- <input type="number" id="empNo" name="empNo" required="required" placeholder="ex> 1001"
                         class="form-control col-md-7 col-xs-12"> -->
-                        <select class="form-control" name="empNo" required="required">                         
+                        <select class="form-control" name="empNo" id="empNo" required="required">                         
                           <option>-사원 번호를 선택하세요-</option>
                           <c:forEach var='m' items="${mlist }">
                           <option value="${m.empNo }">${m.empNo }</option>
@@ -182,7 +183,7 @@
                       		   <td>
                       <!--   <input type="text" id="empName" name="empName" required="required" placeholder="ex> 김아무개"
                         class="form-control col-md-7 col-xs-12"> -->
-                        <select class="form-control" name="empName" required="required">
+                        <select class="form-control" name="empName" id="empName" required="required">
                           <option>-사원명을 선택하세요-</option>
                           <c:forEach var='m' items="${mlist }">
                           <option value="${m.empName }">${m.empName }</option>
@@ -190,7 +191,7 @@
                         </select>
                       		</td>
                       		   <td>
-                        <select class="form-control" name="depId" required="required">
+                        <select class="form-control" name="depId" id="depId" required="required">
                           <option>-부서를 선택하세요-</option>
                           <c:forEach var='d' items="${deplist }">
                           <option value="${d.depId }">${d.depName }</option>
@@ -198,7 +199,7 @@
                         </select>
                       		</td>
                       		   <td>
-                        <select class="form-control" name="jobCode" required="required">
+                        <select class="form-control" name="jobCode" id="jobCode" required="required">
                           <option>-직급을 선택하세요-</option>
                           <c:forEach var='j' items="${joblist }">
                           <option value="${j.jobCode }">${j.jobName }</option>
@@ -212,7 +213,13 @@
                       		  <td><button type="reset" class="btn btn-round btn-default">확인</button></td>
                               <td><button type="submit" class="btn btn-round btn-default">입력</button></td>
                             </tr>
-                          
+                       <!--    <script>
+                          	function checkInput(){
+                          		
+                          		
+                          		
+                          	}  	
+                          </script> -->
                            
                           </tbody>
                         </table>
