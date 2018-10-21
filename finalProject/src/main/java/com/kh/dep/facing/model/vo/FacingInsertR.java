@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class FacingInsertR {
+public class FacingInsertR implements java.io.Serializable {
 	
 	private int facingNo;
 	private int receiver;

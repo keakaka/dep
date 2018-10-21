@@ -40,6 +40,8 @@ public interface PmService {
 
 	int insertpromotion(PromotionIn p);
 
+	ArrayList<Working> depNameList(String name);
+
 	
 	
 	

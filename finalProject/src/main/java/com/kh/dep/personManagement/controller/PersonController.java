@@ -38,10 +38,20 @@ public class PersonController {
 
 	
 	@RequestMapping("depMgt.pm")
-	public String depMgt(){
+	public String depMgt(Model model){
 		
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+
+		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		
 		System.out.println("근태관리 입장");
+		
+		model.addAttribute("deplist", deplist);
+		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
+		
 		
 		return "personManagement/departmentManagement";
 	}
@@ -73,6 +83,18 @@ public class PersonController {
 		
 		return list;
 	}
+	@RequestMapping("depNameList.pm")
+	public @ResponseBody ArrayList<Working> depNameList(@RequestParam String name){
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		System.out.println("근태 컨트롤 입장"+name);
+		
+		ArrayList<Working> list = ps.depNameList(name);
+		
+		hmap.put("list", list);
+		
+		return list;
+	}
+	
 	
 	
 	
@@ -112,6 +134,8 @@ public class PersonController {
 		
 		return list;
 	}
+	
+	
 	
 	
 	
