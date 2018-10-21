@@ -80,7 +80,7 @@ public interface MemberService {
 	ArrayList<MemberSelect> selectAllMember();
 
 
-	List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType);
+	List<SalaryExcel> selectSearchCondition(String depType, String jobType, String dateType, String nameType);
 
 
 	List<Alarm> selectMyAlarmList(int empNo);
@@ -90,6 +90,9 @@ public interface MemberService {
 
 
 	int updateMyAlarm(int alarmNo);
+
+
+	List<SalaryExcel> selectMySalaryRecord(int empNo);
 
 
 }

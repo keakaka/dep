@@ -102,7 +102,7 @@ public class BoardController {
 	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
 
-		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		/*List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadTest";
@@ -115,7 +115,7 @@ public class BoardController {
 			System.out.println("동작확인");
 			String originFileName = f.getOriginalFilename();
 			String ext = originFileName.substring(originFileName.lastIndexOf("."));
-			String changeName = CommonUtils.getRandomString();
+			String changeName = CommonUtils.getRandomString();*/
 			
 		if( b != null){
 			

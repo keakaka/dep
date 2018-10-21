@@ -74,7 +74,7 @@
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
-														<h2>
+														<h2 style="font-weight:bold; overflow:visible;">
 															휴가내용조회 <small>${loginUser.empName }</small>
 														</h2>
 
@@ -84,7 +84,7 @@
 
 														<!-- modals -->
 														<!-- Large modal -->
-														<button type="button" class="btn btn-primary"
+														<!-- <button type="button" class="btn btn-primary"
 															data-toggle="modal" data-target=".bs-example-modal-lg">휴가신청</button>
 
 														<div class="modal fade bs-example-modal-lg" tabindex="-1"
@@ -134,9 +134,9 @@
 
 																</div>
 															</div>
-														</div>
+														</div> -->
 														
-																	<script>
+																	<!-- <script>
 																		function apply(){
 																			/* $("#vacationKind").on("change", function(){
 																				console.log($(this).val());
@@ -155,7 +155,7 @@
 																			location.href="updateMyVacation.me?empNo=" + empNo + "&vacKind=" + vacKind + "&vacReason=" + vacReason + "&vacStartdate=" + vacStartdate + "&vacEnddate=" + vacEnddate;
 																			
 																		}
-																	</script>
+																	</script> -->
 
 														<table id="datatable"
 															class="table table-striped table-bordered">
@@ -170,7 +170,7 @@
 															</thead>
 
 
-															<tbody>
+															<tbody style="font-size: 18px;">
 																<c:forEach items="${myVacationRecordList }" var="myVacationRecord">
 																	<tr>
 																		<td>${myVacationRecord.vacNo }</td>

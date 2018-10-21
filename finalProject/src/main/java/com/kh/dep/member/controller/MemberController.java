@@ -291,7 +291,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="mySalary.me")
-	public String showMySalary(){
+	public String showMySalary(@RequestParam("var") int empNo, Model model){
+		List<SalaryExcel> list = ms.selectMySalaryRecord(empNo);
+		System.out.println("내 급여 목록(컨트롤러) : " + list);
+		
+		model.addAttribute("mySalaryRecordlist", list);
+		
 		return "eb/detailOfSalary";
 	}
 
@@ -539,17 +544,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="selectSearchCondition.me")
-	public void selectSearchCondition(String depType, String jobType, String dateType, HttpServletResponse response){
+	public void selectSearchCondition(String depType, String jobType, String dateType, String nameType, HttpServletResponse response){
 		System.out.println("조건에 맞는 사원 급여 데이터 검색 컨트롤러!");
 		
-		/*if(depType.equals("D0")){
-			
-		}*/
-		
-		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType);
+		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType + " 사원이름 : " + nameType);
 		
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
-		list = ms.selectSearchCondition(depType, jobType, dateType);
+		list = ms.selectSearchCondition(depType, jobType, dateType, nameType);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -587,7 +588,8 @@ public class MemberController {
 		int result = ms.updateMyAlarm(alarmNo);
 		
 		MemberSelect loginUser=(MemberSelect) request.getSession().getAttribute("loginUser");
-		loginUser.setMyAlarmCount(loginUser.getMyAlarmCount() - 1);
+		int empNo = loginUser.getEmpNo();
+		loginUser.setMyAlarmCount(ms.selectMyAlarmCount(empNo));
 		
 		return "member/sample";
 	}

@@ -129,11 +129,11 @@
 															<option id="web-font" value="'2016%'">2016</option>
 															<option id="web-font" value="'2015%'">2015</option>
 														</select>
-														<select id="quarter">
+														<!-- <select id="quarter">
 															<option id="web-font">분기</option>
 															<option id="web-font">1분기</option>
 															<option id="web-font">2분기</option>
-														</select>
+														</select> -->
 
 														<button onclick="searchBtn()">검색</button>
 
@@ -259,11 +259,19 @@
 													console.log(jobType);
 													var dateType = $("#dateType option:selected").val();
 													console.log(dateType);
+													var nameType = $("#empNameBox").val();
+													
+													if(nameType == ''){
+														nameType = "E.EMP_NAME";
+													}else{
+														nameType = "'%" + nameType + "%'";
+													}
+													console.log(nameType);
 													
 													$.ajax({
 														type : "post",
 														url : "selectSearchCondition.me",
-														data : {depType:depType, jobType:jobType, dateType:dateType},
+														data : {depType:depType, jobType:jobType, dateType:dateType, nameType:nameType},
 														dataType : "json",
 														success : function(data) {
 															console.log(data);
