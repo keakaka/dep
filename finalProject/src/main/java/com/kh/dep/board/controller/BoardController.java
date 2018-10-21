@@ -171,6 +171,7 @@ public class BoardController {
 		
 		return "redirect:/boardList.bo";
 	}
+
 	
 	//summerNote image Upload method
 	@RequestMapping("imgUpload.bo")

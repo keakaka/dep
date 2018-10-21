@@ -90,7 +90,7 @@
                </li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 				
-			  <c:if test="${sessionScope.loginUser.positionNo eq 'P21' }">
+			  <c:if test="${sessionScope.loginUser.positionNo eq 'P4' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
               </c:if>
 
@@ -181,7 +181,7 @@
       					str += '</li>';
       				});
       				
-      				str += '<li><div class="text-center"><a><strong data-toggle="modal" data-target="#myModal">See All Alerts</strong><i class="fa fa-angle-right"></i></a></div></li>';
+      				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="#myModal">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
       				
       				$("#menu1").append(str);
       				/* $("#alarmMessage").html('');
