@@ -14,6 +14,9 @@
 
 <!-- Bootstrap core CSS -->
 
+<!-- font-awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
 <link href="${contextPath }/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -50,23 +53,46 @@
 
 </head>
 <style>
-/* #info1 {<!--
-	padding-left: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px; -->
-	background: #ccc;
-} */
 
+#myImage {
+    width: 500px;
+}
 
 #updateImg {
 	text-align: center;
 	width: 273px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* #userPhoto {
-	width : 250px;
-	height : 320px;
-} */
+#userPhoto {
+	/* width : 250px;
+	height : 320px; */
+    width: 340px;
+    height: 500px;
+} 
+
+#uploadBtn:hover{
+	cursor:pointer;
+}
+
+#normalInfo {
+    margin-top: 70px;
+    font-size: 1.3em;
+}
+
+#updateBtn {
+	margin-left: 300px;
+    margin-top: 20px;
+    background-color: #2a3f54;
+}
+
+#findFile {
+	width:200px;
+	display:inline-block;
+	color: #333a5c;
+}
+
 </style>
 <body class="nav-md">
 	<div class="container body">
@@ -98,9 +124,8 @@
 												<div id="updateImg">
 													<br>
 													<input type="file" name="findFile" id="findFile">
-													<button type="button" onclick="imageUpdate()">업로드</button>
-													<!-- <button type="submit">업로드</button>  -->
-													<%-- <a href="updateMyImage.me?empNo=" + ${loginUser.empNo }>이미지 변경</a> --%>
+													<!-- <button type="button" onclick="imageUpdate()">업로드</button> -->
+													<i id="uploadBtn" class="fas fa-file-upload fa-2x" onclick="imageUpdate()"></i>
 												</div>
 											</form>
 											</div>
@@ -241,7 +266,8 @@
 													</div>
 
 													<!-- <button type="submit">수정하기</button> -->
-													<button type="button" id="updateBtn" onclick="check()">수정확인</button>
+													<!-- <button type="button" id="updateBtn" onclick="check()">수정확인</button> -->
+													<button type="button" class="btn btn-primary" id="updateBtn" onclick="check()">수정확인</button>
 													<!-- <input type="submit" value="수정"> -->
 												</form>
 

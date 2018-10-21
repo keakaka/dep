@@ -100,78 +100,78 @@ public class BoardController {
 	}
 
 	@RequestMapping("writeBoard.bo")
-	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
-		
+	   public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request,
+	                  RedirectAttributes redirectAttributes){
+	      
+	   
+	         
+	         
+	         try {
+	            int bNo = bs.insertWriteBoard(b);
+	            
+	            if(bNo > 0){
+	               
+	               b.setBoardNo(bNo);
+	               
+	            
+	                   List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
-			try {
-				int bNo = bs.insertWriteBoard(b);
-				
-				if(bNo > 0){
-					
-					b.setBoardNo(bNo);
-					
-					 List<MultipartFile> fileList = mtfRequest.getFiles("file");
-
-						String root = request.getSession().getServletContext().getRealPath("resources");
-						String filePath = root + "\\uploadTest";
-	
-						for(MultipartFile f : fileList1){
-						
-							String originFileName = f.getOriginalFilename();
-							String ext = originFileName.substring(originFileName.lastIndexOf("."));
-							String changeName = CommonUtils.getRandomString();
-							
-								
-									String originFileName = f.getOriginalFilename();
-									
-									if(originFileName != ""){
-									String ext = originFileName.substring(originFileName.lastIndexOf("."));
-									
-									String changeName = CommonUtils.getRandomString();
-				
-								
-							try {
-									f.transferTo(new File(filePath + "\\" + changeName + ext));
-									
-									
-									Attachment file = new Attachment();
-									
-									file.setBoardNo(b.getBoardNo());
-									file.setEmpNo(b.getEmpNo());
-									file.setModiFileName(changeName + ext);
-									file.setOriFileName(originFileName);
-									
-									int result = as.insertBoardAttach(file);
-									
-									
-							
-								} catch (Exception e) {
-								
-									new File(filePath + "\\" + changeName + ext).delete();
-									
-								}
-								
-						
-				
-					
-							}
-									
-							}
-				}
-				
-				
-			
-			} catch (Exception e) {
-				System.out.println("보드입력 예외발생");
-				//System.out.println(e.getMessage());
-			}
-			
-
-			redirectAttributes.addAttribute("depName", b.getDepName()); //value값 넘길때 공백확인 잘할것
-			
-		
-		return "redirect:/boardList.bo";
-	}
+	                     String root = request.getSession().getServletContext().getRealPath("resources");
+	                     String filePath = root + "\\uploadTest";
+	      
+	                     for(MultipartFile f : fileList){
+	                     
+	                        
+	                           String originFileName = f.getOriginalFilename();
+	                           
+	                           if(originFileName != ""){
+	                           String ext = originFileName.substring(originFileName.lastIndexOf("."));
+	                           
+	                           String changeName = CommonUtils.getRandomString();
+	            
+	                        
+	                     try {
+	                           f.transferTo(new File(filePath + "\\" + changeName + ext));
+	                           
+	                           
+	                           Attachment file = new Attachment();
+	                           
+	                           file.setBoardNo(b.getBoardNo());
+	                           file.setEmpNo(b.getEmpNo());
+	                           file.setModiFileName(changeName + ext);
+	                           file.setOriFileName(originFileName);
+	                           
+	                           int result = as.insertBoardAttach(file);
+	                           
+	                           
+	                     
+	                        } catch (Exception e) {
+	                        
+	                           new File(filePath + "\\" + changeName + ext).delete();
+	                           
+	                        }
+	                        
+	                  
+	            
+	               
+	                     }
+	                           
+	                     }
+	            }
+	            
+	            
+	         
+	         } catch (Exception e) {
+	            System.out.println("보드입력 예외발생");
+	            //System.out.println(e.getMessage());
+	         }
+	         
+	         redirectAttributes.addAttribute("depName", b.getDepName()); //value값 넘길때 공백확인 잘할것
+	         
+	         
+	      
+	      return "redirect:/boardList.bo";
+	   }
 	
 	//summerNote image Upload method
 	@RequestMapping("imgUpload.bo")
