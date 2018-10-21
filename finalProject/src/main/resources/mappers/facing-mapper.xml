@@ -95,13 +95,14 @@
 	</insert>
 	
 	<select id="selectNowFaicng" resultMap="FacingResultSet" parameterType="int">
-	SELECT FACING_NO ,WRITE_DATE FROM
-	FACING 
-	WHERE WRITE_DATE = (SELECT MAX(WRITE_DATE)FROM FACING WHERE EMP_NO=1000)
-	AND EMP_NO = #{empNo}
-	AND ROWNUM = 1 
-	ORDER BY FACING_NO DESC
-	</select>
+   SELECT FACING_NO ,WRITE_DATE FROM
+   FACING 
+   WHERE WRITE_DATE = (SELECT MAX(WRITE_DATE)FROM FACING WHERE EMP_NO=#{empNo})
+   AND EMP_NO = #{empNo}
+   AND ROWNUM = 1 
+   ORDER BY FACING_NO DESC
+   </select>
+	
 	<insert id="insertFaicngR" parameterType="FacingInsertR">
 	INSERT INTO "FINAL"."FACING_RECEIVE" (FACING_NO, RECEIVER, RECEIVE_DATE) 
 	VALUES (#{facingNo}, #{receiver}, SYSDATE)
