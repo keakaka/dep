@@ -125,7 +125,7 @@
               </div>
             </div> 
             
-       <%--      	<div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
+            	<div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
             	<c:forEach var="s" items="${DepEList}">
                       <div class="well profile_view">
                         <div class="col-sm-12">
@@ -151,7 +151,7 @@
                       </div>
                     </c:forEach> 
                     </div>
-                   --%>
+                   
 							<!-- 여기까지! -->
 							
 				  
