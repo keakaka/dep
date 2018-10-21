@@ -61,7 +61,7 @@
     width: 12%;
 }
 .form-horizontal .control-label {
-    padding-top: 44px;
+    padding-top: 60px;
 }
 
 input::placeholder {
@@ -197,7 +197,7 @@ a:hover{
 									</c:forEach>
 								</ul>
 							</div> --%>
-
+							<div id="noDep" style="font-size:1.5em; font-weight:bold;"></div>
 							<div class="form-group">
 								
 									<div class="col-sm-9" style="padding:5px;">
@@ -308,7 +308,7 @@ a:hover{
 												 <button type="button"  class="btn btn-dark btn-xs" onclick="checkboxArr();">참석자에 추가하기</button>
 											</div>
 										</div> --%>
-										<div class="form-group">
+										<div class="form-group" id="memo">
 										<label class="col-sm-3 control-label">메모</label>
 										<div class="col-sm-9">
 											<textarea id="content" name="content"
@@ -319,12 +319,33 @@ a:hover{
 									
 								</form>
 								<div align="right">
-									<button type="button" style="border:none;" class="btn btn-primary antosubmit">
+									
+									<button id="addCal" type="button" style="border:none;" class="btn btn-primary antosubmit">
 										일정 추가</button>
-									<a href="calendarDep.ca" class="btn btn-default">취소</a>
+									<a href="calendarDep.ca" id="close" class="btn btn-default">취소</a>
 								</div>
 								<script>
 								
+								$("#CalenderModalNew").click(function(){
+									 var loginUserDepName = "${loginUser.depName}";
+									 var depName = dName;
+									 console.log(loginUserDepName);
+									 console.log(depName);
+									 
+									 if(!(loginUserDepName == depName)){
+										 $("#noDep").html("※다른 부서에 일정을 추가할 수 없습니다.");
+										 $("#noDep").show();
+										 $("#addCal").hide();
+										 $("#testmodal").hide();
+										 $("#title").hide();
+									 }else{
+										 $("#noDep").hide();
+										 $("#addCal").show();
+										 $("#memo").show();
+										 $("#title").show();
+									 }
+									
+								});
 								</script>
 							</div>
 						</div>
@@ -371,12 +392,7 @@ a:hover{
 										</c:set>
 										
 									</div> --%>
-									<script>
-										//날짜교체 - 클릭시 해당 메소드 호출
-										 function onchangeDay(yy, mm, dd, e) {
-											$("#nows").html(yy + "년 " + mm + "월 "+ dd + "일");
-										} 
-									</script>
+									
 
 									<%-- <div class="form-group">
 										<label class="col-sm-3 control-label">게시자 </label>
@@ -555,7 +571,7 @@ a:hover{
 										<div class="form-group">
 											<label class="col-sm-3 control-label">메모</label>
 											<div class="col-sm-9">
-												<textarea id="descr2" name="descr" 
+												<textarea id="descr2" name="descr" style="height:150px;"
 													
 													readonly></textarea>
 											</div>
@@ -743,19 +759,7 @@ function test(depName){
 }
 
 
-$("#CalenderModalNew").click(function(){
-	 var loginUserDepName = "${loginUser.depName}";
-	 var depName = dName;
-	 console.log(loginUserDepName);
-	 console.log(depName);
-	 
-	 if(!(loginUserDepName == depName)){
-		 alert("다른 부서에는 일정을 추가할 수 없습니다.");
-	 }else{
-		 $("#CalenderModalNew").show();
-	 }
-	
-});
+
 
 function startCal(){
 	
