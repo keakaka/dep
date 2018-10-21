@@ -257,7 +257,7 @@ public class PersonController {
 	
 	@RequestMapping("insertVacation.pm")
 	public String insertvacation(@RequestParam String userNo , @RequestParam String vacReason, @RequestParam String vacType,
-			@RequestParam String vacEndDate,@RequestParam String vacStartDate){
+			@RequestParam String vacEndDate,@RequestParam String vacStartDate , Model model){
 		
 		System.out.println("휴가 정보입력");
 		VacationIn v = new VacationIn();
@@ -266,6 +266,8 @@ public class PersonController {
 			
 			System.out.println(empNo);
 			
+			
+		
 		
 			v.setEmpNo(empNo);
 			v.setVacStartDate(vacStartDate);
@@ -276,13 +278,25 @@ public class PersonController {
 			System.out.println(v);
 			
 			int result = ps.insertvacation(v);
+			
+
+			ArrayList<MemberDepartment> deplist = ms.selectDepList();
+
+			ArrayList<MemberJob> joblist = ms.selectJobList();
+			
+			ArrayList<MemberSelect> mlist = ms.selectAllMember();
+			
+			model.addAttribute("deplist", deplist);
+			model.addAttribute("joblist", joblist);
+			model.addAttribute("mlist", mlist);
+			
 		
-		return "personManagement/vacation";
+			return "personManagement/vacation";
 	}
 	
 
 	@RequestMapping("insertPromotion.pm")
-	public String insertpromotion(@RequestParam String userNo , @RequestParam String jobRecordDate, @RequestParam String jobReason,
+	public String insertpromotion(Model model ,@RequestParam String userNo , @RequestParam String jobRecordDate, @RequestParam String jobReason,
 			@RequestParam String jobCode){
 		PromotionIn p = new PromotionIn();
 		int empNo = Integer.parseInt(userNo);
@@ -335,6 +349,18 @@ public class PersonController {
 		System.out.println("프로모션 컨트롤  : " + p);
 		
 		int result = ps.insertpromotion(p);
+		
+
+		ArrayList<MemberDepartment> deplist = ms.selectDepList();
+
+		ArrayList<MemberJob> joblist = ms.selectJobList();
+		
+		ArrayList<MemberSelect> mlist = ms.selectAllMember();
+		
+		model.addAttribute("deplist", deplist);
+		model.addAttribute("joblist", joblist);
+		model.addAttribute("mlist", mlist);
+		
 		
 		
 		return "personManagement/promotion";
