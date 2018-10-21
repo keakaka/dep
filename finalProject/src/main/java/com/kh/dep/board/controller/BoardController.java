@@ -100,12 +100,8 @@ public class BoardController {
 	}
 
 	@RequestMapping("writeBoard.bo")
-	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request,
-						RedirectAttributes redirectAttributes){
+	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
-	
-			
-			
 			try {
 				int bNo = bs.insertWriteBoard(b);
 				

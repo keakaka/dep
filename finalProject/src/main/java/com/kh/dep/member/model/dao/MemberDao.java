@@ -70,13 +70,15 @@ public interface MemberDao {
 
 	List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list);
 
-	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType);
+	List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType, String nameType);
 
 	List<Alarm> selectMyAlarmList(SqlSessionTemplate sqlSession, int empNo);
 
 	int selectMyAlarmCount(SqlSessionTemplate sqlSession, int empNo);
 
 	int updateMyAlarm(SqlSessionTemplate sqlSession, int alarmNo);
+
+	List<SalaryExcel> selectMySalaryRecord(SqlSessionTemplate sqlSession, int empNo);
 
 
 
