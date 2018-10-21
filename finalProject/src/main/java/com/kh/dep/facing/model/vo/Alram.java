@@ -3,7 +3,7 @@ package com.kh.dep.facing.model.vo;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class Alram {
+public class Alram implements java.io.Serializable {
 	
 	private int empNo;
 	private String alramContents;

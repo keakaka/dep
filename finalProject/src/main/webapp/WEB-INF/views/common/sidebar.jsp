@@ -33,7 +33,7 @@
                      class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                      <li><a href="myInfo.me">개인 정보 수정</a></li>
-                     <li><a href="mySalary.me">급여 내역 조회</a></li>
+                     <li><a href="mySalary.me?var=${loginUser.empNo }">급여 내역 조회</a></li>
                      <li><a href="myJobRank.me?var=${loginUser.empNo }">직급 변경 이력 조회</a></li>
                      <li><a href="myDepartment.me?var=${loginUser.empId }">부서이동 이력 조회</a></li>
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
@@ -89,8 +89,10 @@
                   </ul>
                </li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
-
+				
+			  <c:if test="${sessionScope.loginUser.positionNo eq 'P21' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
+              </c:if>
 
               <c:if test="${sessionScope.loginUser.depId eq 'D2' }">
                <li>
@@ -129,20 +131,22 @@
             <ul class="nav navbar-nav navbar-right">
               <li role="presentation" class="dropdown">
                 <a onclick="return test(${loginUser.empNo });" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope-o"></i>
+                  <i class="fa fa-envelope-o" style="font-size:25px;"></i>
                   <span class="badge bg-green">${loginUser.myAlarmCount }</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
                   
-                  <li>
+                  <!-- <li>
                     <div class="text-center">
                       <a>
                         <strong data-toggle="modal" data-target="#myModal">See All Alerts</strong>
                        <i  class="fa fa-angle-right"></i>
                       </a>
                     </div>
-                  </li>
+                  </li> -->
+                  
                 </ul>
+                
               </li>
 
             </ul>
@@ -171,9 +175,12 @@
       				
       				var str = '';
       				$.each(list, function(i){
-      					str += '<li><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'">' + list[i].alarmContents + '</a>';
+      					
+      					str += '<li style=""><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'" style="font-size:15px;"><b style="font-size:12px;">발신자 : ' + list[i].empName + '</b><br>' + list[i].alarmContents + '</a>';
       					str += '</li>';
-      				})
+      				});
+      				
+      				str += '<li><div class="text-center"><a><strong data-toggle="modal" data-target="#myModal">See All Alerts</strong><i class="fa fa-angle-right"></i></a></div></li>';
       				
       				$("#menu1").append(str);
       				/* $("#alarmMessage").html('');

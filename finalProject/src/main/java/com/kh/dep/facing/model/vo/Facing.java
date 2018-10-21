@@ -18,14 +18,18 @@ public class Facing implements java.io.Serializable {
 	private Date reciverDate;
 	private int depId;
 	private String depName;
+	private String modiFileName;
+	private String oriFileName;
 	
 	public Facing()
 	{
 		
 	}
+
 	
 	public Facing(int empNo, String empName, int facingNo, String facingTitle, String facingContents, Date writeDate,
-			int receiver, String status, Date reciverDate, int depId , String depName) {
+			int receiver, String status, Date reciverDate, int depId, String depName, String modiFileName,
+			String oriFileName) {
 		super();
 		this.empNo = empNo;
 		this.empName = empName;
@@ -38,20 +42,11 @@ public class Facing implements java.io.Serializable {
 		this.reciverDate = reciverDate;
 		this.depId = depId;
 		this.depName = depName;
+		this.modiFileName = modiFileName;
+		this.oriFileName = oriFileName;
 	}
 
-	
-	public String getdepName()
-	{
-		return depName;
-		
-	}
-	
-	public void setdepName(String depName)
-	{
-		this.depName = depName;
-	}
-	
+
 	public int getEmpNo() {
 		return empNo;
 	}
@@ -132,11 +127,41 @@ public class Facing implements java.io.Serializable {
 		this.depId = depId;
 	}
 
+	public String getDepName() {
+		return depName;
+	}
+
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
+
+	public String getModiFileName() {
+		return modiFileName;
+	}
+
+	public void setModiFileName(String modiFileName) {
+		this.modiFileName = modiFileName;
+	}
+
+	public String getOriFileName() {
+		return oriFileName;
+	}
+
+	public void setOriFileName(String oriFileName) {
+		this.oriFileName = oriFileName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Facing [empNo=" + empNo + ", empName=" + empName + ", facingNo=" + facingNo + ", facingTitle="
 				+ facingTitle + ", facingContents=" + facingContents + ", writeDate=" + writeDate + ", receiver="
-				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + ", depId=" + depId + "]";
+				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + ", depId=" + depId + ", depName="
+				+ depName + ", modiFileName=" + modiFileName + ", oriFileName=" + oriFileName + "]";
 	}
+	
+	
+	
+	
 	
 }

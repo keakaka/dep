@@ -1,0 +1,132 @@
+
+
+	sts repository  저장경로
+
+ C:\Users\Shin\.m2\repository  문제생기면 파일 삭제 후 이클립스 alt + F5 실행해서  재 다운로드
+
+ spring setting
+
+
+ pom.xml 수정
+
+
+ <properties>
+		<java-version>1.8</java-version>
+		<org.springframework-version>5.0.8.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.8.13</org.aspectj-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
+	</properties>
+
+
+  properties 에서
+
+ build path
+
+ tomcat 추가  ( server runtime)
+
+
+ project facets java 버전 1.8 변경
+
+
+ jstl 추가
+
+ WEB-INF > lib 폴더 생성
+
+
+ 처음 접속화면에서 한글 꺠질때
+
+ home.jsp 파일에
+
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+추가
+
+ maven download 들어가서
+
+ apache-maven-3.5.4-bin 파일 다운로드
+
+ 해제 후 conf - setting 열기
+
+ local repository 찾기 > 태그 복사 후 주석 바깥에 붙여넣기
+
+ apache-maven 폴더에 repository 폴더 생성하고 경로 붙여넣기 > 저장
+
+라이브러리 저장경로 변경
+<localRepository>D:\dev\apache-maven-3.5.4-bin\apache-maven-3.5.4\repository</localRepository>
+
+
+ 이클립스 > window > preferences > maven > user Setting > user setting browe 클릭
+
+ 변경한 세팅 경로 선택 후 저장
+
+ 다시 다운로드 받으므로 problems 재확인필요
+
+ 
+ window > preferences > team > ignored Resource > add pattern
+
+ */target/* 추가
+
+
+ webapp > spring > root-context.xml 파일   main > resources 로 이동
+
+ spring 바로 밑에 servlet-context.xml 이동하고
+
+ action-servlet.xml 로이름 변경  spring -> config로 폴더명 변경
+
+
+web.xml 파일
+
+1
+<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+
+아래로 변경
+<param-value>/WEB-INF/config/action-servlet.xml</param-value>변경
+
+
+
+2
+/WEB-INF/spring/root-context.xml</param-value>
+
+<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:root-context.xml</param-value>
+	</context-param>
+ 변경
+
+
+
+
+ /WEB-INF/config/member-servlet.xml 생성
+
+
+ web.xml 수정
+
+<!-- Processes application requests -->
+	<!-- <servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/action-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping> -->
+	
+	<servlet>
+		<servlet-name>member</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/member-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>

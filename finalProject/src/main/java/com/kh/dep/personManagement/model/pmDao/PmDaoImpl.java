@@ -1,6 +1,8 @@
 package com.kh.dep.personManagement.model.pmDao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,6 +27,9 @@ public class PmDaoImpl implements PmDao {
 		Working w = new Working();
 		ArrayList<Working> list = (ArrayList) sqlSession.selectList("Working.workingSelectList" , depName);
 		
+	
+
+
 		for(int i = 0; i<list.size(); i++)
 		{
 			System.out.println("출근시간 : " + list.get(i).gettTime());
@@ -212,6 +217,40 @@ public class PmDaoImpl implements PmDao {
 		System.out.println("result" + result);
 		
 		return result;
+	}
+
+	@Override
+	public ArrayList<Working> depNameList(SqlSessionTemplate sqlSession, int empNo) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Working> list = (ArrayList) sqlSession.selectList("Working.workingNameSelectList",empNo);
+		
+		for(int i = 0; i<list.size(); i++)
+		{
+			System.out.println("출근시간 : " + list.get(i).gettTime());
+			String sysdate = list.get(i).gettTime();
+			String sibal = sysdate.substring(0,2);
+			
+			System.out.println("시발 : " + sibal);
+			int sibalint = Integer.parseInt(sibal);
+			String jigak ="지각" ;
+			String chul ="정상출근";
+			if(sibalint > 10)
+			{
+			
+				list.get(i).setState(jigak);;
+				System.out.println("리스트 출력1 :" + list);
+			}else
+			{
+				
+		
+				list.get(i).setState(chul);
+				
+			}
+		
+			
+		}
+		return list;
 	}
 
 	

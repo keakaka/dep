@@ -261,8 +261,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType) {
-		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType);
+	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType, String nameType) {
+		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType + " 사원이름 : " + nameType);
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 		
 		/*if(depType.equals("D0")){
@@ -280,12 +280,14 @@ public class MemberDaoImpl implements MemberDao {
 			list = sqlSession.selectList("Member.selectSearchCondition", arr);
 		}*/
 		
+		
 		ArrayList<Object> arr = new ArrayList<Object>();
 		
 		arr = new ArrayList<Object>();
 		arr.add(depType);
 		arr.add(jobType);
 		arr.add(dateType);
+		arr.add(nameType);
 		
 		list = sqlSession.selectList("Member.selectSearchCondition", arr);
 		
@@ -324,6 +326,25 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("내 알람 삭제되었으면 1 : " + result);
 		
 		return result;
+	}
+
+	@Override
+	public List<SalaryExcel> selectMySalaryRecord(SqlSessionTemplate sqlSession, int empNo) {
+		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
+		list = sqlSession.selectList("Member.selectMySalaryRecord", empNo);
+		
+		System.out.println("내 급여이력 조회(dao) : " + list);
+		
+		int totalSalary = 0;
+		for(int i=0;i<list.size();i++){
+			
+			totalSalary = (list.get(i).getBasePay() + list.get(i).getRegularBonus() + list.get(i).getTaxFreeAlw()) 
+		             - (list.get(i).getNationalPension() + list.get(i).getHealthIns() + list.get(i).getLongtermcareIns() + list.get(i).getEmployeeIns());
+			list.get(i).setTotalSalary(totalSalary);
+			
+		}
+		
+		return list;
 	}
 	
 	

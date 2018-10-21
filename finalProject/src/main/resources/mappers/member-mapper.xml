@@ -136,10 +136,11 @@
 		<result property="employeeIns" column="EMPLOYEE_INS" />
 	</resultMap>
 	
-	<resultMap type="Alarm" id="mySalaryResultSet">
+	<resultMap type="Alarm" id="myAlarmResultSet">
 		<id property="alarmNo" column="ALARM_NO" />
 		<result property="alarmContents" column="ALARM_CONTENTS" />
 		<result property="empNo" column="EMP_NO" />
+		<result property="empName" column="EMP_NAME" />
 	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
@@ -463,19 +464,22 @@
 		AND D.DEP_ID = ${list.get(0)}
 		AND J.JOB_CODE = ${list.get(1)}
 		AND S.INCOME_DATE LIKE ${list.get(2)}
+		AND E.EMP_NAME LIKE ${list.get(3)}
 	</select>
 	
-	<select id="selectMyAlarmList" parameterType="_int" resultMap="mySalaryResultSet">
-		SELECT ALARM_NO, ALARM_CONTENTS, EMP_NO
-		FROM ALARM
+	<select id="selectMyAlarmList" parameterType="_int" resultMap="myAlarmResultSet">
+		SELECT ALARM_NO, ALARM_CONTENTS, EMP_NO, EMP_NAME
+		FROM ALARM A
+		JOIN EMPLOYEE USING(EMP_NO)
 		WHERE EMP_NO = #{empNo}
-		AND STATUS = 'Y'
+		AND A.STATUS = 'Y'
 	</select>
 	
 	<select id="selectMyAlarmCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM ALARM
 		WHERE EMP_NO=#{empNo}
+		AND STATUS='Y'
 	</select>
 	
 	<update id="updateMyAlarm" parameterType="_int">
@@ -485,13 +489,19 @@
 	</update>
 
 	<insert id="insertFacingAttach" parameterType="Attachment">
-	INSERT INTO
+		INSERT INTO
 		ATTACHMENT(FILE_NO, ORI_FILENAME, MODI_FILENAME, UPLOAD_DATE,EMAIL_NO, EMP_NO,
 		EMP_TYPE)
 		VALUES(FILE_NO.NEXTVAL, #{oriFileName}, #{modiFileName},
 		SYSDATE,#{emailNo},#{empNo},'ET1')
 	</insert>
 
+	<select id="selectMySalaryRecord" parameterType="_int" resultMap="salaryRecordResultSet">
+		SELECT INCOME_DATE, BASE_PAY, REGULAR_BONUS, TAX_FREE_ALW, NATIONAL_PENSION, HEALTH_INS, LONGTERMCARE_INS, EMPLOYEE_INS 
+		FROM SALARY
+		WHERE EMP_NO=#{empNo}
+	</select>
+	
 </mapper>
 
 
