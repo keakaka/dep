@@ -105,6 +105,7 @@
 	AND ROWNUM = 1 
 	ORDER BY FACING_NO DESC
 	</select>
+
 	<insert id="insertFaicngR" parameterType="FacingInsertR">
 	INSERT INTO "FINAL"."FACING_RECEIVE" (FACING_NO, RECEIVER, RECEIVE_DATE) 
 	VALUES (#{facingNo}, #{receiver}, SYSDATE)

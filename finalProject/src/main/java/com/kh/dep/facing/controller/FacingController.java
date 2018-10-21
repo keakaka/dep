@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.set.SynchronizedSortedSet;
+import org.apache.log4j.helpers.SyslogQuietWriter;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -200,11 +201,16 @@ public class FacingController {
 		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 		System.out.println("리스트" + mlist);
 		Facing nowFacing = fs.selectNowFacing(empNo);
+
 		System.out.println("nowFacing : " + nowFacing);
+
+		System.out.println(nowFacing);
+
 		System.out.println("돌아온 최근 쪽지번호 : " + nowFacing.getFacingNo());
 	
 		
 		//==================수신자 ,알람 인설트==================
+
 		if(result > 0  && receive.length() > 5 )
 		{
 			System.out.println("if문들어감");
@@ -260,6 +266,7 @@ public class FacingController {
 			
 			else if(result > 0 && receive.length() < 6 )
 			{
+				
 				for(int i = 0; i<mlist.size(); i++)
 				{	
 					System.out.println("=================");
