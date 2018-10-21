@@ -1,5 +1,7 @@
 package com.kh.dep.addressBook.model.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,11 +15,12 @@ public class AddressBook implements  java.io.Serializable{
 	private String phone;
 	private String email;
 	private int loginNo;
+	private Date jobRecordDate;
 	
 	public AddressBook() {}
 
 	public AddressBook(int empNo, String addressBookId, String depName, String empName, String jobName,
-			String positionName, String phone, String email, int loginNo) {
+			String positionName, String phone, String email, int loginNo, Date jobRecordDate) {
 		super();
 		this.empNo = empNo;
 		this.addressBookId = addressBookId;
@@ -28,6 +31,7 @@ public class AddressBook implements  java.io.Serializable{
 		this.phone = phone;
 		this.email = email;
 		this.loginNo = loginNo;
+		this.jobRecordDate = jobRecordDate;
 	}
 
 	public int getEmpNo() {
@@ -66,6 +70,10 @@ public class AddressBook implements  java.io.Serializable{
 		return loginNo;
 	}
 
+	public Date getJobRecordDate() {
+		return jobRecordDate;
+	}
+
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
@@ -102,11 +110,15 @@ public class AddressBook implements  java.io.Serializable{
 		this.loginNo = loginNo;
 	}
 
+	public void setJobRecordDate(Date jobRecordDate) {
+		this.jobRecordDate = jobRecordDate;
+	}
+
 	@Override
 	public String toString() {
 		return "AddressBook [empNo=" + empNo + ", addressBookId=" + addressBookId + ", depName=" + depName
 				+ ", empName=" + empName + ", jobName=" + jobName + ", positionName=" + positionName + ", phone="
-				+ phone + ", email=" + email + ", loginNo=" + loginNo + "]";
+				+ phone + ", email=" + email + ", loginNo=" + loginNo + ", jobRecordDate=" + jobRecordDate + "]";
 	}
 
 	

@@ -129,9 +129,7 @@ a:hover{
 									</div>
 									
 								</div>
-							</div>
 
-						</div>
 						<br />
 						<!-- footer content -->
 
@@ -145,7 +143,7 @@ a:hover{
 							<div class="clearfix"></div>
 						</footer>
 						<!-- /footer content -->
-					</div>
+						</div>
 					<!-- /page content -->
 
 				</div>
@@ -308,7 +306,7 @@ a:hover{
 								<div align="right">
 									<button type="button" style="border:none;" class="btn btn-primary antosubmit">
 										일정 추가</button>
-									<a href="calendar.ca" class="btn btn-default">취소</a>
+									<a href="calendarMy.ca" class="btn btn-default">취소</a>
 								</div>
 								<script>
 								
