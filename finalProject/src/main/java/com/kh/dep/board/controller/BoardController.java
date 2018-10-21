@@ -113,13 +113,16 @@ public class BoardController {
 					
 					b.setBoardNo(bNo);
 					
-				
-						 List<MultipartFile> fileList = mtfRequest.getFiles("file");
+					 List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
-							String root = request.getSession().getServletContext().getRealPath("resources");
-							String filePath = root + "\\uploadTest";
-		
-							for(MultipartFile f : fileList){
+						String root = request.getSession().getServletContext().getRealPath("resources");
+						String filePath = root + "\\uploadTest";
+	
+						for(MultipartFile f : fileList1){
+						
+							String originFileName = f.getOriginalFilename();
+							String ext = originFileName.substring(originFileName.lastIndexOf("."));
+							String changeName = CommonUtils.getRandomString();
 							
 								
 									String originFileName = f.getOriginalFilename();

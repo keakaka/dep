@@ -15,6 +15,8 @@
 		<result property="receiverDate" column="RECEIVER_DATE" />
 		<result property="depId" column="DEP_ID" />
 		<result property="depName" column="DEP_NAME" />
+		<result property="oriFileName" column="ORI_FILENAME" />
+		<result property="modiFileName" column="MODI_FILENAME"/>
 		
 	</resultMap>
 		<resultMap type="FacingInsert" id="FacingIResultSet">
@@ -42,12 +44,15 @@
 		<result property="status" column="STATUS" />
 	</resultMap>
 	
-	<!-- <resultMap type="WorkginRecord" id="WorkingResultSet">
-		<id property="empNo" column="EMP_NO" />
-		<result property="hours" column="HOURS" />
-		<result property="workRecordNo" column="WORK_RECORD_NO" />	
-	</resultMap> -->
+	<resultMap type="WorkingQr" id="WorkingListResultSet">
+		<id property="empNo" column="EMP_NO"/>
+		<result property="workRecordNo" column="WORK_RECORD_NO" />
+		<result property="hours" column="HOURS" />	
+		<result property="empName" column="EMP_NAME" />
+		<result property="today" column="TODAY" />
+	</resultMap>
 	
+
 	<!-- 출석 -->
 	<insert id="insertWorking" parameterType="WorkingRecord">
 	
@@ -72,9 +77,11 @@
 	</select>
 	
 	<select id ="selectOneFacing" resultMap="FacingResultSet" parameterType="int">
-	SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS 
-	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) 
+	
+    SELECT F.WRITE_DATE , E.EMP_NAME , F.FACING_TITLE , F.FACING_CONTENTS , F.EMP_NO , ORI_FILENAME , MODI_FILENAME
+	FROM FACING F JOIN EMPLOYEE E ON (F.EMP_NO = E.EMP_NO) JOIN ATTACHMENT A ON (F.FACING_NO = A.EMAIL_NO)  
     WHERE F.FACING_NO = #{facingNo}
+    
 	</select>
 	
 	<update id="updateFacing" parameterType="int">
@@ -105,20 +112,15 @@
 	VALUES (ALARM_NO.NEXTVAL,#{alramContents}, #{empNo}, 'N')
 	</insert>
 	
-<!-- 	   쪽지보내기 쿼리문 
-   <insert id="insertFacing"  parameterType="Facing">
-      INSERT INTO FACING
-      VALUES(FACING_NO.NEXTVAL, #{facingTitle}, #{facingContens}, SYSDATE, 
-            #{empNo}, 'Y')
-      
-   </insert>
-   
-      <insert id="insertFacing"  parameterType="Facing">
-      INSERT INTO FACING_RECEIVE
-      VALUES(FACING_NO.NEXTVAL, #{RECEIVER}, SYSDATE)
-   	  </insert>
-   
-  -->
+	<!-- 출석후 페이지 -->
+	<select id="selectQrList" resultMap="WorkingListResultSet" parameterType="int">
+	SELECT WORK_RECORD_NO ,WR.EMP_NO,EMP_NAME,TO_CHAR(HOURS,'YYYY-MM-DD')TODAY,TO_CHAR(HOURS,'HH24:MI:SS')HOURS    
+    FROM WORKING_RECORD WR JOIN EMPLOYEE E ON (WR.EMP_NO = E.EMP_NO)
+    WHERE HOURS = (SELECT MAX(HOURS) FROM WORKING_RECORD)
+    AND WR.EMP_NO = #{empNo}
+	</select>
+	
+
 </mapper>
 
 

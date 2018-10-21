@@ -10,6 +10,7 @@ import com.kh.dep.facing.model.vo.Alram;
 import com.kh.dep.facing.model.vo.Facing;
 import com.kh.dep.facing.model.vo.FacingInsert;
 import com.kh.dep.facing.model.vo.FacingInsertR;
+import com.kh.dep.facing.model.vo.WorkingQr;
 import com.kh.dep.facing.model.vo.WorkingRecord;
 import com.kh.dep.member.model.vo.Member;
 import com.kh.dep.member.model.vo.MemberJob;
@@ -36,6 +37,8 @@ public interface FacingDao {
 	int insertReceiver(FacingInsertR fir);
 
 	int insertAlram(Alram al);
+
+	ArrayList<WorkingQr> selectWorking(SqlSessionTemplate sqlSession,int empNo);
 
 
 	

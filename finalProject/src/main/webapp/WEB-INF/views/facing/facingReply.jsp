@@ -102,7 +102,7 @@
                     <input type="text" id="price" class="form-control" name="price" data-parsley-trigger="change" required /><br>
                      -->
 					<label for="count">받는사람 * :</label>
-                    <input type="text" id="count" class="form-control" name="receive" value=''/><br>
+                    <input type="text" id="count" class="form-control" name="receive" value="${f.empName}" readonly/><br>
                     <label>제목</label><br>
                     
                     <div class="well">
