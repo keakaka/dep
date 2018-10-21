@@ -122,9 +122,10 @@ a:hover{
 														type="button" data-toggle="dropdown">부서일정
 														<span class="caret"></span>
 													</button>
-													<ul class="dropdown-menu">
+													<ul id="test" class="dropdown-menu">
 													<c:forEach var="d" items="${depList }">
-														<li><a id="dep" value="${d.depId }">${d.depName }</a></li>
+														<%-- <input type="hidden" id="depName" value="${d.depName }"></input> --%>
+														<li><a onclick="test('${d.depName}');" value="${d.depId }">${d.depName }</a></li>
 													</c:forEach>
 													</ul>
 													
@@ -176,8 +177,6 @@ a:hover{
 			</div>
 
 			<!-- Start Calender modal -->
-			
-			
 			<div id="CalenderModalNew" class="modal fade" tabindex="-1"
 				role="dialog" aria-hidden="true"
 				aria-labelledby="my80sizeCenterModalLabel">
@@ -570,7 +569,9 @@ a:hover{
 								<button type="button" class="btn btn-primary"
 									data-dismiss="modal" style="border:none;">닫기</button>
 							</div>
-						</div>
+						
+					</div>
+						 <input type="hidden" id="closeM" class="btn btn-default antoclose" data-dismiss="modal"></input>
 						<script>
 						//일정 수정 모달창으로 이동
 						function updateC(){
@@ -654,6 +655,7 @@ a:hover{
 									type:'post',
 									data:{id:id},
 									success:function(data){
+										
 										window.location = "calendarDep.ca";
 										
 									},
@@ -731,10 +733,32 @@ a:hover{
 
 
 <script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
+
 <script>
+var dName;
+
+function test(depName){
+	console.log(depName);
+	dName = depName;
+}
+
+
+$("#CalenderModalNew").click(function(){
+	 var loginUserDepName = "${loginUser.depName}";
+	 var depName = dName;
+	 console.log(loginUserDepName);
+	 console.log(depName);
+	 
+	 if(!(loginUserDepName == depName)){
+		 alert("다른 부서에는 일정을 추가할 수 없습니다.");
+	 }else{
+		 $("#CalenderModalNew").show();
+	 }
+	
+});
+
 function startCal(){
-	   
-	   
+	
 	  var date = new Date();
 	  var d = date.getDate();
 	  var m = date.getMonth();
@@ -791,30 +815,10 @@ function startCal(){
 						console.log(empNo2);
 						console.log(empName2);
 						
+						
 						window.location = "calendarDep.ca";
 						
-						/* var list = data.list2;
-						console.log(list); */
 						
-						/* if(sDate){
-							
-							started = sDate
-						}
-						if (eDate) {
-							
-							ended = eDate
-						} */
-						
-
-						/* if (title, content) {
-							calendar.fullCalendar('renderEvent', {
-								title : title,
-								content : content,
-								start : start,
-								end : end
-							}, true // make the event "stick"
-							);
-						} */
 						console.log("success");
 					},
 					error:function(data){
@@ -987,6 +991,7 @@ $(window).load(function() {
 											
 										});
 									});
+									
 									
 									
 									</script>
