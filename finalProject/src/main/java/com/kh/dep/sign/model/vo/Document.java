@@ -14,6 +14,7 @@ public class Document implements java.io.Serializable{
 	private int empNo;
 	private String writer;
 	private int appStatus;
+	private int appReject;
 	private String approvalStatus;
 	private String appReason;
 	private String approvalDate;
@@ -21,7 +22,7 @@ public class Document implements java.io.Serializable{
 	public Document(){}
 
 	public Document(int docNo, String docTitle, String docContent, int docformNo, Date writeDate, int empNo, String writer, 
-			int appStatus, String approvalStatus, String appReason, String approvalDate) {
+			int appStatus, int appReject, String approvalStatus, String appReason, String approvalDate) {
 		super();
 		this.docNo = docNo;
 		this.docTitle = docTitle;
@@ -31,6 +32,7 @@ public class Document implements java.io.Serializable{
 		this.empNo = empNo;
 		this.writer = writer;
 		this.appStatus = appStatus;
+		this.appReject = appReject;
 		this.approvalStatus = approvalStatus;
 		this.appReason = appReason;
 		this.approvalDate = approvalDate;
@@ -40,7 +42,7 @@ public class Document implements java.io.Serializable{
 	public String toString() {
 		return "Document [docNo=" + docNo + ", docTitle=" + docTitle + ", docContent=" + docContent + ", docformNo=" + docformNo + ", writeDate="
 				+ writeDate + ", empNo=" + empNo + ", writer=" + writer + ", appStatus=" + appStatus + ", approvalStatus=" + approvalStatus + 
-				", appReason=" + appReason + ", approvalDate=" + approvalDate + "]";
+				", appReason=" + appReason + ", appReject=" + appReject + ", approvalDate=" + approvalDate + "]";
 	}
 
 	public int getDocNo() {
@@ -105,6 +107,14 @@ public class Document implements java.io.Serializable{
 
 	public void setAppStatus(int appStatus) {
 		this.appStatus = appStatus;
+	}
+	
+	public int getAppReject() {
+		return appReject;
+	}
+	
+	public void setAppReject(int appReject) {
+		this.appReject = appReject;
 	}
 	
 	public String getApprovalStatus() {

@@ -71,7 +71,7 @@
                         <th>제목</th>
                         <th>기안자</th>
                         <th>작성일자</th>
-                        <th>결재상태</th>
+                        <th>결재상태<small>(진행상태 클릭)</small></th>
                         <th>문서 보기</th>
                       </tr>
                     </thead>
@@ -82,11 +82,14 @@
                     		<td>${d.docTitle }</td>
                     		<td>${d.writer }</td>
                     		<td>${d.writeDate }</td>
-                    		<c:if test="${d.appStatus > 0}">
+                    		<c:if test="${d.appStatus > 0 && d.appReject == 0}">
                     			<td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showAppProg" style="cursor:pointer">결재 진행중</a></td>
                     		</c:if>
-                    		<c:if test="${d.appStatus < 1 }">
+                    		<c:if test="${d.appStatus < 1 && d.appReject == 0}">
                     			<td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showAppProg" style="cursor:pointer">결재 완료</a></td>
+                    		</c:if>
+                    		<c:if test="${d.appReject > 0}">
+                    			<td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showAppProg" style="cursor:pointer">결재 반려</a></td>
                     		</c:if>
                     		<td align="center"><button type="button" class="btn btn-default btn-xs showDoc">문서 보기</button></td>
                     	</tr>
@@ -141,15 +144,20 @@
             					var $appProg = $(".appProg");
             					$appProg.html('');
             					var $tr = $("<tr>");
+            					var $writer = $('<td align="center" style="font-weight:bold;">').text('결재자');
+            					$tr.append($writer);
             					$.each(data, function(index, val){
 									var $td = $("<td align='center'>").text(decodeURIComponent(val.writer));
 									$tr.append($td);
 								});
 								
             					var $tr2 = $("<tr>");
+            					var $status = $('<td align="center" style="font-weight:bold;">').text('결재상태');
+            					$tr2.append($status);
             					$.each(data, function(index, val){
             						var status = "";
-            						if(val.approvalStatus = 'AP1'){
+            						console.log("val stats : " + val.approvalStatus);
+            						if(val.approvalStatus == 'AP1'){
             							status = '결재 대기중';
             						}else if(val.approvalStatus == 'AP2'){
             							status = '승인';
@@ -160,6 +168,8 @@
 									$tr2.append($td);
 								});
             					var $tr3 = $("<tr>");
+            					var $date = $('<td align="center" style="font-weight:bold;">').text('결재일자');
+            					$tr3.append($date);
             					$.each(data, function(index, val){
             						var date = decodeURIComponent(val.approvalDate);
             						if(date == "null"){
@@ -169,6 +179,8 @@
 									$tr3.append($td);
 								});
             					var $tr4 = $("<tr>");
+            					var $reason = $('<td align="center" style="font-weight:bold;">').text('사유');
+            					$tr4.append($reason);
             					$.each(data, function(index, val){
             						var reason = decodeURIComponent(val.appReason);
             						if(reason == "null"){

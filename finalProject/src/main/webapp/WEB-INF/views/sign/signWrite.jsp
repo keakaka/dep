@@ -312,7 +312,6 @@
                    </c:forEach> 
 				  </select>
 				  <button type="button" onclick="resetApp();" class="btn btn-default btn-xs">결재선 및 수신 참조자 재설정</button>
-				  <button type="button" class="testTable">테스트</button>
 				  <script>
 				  	function resetApp(){
 				  		var recTable = $('.recTable');
@@ -325,11 +324,6 @@
 				  			
 				  		}
 				  	}
-				  	$(function(){
-				  		$('.testTable').click(function(){
-				  			console.log($('.recTable'));
-				  		});
-				  	});
 				  	
 				  </script>
                   <div class="clearfix"></div>

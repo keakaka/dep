@@ -52,9 +52,7 @@ public class SignServiceImpl implements SignService{
 			result3 = sd.insertReceiving_Check(sqlSession, is);
 		}
 		
-		if(is.getOriginFileName() != null){
 			result4 = sd.insertAttachment(sqlSession, is);
-		}
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			result = 1;
