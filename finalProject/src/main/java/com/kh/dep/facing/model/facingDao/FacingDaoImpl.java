@@ -67,7 +67,7 @@ public class FacingDaoImpl implements FacingDao {
 		System.out.println("상세보기 다오입장!");
 		
 		Facing f = (Facing) sqlSession.selectOne("Facing.selectOneFacing" , facingNo);
-		
+		System.out.println("dao eno : " + f.getEmailNo());
 		if(f == null)
 		{
 			throw new FacingSelectListException("리스트 조회 실패");

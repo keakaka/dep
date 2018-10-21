@@ -44,5 +44,14 @@ public class AttachDaoImpl implements AttachDao {
 		return (ArrayList)sqlSession.selectList("Board.selectDownList", b);
 	}
 
+	//기존 게시판 첨부파일 삭제
+	@Override
+	public int deleteBoardAttach(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		
+		
+		return sqlSession.delete("Board.deleteBoardAttach" , boardNo);
+	}
+
 	
 }

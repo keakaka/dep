@@ -258,6 +258,7 @@ public class PersonController {
 	@RequestMapping("insertVacation.pm")
 	public String insertvacation(@RequestParam String userNo , @RequestParam String vacReason, @RequestParam String vacType,
 			@RequestParam String vacEndDate,@RequestParam String vacStartDate , Model model){
+
 		
 		System.out.println("휴가 정보입력");
 		VacationIn v = new VacationIn();
@@ -278,7 +279,6 @@ public class PersonController {
 			System.out.println(v);
 			
 			int result = ps.insertvacation(v);
-			
 
 			ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
@@ -286,10 +286,12 @@ public class PersonController {
 			
 			ArrayList<MemberSelect> mlist = ms.selectAllMember();
 			
+
 			model.addAttribute("deplist", deplist);
 			model.addAttribute("joblist", joblist);
 			model.addAttribute("mlist", mlist);
-			
+
+			System.out.println("근태관리 입장");
 		
 			return "personManagement/vacation";
 	}

@@ -14,6 +14,9 @@ public interface AttachService {
 	int insertBoardAttach(Attachment file);
 
 	ArrayList<Attachment> selectDownloadList(Board b);
+
+	int deleteBoardAttach(int boardNo);
+
 	
 
 }

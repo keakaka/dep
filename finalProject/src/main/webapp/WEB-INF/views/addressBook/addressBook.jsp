@@ -177,7 +177,7 @@
 															<td width="190">${list.positionName}</td>
 															<td width="320">${list.phone}</td>
 															<td>${list.email}</td>
-															<td><a data-toggle="modal" data-target="#myModal22"><i class="fa fa-envelope fa-lg"></i></a></td>
+															<td><a data-toggle="modal" data-target="#viewModal" onclick="modal_view('${list.empName}')"><i class="fa fa-envelope fa-lg"></i></a></td>
 															<%-- <td><a onclick="facing(${list.empNo});"><i class="fa fa-envelope fa-lg"></i></a></td> --%>
 															<td><a onclick="deleteAdd(${list.empNo});"><i class="fa fa-trash fa-lg"></i></a></td>
 														</tr>
@@ -185,38 +185,44 @@
 													</c:forEach>
 												</tbody>
 											</table>
-											<!-- <script type="text/javascript">
-											function facing(empNo){
-												console.log(empNo);
-												
-												$("#myModal22").show();
+											<script type="text/javascript">
+											function modal_view(cp){
+												var single_cal1 = $("#single_cal1");
+												var summernote = $(".note-editable");
+												console.log(summernote.val());
+												console.log(single_cal1.val());
+												single_cal1.val('');
+												summernote.html('');
+												$("#viewModal").on('show.bs.modal', function(event){
+													$('.modal-body #count').val(cp);
+												});
 												
 											}
-											</script> -->
+											</script>
 											
 											
-											
-											<div class="modal fade" id="myModal22" role="dialog">
+											<div class="modal fade" id="viewModal" role="dialog">
 												<div class="modal-dialog">
 
 													<!-- Modal content-->
 													<div class="modal-content">
 														<div class="modal-header" align="left">
-															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<a class="close" style="float:right;" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></a>
 															<h5 class="modal-title"><i class="fa fa-envelope fa-lg"></i> 메일</h5>
 														</div>
 														<div class="modal-body">
 
                      <!-- start form for validation -->
-                  <form id="demo-form" data-parsley-validate action="facingInsert.ms?loginUser=${sessionScope.loginUser.empNo}" method="post" enctype="multipart/form-data" autocomplete="off">
+                  <form id="demo-form" data-parsley-validate action="facingInsert2.ms?loginUser=${sessionScope.loginUser.empNo}" method="post" enctype="multipart/form-data" autocomplete="off">
                   
                     <!-- <label for="price">보내는사람 * :</label>
                     <input type="text" id="price" class="form-control" name="price" data-parsley-trigger="change" required /><br>
                      -->
-					<label for="count" >받는사람 * :</label>
-                    <input style="width:200px"type="text" id="count" class="form-control" name="receive" value=''/><br>
+					<label for="count">받는사람 * :</label>
+                    <input type="text" id="count" class="form-control" name="receive" value="${f.empName}" readonly/><br>
                     <label>제목</label><br>
-                    <div class="well">
+                     <input type="text" id="single_cal1" class="form-control" name="title" /><br>
+                    <!-- <div class="well">
                     	 <fieldset>
 	                        <div class="control-group">
 	                          <div class="controls">
@@ -228,7 +234,8 @@
 	                          </div>
 	                        </div>
 	                      </fieldset>
-	                    </div>
+	                    </div> -->
+                    
 						<label>내용</label>
 						<textarea id="summernote" name="mailContent" required>
 							
@@ -237,7 +244,7 @@
 	                  	<label>썸네일 : &nbsp; </label><input id='thumbnail' multiple="multiple" type="file" name="file" size=40>
 	                  	<br><br>
 	                  	
-	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="border:none; width:400px;">보내기</button>
+	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:400px;">보내기</button>
                         <br/>
                         <input type='hidden' id='hid' name='hid' value=''>	<!-- 유저 아이디 -->
 						<input type='hidden' id='read' name='attachNo' value='food'>			<!-- Attach id 번호 -->
@@ -338,11 +345,7 @@
 
 
       </script>
-                        <script type="text/javascript">
-                        
-						
-						</script>
-						
+                    
                   </form>
                   <br>
                   <!-- end form for validations -->

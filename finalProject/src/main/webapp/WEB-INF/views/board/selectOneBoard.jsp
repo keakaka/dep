@@ -95,46 +95,64 @@
                 <div class="x_content">
 
                      <!-- start form for validation -->
-                  <form id="demo-form" data-parsley-validate action="" method="post" enctype="multipart/form-data">
+                  <form id="demo-form" data-parsley-validate action="updateBoard.bo" method="post" enctype="multipart/form-data">
                   
-                   <c:if test="${sessionScope.loginUser.empNo ne b.empNo}">
+                    <c:if test="${sessionScope.loginUser.empNo ne b.empNo}">
                     <label for="fullname">제목 :</label>
                     <input type="text" id="boardTitle" class="form-control" name="boardTitle" readonly value="${b.boardTitle}" /><br>
-                	</c:if>
-                	 <c:if test="${sessionScope.loginUser.empNo eq b.empNo}">
-                	 <label for="fullname">제목 :</label>
-                    <input type="text" id="boardTitle" class="form-control" name="boardTitle" value="${b.boardTitle}" /><br>
-                    </c:if>
-                	<label for="fullname">작성자 :</label>
+                    
+                    <label for="fullname">작성자 :</label>
                     <input type="text" id="boardTitle" class="form-control" name="boardTitle" readonly value="${b.empName} ${b.jobName}" /><br>
                     
                     <label for="fullname">작성일 :</label>
                     <input type="text" id="boardDate" class="form-control" name="boardDate" readonly value="${b.boardDate}" /><br>
                     
-	                <label>첨부파일 : &nbsp; </label>
+                    <label>첨부파일 : &nbsp; </label>
 	                <c:forEach var="at" items="${atlist}">
 	                <a href="fileDown.bo?fileName=${at.modiFileName}&orifileName=${at.oriFileName}">${at.oriFileName}</a>&nbsp;&nbsp;
 	                </c:forEach>
-         
-						<br><br>
+                    
+                    <br><br>
 						<textarea id="summernote" name="boardContent" resize="none">
 							${b.boardContent} 
 						</textarea>
-						
-	                  	<br><br>
-	              
-	                  	<c:if test="${sessionScope.loginUser.empNo eq b.empNo}"> 
-	                  	<button type="button" onclick="moveUpdate(${b.boardNo})" id='Enrollment' class="btn btn-primary" style="width:400px; float:right;">게시글 수정</button>
-	                  	</c:if>
+                    
+                	</c:if>
+                	
+                	 <c:if test="${sessionScope.loginUser.empNo eq b.empNo}">
+                	 <label for="fullname">제목 :</label>
+                    <input type="text" id="boardTitle" class="form-control" name="boardTitle" value="${b.boardTitle}" /><br>
+                    <label for="fullname">작성자 :</label>
+                    <input type="text" id="boardTitle" class="form-control" readonly value="${b.empName} ${b.jobName}" /><br>
+                    <label for="fullname">작성일 :</label>
+                    <input type="text" id="boardDate" class="form-control" readonly value="${b.boardDate}" /><br>
+                    <label>첨부파일 : &nbsp; </label>
+	                <c:forEach var="at" items="${atlist}">
+	                <a href="fileDown.bo?fileName=${at.modiFileName}&orifileName=${at.oriFileName}">${at.oriFileName}</a>&nbsp;&nbsp;
+	                </c:forEach>
+	                <br>
+	                 <label>수정파일 : &nbsp; </label><input multiple="multiple" type="file" name="file" size=40>
+                    <br><br>
+						<textarea id="summernote" name="boardContent">
+							${b.boardContent} 
+						</textarea>
+                    <br><br>
+                    	<input type="hidden" name="empNo" value="${sessionScope.loginUser.empNo}" />
+                    	<input type="hidden" name="boardNo" value="${b.boardNo}" />
+                    	<input type="hidden" name="depName" value="${sessionScope.loginUser.depName}" />
+	                  	<button type="submit" id='Enrollment' class="btn btn-primary" style="width:250px; float:right;">게시글 수정</button>
+	                  	
+	                  	<button type="button" onclick="deleteBoard(${b.boardNo}, '${sessionScope.loginUser.depName}')" id='Enrollment' class="btn btn-primary" 
+	                  	style="width:250px; float:right; margin-right:20px;">게시글 삭제</button>
+	                  	<script>
+	                  		function deleteBoard(bnum,dName){
+	                  		
+	                  			location.href="deleteBoard.bo?boardNo=" + bnum + "&depName=" + dName;
+	                  		}
+	                  	</script>
                         <br/>
-                        <script>
-                        	function moveUpdate(bnum){
-                        		location.href="updateBoard.bo?boardNo=" + bnum;
-                        	}
-                        </script>
-						
-                        
-						
+                    </c:if>
+			
                   </form>
                   <br>
                   <!-- end form for validations -->
@@ -295,6 +313,55 @@
             }});
          });
       </script>
+      <script type="text/javascript">
+        /* summernote에서 이미지 업로드시 실행할 함수 */
+        function sendFile(file, editor) {
+            // 파일 전송을 위한 폼생성
+          data = new FormData();
+           data.append("uploadFile", file);
+           
+	       //console.log(data);
+             $.ajax({ // ajax를 통해 파일 업로드 처리
+               data : data,
+               type : "POST",
+               url : "imgUpload.bo",
+               cache : false,
+               contentType : false,
+               enctype: 'multipart/form-data',
+               processData : false,
+               success : function(data) { // 처리가 성공할 경우
+                    // 에디터에 이미지 출력
+                    console.log(data);
+                 // $(editor).summernote('editor.insertImage', data);
+                  $(editor).summernote('editor.insertImage', "/dep/resources/uploadFiles/"+ data);
+               },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                
+               
+               }
+
+           }); 
+       }
+       
+       
+       function deleteFile(src) {
+			
+    	    $.ajax({
+    	        data: {src : src},
+    	        type: "POST",
+    	        url: "imgDelete.bo", // replace with your url
+    	        cache: false,
+    	        success: function(data) {
+    	            console.log(data);
+    	            alert('삭제완료');
+    	        }
+    	    });
+    	    
+    	}
+   </script>
+      
+      
        </c:if>
 </body>
 

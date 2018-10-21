@@ -20,16 +20,17 @@ public class Facing implements java.io.Serializable {
 	private String depName;
 	private String modiFileName;
 	private String oriFileName;
+	private int fileNo;
+	private int emailNo;
 	
 	public Facing()
 	{
 		
 	}
 
-	
 	public Facing(int empNo, String empName, int facingNo, String facingTitle, String facingContents, Date writeDate,
 			int receiver, String status, Date reciverDate, int depId, String depName, String modiFileName,
-			String oriFileName) {
+			String oriFileName, int fileNo, int emailNo) {
 		super();
 		this.empNo = empNo;
 		this.empName = empName;
@@ -44,8 +45,9 @@ public class Facing implements java.io.Serializable {
 		this.depName = depName;
 		this.modiFileName = modiFileName;
 		this.oriFileName = oriFileName;
+		this.fileNo = fileNo;
+		this.emailNo = emailNo;
 	}
-
 
 	public int getEmpNo() {
 		return empNo;
@@ -151,15 +153,31 @@ public class Facing implements java.io.Serializable {
 		this.oriFileName = oriFileName;
 	}
 
+	public int getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
+	}
+
+	public int getEmailNo() {
+		return emailNo;
+	}
+
+	public void setEmailNo(int emailNo) {
+		this.emailNo = emailNo;
+	}
 
 	@Override
 	public String toString() {
 		return "Facing [empNo=" + empNo + ", empName=" + empName + ", facingNo=" + facingNo + ", facingTitle="
 				+ facingTitle + ", facingContents=" + facingContents + ", writeDate=" + writeDate + ", receiver="
 				+ receiver + ", status=" + status + ", reciverDate=" + reciverDate + ", depId=" + depId + ", depName="
-				+ depName + ", modiFileName=" + modiFileName + ", oriFileName=" + oriFileName + "]";
+				+ depName + ", modiFileName=" + modiFileName + ", oriFileName=" + oriFileName + ", fileNo=" + fileNo
+				+ ", emailNo=" + emailNo + "]";
 	}
-	
+
 	
 	
 	

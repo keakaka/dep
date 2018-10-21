@@ -56,6 +56,17 @@ public class AttachServiceImpl implements AttachService {
 		
 		return atlist;
 	}
+
+	//기존 게시판 첨부파일 삭제
+	@Override
+	public int deleteBoardAttach(int boardNo) {
+		
+		int result = ad.deleteBoardAttach(sqlSession, boardNo);
+		
+		return result;
+	}
+
+	
 	
 	
 

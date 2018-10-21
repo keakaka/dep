@@ -4,7 +4,7 @@
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       
       <div class="navbar nav_title" style="border: 0;" >
-         <a href="logout.me" class="site_title"><img src="${contextPath }/resources/images/DBDBDEP.png" width="200px" height="50px"></a>
+         <a href="#" class="site_title"><img src="${contextPath }/resources/images/DBDBDEP.png" width="200px" height="50px"></a>
       </div>
       <div class="clearfix"></div>
       
@@ -90,7 +90,7 @@
                </li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 				
-			  <c:if test="${sessionScope.loginUser.positionNo eq 'P21' }">
+			  <c:if test="${sessionScope.loginUser.positionNo eq 'P4' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
               </c:if>
 
@@ -111,6 +111,7 @@
                <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
 
                </c:if>
+               <li><a href="logout.me"><i class="fa fa-user"></i> LogOut </a></li>
             </ul>
 
          </div>
@@ -180,7 +181,7 @@
       					str += '</li>';
       				});
       				
-      				str += '<li><div class="text-center"><a><strong data-toggle="modal" data-target="#myModal">See All Alerts</strong><i class="fa fa-angle-right"></i></a></div></li>';
+      				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="#myModal">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
       				
       				$("#menu1").append(str);
       				/* $("#alarmMessage").html('');
