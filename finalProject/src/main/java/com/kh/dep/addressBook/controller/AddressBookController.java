@@ -1,6 +1,8 @@
 package com.kh.dep.addressBook.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,19 +101,18 @@ public class AddressBookController {
 		AddressBook ab2 = abs.deleteAddressBook(ab);
 	}
 	
-	@RequestMapping("facing.ad")
-	public String facing(@RequestParam int var, Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		MemberSelect ms = (MemberSelect)request.getSession().getAttribute("loginUser");
-		int loginNo = ms.getEmpNo();
-		
+	@RequestMapping(value = "facing.ad",method=RequestMethod.POST)
+	public void facing(@RequestParam int loginUser, @RequestParam int empNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("facing.ad로 넘어옴");
+		System.out.println("facing.ad empNo : " + empNo);
+		System.out.println("facing.ad loginUser : " + loginUser);
+
 		AddressBook ab = new AddressBook();
-		ab.setEmpNo(var);
-		ab.setLoginNo(loginNo);
-		
-		model.addAttribute("ab", ab);
-		
-		return "facing/facingTest";
+		ab.setEmpNo(empNo);
+		ab.setLoginNo(loginUser);
+	    
+	    model.addAttribute("ab", ab);
+	    
 	}
 	
 	

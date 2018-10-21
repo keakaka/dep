@@ -102,6 +102,7 @@ public class BoardController {
 	@RequestMapping("writeBoard.bo")
 	public String insertWriteBoard(Board b, MultipartHttpServletRequest mtfRequest, HttpServletRequest request){
 		
+
 			try {
 				int bNo = bs.insertWriteBoard(b);
 				
@@ -165,8 +166,8 @@ public class BoardController {
 				//System.out.println(e.getMessage());
 			}
 			
+
 			redirectAttributes.addAttribute("depName", b.getDepName()); //value값 넘길때 공백확인 잘할것
-			
 			
 		
 		return "redirect:/boardList.bo";
