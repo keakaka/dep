@@ -95,4 +95,7 @@ public interface MemberService {
 	List<SalaryExcel> selectMySalaryRecord(int empNo);
 
 
+	int insertIdPwMember(int empNo);
+
+
 }

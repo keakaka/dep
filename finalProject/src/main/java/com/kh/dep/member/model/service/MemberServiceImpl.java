@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService{
 		MemberSelect loginUser = null;
 
 		String encPassword = md.selectEncpassword(sqlSession, m);
-
+		
 
 		if(!passwordEncoder.matches(m.getEmpPwd(), encPassword)){
 			throw new LoginException("로그인 실패");
@@ -555,6 +555,19 @@ public class MemberServiceImpl implements MemberService{
 	public List<SalaryExcel> selectMySalaryRecord(int empNo) {
 		
 		return md.selectMySalaryRecord(sqlSession, empNo);
+	}
+
+	@Override
+	public int insertIdPwMember(int empNo) {
+		
+		MemberSelect m = new MemberSelect();
+		
+		m.setEmpPwd(passwordEncoder.encode(Integer.toString(empNo)));
+		m.setEmpNo(empNo);
+		
+		int result = md.insertIdPwMember(sqlSession, m);
+		
+		return result;
 	}
 
 }

@@ -249,6 +249,12 @@
 		#{address}, #{salary}, SYSDATE, #{phoneReveal}, DEFAULT)
 
 	</insert>
+	
+	<!-- 회원가입시 Id,Pw생성 -->
+		<update id="insertIdPwMember" parameterType="MemberSelect">
+		UPDATE EMPLOYEE SET EMP_ID = #{empNo}, EMP_PWD=#{empPwd}
+		WHERE EMP_NO = #{empNo}
+		</update>
 
 	<!-- 사진입력시 멤버 번호 조회 -->
 	<select id="selectempNumber" resultType="_int">

@@ -57,6 +57,7 @@ public class MemberController {
 
 	@Autowired
 	private AttachService as;
+	
 
 	@RequestMapping(value="login.me")
 	public String loginCheck(MemberSelect m, Model model, RedirectAttributes redirect){
@@ -148,6 +149,8 @@ public class MemberController {
 				int empNo = ms.selectempNumber();
 				
 				m.setEmpNo(empNo);
+				
+				int insertId = ms.insertIdPwMember(empNo);
 				
 				int record = ms.insertRecord(m);
 
