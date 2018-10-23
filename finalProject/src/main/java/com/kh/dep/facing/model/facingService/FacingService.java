@@ -23,7 +23,7 @@ public interface FacingService {
 
 	Facing selectOneFacing(int fNo) throws FacingSelectListException;
 
-	ArrayList<Facing> updateFacing(int fNo, int fus) throws FacingSelectListException;
+	int updateFacing(int fNo) throws FacingSelectListException;
 
 	int InsertWorking(int empNo);
 

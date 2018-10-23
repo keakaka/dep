@@ -39,7 +39,6 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
                      <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/qrInsert.ms">QR출석</a><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -98,7 +97,8 @@
                   </ul>             
                </li>
 
-              
+               <li><a href="${ contextPath }/qrInsert.ms"></a><li>
+
             </ul>
 
          </div>
