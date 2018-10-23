@@ -261,13 +261,7 @@ public class FacingController {
 								int alram = fs.insertAlram(al);
 								
 								
-								/*알람카운트 업데이트 부분(은비)*/
-								int receiverEmpNo = mlist.get(i).getEmpNo();
-								int alarmCount = fs.selectAlarmCount(receiverEmpNo);
-								System.out.println(alarmCount);
-								System.out.println("나의 알람갯수(전) : " + mlist.get(i).getMyAlarmCount());
-							    mlist.get(i).setMyAlarmCount(alarmCount);
-								System.out.println("나의 알람갯수(후)ㅇㅇ : " + mlist.get(i).getMyAlarmCount());
+								
 								
 								
 								break;
@@ -302,9 +296,22 @@ public class FacingController {
 				
 					int resultR = fs.insertReceiver(fir);
 					System.out.println("=========알람==========");
+					al.setAlramNo(fir.getFacingNo());
 					al.setAlramContents(title);
 					al.setEmpNo(receiveNo);
 					int alram = fs.insertAlram(al);
+					
+					/*알람카운트 업데이트 부분(은비)*/
+					int receiverEmpNo = mlist.get(i).getEmpNo();
+					int alarmCount = fs.selectAlarmCount(receiverEmpNo);
+					System.out.println(alarmCount);
+					System.out.println("나의 알람갯수(전) : " + mlist.get(i).getMyAlarmCount());
+				    mlist.get(i).setMyAlarmCount(alarmCount);
+					System.out.println("나의 알람갯수(후) : " + mlist.get(i).getMyAlarmCount());
+					MemberSelect m=(MemberSelect) request.getSession().getAttribute("loginUser");
+					m.setMyAlarmCount(mlist.get(i).getMyAlarmCount());
+					System.out.println("세션에 올라간 유저의 알람count : " + m.getMyAlarmCount());
+					
 					break;
 				
 			}
@@ -404,6 +411,9 @@ public class FacingController {
 			ArrayList<Facing> result = fs.updateFacing(fNo ,fus);
 			System.out.println("돌아온 리스트값" + result);
 			response.getWriter().print(mapper.writeValueAsString(result));
+			
+			
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -547,7 +557,7 @@ public class FacingController {
 
 
 		//=============================Facing 인설트 ======================
-		System.out.println("인설트 컨트롤러 입장");
+		System.out.println("인설트 컨트롤러2 입장");
 		int empNo = Integer.parseInt(loginUser);
 		System.out.println("insert 회원번호 : " + empNo);
 		System.out.println("insert 수신자 : " + receive);
