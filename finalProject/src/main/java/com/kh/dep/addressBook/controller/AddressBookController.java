@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.dep.addressBook.model.service.AddressBookService;
@@ -39,30 +40,29 @@ public class AddressBookController {
 	
 	//주소록 회원 검색
 	@RequestMapping("searchAddressBookName.ad")
-	public String searchAddressBook(HttpServletRequest request, Model model){
+	@ResponseBody 
+	public Object searchAddressBook(String searchN, HttpServletRequest request, Map<String, Object> map){
 		System.out.println("주소록 controller");
 		
 		List<AddressBook> list = abs.selectAddList();
 		System.out.println("selectAdd list : " + list);
 		
-		model.addAttribute("list", list);
+		List<Member> list2 = abs.searchAdd(searchN);
+		System.out.println("list2 : " + list2);
 		
+		Map<String, Object> ret = new HashMap<String, Object>();
+	    
+		ret.put("list", list);
+	    ret.put("addressBookList", list2);
 		
-		String param = request.getParameter("name");
-		System.out.println(param);
+		return ret;
 		
-		List<Member> list2 = abs.searchAdd(param);
-		
-		model.addAttribute("addressBookList", list2);
-		System.out.println("주소록 : " + list);
-		
-		
-		return "addressBook/addressBook";
 	}
 	
 	//주소록 테이블에 추가
 	@RequestMapping("insertAddressBook.ad")
-	public void insertAddressBook(int empNo, int loginNo, HttpServletResponse response, Model model) {
+	@ResponseBody 
+	public Object insertAddressBook(int empNo, int loginNo, HttpServletResponse response, Map<String, Object> map) {
 		System.out.println("loginNo : " + loginNo);
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -72,8 +72,13 @@ public class AddressBookController {
 		ab.setLoginNo(loginNo);
 		
 		AddressBook ab2 = abs.insertAdd(ab);
+		System.out.println("ab2 : " + ab2);
 		
-		model.addAttribute("item", ab2);
+		Map<String, Object> ret = new HashMap<String, Object>();
+	    
+	    ret.put("ab2", ab2);
+	    
+	    return ret;
 	}
 	
 	//주소록 테이블에 출력
@@ -91,7 +96,9 @@ public class AddressBookController {
 	
 	//주소록에서 삭제
 	@RequestMapping("deleteAddressBook.ad")
-	public void deleteAddressBook(int empNo, int loginNo, HttpServletResponse response) {
+	@ResponseBody
+	public Object deleteAddressBook(int empNo, int loginNo, HttpServletRequest request, Map<String, Object> map) {
+		
 		System.out.println("deleteAddressBook empNo : " + empNo);
 		System.out.println("deleteAddressBook loginNo : " + loginNo);
 		AddressBook ab = new AddressBook();
@@ -99,6 +106,18 @@ public class AddressBookController {
 		ab.setLoginNo(loginNo);
 		
 		AddressBook ab2 = abs.deleteAddressBook(ab);
+		System.out.println("AddressBookController delete ab2 : " + ab2);
+		
+		List<AddressBook> list22 = abs.selectAddList2(ab);
+		System.out.println("selectAdd list : " + list22);
+		
+		Map<String, Object> ret = new HashMap<String, Object>();
+	    
+		ret.put("list22", list22);
+	    ret.put("ab2", ab2);
+	    
+	    return ret;
+		
 	}
 	
 	@RequestMapping(value = "facing.ad",method=RequestMethod.POST)
