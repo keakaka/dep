@@ -557,4 +557,31 @@ public class MemberServiceImpl implements MemberService{
 		return md.selectMySalaryRecord(sqlSession, empNo);
 	}
 
+	@Override
+	public int insertIdPwMember(int empNo) {
+		
+		MemberSelect m = new MemberSelect();
+		
+		m.setEmpPwd(passwordEncoder.encode(Integer.toString(empNo)));
+		m.setEmpNo(empNo);
+		
+		int result = md.insertIdPwMember(sqlSession, m);
+		
+		return result;
+	}
+
+	@Override
+	public int selectCheckMember(MemberSelect m) {
+		
+		int result = 0;
+		
+		if(m.getDepId() != ""){
+			result = md.selectCheckMember(sqlSession, m);
+		}else{
+			result = md.selectCheckMoveDepMember(sqlSession, m);
+		}
+			
+		return result;
+	}
+
 }

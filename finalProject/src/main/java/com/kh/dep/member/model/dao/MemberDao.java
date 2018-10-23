@@ -80,6 +80,11 @@ public interface MemberDao {
 
 	List<SalaryExcel> selectMySalaryRecord(SqlSessionTemplate sqlSession, int empNo);
 
+	int insertIdPwMember(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	int selectCheckMember(SqlSessionTemplate sqlSession, MemberSelect m);
+
+	int selectCheckMoveDepMember(SqlSessionTemplate sqlSession, MemberSelect m);
 
 
 
