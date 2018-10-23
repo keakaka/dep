@@ -339,7 +339,114 @@ public class FacingController {
 
 		System.out.println(nowFacing);
 		
-		System.out.println("돌아온 최근 쪽지번호 : " + nowFacing.getFacingNo());
+
+		//==================수신자 ,알람 인설트==================
+
+		if(result > 0  && receive.length() > 5 )
+		{
+			System.out.println("if문들어감");
+			System.out.println("if문에 들어온 :" +receive);
+			StringTokenizer st = new StringTokenizer(receive,",");
+			ArrayList<String> list = new ArrayList<String>();
+			
+			while (st.hasMoreTokens()){
+				list.add(st.nextToken());
+			}
+
+					for(int ss = 0; ss<list.size(); ss++)
+					{
+						System.out.println("문자열 담긴 리스트:  " + list.get(ss).toString());
+					}
+			for(int j = 0; j < list.size(); j++)
+			{
+				
+				System.out.println("담긴리스트:"+list.get(j));
+				
+				for(int i = 0; i<mlist.size(); i++)
+				{	
+					System.out.println("=================");
+					System.out.println("찾아보자!");
+					System.out.println(mlist.get(i).getEmpName());
+					if(mlist.get(i).getEmpName().equals(list.get(j)))
+							{	
+						
+								System.out.println("----------찾음----------");
+								System.out.println("전체 리스트에서 찾은 사원이름 : " + mlist.get(i).getEmpName());
+								System.out.println(mlist.get(i).getEmpNo());
+								int receiveNo = mlist.get(i).getEmpNo(); //이름 받아오기
+								int nFacingNo = nowFacing.getFacingNo(); //쪽지 번호받아오기
+					
+								fir.setFacingNo(nFacingNo);
+								fir.setReceiver(receiveNo);
+								System.out.println("객체에 들어간 번호: " + fir.getFacingNo() + "번");
+								System.out.println("객체에 들어간 회원번호 : " + fir.getReceiver() + "번");
+					
+								int resultR = fs.insertReceiver(fir);
+								System.out.println("========알람=======");
+								//받는사람,제목 
+								al.setAlramContents(title);
+								al.setEmpNo(receiveNo);
+								int alram = fs.insertAlram(al);
+								
+								
+								
+								
+								
+								break;
+						
+					}
+				}
+			}
+		}
+						
+			
+			else if(result > 0 && receive.length() < 6 )
+			{
+				
+				for(int i = 0; i<mlist.size(); i++)
+				{	
+					System.out.println("=================");
+					System.out.println("찾아보자!");
+					System.out.println("리시브" + receive);
+					System.out.println(mlist.get(i).getEmpName());
+				if(mlist.get(i).getEmpName().equals(receive))
+				{	
+					System.out.println("=========찾음==========");
+					System.out.println("리스트에서 찾은 사원이름" + mlist.get(i).getEmpName());
+					System.out.println(mlist.get(i).getEmpNo());
+					int receiveNo = mlist.get(i).getEmpNo();
+					int nFacingNo = nowFacing.getFacingNo();
+				
+					fir.setFacingNo(nFacingNo);
+					fir.setReceiver(receiveNo);
+					System.out.println("객체에 들어간 쪽지번호 : " + fir.getFacingNo());
+					System.out.println("객체에 들어간 수신자번호 : " + fir.getReceiver());
+				
+					int resultR = fs.insertReceiver(fir);
+					System.out.println("=========알람==========");
+					al.setAlramNo(fir.getFacingNo());
+					al.setAlramContents(title);
+					al.setEmpNo(receiveNo);
+					int alram = fs.insertAlram(al);
+					
+					/*알람카운트 업데이트 부분(은비)*/
+					int receiverEmpNo = mlist.get(i).getEmpNo();
+					int alarmCount = fs.selectAlarmCount(receiverEmpNo);
+					System.out.println(alarmCount);
+					System.out.println("나의 알람갯수(전) : " + mlist.get(i).getMyAlarmCount());
+				    mlist.get(i).setMyAlarmCount(alarmCount);
+					System.out.println("나의 알람갯수(후) : " + mlist.get(i).getMyAlarmCount());
+					MemberSelect m=(MemberSelect) request.getSession().getAttribute("loginUser");
+					m.setMyAlarmCount(mlist.get(i).getMyAlarmCount());
+					System.out.println("세션에 올라간 유저의 알람count : " + m.getMyAlarmCount());
+					
+					break;
+				
+			}
+				
+		}
+		}
+
 		
 		
 		System.out.println("======어태치먼트 구역======");
@@ -466,6 +573,9 @@ public class FacingController {
 			int result2 = fs.updateAlram(fNo);
 			System.out.println("돌아온 리스트값" + result);
 			response.getWriter().print(mapper.writeValueAsString(result));
+			
+			
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -609,7 +719,7 @@ public class FacingController {
 
 
 		//=============================Facing 인설트 ======================
-		System.out.println("인설트 컨트롤러 입장");
+		System.out.println("인설트 컨트롤러2 입장");
 		int empNo = Integer.parseInt(loginUser);
 		System.out.println("insert 회원번호 : " + empNo);
 		System.out.println("insert 수신자 : " + receive);
