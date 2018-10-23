@@ -39,23 +39,18 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
                      <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/qrInsert.ms">QR출석</a><li>
-                     <script type="text/javascript">
                      
-                     </script>
                   </ul>
                </li>
                <li>
-                  <a><i class="fa fa-envelope"></i> 전자메일 <span
-                     class="fa fa-chevron-down"></span></a>
+                  <a><i class="fa fa-calendar"></i> 일정
+                     <span class="fa fa-chevron-down"></span>
+                  </a>
                   <ul class="nav child_menu" style="display: none">
-                  <li><a href="${ contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}" >보낸메일함</a>
-                  <li><a href="${ contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" >받은메일함</a>
-                  <li><a href="${ contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" >쪽지작성</a>
-                     
+                     <li><a href="calendarMy.ca">내 일정</a></li>
+                     <li><a href="calendarDep.ca">부서 일정</a></li>
                   </ul>
                </li>
-               
                <li>
                   <a><i class="fa fa-newspaper-o"></i> 전자결재 <span   class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
@@ -66,7 +61,6 @@
                      <li><a href="signReceive.sg?empNo=${loginUser.empNo }">수신함</a></li>
                   </ul>
                </li>
-               
                <li>
                   <a><i class="fa fa-video-camera"></i> 화상회의 
                      <span class="fa fa-chevron-down"></span>
@@ -77,24 +71,10 @@
                   </ul>
                </li>
                <li><a href="boardList.bo?depName=${sessionScope.loginUser.depName}"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
-               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i> 비상연락망</a></li>
                <!-- <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li> -->
-               <li>
-                  <a><i class="fa fa-calendar"></i> 일정
-                     <span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu" style="display: none">
-                     <li><a href="calendarMy.ca">내 일정</a></li>
-                     <li><a href="calendarDep.ca">부서 일정</a></li>
-                  </ul>
-               </li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
-				
-			  <c:if test="${sessionScope.loginUser.depId eq 'D4' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
-              </c:if>
-
-              <c:if test="${sessionScope.loginUser.depId eq 'D2' }">
                <li>
                <a><i class="fa fa-users"></i> 인사관리 <span
                      class="fa fa-chevron-down"></span></a>
@@ -108,10 +88,8 @@
                      <li><a href="depmoveDeptRecord.pm">부서이동이력 조회</a></li>
                   </ul>             
                </li>
-               <li><a><i class="fa fa-barcode"></i> 출근관리 </a></li>
-
-               </c:if>
-               <li><a href="logout.me"><i class="fa fa-user"></i> LogOut </a></li>
+				<li><a href="${ contextPath }/qrInsert.ms"></a><li>
+               
             </ul>
 
          </div>
@@ -130,6 +108,7 @@
             
 
             <ul class="nav navbar-nav navbar-right">
+            	<li><a href="logout.me"><i class="fa fa-power-off"></i> LogOut </a></li>
               <li role="presentation" class="dropdown">
                 <a onclick="return test(${loginUser.empNo });" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o" style="font-size:25px;"></i>

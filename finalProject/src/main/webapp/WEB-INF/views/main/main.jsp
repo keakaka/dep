@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,23 +42,10 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                    Tables
-                    <small>
-                        Some examples to get you started
-                    </small>
+                    DBDBDep
                 </h3>
             </div>
 
-            <div class="title_right">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="clearfix"></div>
 
@@ -67,57 +55,45 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Basic Tables <small>basic table subtitle</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
+                  <h2> 전자결재함  </h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
 
-                  <table class="table">
+                  <table class="table table-bordered ">
                     <thead>
+                    <c:set var="appSize" value="${signCount[0] }"/>
+                    <c:set var="recSize" value="${signCount[1] }"/>
                       <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>결재해야할 문서</th>
+                        <th><c:out value="${signCount[0] }"/></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
+                        <th>수신받은 문서</th>
+                        <td><c:out value="${signCount[1] }"/></td>
                       </tr>
                     </tbody>
                   </table>
-
+                  <p>=====================================================================================================</p>
+                  <h2> 오늘 할 일  </h2>
+					<div class="">
+                      <ul class="to_do">
+                      <c:set var="now" value="<%=new java.util.Date()%>" />
+                    <c:set var="now"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+                      		<c:forEach var="to" items="${myCalendar }">
+                      		<fmt:parseDate value="${to.scheStartDate}" var="startDate" pattern="yyyy-MM-dd"/>
+							<c:set var="tod"><fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd"/></c:set>
+							<c:if test="${ now eq tod}">
+                      		<li>
+                          		<p><input type="checkbox" class="flat">&nbsp;&nbsp;&nbsp;&nbsp; ${to.scheduleTitle }</p>
+                        	</li>
+                        	</c:if>
+                      	</c:forEach>
+                      
+                      </ul>
+                    </div>
                 </div>
               </div>
             </div>
@@ -126,22 +102,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Stripped table <small>Stripped table subtitle</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
+                  <h2>부서 게시판 </h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -149,31 +110,21 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>제목</th>
+                        <th>조회수</th>
+                        <th>작성자</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="b" items="${boardList }" varStatus="index">
+                      <c:if test="${index.index <= 5 }">
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>${b.boardTitle }</td>
+                        <td>${b.selectCount }</td>
+                        <td>${b.empName }</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                      </c:if>
+                     </c:forEach>
                     </tbody>
                   </table>
 
@@ -181,123 +132,48 @@
               </div>
             </div>
 
-            <div class="clearfix"></div>
-
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Hover rows <small>Try hovering over the rows</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <table class="table table-hover">
+            <!-- Start to do list -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2> 오늘의 부서 일정 </h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+					<table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>일정 제목</th>
+                        <th>일시</th>
+                        <th>게시자</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <c:set var="now" value="<%=new java.util.Date()%>" />
+                    <c:set var="now"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+                    <c:forEach var="dep" items="${depCalendar }" varStatus="index">
+                    	<fmt:parseDate value="${dep.scheStartDate}" var="startDate" pattern="yyyy-MM-dd"/>
+						<c:set var="dat"><fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd"/></c:set>
+                    	
+                      <c:if test="${index.index < 5}">
+                      <c:if test="${now eq dat }">
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>${dep.scheduleTitle }</td>
+                        <td>${dat }</td>
+                        <td>${dep.empName }</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                      </c:if>
+                      </c:if>
+                    </c:forEach>
                     </tbody>
                   </table>
-
+                    
+                  </div>
                 </div>
               </div>
-            </div>
+              <!-- End to do list -->
 
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Boardered table <small>Bordered table subtitle</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-              </div>
-            </div>
 				<!-- footer content -->
 			</div>
 			</div>

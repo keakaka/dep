@@ -52,6 +52,10 @@ public class MainController {
 			ArrayList signCount = new ArrayList();
 			signCount.add(appSize);
 			signCount.add(recSize);
+			System.out.println("보드리스트 : " + boardList);
+			System.out.println("내일정 : " + myCalendar);
+			System.out.println("부서일정 : " + depCalendar);
+			System.out.println("사인카운트 : " + signCount);
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("myCalendar", myCalendar);
 			model.addAttribute("depCalendar", depCalendar);
