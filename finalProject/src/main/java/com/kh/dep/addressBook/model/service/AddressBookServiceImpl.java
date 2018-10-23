@@ -34,7 +34,7 @@ public class AddressBookServiceImpl implements AddressBookService{
 		System.out.println("insertAdd ab3 : " + ab3);
 		int result = abd.insertAdd(ab3);
 		
-		return abab;
+		return ab3;
 	}
 
 	@Override
@@ -50,6 +50,11 @@ public class AddressBookServiceImpl implements AddressBookService{
 		int result = abd.deleteAdd(ab3);
 		
 		return ab3;
+	}
+
+	@Override
+	public List<AddressBook> selectAddList2(AddressBook ab) {
+		return abd.selectAddList2(ab);
 	}
 
 	
