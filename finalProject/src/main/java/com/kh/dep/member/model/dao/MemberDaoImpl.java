@@ -363,7 +363,8 @@ public class MemberDaoImpl implements MemberDao {
 	public int selectCheckMoveDepMember(SqlSessionTemplate sqlSession, MemberSelect m) {
 		
 		
-		return 0;
+		
+		return sqlSession.selectOne("Member.selectCheckMoveDepMember", m);
 	}
 	
 	

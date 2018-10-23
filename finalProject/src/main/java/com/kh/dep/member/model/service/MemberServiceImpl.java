@@ -575,7 +575,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = 0;
 		
-		if(m.getDepId() != ""){
+		if(m.getDepId() != null){
 			result = md.selectCheckMember(sqlSession, m);
 		}else{
 			result = md.selectCheckMoveDepMember(sqlSession, m);
