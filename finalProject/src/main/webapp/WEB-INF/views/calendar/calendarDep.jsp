@@ -487,7 +487,7 @@ a:hover{
 								<div align="right">
 									<button type="button" onclick="update(); "style="border:none;" class="btn btn-primary antosubmit">
 										 수정 완료</button>
-									<a href="calendaDep.ca" class="btn btn-default">취소</a>
+									<a href="calendarDep.ca" class="btn btn-default">취소</a>
 								</div>
 								<script>
 								
