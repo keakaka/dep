@@ -375,7 +375,7 @@ function updateFacing(num , num2){
 			console.log("리스트값"+facingNo);
 		 	alert("성공!" + userNo);
 	
- 			window.location = "facinglist.ms?loginUser="+userNo;
+ 			window.location = "facingReceiveList.ms?loginUser="+userNo;
 			
 			/* if(data.length > 0){
 			

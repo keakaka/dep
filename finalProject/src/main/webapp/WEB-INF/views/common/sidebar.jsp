@@ -177,20 +177,14 @@
       				var str = '';
       				$.each(list, function(i){
       					
-      					str += '<li style=""><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'" style="font-size:15px;"><b style="font-size:12px;">발신자 : ' + list[i].empName + '</b><br>' + list[i].alarmContents + '</a>';
+      					str += '<li style=""><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'" style="font-size:15px;"><b style="font-size:12px;">' + list[i].alarmContents + '</a>';
       					str += '</li>';
       				});
       				
       				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
       				
       				$("#menu1").append(str);
-      				/* $("#alarmMessage").html('');
       				
-      				var list = data;
-      				$.each(data, function(index, item){
-      					console.log(item.alarmContents);
-      					$("#alarmMessage").text(item.alarmContents);
-      				}); */
       				
       			},
       			error : function(data) {
