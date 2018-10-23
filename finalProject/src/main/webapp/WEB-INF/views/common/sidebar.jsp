@@ -39,7 +39,6 @@
                      <li><a href="myJobPosition.me?var=${loginUser.empNo }">직책 변경 이력 조회</a></li>
                      <li><a href="myWorkingHours.me?var=${loginUser.empNo }">근태 이력 조회</a></li>
                      <li><a href="myVacation.me?var=${loginUser.empNo }">휴가 내역 조회</a></li>
-                     <li><a href="${ contextPath }/qrInsert.ms">QR출석</a><li>
                      <script type="text/javascript">
                      
                      </script>
@@ -77,7 +76,7 @@
                   </ul>
                </li>
                <li><a href="boardList.bo?depName=${sessionScope.loginUser.depName}"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
-               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.depName}"><i class="fa fa-clipboard"></i>비상연락망</a></li>
                <!-- <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li> -->
                <li>
                   <a><i class="fa fa-calendar"></i> 일정
@@ -90,7 +89,7 @@
                </li>
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
 				
-			  <c:if test="${sessionScope.loginUser.positionNo eq 'P4' }">
+			  <c:if test="${sessionScope.loginUser.depId eq 'D4' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
               </c:if>
 
@@ -112,6 +111,7 @@
 
                </c:if>
                <li><a href="logout.me"><i class="fa fa-user"></i> LogOut </a></li>
+               <li><a href="${ contextPath }/qrInsert.ms"></a><li>
             </ul>
 
          </div>
@@ -181,7 +181,7 @@
       					str += '</li>';
       				});
       				
-      				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="#myModal">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
+      				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
       				
       				$("#menu1").append(str);
       				/* $("#alarmMessage").html('');

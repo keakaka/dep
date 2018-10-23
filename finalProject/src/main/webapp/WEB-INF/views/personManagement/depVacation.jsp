@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -30,15 +30,7 @@
 	<script src="${contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${contextPath }/resources/js/nprogress.js"></script>
 
-	<!--[if lt IE 9]>
-	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
-	<![endif]-->
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 
 </head>
 
@@ -78,17 +70,10 @@
               <div class="x_panel">
                 <div class="x_title">
                 <select id="depList">
-                  	<option>부서</option>
-                  	
-                        <option>영업부</option>
-                   
-                        <option>인사부</option>
-                   
-                        <option>총무부</option>
-                   
-                        <option>회계부</option>
-                    
-				  </select>
+                <c:forEach var="d" items="${deplist}">
+                  	<option>${d.depName}</option>
+                 </c:forEach>
+				 </select>
 				  
 				  <select id="day">
 				  <option>날짜</option>
@@ -108,22 +93,6 @@
                      
 				  </select>
                 
-                  <div id="test1"></small></div>
-<!--        <button id="testB">테스트</button>
-<script>
-	$(function(){
-		var test1 = $('#test1');
-		$('#testB').click(function(){
-			test1.html('추가');
-		});
-	});
-	$(function(){
-		var test1 = $('#test1');
-		test1.change(function(){
-			console.log('11111');
-		});
-	});
-</script>            -->
                   
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -211,19 +180,22 @@
 					var i = 0;
 					$.each(data, function(index, val){
 					
-						var $tr = $("<tr role='row' class='odd'>");
-						var $empName = $('<td>').text(decodeURIComponent(val.empName));
-						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
-						
-						$tr.append($empName);
-						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
-						$tbody.append($tr);
+					var $tr = $("<tr role='row' class='odd'>");
+			                  var $empName = $('<td>').text(decodeURIComponent(val.empName));
+			                  var $depName = $('<td>').text(decodeURIComponent(val.depName));
+			                  var $vacReason = $('<td>').text(decodeURIComponent(val.vacReason));
+			                  var $vacType = $('<td>').text(decodeURIComponent(val.vacType));
+			                  var $startDate = $('<td>').text(decodeURIComponent(val.startDate));
+			                  var $endDate = $('<td>').text(decodeURIComponent(val.endDate));
+                  
+                    
+			                  $tr.append($empName);
+			                  $tr.append($depName);
+			                  $tr.append($vacReason);
+			                  $tr.append($vacType);
+			                  $tr.append($startDate);
+			                  $tr.append($endDate);
+			                  $tbody.append($tr);
 					});
 					
 					},
@@ -238,33 +210,36 @@
 	$(function(){
 		$("#day").change(function(){
 			var day = $("#day option:selected").val();
-			var depName $("#depList option:selected").val();
+			var depName = $("#depList option:selected").val();
 			console.log(day);
 			console.log(depName);
 			$.ajax({
 				url : "vacationDayList.pm",
 				data : {day : day,
 						depName : depName},
-				}
+				
 				success : function(data){
 					var $tbody = $('.workingList');
 					$tbody.html("");
 					var i = 0;
 					$.each(data, function(index, val){
 					
-						var $tr = $("<tr role='row' class='odd'>");
-						var $empName = $('<td>').text(decodeURIComponent(val.empName));
-						var $depName = $('<td>').text(decodeURIComponent(val.depName));
-						var $today = $('<td>').text(decodeURIComponent(val.today));
-						var $tTime = $('<td>').text(decodeURIComponent(val.tTime));
-						var $leaveTime = $('<td>').text(decodeURIComponent(val.leaveTime));
-						
-						$tr.append($empName);
-						$tr.append($depName);
-						$tr.append($today);
-						$tr.append($tTime);
-						$tr.append($leaveTime);
-						$tbody.append($tr);
+				var $tr = $("<tr role='row' class='odd'>");
+                  var $empName = $('<td>').text(decodeURIComponent(val.empName));
+                  var $depName = $('<td>').text(decodeURIComponent(val.depName));
+                  var $vacReason = $('<td>').text(decodeURIComponent(val.vacReason));
+                  var $vacType = $('<td>').text(decodeURIComponent(val.vacType));
+                  var $startDate = $('<td>').text(decodeURIComponent(val.startDate));
+                  var $endDate = $('<td>').text(decodeURIComponent(val.endDate));
+                  
+                    
+                  $tr.append($empName);
+                  $tr.append($depName);
+                  $tr.append($vacReason);
+                  $tr.append($vacType);
+                  $tr.append($startDate);
+                  $tr.append($endDate);
+                  $tbody.append($tr);
 					});	
 					},
 					error : function(){

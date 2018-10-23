@@ -211,8 +211,14 @@
                         class="form-control col-md-7 col-xs-12">
                       		</td>   
                      	  <td>
-                        <input type="text" id="vacType" name="vacType" required="required" placeholder="ex> 휴가종류"
-                        class="form-control col-md-7 col-xs-12">
+                       		<select class="form-control" name = "vacType" id="vacType" required="required">
+							<option>---</option>
+							<option>연가</option>
+							<option>공가</option>
+							<option>병가</option>
+							<option>특별휴가</option>
+							<option>반가</option>
+							</select>
                       		</td>
                       		   <td>
                         <input type="date" id="vacStartDate" name="vacStartDate" required="required" placeholder="ex> 휴가시작일"

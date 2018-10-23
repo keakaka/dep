@@ -82,14 +82,14 @@
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
-                      <li role="presentation" class="active"><a href="facingReceiveList.ms?loginUser='${sessionScope.loginUser.empNo}'" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">받은쪽지함</a>
+                      <li role="presentation" class=""><a href="${contextPath }/facingReceiveList.ms?loginUser=${sessionScope.loginUser.empNo}" id="home-tabb" role="tab"  aria-controls="home" aria-expanded="true">받은쪽지함</a>
                       </li>
-                      <li role="presentation" class=""><a href="facinglist.ms?loginUser='${sessionScope.loginUser.empNo}'" onClick = "insert(this)" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">보낸쪽지함</a>
+                      <li role="presentation" class="active"><a href="${contextPath }/facinglist.ms?loginUser=${sessionScope.loginUser.empNo}"  role="tab" id="profile-tabb"  aria-controls="profile" aria-expanded="false">보낸쪽지함</a>
                       </li> 
                     
                      
                       </script>
-                      <li role="presentation" class=""><a href="facinginsertSelect?loginUser='${sessionScope.loginUser.empNo}'" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">쪽지보내기</a>
+                      <li role="presentation" class=""><a href="${contextPath }/facinginsertSelect.ms?loginUser=${sessionScope.loginUser.empNo}" role="tab" id="profile-tabb3"  aria-controls="profile" aria-expanded="false">쪽지보내기</a>
                       </li>
                     </ul>
                     
@@ -141,13 +141,13 @@
                           <tbody>
                           <c:forEach var="f" items="${FacingList}">
                             <tr>
-                            	<input type="hidden" value="${f.facingNo}" class="facingNo"/>
+                              <input type="hidden" value="${f.facingNo}" class="facingNo"/>
                               <td>${f.writeDate}</td> 
                               <td>${f.empName}</td>
                               <%-- <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td> --%>
                               <td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showFacing" style="cursor:pointer">${f.facingTitle }</a></td>
                               <td>${f.facingContents }</td>
-                              <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})"/>삭제하기</td>
+                              <td><button class="btn btn-round btn-default" type="button" onclick="updateFacing(${f.facingNo})"/>삭제하기</td>
                             </tr>
   							</c:forEach>
                                                      
@@ -211,7 +211,7 @@
                           <input type="text" id="fullname" class="form-control" name="fullname" value='' required readonly/>
                           <input type="email" id="email" class="form-control" name="email" value='' data-parsley-trigger="change" required readonly />
                           <textarea id="facingContent" required="required" class="form-control" name="message" readonly></textarea>
-                          <a class="btn btn-primary returnFacing" type="button" href="${ contextPath }/replyFacing.ms?empNo=${loginUser.empNo}">답장</a>
+                          
                           <button type="button" class="btn btn-primary fileName" type="button"></button>
                           </div>
                           </form>
@@ -224,6 +224,7 @@
                     </div>
                   </div>
                 </div>
+                
 				<script>
 					$(function(){
 						$('.fileName').click(function(){
@@ -278,7 +279,9 @@
 							
 							</div>
 						</div>
-					</div>
+			
+					
+					
 
 				</div>
 				<br />
@@ -296,7 +299,7 @@
 			<!-- /page content -->
 
 		</div>
-
+	
 	</div>
 
 	<div id="custom_notifications" class="custom-notifications dsp_none">
@@ -305,6 +308,8 @@
 		<div class="clearfix"></div>
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
+			</div>
+					</div>
 		<script src="${contextPath }/resources/js/bootstrap.min.js"></script>
 			<script src="${contextPath }/resources/js/moment/moment.min.js"></script>
 			<script
@@ -356,19 +361,19 @@
         <!-- 삭제하기 -->
 <script>
 
-function updateFacing(num , num2){
+function updateFacing(num){
 	//var facingNo = $("#facingNo").val();
 	var facingNo = num;
-	var userNo = num2;
+	/* var userNo = num2;
 	console.log(typeof userNo);
-	
+	 */
 	$.ajax({
 		url:"updateFacing.ms",
 		type:"post",
 		data:
 		{facingNo:facingNo,
-		userNo:userNo	
-		},
+	/* 	userNo:userNo	
+	 */	},
 		
 		success:function(data){
 					

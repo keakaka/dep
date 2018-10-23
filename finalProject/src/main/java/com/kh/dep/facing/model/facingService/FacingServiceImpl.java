@@ -78,18 +78,18 @@ public class FacingServiceImpl implements FacingService {
 		return f;
 	}
 	@Override
-	public ArrayList<Facing> updateFacing(int fNo , int fus) throws FacingSelectListException {
+	public int updateFacing(int fNo ) throws FacingSelectListException {
 		// TODO Auto-generated method stub
 		System.out.println("쪽지 서비스 입장");
 		ArrayList<Facing> list = null;
 		int result = fd.updateFacing(sqlSession, fNo);
 		
-		if(result > 0)
+		/*if(result > 0)
 		{	
 			System.out.println("값 받아옴 리스트 뿌리자~");
 			list = fd.selectFacingList(sqlSession, fus);
-		}
-		return list;
+		}*/
+		return result;
 	}
 	
 	@Override

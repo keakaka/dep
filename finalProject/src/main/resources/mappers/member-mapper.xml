@@ -249,6 +249,12 @@
 		#{address}, #{salary}, SYSDATE, #{phoneReveal}, DEFAULT)
 
 	</insert>
+	
+	<!-- 회원가입시 Id,Pw생성 -->
+		<update id="insertIdPwMember" parameterType="MemberSelect">
+		UPDATE EMPLOYEE SET EMP_ID = #{empNo}, EMP_PWD=#{empPwd}
+		WHERE EMP_NO = #{empNo}
+		</update>
 
 	<!-- 사진입력시 멤버 번호 조회 -->
 	<select id="selectempNumber" resultType="_int">
@@ -398,7 +404,7 @@
 	<select id="selectMyWorkingHoursRecord" resultMap="myWorkingHoursRecordResultSet"
 		parameterType="_int">
 		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MAX(TO_CHAR(HOURS,
-		'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH:mm:ss')) ATTENDTIME,
+		'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH24:mi:ss')) ATTENDTIME,
 		EMP_NO
 		FROM WORKING_RECORD
 		WHERE TO_CHAR(HOURS, 'YYYY-MM-DD') <![CDATA[ < ]]>=
@@ -434,13 +440,19 @@
 	
 	<select id="selectSalaryList" resultMap="salaryRecordResultSet">
 		SELECT D.DEP_NAME, J.JOB_NAME, E.EMP_NAME, S.BASE_PAY, S.INCOME_DATE, S.REGULAR_BONUS, S.TAX_FREE_ALW, S.NATIONAL_PENSION, S.HEALTH_INS, S.LONGTERMCARE_INS, S.EMPLOYEE_INS 
-		FROM SALARY S
-		JOIN EMPLOYEE E ON(E.EMP_NO=S.EMP_NO)
-		JOIN JOB_RECORD JR ON(JR.EMP_NO=S.EMP_NO)
-		JOIN JOB J ON(J.JOB_CODE=JR.JOB_CODE)
-		JOIN DEPT_RECORD DR ON(DR.EMP_NO=S.EMP_NO)
-		JOIN DEPARTMENT D ON(D.DEP_ID=DR.DEP_ID)
-		WHERE D.STATUS = 'Y'
+      FROM SALARY S
+      JOIN EMPLOYEE E ON(E.EMP_NO = S.EMP_NO)
+      JOIN DEPT_RECORD DR ON(S.EMP_NO = DR.EMP_NO)
+      JOIN DEPARTMENT D ON(DR.DEP_ID = D.DEP_ID)
+      JOIN JOB_RECORD JR ON(S.EMP_NO = JR.EMP_NO)
+      JOIN JOB J ON(J.JOB_CODE = JR.JOB_CODE)
+      WHERE DEP_RECORD_DATE = (SELECT MAX(DEP_RECORD_DATE) 
+                               FROM DEPT_RECORD R 
+                               WHERE R.EMP_NO = S.EMP_NO)
+      AND JOB_RECORD_DATE = (SELECT MAX(JOB_RECORD_DATE) 
+                                FROM JOB_RECORD R 
+                                WHERE R.EMP_NO = S.EMP_NO)
+      AND D.STATUS = 'Y'
 	</select>
 	
 	<delete id="deleteAllEmpSalaryData">
@@ -454,17 +466,23 @@
 	
 	<select id="selectSearchCondition" resultMap="salaryRecordResultSet" parameterType="java.util.ArrayList">
 		SELECT D.DEP_NAME, J.JOB_NAME, E.EMP_NAME, S.INCOME_DATE, S.BASE_PAY, S.REGULAR_BONUS, S.TAX_FREE_ALW, S.NATIONAL_PENSION, S.HEALTH_INS, S.LONGTERMCARE_INS, S.EMPLOYEE_INS
-		FROM SALARY S
-		JOIN EMPLOYEE E ON(E.EMP_NO=S.EMP_NO)
-		JOIN JOB_RECORD JR ON(JR.EMP_NO=S.EMP_NO)
-		JOIN JOB J ON(J.JOB_CODE=JR.JOB_CODE)
-		JOIN DEPT_RECORD DR ON(DR.EMP_NO=S.EMP_NO)
-		JOIN DEPARTMENT D ON(D.DEP_ID=DR.DEP_ID)
-		WHERE D.STATUS = 'Y'
-		AND D.DEP_ID = ${list.get(0)}
-		AND J.JOB_CODE = ${list.get(1)}
-		AND S.INCOME_DATE LIKE ${list.get(2)}
-		AND E.EMP_NAME LIKE ${list.get(3)}
+      FROM SALARY S
+      JOIN EMPLOYEE E ON(E.EMP_NO=S.EMP_NO)
+      JOIN JOB_RECORD JR ON(JR.EMP_NO=S.EMP_NO)
+      JOIN JOB J ON(J.JOB_CODE=JR.JOB_CODE)
+      JOIN DEPT_RECORD DR ON(DR.EMP_NO=S.EMP_NO)
+      JOIN DEPARTMENT D ON(D.DEP_ID=DR.DEP_ID)
+      WHERE DEP_RECORD_DATE = (SELECT MAX(DEP_RECORD_DATE) 
+                                 FROM DEPT_RECORD R 
+                                WHERE R.EMP_NO = S.EMP_NO)
+      AND JOB_RECORD_DATE = (SELECT MAX(JOB_RECORD_DATE) 
+                                FROM JOB_RECORD R 
+                               WHERE R.EMP_NO = S.EMP_NO)
+      AND D.STATUS = 'Y'
+      AND D.DEP_ID = ${list.get(0)}
+      AND J.JOB_CODE = ${list.get(1)}
+      AND S.INCOME_DATE LIKE ${list.get(2)}
+      AND E.EMP_NAME LIKE ${list.get(3)}
 	</select>
 	
 	<select id="selectMyAlarmList" parameterType="_int" resultMap="myAlarmResultSet">

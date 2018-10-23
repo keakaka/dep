@@ -61,7 +61,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>부서별 근태현황</h3>
+									<h3>부서별 진급자 조회</h3>
 								</div>
 								<div class="col-md-6">
 								
@@ -77,17 +77,11 @@
             <div class="col-md-20 col-sm-20 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                <select id="depList">
-                  	<option>부서</option>
-                  	
-                        <option>영업부</option>
-                   
-                        <option>인사부</option>
-                   
-                        <option>총무부</option>
-                   
-                        <option>회계부</option>
-                    
+                 
+               <select id="depList">
+                <c:forEach var="d" items="${deplist}">
+                  	<option>${d.depName}</option>
+                   </c:forEach>
 				  </select>
 				  <select id="year">
 				  <option>년도</option>
@@ -111,22 +105,6 @@
                   	<option>12</option>
 				  </select>
                 
-                  <div id="test1"></small></div>
-<!--        <button id="testB">테스트</button>
-<script>
-	$(function(){
-		var test1 = $('#test1');
-		$('#testB').click(function(){
-			test1.html('추가');
-		});
-	});
-	$(function(){
-		var test1 = $('#test1');
-		test1.change(function(){
-			console.log('11111');
-		});
-	});
-</script>            -->
                   
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
