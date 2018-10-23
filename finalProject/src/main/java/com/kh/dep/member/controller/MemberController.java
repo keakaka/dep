@@ -621,7 +621,7 @@ public class MemberController {
 	
 	@RequestMapping("checkMember.me")
 	public @ResponseBody int checkMember(MemberSelect m){
-		
+
 		
 		int result = ms.selectCheckMember(m);
 		

@@ -281,25 +281,41 @@
                        
                        $("#depId").change(function(){
                     	   
-                    	   if($("#depId").val() != ""){
-                    		   $("#checkResult").attr("disabled", false); 	
-                    	   }else{
+                    	   if( $("#depId").val() == "" && $("#depReason").val() == "" ){
+                    		   alert("발령 부서 및 사유를 입력하세요");
                     		   $("#checkResult").attr("disabled", true);
-                    		   alert("발령부서를 선택하세요");
-                    	   }  
-                    	   
+                    	   }else if($("#depId").val() == ""){
+                    		   alert("발령 부서를 입력하세요");
+                    		   $("#checkResult").attr("disabled", true);
+                    	   }else if($("#depReason").val() == ""){
+                    		   alert("사유를 입력하세요");
+                    		   $("#checkResult").attr("disabled", true);
+                    	   }else{
+                    		   $("#checkResult").attr("disabled", false);
+                    	   }
+      	   
                        });
                        
                        $("#depReason").change(function(){
                     	   
-                    	   if($("#depReason").val() != ""){
-                    		   $("#checkResult").attr("disabled", false);
-                    	   }else{
+                    	   console.log($("#depReason").val());
+                    	   
+                    	   if($("#depReason").val() == "" && $("#depId").val() == ""){
+                    		   alert("발령 부서 및 사유를 입력하세요");
                     		   $("#checkResult").attr("disabled", true);
+                    	   }else if($("#depId").val() == ""){
+                    		   alert("발령 부서를 입력하세요");
+                    		   $("#checkResult").attr("disabled", true);
+                    	   }else if($("#depReason").val() == ""){
                     		   alert("사유를 입력하세요");
+                    		   $("#checkResult").attr("disabled", true);
+                    	   }else{
+                    		   $("#checkResult").attr("disabled", false);
                     	   }
                     	   
                        });
+                       
+                      
                     
                        
                        </script>
