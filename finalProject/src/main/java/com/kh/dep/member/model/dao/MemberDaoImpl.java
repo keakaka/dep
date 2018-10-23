@@ -346,6 +346,25 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return list;
 	}
+
+	@Override
+	public int insertIdPwMember(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.update("Member.insertIdPwMember", m);
+	}
+
+	@Override
+	public int selectCheckMember(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		return sqlSession.selectOne("Member.selectCheckMember", m);
+	}
+
+	@Override
+	public int selectCheckMoveDepMember(SqlSessionTemplate sqlSession, MemberSelect m) {
+		
+		
+		return 0;
+	}
 	
 	
 
