@@ -150,13 +150,11 @@ public class FacingDaoImpl implements FacingDao {
 	}
 
 	@Override
-	public int selectAlarmCount(SqlSessionTemplate sqlSession, int receiverEmpNo) {
-		int alarmCount = sqlSession.selectOne("Facing.selectAlarmCount", receiverEmpNo);
-		System.out.println("alarmCount(dao) : " + alarmCount);
-		return alarmCount;
+	public int updateAlram(int fNo) {
+		// TODO Auto-generated method stub
+		int result2 = sqlSession.delete("Facing.updateAlram",fNo);
+		return result2;
 	}
-
-	
 
 	
 
