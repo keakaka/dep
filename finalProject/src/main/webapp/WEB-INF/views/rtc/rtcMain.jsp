@@ -172,14 +172,14 @@
 
 	<script src="${contextPath }/resources/js/custom.js"></script>
 	<!-- /footer content -->
-	
+
 	<script>
 		function rtcOpen(){
 			var empName = $("#empName").val();
 			var empNo = $("#empNo").val();
 			var roomId = prompt('방 제목을 입력하세요');
 			if(roomId != null){
-				var url1 = "https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName;    //팝업창 페이지 URL
+				var url1 = "https://192.168.20.218:55555?id="+roomId+"&no="+empNo+"&empName="+empName;    //팝업창 페이지 URL
 				var url = encodeURI(url1);
 			    var popupOption= "width="+ 1200 +", height="+ 800 + ", fullscreen=yes";    //팝업창 옵션(option)
 			    window.open(url,'DBDBDep 화상회의 시스템', popupOption);
@@ -190,7 +190,7 @@
 			var empNo = $("#empNo").val();
 			var roomId = prompt('방 제목을 입력하세요');
 			if(roomId != null){
-				var url="https://localhost:55555?id="+roomId+"&no="+empNo+"&empName="+empName+"#/room/"+roomId;
+				var url="https://192.168.20.218:55555?id="+roomId+"&no="+empNo+"&empName="+empName+"#/room/"+roomId;
 				var popupOption= "width="+ 1200 +", height="+ 800;    //팝업창 옵션(option)
 				window.open(url,"",popupOption);
 			}
