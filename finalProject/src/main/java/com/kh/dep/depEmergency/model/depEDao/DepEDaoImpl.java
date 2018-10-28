@@ -14,9 +14,7 @@ public class DepEDaoImpl implements DepEDao {
 	@Override
 	public ArrayList selectDepeList(SqlSessionTemplate sqlSession , String depName) throws DepESelectListException {
 		// TODO Auto-generated method stub
-		System.out.println("비상연락망 다오 입장 : " + depName);
 		ArrayList DepEList = (ArrayList) sqlSession.selectList("DepE.selectDepeList", depName);
-		System.out.println("비상연랑망 다오 돌아온 리스트값 : " + DepEList);
 		if(DepEList == null )
 		{
 			throw new DepESelectListException("리스트 조회 실패");

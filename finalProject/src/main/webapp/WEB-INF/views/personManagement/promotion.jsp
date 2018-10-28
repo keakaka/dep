@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title>DBDBDep! </title>
 	
 	
 
@@ -69,7 +69,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>결재 승인</h3>
+									<h3>사원 관리</h3>
 								</div>
 								<div class="col-md-6">
 

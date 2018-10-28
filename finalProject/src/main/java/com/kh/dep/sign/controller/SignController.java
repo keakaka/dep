@@ -159,7 +159,6 @@ public class SignController {
 	public String showDoc(Model model, int docNo){
 		InsertSign d = ss.selectDocDetail(docNo);
 		model.addAttribute("d", d);
-		System.out.println("d.orifilename : " + d.getOriginFileName());
 		return "sign/showDoc";
 	}
 	

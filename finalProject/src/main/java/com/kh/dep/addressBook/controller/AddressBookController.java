@@ -31,7 +31,6 @@ public class AddressBookController {
 	public String showAddressBookView(Model model){
 		
 		List<AddressBook> list = abs.selectAddList();
-		System.out.println("selectAdd list : " + list);
 		
 		model.addAttribute("list", list);
 		
@@ -42,13 +41,10 @@ public class AddressBookController {
 	@RequestMapping("searchAddressBookName.ad")
 	@ResponseBody 
 	public Object searchAddressBook(String searchN, HttpServletRequest request, Map<String, Object> map){
-		System.out.println("주소록 controller");
 		
 		List<AddressBook> list = abs.selectAddList();
-		System.out.println("selectAdd list : " + list);
 		
 		List<Member> list2 = abs.searchAdd(searchN);
-		System.out.println("list2 : " + list2);
 		
 		Map<String, Object> ret = new HashMap<String, Object>();
 	    
@@ -63,7 +59,6 @@ public class AddressBookController {
 	@RequestMapping("insertAddressBook.ad")
 	@ResponseBody 
 	public Object insertAddressBook(int empNo, int loginNo, HttpServletResponse response, Map<String, Object> map) {
-		System.out.println("loginNo : " + loginNo);
 		ObjectMapper mapper = new ObjectMapper();
 		
 		
@@ -72,7 +67,6 @@ public class AddressBookController {
 		ab.setLoginNo(loginNo);
 		
 		AddressBook ab2 = abs.insertAdd(ab);
-		System.out.println("ab2 : " + ab2);
 		
 		Map<String, Object> ret = new HashMap<String, Object>();
 	    
@@ -84,10 +78,8 @@ public class AddressBookController {
 	//주소록 테이블에 출력
 	@RequestMapping("selectAdd.ad")
 	public String selectAddressBook(HttpServletRequest request, Model model) {
-		System.out.println("selectAddressBook controller");
 		
 		List<AddressBook> list = abs.selectAddList();
-		System.out.println("selectAdd list : " + list);
 		
 		model.addAttribute("list", list);
 		
@@ -99,17 +91,13 @@ public class AddressBookController {
 	@ResponseBody
 	public Object deleteAddressBook(int empNo, int loginNo, HttpServletRequest request, Map<String, Object> map) {
 		
-		System.out.println("deleteAddressBook empNo : " + empNo);
-		System.out.println("deleteAddressBook loginNo : " + loginNo);
 		AddressBook ab = new AddressBook();
 		ab.setEmpNo(empNo);
 		ab.setLoginNo(loginNo);
 		
 		AddressBook ab2 = abs.deleteAddressBook(ab);
-		System.out.println("AddressBookController delete ab2 : " + ab2);
 		
 		List<AddressBook> list22 = abs.selectAddList2(ab);
-		System.out.println("selectAdd list : " + list22);
 		
 		Map<String, Object> ret = new HashMap<String, Object>();
 	    
@@ -122,9 +110,6 @@ public class AddressBookController {
 	
 	@RequestMapping(value = "facing.ad",method=RequestMethod.POST)
 	public void facing(@RequestParam int loginUser, @RequestParam int empNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("facing.ad로 넘어옴");
-		System.out.println("facing.ad empNo : " + empNo);
-		System.out.println("facing.ad loginUser : " + loginUser);
 
 		AddressBook ab = new AddressBook();
 		ab.setEmpNo(empNo);

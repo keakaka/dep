@@ -55,7 +55,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>사내메일</h3>
+									<h3>쪽지함</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -68,16 +68,10 @@
 
 							<div class="clearfix">
 						<form id="setRows">	   
-            <!-- ====================================== -->	
 							
 							
 			<div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
-                <div class="x_title">
-                  <h2><i class="fa fa-bars"></i> Tabs <small>Float right</small></h2>
-         
-                  <div class="clearfix"></div>
-                </div>
                 <div class="x_content">
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -131,7 +125,7 @@
                            	  <th>날짜</th>
                               <th>보낸사람</th>
                               <th>제목</th>
-                              <th>받은날짜</th>
+                              <th>내용</th>
                               <th>삭제</th>
                             </tr>
                           </thead>
@@ -271,7 +265,6 @@
                 </div>
                 </div>
                 
-            <!--     ======================================================== -->
                       </div>
                     
                     </div>
@@ -280,38 +273,35 @@
                 </div>
               </div>
               </form>
+           
             </div>
-            
-            <!-- ====================================== -->	
-							
-							
-							
-							
-							
-							</div>
-						</div>
-			
-					
-					
+					</div>
 
 				</div>
-				<br />
+				</div>
 				<!-- footer content -->
-
-				<footer>
+ 				<footer>
 					<div class="copyright-info">
 						<p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>		
 						</p>
 					</div>
 					<div class="clearfix"></div>
 				</footer>
+				
 				<!-- /footer content -->
 			</div>
+			
+			</div>
+			
+			</div>
+			
+			 </div>
+			
 			<!-- /page content -->
 
 		</div>
 	
-	</div>
+	
 
 	<div id="custom_notifications" class="custom-notifications dsp_none">
 		<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
@@ -319,8 +309,7 @@
 		<div class="clearfix"></div>
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
-			</div>
-					</div>
+			
 		<script src="${contextPath }/resources/js/bootstrap.min.js"></script>
 			<script src="${contextPath }/resources/js/moment/moment.min.js"></script>
 			<script
@@ -373,10 +362,8 @@
 <script>
 
 function updateFacing(num , num2){
-	//var facingNo = $("#facingNo").val();
 	var facingNo = num;
 	var userNo = num2;
-	console.log(typeof userNo);
 	
 	$.ajax({
 		url:"updateFacing.ms",
@@ -388,33 +375,11 @@ function updateFacing(num , num2){
 		
 		success:function(data){
 					
-			console.log("리스트값"+facingNo);
-		 	alert("성공!" + userNo);
+		 	alert("삭제되었습니다.");
 	
  			window.location = "facingReceiveList.ms?loginUser="+userNo;
 			
-			/* if(data.length > 0){
 			
-			/* $("#datatable-keytable").html(""); */
-			/* var $table = $("#datatable-keytable tbody");
-			 
-				
-
-		for(var i = 0; i < data.length; i++){
-				fcNo = data[i].num;
-				console.log(fcNo);
-				$table += "<tr>";
-				$table += "<td>" + data[i].writeDate + "</td>";
-				$table += "<td>" + data[i].empName + "</td>";
-				$table += "<td onclick='detailFacing("+fcNo+");'>"+data[i].facingtitle+"</td>";
-				$table += "<td>" + data[i].facingContents +"</td>";
-				$table += "<td><button class='btn btn-round btn-default' type='button' onclick='updateFacing("+num+","+num2+");'>삭제하기</td>";
-				$table += "</tr>";
-			
-                 
-			}
-				$("#datatable-keytable").append($table);
-			} */
 			
 		},
 		error:function(){
@@ -425,11 +390,6 @@ function updateFacing(num , num2){
 	return false;
 }
 
-/* function sibal(userNo)
-{
-	return loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+userNo;
-	
-} */
 
 
 

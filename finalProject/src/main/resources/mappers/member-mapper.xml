@@ -141,6 +141,7 @@
 		<result property="alarmContents" column="ALARM_CONTENTS" />
 		<result property="empNo" column="EMP_NO" />
 		<result property="empName" column="EMP_NAME" />
+		<result property="alarmCount" column="ALARM_COUNT"/>
 	</resultMap>
 
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
@@ -517,14 +518,12 @@
 
 	<select id="selectMyWorkingHoursRecord" resultMap="myWorkingHoursRecordResultSet"
 		parameterType="_int">
-		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MAX(TO_CHAR(HOURS,
-		'HH:mm:ss')) LEAVETIME, MIN(TO_CHAR(HOURS, 'HH24:mi:ss')) ATTENDTIME,
-		EMP_NO
-		FROM WORKING_RECORD
-		WHERE TO_CHAR(HOURS, 'YYYY-MM-DD') <![CDATA[ < ]]>=
-		TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND EMP_NO=#{empNo}
-		GROUP BY EMP_NO,
-		TO_CHAR(HOURS, 'YYYY-MM-DD')
+		SELECT TO_CHAR(HOURS, 'YYYY-MM-DD') WORKINGDATE, MIN(TO_CHAR(HOURS, 'HH24:mi:ss')) ATTENDTIME, 
+      MAX(TO_CHAR(HOURS, 'HH24:mi:ss')) LEAVETIME, EMP_NO
+      FROM WORKING_RECORD
+      WHERE TO_CHAR(HOURS, 'YYYY-MM-DD') <![CDATA[ < ]]>=TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND EMP_NO=#{empNo}
+      GROUP BY EMP_NO, TO_CHAR(HOURS, 'YYYY-MM-DD')
+      ORDER BY 1
 	</select>
 
 	<select id="checkPw" resultType="int">
@@ -610,7 +609,7 @@
 	</select>
 
 	<select id="selectMyAlarmList" parameterType="_int" resultMap="myAlarmResultSet">
-		SELECT ALARM_NO, ALARM_CONTENTS, EMP_NO, EMP_NAME
+		SELECT ALARM_NO, ALARM_CONTENTS, EMP_NO, EMP_NAME, (SELECT COUNT(EMP_NO) FROM ALARM WHERE EMP_NO = #{empNo} AND STATUS = 'Y') AS ALARM_COUNT
 		FROM ALARM A
 		JOIN
 		EMPLOYEE USING(EMP_NO)

@@ -31,13 +31,11 @@ public class CalendarDaoImpl implements CalendarDao{
 	
 	@Override
 	public int insertCalendar(Calendar c) {
-		System.out.println("CalendarDaoImpl c : " + c);
 		return sqlSession.insert("Calendar.insertCalendar", c);
 	}
 
 	@Override
 	public List<Calendar> selectCalendar(Calendar c) {
-		System.out.println("CalendarDaoImpl selectCalendar c : " + c);
 		if(c.getScheType().equals("null")) {
 			return sqlSession.selectList("Calendar.selectCalendar", c);
 		}
@@ -65,7 +63,6 @@ public class CalendarDaoImpl implements CalendarDao{
 
 	@Override
 	public int updateCalendar(Calendar c) {
-		System.out.println("updateCalendar DaoImpl c : " + c);
 		return sqlSession.update("Calendar.updateCalendar", c);
 	}
 

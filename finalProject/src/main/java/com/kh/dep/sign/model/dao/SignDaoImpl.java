@@ -44,7 +44,6 @@ public class SignDaoImpl implements SignDao{
 
 	@Override
 	public int insertAttachment(SqlSessionTemplate sqlSession, InsertSign is) {
-		System.out.println("DAO ATTACH 들어와?");
 		return sqlSession.insert("sign.insertAttachment", is);
 	}
 
@@ -131,8 +130,14 @@ public class SignDaoImpl implements SignDao{
 
 	@Override
 	public int nextApprovalMember(SqlSessionTemplate sqlSession, int docNo) {
+		int result = 0;
+		if(sqlSession.selectOne("sign.nextApprovalMember", docNo) == null){
+			result = 0;
+		}else{
+			result = sqlSession.selectOne("sign.nextApprovalMember", docNo);
+		}
 		
-		return sqlSession.selectOne("sign.nextApprovalMember", docNo);
+		return result;
 	}
 
 	@Override

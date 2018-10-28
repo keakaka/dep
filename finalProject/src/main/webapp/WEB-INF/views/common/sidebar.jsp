@@ -26,7 +26,7 @@
       <!-- sidebar menu -->
       <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
          <div class="menu_section">
-            <h3>${loginUser.depName }</h3>
+            <h3>${loginUser.jobName }</h3>
             <ul class="nav side-menu">
                <li>
                   <a><i class="fa fa-user"></i> 마이페이지 <span
@@ -71,10 +71,13 @@
                   </ul>
                </li>
                <li><a href="boardList.bo?depName=${sessionScope.loginUser.depName}"><i class="fa fa-clipboard"></i> 부서게시판 </a></li>
-               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.empNo}"><i class="fa fa-clipboard"></i> 비상연락망</a></li>
+               <li><a href="${ contextPath }/depESelect.de?loginUser=${sessionScope.loginUser.depName}"><i class="fa fa-clipboard"></i> 비상연락망</a></li>
                <!-- <li><a href="calendar.ca"><i class="fa fa-calendar"></i> 일정 관리 </a></li> -->
                <li><a href="addressBook.ad"><i class="fa fa-star"></i> 주소록 </a></li>
+               <c:if test="${sessionScope.loginUser.depId eq 'D4' }">
                <li><a href="salary.me"><i class="fa fa-won"></i> 회계관리 </a></li>
+               </c:if>
+               <c:if test="${sessionScope.loginUser.depId eq 'D2' }">
                <li>
                <a><i class="fa fa-users"></i> 인사관리 <span
                      class="fa fa-chevron-down"></span></a>
@@ -88,6 +91,7 @@
                      <li><a href="depmoveDeptRecord.pm">부서이동이력 조회</a></li>
                   </ul>             
                </li>
+               </c:if>
 				<li><a href="${ contextPath }/qrInsert.ms"></a><li>
                
             </ul>
@@ -110,23 +114,13 @@
             <ul class="nav navbar-nav navbar-right">
             	<li><a href="logout.me"><i class="fa fa-power-off"></i> LogOut </a></li>
               <li role="presentation" class="dropdown">
-                <a onclick="return test(${loginUser.empNo });" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <a class="dropdown-toggle info-number alarmSearch" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o" style="font-size:25px;"></i>
-                  <span class="badge bg-green">${loginUser.myAlarmCount }</span>
+                  <span class="badge bg-green alarmCount"></span>
                 </a>
-                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                  
-                  <!-- <li>
-                    <div class="text-center">
-                      <a>
-                        <strong data-toggle="modal" data-target="#myModal">See All Alerts</strong>
-                       <i  class="fa fa-angle-right"></i>
-                      </a>
-                    </div>
-                  </li> -->
-                  
-                </ul>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu" style="background-color: #2a3f54;">
                 
+                </ul>
               </li>
 
             </ul>
@@ -136,7 +130,7 @@
       </div>
       
       <script>
-      	function test(empNo){
+      	/* function test(empNo){
       		var empNo = empNo;
       		console.log(empNo);
       		
@@ -170,7 +164,51 @@
       				console.log(data);
       			}
       		});
-      	}
+      	} */
+      	
+      	$(function(){
+      		var empNo = ${loginUser.empNo};
+      		console.log(empNo);
+      		
+      		$.ajax({
+      			type : "post",
+      			url : "alarm.me",
+      			data : {empNo:empNo},
+      			dataType : "json",
+      			success : function(data) {
+      				
+      				var list = data;
+      				if(list != ""){
+      					$('.alarmCount').text(list[0].alarmCount);
+      				}else{
+      					$('.alarmCount').text(0);
+      				}
+      				
+      				
+      				$('.alarmSearch').click(function(){
+      					$("#menu1").html('');
+      					var str = '';
+      					$.each(list, function(i){
+          					
+          					str += '<li style=""><a href="deleteAlarm.me?alarmNo=' + list[i].alarmNo+'" style="font-size:15px;"><b style="font-size:12px;">' + list[i].alarmContents + '</a>';
+          					str += '</li>';
+          				});
+          				
+          				str += '<li><div class="text-center"><a href="${ contextPath }/facingReceiveList.ms?loginUser=${loginUser.empNo }"><strong data-toggle="modal" data-target="">쪽지함 보기</strong><i class="fa fa-angle-right"></i></a></div></li>';
+          				
+          				$("#menu1").append(str);
+      				});
+      				
+      				
+      				
+      			},
+      			error : function(data) {
+      				console.log('실패');
+      			}
+      		});
+      	});
+      		
+      	
       </script>
       
       

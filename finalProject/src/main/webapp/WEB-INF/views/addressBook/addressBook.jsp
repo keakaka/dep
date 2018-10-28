@@ -259,10 +259,11 @@
                                     </thead>
                                     
                                     <tbody class="insertAddressBook">
+                                    <div id="insertAddressBookArea">
+                                          <tr class="even pointer" id="insertAddressBookTbody">
                                        <c:forEach var="list" items="${list}" varStatus = 'status'>
                                        <c:if test="${list.loginNo == sessionScope.loginUser.empNo }">
-                                       	  <div id="insertAddressBookArea">
-                                          <tr class="even pointer" id="insertAddressBookTbody">
+                                       	  
                                              <input type="hidden" class="empClass" id="empNo2" name="empNo2" value="${list.empNo}">
                                              <input type="hidden" id="loginNo2" name="loginNo2" value="${loginUser.empNo}">
                                              <td class="a-center" style="width:85px;"></td>
@@ -303,7 +304,7 @@
                                        <div class="modal-content">
                                           <div class="modal-header" align="left">
                                              <a class="close" style="float:right;" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></a>
-                                             <h5 class="modal-title"><i class="fa fa-envelope fa-lg"></i> 메일</h5>
+                                             <h5 class="modal-title"><i class="fa fa-envelope fa-lg"></i> 쪽지 보내기 </h5>
                                           </div>
                                           <div class="modal-body">
 

@@ -160,9 +160,7 @@
 
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            
         
 							
 							
@@ -182,10 +180,11 @@
 					</div>
 					<div class="clearfix"></div>
 				</footer>
-				/footer content
 			</div>
 			<!-- /page content -->
-
+</div>
+          </div>
+        </div>
 		</div>
 
 	</div>

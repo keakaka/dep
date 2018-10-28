@@ -46,7 +46,6 @@ public class PersonController {
 
 		ArrayList<MemberSelect> mlist = ms.selectAllMember();
 
-		System.out.println("근태관리 입장");
 
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
@@ -61,7 +60,6 @@ public class PersonController {
 	@RequestMapping("depMgtList.pm")
 	public @ResponseBody ArrayList<Working> depMgtList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("근태 컨트롤 입장"+depName);
 		Working w = new Working();
 		ArrayList<Working> list = ps.depMgtList(depName);
 
@@ -75,7 +73,6 @@ public class PersonController {
 	@RequestMapping("depMgtdayList.pm")
 	public @ResponseBody ArrayList<Working> depMgtdayList(@RequestParam String day,@RequestParam String depName,@RequestParam String year){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("근태 컨트롤 입장"+day);
 
 		ArrayList<Working> list = ps.depMgtdayList(day ,depName , year);
 
@@ -86,7 +83,6 @@ public class PersonController {
 	@RequestMapping("depNameList.pm")
 	public @ResponseBody ArrayList<Working> depNameList(@RequestParam String name){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("근태 컨트롤 입장"+name);
 
 		ArrayList<Working> list = ps.depNameList(name);
 
@@ -101,7 +97,6 @@ public class PersonController {
 	@RequestMapping("depVacation.pm")
 	public String depVacation(Model model)
 	{
-		System.out.println("컨트롤 입장");
 
 		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
@@ -112,7 +107,6 @@ public class PersonController {
 	@RequestMapping("depPromotion.pm")
 	public String depPromotion(Model model)
 	{
-		System.out.println("컨트롤 입장");
 		ArrayList<MemberDepartment> deplist = ms.selectDepList();
 
 
@@ -123,7 +117,6 @@ public class PersonController {
 	@RequestMapping(value="vacationList.pm")
 	public @ResponseBody ArrayList<VacationLi> depVacationList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("휴가 컨트롤 입장"+depName);
 
 		ArrayList<VacationLi> list = ps.vacationDepList(depName);
 		for(int i = 0; i < list.size(); i++)
@@ -153,7 +146,6 @@ public class PersonController {
 	@RequestMapping("vacationDayList.pm")
 	public @ResponseBody ArrayList<VacationLi> depVacationDayList(@RequestParam String day){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("휴가 날짜 컨트롤 입장"+day);
 
 		ArrayList<VacationLi> list = ps.vacationDayList(day);
 		for(int i = 0; i < list.size(); i++)
@@ -190,7 +182,6 @@ public class PersonController {
 	@RequestMapping("depPromotinList.pm")
 	public @ResponseBody ArrayList<PromotionLi> selectPromotionList(@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("진급 컨트롤 입장"+depName);
 
 		ArrayList<PromotionLi> list = ps.selectPromotionList(depName);
 
@@ -202,7 +193,6 @@ public class PersonController {
 	@RequestMapping("depPromotiondayList.pm")
 	public @ResponseBody ArrayList<PromotionLi> selectPromotiondayList(@RequestParam String year,@RequestParam String day,@RequestParam String depName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		System.out.println("진급 날짜 컨트롤 입장 "+day+"진급부서 "+depName);
 
 		ArrayList<PromotionLi> list = ps.selectPromotiondayList(day,depName,year);
 
@@ -305,7 +295,6 @@ public class PersonController {
 			@RequestParam String vacEndDate,@RequestParam String vacStartDate , Model model){
 
 
-		System.out.println("휴가 정보입력");
 		VacationIn v = new VacationIn();
 
 			int empNo = Integer.parseInt(userNo);
@@ -336,7 +325,6 @@ public class PersonController {
 			v.setVacReason(vacReason);
 
 
-			System.out.println(v);
 
 			int result = ps.insertvacation(v);
 
@@ -351,7 +339,6 @@ public class PersonController {
 			model.addAttribute("joblist", joblist);
 			model.addAttribute("mlist", mlist);
 
-			System.out.println("근태관리 입장");
 
 			return "personManagement/vacation";
 	}
@@ -366,17 +353,14 @@ public class PersonController {
 		if(jobCode.equals("회장"))
 		{
 			jobCode = "J1";
-			System.out.println(jobCode);
 			p.setJobCode(jobCode);
 		}else if(jobCode.equals("사장"))
 		{
 			jobCode ="J2";
-			System.out.println(jobCode);
 			p.setJobCode(jobCode);
 		}else if(jobCode.equals("전무"))
 		{
 			jobCode ="J3";
-			System.out.println(jobCode);
 			p.setJobCode(jobCode);
 		}else if(jobCode.equals("상무"))
 		{
@@ -412,7 +396,6 @@ public class PersonController {
 		p.setJobRecordDate(jobRecordDate);
 
 
-		System.out.println("프로모션 컨트롤  : " + p);
 
 		int result = ps.insertpromotion(p);
 
@@ -439,7 +422,6 @@ public class PersonController {
 
 		ArrayList<DepLeave> dlist = ps.selectDepLeaveList(depName);
 
-		System.out.println(dlist);
 
 
 		return dlist;
@@ -451,7 +433,6 @@ public class PersonController {
 
 		ArrayList<DepLeave> list = ps.selectDepLeavedayList(day ,depName , year);
 
-		System.out.println(list);
 
 
 		return list;
@@ -476,7 +457,6 @@ public class PersonController {
 
 		ArrayList<DepMoveDepRecord> dlist = ps.selectDepmoveList(depName);
 
-		System.out.println(dlist);
 
 
 		return dlist;
@@ -488,7 +468,6 @@ public class PersonController {
 
 		ArrayList<DepMoveDepRecord> list = ps.selectDepMovedayList(day ,depName , year);
 
-		System.out.println(list);
 
 
 		return list;
@@ -500,7 +479,6 @@ public class PersonController {
 
 		ArrayList<DepMoveDepRecord> list = ps.selectDepMoveEmpNoList(empNo);
 
-		System.out.println(list);
 
 
 		return list;

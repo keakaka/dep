@@ -126,7 +126,6 @@ public class MemberServiceImpl implements MemberService{
 		String encPwd = md.selectEncpassword(sqlSession, empId);
 
 		if(!passwordEncoder.matches(empPwd, encPwd)){
-			System.out.println("비밀번호 불일치!!");
 		}else{
 			result = true;
 
@@ -218,7 +217,6 @@ public class MemberServiceImpl implements MemberService{
 	/*@SuppressWarnings("deprecation")*/
 	@Override
 	public List<SalaryExcel> xlsxExcelReader(MultipartHttpServletRequest req) {
-		System.out.println("급여 엑셀 업로드파일 서비스 호출");
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 
 		MultipartFile file = req.getFile("excelFile");
@@ -350,7 +348,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<SalaryExcel> xlsExcelReader(MultipartHttpServletRequest req) {
-		System.out.println("급여 엑셀 업로드파일 서비스 호출");
 
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 
@@ -479,7 +476,6 @@ public class MemberServiceImpl implements MemberService{
 			e.printStackTrace();
 		}
 		
-		System.out.println("00"+list);
 		return md.xlsExcelReader(sqlSession, list);
 	}
 

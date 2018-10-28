@@ -13,7 +13,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Gentallela Alela! | </title>
+	<title> DBDBDep! </title>
 
 	<!-- Bootstrap core CSS -->
 
@@ -55,7 +55,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>사내메일</h3>
+									<h3>쪽지함</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -73,11 +73,6 @@
 							
 			<div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
-                <div class="x_title">
-                  <h2><i class="fa fa-bars"></i> Tabs <small>Float right</small></h2>
-         
-                  <div class="clearfix"></div>
-                </div>
                 <div class="x_content">
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -132,7 +127,7 @@
                               <th>날짜</th>
                               <th>받은사람</th>
                               <th>제목</th>
-                              <th>받은날짜</th>
+                              <th>내용</th>
                               <th>삭제</th>
                             </tr>
                           </thead>
@@ -147,7 +142,7 @@
                               <%-- <td><a href="${ contextPath }/facingSelectOne.ms?facingNo=${f.facingNo}">${f.facingTitle}</a></td> --%>
                               <td><a data-toggle="modal" data-target=".bs-example-modal-lg" class="showFacing" style="cursor:pointer">${f.facingTitle }</a></td>
                               <td>${f.facingContents }</td>
-                              <td><button class="btn btn-round btn-default" type="button" onclick="updateFacing(${f.facingNo})"/>삭제하기</td>
+                            <td><button class="btn btn-round btn-default" type=button" onclick="updateFacing(${f.facingNo}, ${sessionScope.loginUser.empNo})"/>삭제하기</td>
                             </tr>
   							</c:forEach>
                                                      
@@ -377,10 +372,10 @@ function updateFacing(num , num2){
 		
 		success:function(data){
 					
-			console.log("리스트값"+facingNo);
-		 	alert("성공!" + userNo);
+		 	alert("삭제되었습니다.");
 	
- 			window.location = "facingList.ms?loginUser="+userNo;
+ 			window.location = "facinglist.ms?loginUser="+userNo;
+			
 			
 	
 			
@@ -393,11 +388,6 @@ function updateFacing(num , num2){
 	return false;
 }
 
-/* function sibal(userNo)
-{
-	return loacation.href="${contextPath}/facingSelectOne.ms?facingNo="+userNo;
-	
-} */
 
 
 

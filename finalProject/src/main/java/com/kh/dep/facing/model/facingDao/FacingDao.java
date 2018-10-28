@@ -42,13 +42,10 @@ public interface FacingDao {
 
 	int updateAlram(int fNo);
 
+	int selectAlarmCount(SqlSessionTemplate sqlSession, int receiverEmpNo);
 
-	
+	int deleteAlarm(SqlSessionTemplate sqlSession, int fNo);
 
-/*	int insertFacing(SqlSessionTemplate sqlSession, Facing f);
-
-	Facing selectInsertFacing(SqlSessionTemplate sqlSession, int empNo);
-*/
 
 
 
