@@ -80,14 +80,12 @@ public class RTCController {
         }
         
         File file = new File(filePath, roomName);
-	    System.out.println(file);
 		String fileNames;
 	    
 		try {
 			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
 			
 			fileNames = new String(roomName.getBytes("UTF-8"), "iso-8859-1");
-			System.out.println(fileNames);
 		    response.setContentType("application/octet-stream");
 
 		    //다운로드와 다운로드될 파일이름

@@ -39,6 +39,10 @@ public interface FacingService {
 
 	int updateAlram(int fNo);
 
+	int selectAlarmCount(int receiverEmpNo);
+
+	int deleteAlarm(int fNo);
+
 
 
 /*	Facing selectInsertFaicng(int empNo);

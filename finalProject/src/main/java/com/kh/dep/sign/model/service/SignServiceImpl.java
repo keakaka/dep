@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dep.member.model.vo.Alarm;
+import com.kh.dep.member.model.vo.MemberSelect;
 import com.kh.dep.sign.model.dao.SignDao;
 import com.kh.dep.sign.model.exception.InsertSignException;
 import com.kh.dep.sign.model.exception.SelectDocException;
@@ -53,8 +54,6 @@ public class SignServiceImpl implements SignService{
 		Alarm al = new Alarm();
 		al.setEmpNo(is.getAppList()[0]);
 		al.setAlarmContents("새로운 문서 결재가 있습니다.");
-		System.out.println("al empNo : " + al.getEmpNo());
-		System.out.println("app 0 : " + is.getAppList()[0]);
 		result5 = sd.insertSignAlarm(sqlSession, al);
 		
 		for(int i = 0; i < is.getRecList().length; i++){
@@ -192,7 +191,6 @@ public class SignServiceImpl implements SignService{
 		if(d.getApprovalStatus() != "AP3"){
 			result1 = sd.updateApprovalStatus(sqlSession, d);
 			int appNo = sd.nextApprovalMember(sqlSession, d.getDocNo());
-			System.out.println("appNo : " + appNo);
 			if(appNo > 0){
 				Alarm al = new Alarm();
 				al.setAlarmContents("새로운 결재문서가 있습니다.");
@@ -208,7 +206,7 @@ public class SignServiceImpl implements SignService{
 				ArrayList<Document> list = sd.selectReceiverList(sqlSession, d.getDocNo());
 				for(int i = 0; i < list.size(); i++){
 					Alarm al = new Alarm();
-					al.setAlarmContents("새로운 결재문서가 있습니다.");
+					al.setAlarmContents("새로운 수신 참조 문서가 있습니다.");
 					al.setEmpNo(list.get(i).getEmpNo());
 					result1 = sd.insertSignAlarm(sqlSession, al);
 					if(result1 <= 0){

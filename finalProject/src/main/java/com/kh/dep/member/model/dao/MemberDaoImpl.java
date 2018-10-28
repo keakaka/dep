@@ -61,7 +61,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Department> selectMyDepRecordInfo(SqlSessionTemplate sqlSession, String empId) throws Exception {
 		List<Department> list = sqlSession.selectList("Member.selectMyDepRecord", empId);
-		/*System.out.println(list);*/
 		return list;
 	}
 
@@ -76,7 +75,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Job> selectMyJobRecord(SqlSessionTemplate sqlSession, int empNo) throws Exception {
 		List<Job> list = sqlSession.selectList("Member.selectMyJobRecord", empNo);
-		/*System.out.println(list);*/
 		return list;
 	}
 
@@ -101,17 +99,28 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Vacation> selectMyVacationRecrod(SqlSessionTemplate sqlSession, int empNo) {
-		List<Vacation> list = sqlSession.selectList("Member.selectMyVacationRecord", empNo);
-		System.out.println("나의 휴가이력(dao) : " + list);
-		return list;
-	}
+	   public List<Vacation> selectMyVacationRecrod(SqlSessionTemplate sqlSession, int empNo) {
+	      List<Vacation> list = sqlSession.selectList("Member.selectMyVacationRecord", empNo);
+	      for(int i = 0; i < list.size(); i++){
+	         if(list.get(i).getVacType().equals("VT1")){
+	            list.get(i).setVacType("연가");
+	         }else if(list.get(i).getVacType().equals("VT2")){
+	            list.get(i).setVacType("공가");
+	         }else if(list.get(i).getVacType().equals("VT3")){
+	            list.get(i).setVacType("병가");
+	         }else if(list.get(i).getVacType().equals("VT4")){
+	            list.get(i).setVacType("특별휴가");
+	         }else{
+	            list.get(i).setVacType("반가");
+	         }
+	         
+	      }
+	      return list;
+	   }
 
 	@Override
 	public List<WorkingHours> selectMyWorkingHoursRecord(SqlSessionTemplate sqlSession, int empNo) {
-		System.out.println(empNo);
 		List<WorkingHours> list = sqlSession.selectList("Member.selectMyWorkingHoursRecord", empNo);
-		System.out.println("나의 출퇴근이력(dao) : " + list);
 		return list;
 	}
 
@@ -166,9 +175,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<SalaryExcel> xlsExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
-		System.out.println("급여 엑셀(xls) 업로드파일 다오 호출");
 		int result = sqlSession.insert("Member.insertSalaryExcel", list); 
-		System.out.println(result);
 		List<SalaryExcel> result2 = new ArrayList<SalaryExcel>();
 		
 		if(result > 0){
@@ -182,38 +189,30 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<SalaryExcel> xlsxExcelReader(SqlSessionTemplate sqlSession, List<SalaryExcel> list) {
-		System.out.println("급여 엑셀(xlsx) 업로드파일 다오 호출");
-		System.out.println("00"+list);
 		
 		int salaryCount=0;
 		int delResult=0;
 		int insertResult=0;
 
 		salaryCount = sqlSession.selectOne("Member.selectSalaryCount");
-		System.out.println("급여 테이블에 데이터가 있나욤? " + salaryCount);
 		
 		if(salaryCount > 0){	//SALARY 테이블에 값이 있을 경우
 			delResult = sqlSession.delete("Member.deleteAllEmpSalaryData");
-			System.out.println("급여 테이블 삭제완료 되면 ? : " + delResult);
 			
 			if(delResult > 0){	//SALARY 테이블의 값을 성공적으로 삭제 한 경우
 				for(int i=0;i<list.size();i++){
-					System.out.println(list.get(i));
 					insertResult = sqlSession.insert("Member.insertSalaryExcel", list.get(i));
 				}
 			}
 			else{	//SALARY 테이블의 값 삭제 에러
-				System.out.println("delete error");
 			}
 		}
 		else{	//SALARY 테이블에 값이 없을 경우
 			for(int i=0;i<list.size();i++){
-				System.out.println(list.get(i));
 				insertResult = sqlSession.insert("Member.insertSalaryExcel", list.get(i));
 			}
 		}
 		
-		System.out.println("급여 테이블에 값이 성공적으로 들어가면 1 : " + insertResult);
 		List<SalaryExcel> returnList = new ArrayList<SalaryExcel>();
 		
 		if(insertResult > 0){
@@ -225,16 +224,8 @@ public class MemberDaoImpl implements MemberDao {
 			totalSalary = (returnList.get(i).getBasePay() + returnList.get(i).getRegularBonus() + returnList.get(i).getTaxFreeAlw()) 
 		             - (returnList.get(i).getNationalPension() + returnList.get(i).getHealthIns() + returnList.get(i).getLongtermcareIns() + returnList.get(i).getEmployeeIns());
 			returnList.get(i).setTotalSalary(totalSalary);
-			/*for(int j=0;j<returnList.size();j++){
-				
-				if(list.get(i).getEmpName() == returnList.get(j).getEmpName()){
-					returnList.get(j).setTotalSalary(list.get(i).getTotalSalary());
-					break;
-				}
-			}*/
 		}
 		
-		System.out.println(returnList);
 		
 		return returnList;
 	}
@@ -262,23 +253,8 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<SalaryExcel> selectSearchCondition(SqlSessionTemplate sqlSession, String depType, String jobType, String dateType, String nameType) {
-		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType + " 사원이름 : " + nameType);
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 		
-		/*if(depType.equals("D0")){
-			
-			list = sqlSession.selectList("Member.selectSearchCondition", jobType);
-			
-		}else if(jobType.equals("JOB_CODE")){
-			
-			list = sqlSession.selectList("Member.selectSearchCondition", depType);
-		}else{
-			ArrayList<Object> arr = new ArrayList<Object>();
-			arr.add(depType);
-			arr.add(jobType);
-			
-			list = sqlSession.selectList("Member.selectSearchCondition", arr);
-		}*/
 		
 		
 		ArrayList<Object> arr = new ArrayList<Object>();
@@ -291,7 +267,6 @@ public class MemberDaoImpl implements MemberDao {
 		
 		list = sqlSession.selectList("Member.selectSearchCondition", arr);
 		
-		System.out.println("급여(부서/직급조건) : " + list);
 		
 		for(int i=0;i<list.size();i++){
 			list.get(i).setTotalSalary((list.get(i).getBasePay() + list.get(i).getRegularBonus() + list.get(i).getTaxFreeAlw())-(list.get(i).getNationalPension()
@@ -304,10 +279,8 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Alarm> selectMyAlarmList(SqlSessionTemplate sqlSession, int empNo) {
 		List<Alarm> alarmList = new ArrayList<Alarm>();
-		
 		alarmList = sqlSession.selectList("Member.selectMyAlarmList", empNo);
 		
-		System.out.println("나의 알람 목록(dao) : " + alarmList);
 		
 		return alarmList;
 	}
@@ -315,7 +288,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int selectMyAlarmCount(SqlSessionTemplate sqlSession, int empNo) {
 		int alarmCount = sqlSession.selectOne("Member.selectMyAlarmCount", empNo);
-		System.out.println("나의 알람 갯수 : " + alarmCount);
 		
 		return alarmCount;
 	}
@@ -323,7 +295,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updateMyAlarm(SqlSessionTemplate sqlSession, int alarmNo) {
 		int result = sqlSession.update("Member.updateMyAlarm", alarmNo);
-		System.out.println("내 알람 삭제되었으면 1 : " + result);
 		
 		return result;
 	}
@@ -332,8 +303,6 @@ public class MemberDaoImpl implements MemberDao {
 	public List<SalaryExcel> selectMySalaryRecord(SqlSessionTemplate sqlSession, int empNo) {
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 		list = sqlSession.selectList("Member.selectMySalaryRecord", empNo);
-		
-		System.out.println("내 급여이력 조회(dao) : " + list);
 		
 		int totalSalary = 0;
 		for(int i=0;i<list.size();i++){

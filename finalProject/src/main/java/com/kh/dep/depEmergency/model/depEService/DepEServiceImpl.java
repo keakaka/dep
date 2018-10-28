@@ -21,7 +21,6 @@ public class DepEServiceImpl implements DepEService {
 	@Override
 	public ArrayList<DepE> selectDepList(String empNo) throws DepESelectListException {
 		// TODO Auto-generated method stub
-		System.out.println("비상연락망 서비스 입장 : " + empNo);
 		ArrayList  DepEList = dd.selectDepeList(sqlSession , empNo);
 		
 		return  DepEList;

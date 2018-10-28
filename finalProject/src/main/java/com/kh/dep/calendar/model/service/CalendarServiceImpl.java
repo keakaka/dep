@@ -29,9 +29,6 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	public Calendar insertCalendar(Calendar c) {
 		System.out.println("CalendarServiceImple c : " + c);
-		/*int loginNo = c.getEmpNo();*/
-		/*Calendar ci = cd.selectCalendar(loginNo);*/
-		/*System.out.println("CalendarServiceImpl c : " + ci);*/
 		
 		int result = cd.insertCalendar(c);
 		

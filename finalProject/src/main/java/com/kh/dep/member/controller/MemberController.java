@@ -110,13 +110,10 @@ public class MemberController {
 		Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
 
 		if(map != null){
-			int success = (int) map.get("success");
+			int success = (Integer) map.get("success");
 				
 				model.addAttribute("empNo", success);
-			
 		}
-		
-	
 
 		model.addAttribute("deplist", deplist);
 		model.addAttribute("joblist", joblist);
@@ -208,7 +205,6 @@ public class MemberController {
 
 		} catch (Exception e) {
 			
-			System.out.println("사원정보입력 실패 사유 : " + e.getMessage());
 
 			new File(filePath + "\\" + changeName + ext).delete();
 			new File(sigPath + "\\" + changeName2 + ext2).delete();
@@ -226,7 +222,6 @@ public class MemberController {
 			int result = ms.insertLeaveMember(m);
 		} catch (InsertRecordException e) {
 			
-			System.out.println(e.getMessage());
 		}
 		
 		
@@ -240,7 +235,6 @@ public class MemberController {
 		try {
 			int result = ms.insertMoveDept(m);
 		} catch (InsertRecordException e) {
-			System.out.println(e.getMessage());
 		}
 		
 		
@@ -256,10 +250,8 @@ public class MemberController {
 
 	@RequestMapping(value="updateMyInfo.me")
 	public void updateMyInfoDetail(String empId, String empPwd, String empName, String phone, String check, String emergencyPhone, String email, String address, Model model, HttpServletResponse response){
-		System.out.println(empId + ", " + empPwd + ", " + empName + ", " + phone + ", " + emergencyPhone + ", " + email + ", " + address);
 
 		boolean result = ms.checkPw(empId, empPwd);
-		System.out.println("비밀번호 일치? " + result);
 
 		if(result){
 			MemberSelect m = new MemberSelect();
@@ -281,7 +273,6 @@ public class MemberController {
 			m.setAddress(address);
 
 			int result2 = ms.updateMyInfo(m);
-			System.out.println("정보 수정 완료시 1 : " + result2);
 			if(result2 > 0){
 				MemberSelect loginUser = null;
 				try {
@@ -289,10 +280,8 @@ public class MemberController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				System.out.println("수정된 회원정보 : " + loginUser);
 
 				model.addAttribute("loginUser", loginUser);
-				System.out.println("내 정보 수정 완료");
 			}
 		}
 
@@ -317,7 +306,6 @@ public class MemberController {
 	@RequestMapping(value="mySalary.me")
 	public String showMySalary(@RequestParam("var") int empNo, Model model){
 		List<SalaryExcel> list = ms.selectMySalaryRecord(empNo);
-		System.out.println("내 급여 목록(컨트롤러) : " + list);
 		
 		model.addAttribute("mySalaryRecordlist", list);
 		
@@ -330,7 +318,6 @@ public class MemberController {
 			List<Position> myJobPositionList = ms.selectMyJobPositionRecord(empNo);
 
 			model.addAttribute("myJobPositionList", myJobPositionList);
-			System.out.println("나의 직책이력 : " + myJobPositionList);
 
 			return "eb/detailOfJobPosition";
 
@@ -348,7 +335,6 @@ public class MemberController {
 			List<Department> myDepRecordList = ms.selectMyDepRecordInfo(empId);
 
 			model.addAttribute("myDepRecordList", myDepRecordList);
-			System.out.println("나의 부서이력 : " + myDepRecordList);
 
 			return "eb/detailOfDepartment";
 
@@ -368,7 +354,6 @@ public class MemberController {
 			List<Job> myJobRankRecordList = ms.selectMyJobRecord(empNo);
 
 			model.addAttribute("myJobRankRecordList", myJobRankRecordList);
-			System.out.println("나의 직급이력 : " + myJobRankRecordList);
 
 			return "eb/detailOfJobRank";
 
@@ -384,26 +369,8 @@ public class MemberController {
 
 	@RequestMapping(value="myWorkingHours.me")
 	public String showMyWorkingHours(@RequestParam("var") int empNo, Model model){
-		System.out.println("내 출퇴근 이력 조회 컨트롤러");
-		System.out.println("사원번호 : " + empNo);
 		List<WorkingHours> myWorkingHoursRecordList = ms.selectMyWorkingHoursRecord(empNo);
-		System.out.println("나의 출근이력 : " + myWorkingHoursRecordList);
 
-		/*String[] workingDate = new String[myWorkingHoursRecordList.size()];
-		String[] attendTime = new String[myWorkingHoursRecordList.size()];
-
-		for(int i=0;i<myWorkingHoursRecordList.size();i++){
-			WorkingHours w=myWorkingHoursRecordList.get(i);
-
-			String[] tempHours=w.getWorkingDate().split(" ");
-			workingDate[i]=tempHours[0];
-			attendTime[i]=tempHours[1];
-
-			System.out.println("workingDate[" + i + "] : " + workingDate[i]);
-
-			myWorkingHoursRecordList.get(i).setWorkingDate(workingDate[i]);
-			myWorkingHoursRecordList.get(i).setAttendTime(attendTime[i]);
-		}*/
 
 		model.addAttribute("myWorkingHoursRecordList", myWorkingHoursRecordList);
 
@@ -413,11 +380,8 @@ public class MemberController {
 	@RequestMapping(value="myVacation.me")
 	public String showMyVacationRecord(@RequestParam("var") int empNo, Model model){
 
-		System.out.println("내 휴가이력 조회 컨트롤러");
-		System.out.println("사원번호 : " + empNo);
 		List<Vacation> myVacationRecordList = ms.selectMyVacationRecord(empNo);
 
-		System.out.println("나의 휴가이력 : " + myVacationRecordList);
 		model.addAttribute("myVacationRecordList", myVacationRecordList);
 
 		return "eb/detailOfVacation";
@@ -426,7 +390,6 @@ public class MemberController {
 
 	@RequestMapping(value="updateMyVacation.me")
 	public String applyVacation(int empNo, String vacKind, String vacReason, String vacStartdate, String vacEnddate, Model model){
-		System.out.println("사원번호 : " + empNo + ", 휴가종류 : " + vacKind + ", 사유 : " + vacReason + ", 시작일 : " + vacStartdate + ", 종료일 : " + vacEnddate);
 
 		Vacation myVac = new Vacation();
 		myVac.setEmpNo(empNo);
@@ -437,12 +400,9 @@ public class MemberController {
 		myVac.setVacReason(vacReason);
 		/*myVac.setVacStartdate(new SimpleDateFormat("yyyy-MM-dd").format(vacStartdate));*/
 		myVac.setVacStartdate(vacStartdate);
-		System.out.println("시작일 : " + myVac.getVacStartdate());
 		myVac.setVacEnddate(vacEnddate);
-		System.out.println("종료일 : " + myVac.getVacEnddate());
 
 		int result = ms.insertMyVacation(myVac);
-		System.out.println("휴가 신청 완료시 1 : " + result);
 
 		return "eb/detailOfVacation";
 	}
@@ -457,7 +417,6 @@ public class MemberController {
 		String newFileName = System.currentTimeMillis() + "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
 
 		//System.out.println(originFileName);
-		System.out.println("파일이름  :" + newFileName);
 
 		try {
 
@@ -488,9 +447,7 @@ public class MemberController {
 				json.put("data", newFileName);
 
 
-				System.out.println(json.toString());
 			}else{
-				System.out.println("디비에 파일이름 변경이 적용되지 않았습니다.");
 			}
 
 		} catch (IllegalStateException e) {
@@ -503,47 +460,10 @@ public class MemberController {
 		return "eb/myInfo";
 	}
 	
-	/*@RequestMapping(value="excelUploadAjax.me")
-	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
-		
-		System.out.println("급여 엑셀 업로드 컨트롤러!");
-		
-		List<SalaryExcel> list = new ArrayList<>();
-		
-		String excelType = req.getParameter("excelType");
-		if(excelType.equals("xlsx")){
-			list = ms.xlsxExcelReader(req);
-		}else if(excelType.equals("xls")){
-			list = ms.xlsExcelReader(req);
-		}
-		System.out.println("급여 조회 : " + list);
-		
-		
-		try {
-			response.setCharacterEncoding("UTF-8");
-			
-			PrintWriter out = response.getWriter();
-			out.println(list);
-			
-			out.flush();
-			out.close();
-			
-			
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("data", list);
-			String json = jsonObj.toString();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
 
 	@RequestMapping(value="excelUploadAjax.me")
 	public void excelUpload(Model model, MultipartHttpServletRequest req, HttpServletResponse response){
 		
-		System.out.println("급여 엑셀 업로드 컨트롤러!");
 		
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 		
@@ -553,7 +473,6 @@ public class MemberController {
 		}else if(excelType.equals("xls")){
 			list = ms.xlsExcelReader(req);
 		}
-		System.out.println("급여 조회 : " + list);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -569,9 +488,6 @@ public class MemberController {
 	
 	@RequestMapping(value="selectSearchCondition.me")
 	public void selectSearchCondition(String depType, String jobType, String dateType, String nameType, HttpServletResponse response){
-		System.out.println("조건에 맞는 사원 급여 데이터 검색 컨트롤러!");
-		
-		System.out.println("부서코드 : " + depType + " 직급코드 : " + jobType + " 년도 : " + dateType + " 사원이름 : " + nameType);
 		
 		List<SalaryExcel> list = new ArrayList<SalaryExcel>();
 		list = ms.selectSearchCondition(depType, jobType, dateType, nameType);
@@ -589,11 +505,9 @@ public class MemberController {
 	
 	@RequestMapping(value="alarm.me")
 	public void selectMyAlarm(int empNo, HttpServletResponse response){
-		System.out.println("사원번호 : " + empNo);
 		List<Alarm> alarmList = new ArrayList<Alarm>();
 		
 		alarmList = ms.selectMyAlarmList(empNo);
-		System.out.println(alarmList);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -606,16 +520,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="deleteAlarm.me")
-	public String updateMyAlarm(int alarmNo, HttpServletRequest request){
-		System.out.println("삭제할 alarmNo : " + alarmNo);
+	public String updateMyAlarm(int alarmNo, HttpServletRequest request, RedirectAttributes redirect){
 		
 		int result = ms.updateMyAlarm(alarmNo);
 		
 		MemberSelect loginUser=(MemberSelect) request.getSession().getAttribute("loginUser");
 		int empNo = loginUser.getEmpNo();
 		loginUser.setMyAlarmCount(ms.selectMyAlarmCount(empNo));
-		
-		return "member/sample";
+		redirect.addAttribute("m", loginUser.getEmpNo());
+		return "redirect:/mainPage.mn";
 	}
 	
 	

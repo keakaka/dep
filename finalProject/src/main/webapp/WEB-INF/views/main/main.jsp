@@ -60,19 +60,17 @@
                 </div>
                 <div class="x_content">
 
-                  <table class="table table-bordered ">
+                  <table class="table">
                     <thead>
-                    <c:set var="appSize" value="${signCount[0] }"/>
-                    <c:set var="recSize" value="${signCount[1] }"/>
                       <tr>
                         <th>결재해야할 문서</th>
-                        <th><c:out value="${signCount[0] }"/></th>
+                        <th><a href="signApprovalList.sg?empNo=${loginUser.empNo }"><c:out value="${signCount[0] }"/></a></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th>수신받은 문서</th>
-                        <td><c:out value="${signCount[1] }"/></td>
+                        <td><a href="signReceive.sg?empNo=${loginUser.empNo }"><c:out value="${signCount[1] }"/></a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -81,7 +79,7 @@
 					<div class="">
                       <ul class="to_do">
                       <c:set var="now" value="<%=new java.util.Date()%>" />
-                    <c:set var="now"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+                    	<c:set var="now"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
                       		<c:forEach var="to" items="${myCalendar }">
                       		<fmt:parseDate value="${to.scheStartDate}" var="startDate" pattern="yyyy-MM-dd"/>
 							<c:set var="tod"><fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd"/></c:set>
@@ -107,7 +105,7 @@
                 </div>
                 <div class="x_content">
 
-                  <table class="table table-striped">
+                  <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th>제목</th>
@@ -119,7 +117,7 @@
                     <c:forEach var="b" items="${boardList }" varStatus="index">
                       <c:if test="${index.index <= 5 }">
                       <tr>
-                        <td>${b.boardTitle }</td>
+                        <td><a href="boardList.bo?depName=${loginUser.depName}">${b.boardTitle }</a></td>
                         <td>${b.selectCount }</td>
                         <td>${b.empName }</td>
                       </tr>
@@ -158,7 +156,7 @@
                       <c:if test="${index.index < 5}">
                       <c:if test="${now eq dat }">
                       <tr>
-                        <td>${dep.scheduleTitle }</td>
+                        <td><a href="calendarDep.ca">${dep.scheduleTitle }</a></td>
                         <td>${dat }</td>
                         <td>${dep.empName }</td>
                       </tr>

@@ -75,7 +75,7 @@
 												<div class="x_panel">
 													<div class="x_title">
 														<h2 style="font-weight:bold; overflow:visible;">
-															출퇴근시간조회 <small>채은비</small>
+															출퇴근시간조회 
 														</h2>
 
 														<div class="clearfix"></div>

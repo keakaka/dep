@@ -19,7 +19,6 @@ public class AddressBookServiceImpl implements AddressBookService{
 	//주소록 회원 검색
 	@Override
 	public List<Member> searchAdd(String name) {
-		System.out.println(name + "주소록 서비스impl");
 		return abd.searchAdd(name);
 	}
 
@@ -31,7 +30,6 @@ public class AddressBookServiceImpl implements AddressBookService{
 		AddressBook ab3 = abd.selectAdd(abab);
 		ab3.setLoginNo(ab.getLoginNo());
 		
-		System.out.println("insertAdd ab3 : " + ab3);
 		int result = abd.insertAdd(ab3);
 		
 		return ab3;

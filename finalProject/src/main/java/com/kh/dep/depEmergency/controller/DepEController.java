@@ -22,19 +22,16 @@ public class DepEController {
 	public String depESelect(Model model , @RequestParam String loginUser)
 	{
 	
-		System.out.println("비상연락망 컨트롤 입장 : " + loginUser);
 		
 		ArrayList<DepE> DepEList;
 		try {
 			DepEList = ds.selectDepList(loginUser);
-			System.out.println("컨트롤 돌아온 리스트 갑 : " + DepEList);
 			model.addAttribute("DepEList" , DepEList);
 			
 			return "depE/depESelect";
 		
 		} catch (DepESelectListException e) {
 			// TODO Auto-generated catch block
-			System.out.println("에러입니다.");
 			model.addAttribute("msg", e.getMessage());
 			
 			return "common/errorPage";

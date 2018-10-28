@@ -61,7 +61,6 @@ public class BoardController {
 
 		} catch (Exception e) {
 
-			System.out.println(e.getMessage());
 		}
 
 
@@ -161,7 +160,7 @@ public class BoardController {
 				
 			
 			} catch (Exception e) {
-				System.out.println("보드입력 예외발생");
+				//System.out.println("보드입력 예외발생");
 				//System.out.println(e.getMessage());
 			}
 			
@@ -207,7 +206,7 @@ public class BoardController {
 				json.put("data", changeName + ext);
 
 
-				System.out.println(json.toString());
+				//System.out.println(json.toString());
 			
 
 		} catch (Exception e) {

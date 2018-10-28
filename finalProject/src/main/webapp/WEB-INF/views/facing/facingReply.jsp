@@ -71,7 +71,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-									<h3>사내메일</h3>
+									<h3>쪽지함</h3>
 								</div>
 								<div class="col-md-6">
 
@@ -89,7 +89,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>메일보내기 </h2>
+                  <h2>쪽지보내기 </h2>
                   
                   <div class="clearfix"></div>
                 </div>
@@ -105,20 +105,8 @@
                     <input type="text" id="count" class="form-control" name="receive" value="${f.empName}" readonly/><br>
                     <label>제목</label><br>
                     
-                    <div class="well">
-                    	 <fieldset>
-	                        <div class="control-group">
-	                          <div class="controls">
-	                            <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-	                              <input type="text" class="form-control has-feedback-left" name="title" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status" >
-	                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-	                              <span id="inputSuccess2Status" class="sr-only">(success)</span>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </fieldset>
-	                    </div>
-                    
+	                    <input type="text" class="form-control" name="title"  >
+                    	<br>
 						<label>내용</label>
 						<textarea id="summernote" name="mailContent" required>
 							

@@ -101,7 +101,7 @@ function SmartWizard(target, options) {
                     }
                 }else{
                 	var form = document.getElementById('signForm');
-                	alert('click!');
+                	alert('문서 상신 완료');
                     var frm = $this.target.parents('form');
                     frm.attr("action", "insertSign.sg");
                     if(form && form.length){

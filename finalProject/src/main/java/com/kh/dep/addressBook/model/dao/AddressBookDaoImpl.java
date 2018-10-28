@@ -48,7 +48,6 @@ public class AddressBookDaoImpl implements AddressBookDao{
 
 	@Override
 	public int deleteAdd(AddressBook ab) {
-		System.out.println("deleteAdd AddressBook ab : " + ab);
 		return sqlSession.delete("AddressBook.deleteAdd", ab);
 	}
 
